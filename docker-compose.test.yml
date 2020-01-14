@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  karma:
+    build:
+      context: .
+      dockerfile: Dockerfile.karma
+    environment:
+      NODE_ENV: test
+    volumes:
+      - karma-modules:/usr/src/app/node_modules
+      - karma-translations:/usr/src/app/translations
+
+volumes:
+  karma-modules: {}
+  karma-translations: {}

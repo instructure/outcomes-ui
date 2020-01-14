@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Juster nye læringsmål"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Juster læringsmål"
+    },
+    "align_selected_34f35003": {
+        "message": "Juster merkede elementer"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Vedlagte læringsmål"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Bla gjennom og legg til læringsmål ved å klikke her."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Bla igjennom læringsmålene ved å bruke gruppemappene."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Ved å justere til dette { artifact_type_name } hvis studenten scorer høyere enn { mastery_percent, number, percent } vil mestring oppnås."
+    },
+    "cancel_caeb1e68": {
+        "message": "Avbryt"
+    },
+    "close_d634289d": {
+        "message": "Lukk"
+    },
+    "complete_fd828dea": {
+        "message": "Fullført"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Møttes ikke"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Mestring"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Ekspertise på { mastery } p"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } av { total } oppnådde mestring"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Ingen læringsmål er justert}\n    one {Et læringsmål er justert}\n  other {# resultater er justert}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Søket kom tilbake uten noe resultater}\n    one {# resultat}\n  other {# resultater}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 justert læringsmål}\n  other {# justerte læringsmål}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 spørsmål}\n  other {# spørsmål}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 student}\n  other {# studenter}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Gruppe}\n  other {# Grupper}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Læringsmål}\n  other {# Læringsmål}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Beskrivelse"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Fjern all merking"
+    },
+    "details_98a31b68": {
+        "message": "Detaljer"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Møttes ikke"
+    },
+    "difference_7496769c": {
+        "message": "Differens"
+    },
+    "done_54e3d4b6": {
+        "message": "Ferdig"
+    },
+    "home_351838cd": {
+        "message": "Hjem"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Hjemmegrupper og resultater"
+    },
+    "institution_average_d4be375e": {
+        "message": "Institusjonsgjennomsnitt"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } justering fjernet"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Læringsutbytte du har mestret"
+    },
+    "loading_bde52856": {
+        "message": "Laster"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Laster side { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Laster inn søkeresultater"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Det ser ut til at du er litt tidlig ute"
+    },
+    "mastery_7ec348b5": {
+        "message": "Mestring"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Ekspertise på { mastery } p"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Mestring beregnet etter gjennomsnittskarakter vektet etter siste resultater De seneste resultatene teller som { recent_percent, number, percent } av mestringsgrad, gjennomsnittet av alle andre resultater teller som { remain_percent, number, percent } av mestringsgraden. Dersom det er kun ett resultat, vil det enkelte resultatet bli returnert."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Mestring beregnet etter høyest poengsum. Mestringsresultat viser den høyeste poengsummen for en karaktersatt vurdering."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Mestring beregnet etter nyligste poengsum. Mestringsresultat viser vurderingen som er karaktersatt sist."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Mestring beregnet etter n antall ganger. Må oppnå mestring minst { n_times, number } ganger.  Poengsummer over mestringsnivå blir jevnet med snittet for å beregne sluttresultatet."
+    },
+    "next_page_d2a39853": {
+        "message": "Neste side"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Ingen læringsmål valgt"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Muligheter for læring og vekst"
+    },
+    "outcome_da397d20": {
+        "message": "Læringsmål"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Læringsmåldetaljer"
+    },
+    "previous_page_928fc112": {
+        "message": "Forrige side"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Fjern { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Oppdatert resultater for side { page } av { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Lagrer"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Søkeresultat"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Søkeresultat"
+    },
+    "select_all_f73344a8": {
+        "message": "Merk alle"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Utvalgte resultater:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Elevens resultat"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Studentene må fullføre vurderingen før resultatene for læringsmål vil vises her. Sjekk her etter at studenter har fullført vurderingen."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Vurderingen har ingen læringsmål justert til seg. Gå til fanen for Bygg for å justere resultater."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Det er ingen muligheter tilgjengelig."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Det er ingen læringsmål"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Her er det ingen rapport å vise"
+    },
+    "title_ee03d132": {
+        "message": "Tittel"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Hvis du vil legge til eller opprette læringsmål, kan du gå til læringsmålsiden i Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Variabel på grunn av alle/vilkårlig valg fra gjenstandsbank"
+    },
+    "variable_questions_fd841920": {
+        "message": "Variable spørsmål"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Vis læringsmål"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Du har ikke mestret noen læringsmål ennå."
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "to": "s3",
+  "project": "Outcomes React",
+  "projectSlug": "outcomes-react",
+  "resource": "UI messages",
+  "resourceSlug": "{lang}.json",
+  "fileName": "translations/{lang}.json",
+  "sourceLanguage": "en",
+  "jira": {
+    "project": { "key": "TRANSLATE" },
+    "issuetype": { "name": "Task" },
+    "assignee": { "name": "kebarlow" }
+  }
+}

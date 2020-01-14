@@ -1,0 +1,21 @@
+.line {
+  display: flex;
+}
+
+.text {
+  padding-left: var(--outcomeLabelsSpacing);
+}
+
+.pill {
+  display: inline-block;
+  float: left;
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comma {
+  float: left;
+  width: 0.5rem;
+}

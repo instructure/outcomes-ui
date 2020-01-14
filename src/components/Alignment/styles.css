@@ -1,0 +1,32 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.outcome {
+  flex: 0 0 0;
+  padding: 0 0.3rem 0 0;
+}
+
+.link {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.linkText {
+  display: table;
+  table-layout: fixed;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.innerLinkText {
+  display: table-cell;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete {
+  flex: 0 0 1rem;
+}

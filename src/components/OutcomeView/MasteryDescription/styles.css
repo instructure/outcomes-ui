@@ -1,0 +1,11 @@
+.scoreMastery {
+  background-color: #F5F5F5;
+  border: solid 1px #999999;
+  border-radius: 0.25rem;
+  margin-top: 2rem;
+  padding: 1.0rem 1.0rem;
+}
+
+.scoreMasteryText {
+  margin-top: 1rem;
+}

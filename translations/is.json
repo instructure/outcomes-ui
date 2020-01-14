@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Jafna nýjar niðurstöður"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Jafna niðurstöður"
+    },
+    "align_selected_34f35003": {
+        "message": "Jafna valið"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Viðfestar niðurstöður"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Skoða og bæta niðurstöðum við með því að smella hér."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Skoðaðu niðurstöður þínar með hópamöppunni."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Með því að jafna við þetta { artifact_type_name } ef nemandi fær einkunn yfir { mastery_percent, number, percent } verður lærdómsleikni náð."
+    },
+    "cancel_caeb1e68": {
+        "message": "Hætta við"
+    },
+    "close_d634289d": {
+        "message": "Loka"
+    },
+    "complete_fd828dea": {
+        "message": "Lokið"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Uppfyllti ekki"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Leikni"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Leikni við { mastery } stig"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } af { total } náðu leikni"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Engar niðurstöður eru jafnaðar}\n    one {Ein niðurstaða er jöfnuð}\n  other {# niðurstöður eru jafnaðar}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Leitin skilaði engum niðurstöðum}\n    one {# niðurstöðu}\n  other {# niðurstöðum}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 niðurstaða jöfnuð}\n  other {# niðurstöður jafnaðar}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 spurning}\n  other {# spurningar}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 nemandi}\n  other {# nemendur}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# hópur}\n  other {# hópar}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# niðurstaða}\n  other {# niðurstöður}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Lýsing"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Afvelja allt"
+    },
+    "details_98a31b68": {
+        "message": "Upplýsingar"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Uppfyllti ekki"
+    },
+    "difference_7496769c": {
+        "message": "Mismunur"
+    },
+    "done_54e3d4b6": {
+        "message": "Lokið"
+    },
+    "home_351838cd": {
+        "message": "Heim"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Hópar og niðurstöður heimastigs"
+    },
+    "institution_average_d4be375e": {
+        "message": "Meðaltal stofnunar"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } jöfnun fjarlægð"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Lærdómsniðurstöður sem þú hefur náð leikni í"
+    },
+    "loading_bde52856": {
+        "message": "Sæki"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Hleð inn síðu { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Hleð inn leitarniðurstöðum"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Þú virðist vera svolítið snemma á því"
+    },
+    "mastery_7ec348b5": {
+        "message": "Leikni"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "eikni við { mastery } stig"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Leikni reiknuð út frá minnkandi meðaltali. Nýjust talningar sem { recent_percent, number, percent } af leikniþyngd, meðaltal allra annarra niðurstaðna sem { remain_percent, number, percent } af þyngd. Ef það er ein niðurstaða, verður einni einkunn skilað."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Leikni reiknuð út frá hæstu einkunn. Tileinkunareinkunn sýnir hæstu einkunn fyrir metið mat."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Leikni reiknuð út frá nýjustu einkunn. Tileinkunareinkunn sýnir nýjasta metna mat."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Leikni reiknuð út frá n fjölda. Þarf að ná leikni að minnsta kosti { n_times, number } sinnum.  Meðaltal verður tekið af einkunnum yfir leikni til að reikna út lokaeinkunn."
+    },
+    "next_page_d2a39853": {
+        "message": "Næsta síða"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Engar niðurstöður eru valdar í augnablikinu."
+    },
+    "ok_c47544a2": {
+        "message": "Í lagi"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Tækifæri til lærdóms og vaxtar"
+    },
+    "outcome_da397d20": {
+        "message": "Niðurstaða"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Upplýsingar um niðurstöðu"
+    },
+    "previous_page_928fc112": {
+        "message": "Fyrri síða"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Fjarlægja { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Niðurstöður uppfærðar fyrir síðu { page } af { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Vistar"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Leitarniðurstöður"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Leitarniðurstöður"
+    },
+    "select_all_f73344a8": {
+        "message": "Velja allt"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Velja niðurstöður:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Einkunn nemanda"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Nemendur verða að ljúka mati áður en nokkrar niðurstöður verða sýndar hér. Komdu aftur eftir að einhverjir nemendur hafa lokið matinu."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Þetta mat hefur engar niðurstöður jafnaðar við það. Farðu í byggja flipann til að jafna niðurstöður."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Það eru engin tækifæri tiltæk."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Það eru engar niðurstöður."
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Það er engin skýrsla til að sýna"
+    },
+    "title_ee03d132": {
+        "message": "Titill"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Til að bæta við eða búa til niðurstöðu, skaltu fara á niðurstöðusíðu Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Breyta vegna alls/handahófskennds vals úr atriðabanka"
+    },
+    "variable_questions_fd841920": {
+        "message": "Breytu spurning"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Skoða niðurstöðu"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Þú hefur ekki náð leikni í neinni niðurstöðu ennþá."
+    }
+}

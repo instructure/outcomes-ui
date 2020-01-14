@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Poravnaj nove učne izide"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Poravnaj učne izide"
+    },
+    "align_selected_34f35003": {
+        "message": "Poravnava je izbrana."
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Dodani učni izidi"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Za brskanje in dodajanje učnih izidov kliknite tukaj."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Z mapami skupine prebrskajte učne izide."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Če študent doseže rezultat, višji od { mastery_percent, number, percent }, bo s poravnavo s tem { artifact_type_name } doseženo napredovanje v odličnosti."
+    },
+    "cancel_caeb1e68": {
+        "message": "Prekliči"
+    },
+    "close_d634289d": {
+        "message": "Zapri"
+    },
+    "complete_fd828dea": {
+        "message": "Zaključeno"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } ni izpolnjevalo."
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } dosega odličnost."
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } dosega odličnost pri { mastery } točkah."
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } od { total } je doseglo odličnost."
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Poravnan ni noben učni izid.}\n    one {En učni izid je poravnan.}\n  other {# učnih izidov je poravnanih.}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Iskanje je/ni vrnilo rezultatov }\n    one {# rezultat }\n  other {# rezultate}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 učni izid je poravnan.}\n  other {# učnih izidov je poravnanih.}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 vprašanje}\n  other {# vprašanj}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 študent}\n  other {# študentov}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# skupina}\n  other {# skupin}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# učni izid}\n  other {# učnih izidov}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Opis"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Razveljavi izbiro vseh"
+    },
+    "details_98a31b68": {
+        "message": "Podrobnosti"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Ni izpolnjevalo."
+    },
+    "difference_7496769c": {
+        "message": "Razlika"
+    },
+    "done_54e3d4b6": {
+        "message": "Dokončano"
+    },
+    "home_351838cd": {
+        "message": "Glavna stran"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Skupine in učni izidi na ravni glavne strani"
+    },
+    "institution_average_d4be375e": {
+        "message": "Povprečje ustanove"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "Poravnava { label } je odstranjena."
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Učni cilji, ki ste jih osvojili."
+    },
+    "loading_bde52856": {
+        "message": "Nalaganje"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Nalagam stran { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Nalaganje rezultatov iskanja"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Zdi se, da ste nekoliko prezgodnji."
+    },
+    "mastery_7ec348b5": {
+        "message": "Odličnost"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Odličnost pri { mastery } točkah."
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Odličnost, izračunana z uteženo povprečno oceno Najnovejši šteje kot { recent_percent, number, percent } uteži odličnosti, povprečje vseh drugih rezultatov pa kot { remain_percent, number, percent } uteži. Če je rezultat samo en, bo vrnjena samo ena ocena."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Odličnost, izračunana z najvišjim rezultatom. Rezultat odličnosti izraža najvišji rezultat ocenjevanja z ocenami."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Odličnost, izračunana glede na najnovejši rezultat. Rezultat odličnosti izraža najnovejše ocenjevanje z ocenami."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Odličnost, izračunana z n-kratnikom. Odličnost mora doseči vsaj { n_times, number }-krat.  Rezultati, ki presegajo odličnost, bodo za izračun končne ocene povprečeni."
+    },
+    "next_page_d2a39853": {
+        "message": "Naslednja stran"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Trenutno niso izbrani nobeni učni izidi."
+    },
+    "ok_c47544a2": {
+        "message": "V redu"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Priložnosti za učenje in rast"
+    },
+    "outcome_da397d20": {
+        "message": "Izid"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Podrobnost izida"
+    },
+    "previous_page_928fc112": {
+        "message": "Prejšnja stran"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Odstrani { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Rezultati za stran { page } od { totalPages } so posodobljeni."
+    },
+    "saving_2521e616": {
+        "message": "Shranjevanje"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Izidi iskanja"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Izidi iskanja"
+    },
+    "select_all_f73344a8": {
+        "message": "Izberi vse"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Izbrani izidi:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Rezultat študenta"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Študenti morajo dokončati ocenjevanje, preden bodo tu prikazani morebitni rezultati izida. Ko nekaj študentov zaključi ocenjevanje, spet preverite tukaj."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Z ocenjevanjem ni poravnan noben učni izid. Za poravnavo učnih izidov pojdite na zavihek »Pripravi«."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Na voljo ni nobenih priložnosti."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Ni nobenih učnih izidov."
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Ni nobenega poročila za prikaz."
+    },
+    "title_ee03d132": {
+        "message": "Naslov"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Za dodajanje ali ustvarjanje učnih izidov obiščite stran sistema Canvas z učnimi izidi."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Spremenljivo zaradi izbire možnosti »Vse/naključno« iz zbirke elementov"
+    },
+    "variable_questions_fd841920": {
+        "message": "Spremenljiva vprašanja"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Ogled izida"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Niste še obvladali nobenih učnih izidov."
+    }
+}

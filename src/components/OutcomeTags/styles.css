@@ -1,0 +1,13 @@
+.line {
+  display: inline-flex;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text {
+  padding-left: var(--outcomeTagsSpacing);
+  margin-bottom: var(--outcomeTagsSpacing);
+}

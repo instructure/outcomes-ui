@@ -1,0 +1,29 @@
+.header {
+  background-color: #BBBBBB;
+  border: solid 1px #999999;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.list {
+  list-style: none;
+  padding-left: 0;
+  border: solid 1px #BBBBBB;
+  border-radius: 5px;
+}
+
+.list > li {
+  padding: 10px 20px;
+}
+
+.list > li + li {
+  border-top: dashed 1px #BBBBBB;
+}
+
+.addOutcome {
+  text-align: center;
+}
+
+.addOutcome button {
+  padding: 0;
+}

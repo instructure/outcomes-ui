@@ -1,0 +1,11 @@
+.picker {
+  padding-left: 1rem;
+}
+
+.checkbox {
+  padding: var(--outcomePickerItemPadding);
+}
+
+.checkboxLabel {
+  padding-left: 0.5rem;
+}

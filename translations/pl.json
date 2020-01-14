@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Dostosuj nowe wyniki"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Uszereguj wyniki"
+    },
+    "align_selected_34f35003": {
+        "message": "Dostosuj wybrane"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Powiązane wyniki"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Aby przeglądać i dodać wyniki, kliknij tutaj."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Przeglądaj wyniki za pomocą folderów grupy."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Dostosowując się do { artifact_type_name }, w przypadku uzyskania wyniku powyżej { mastery_percent, number, percent }, uczestnik opanuje materiał."
+    },
+    "cancel_caeb1e68": {
+        "message": "Anuluj"
+    },
+    "close_d634289d": {
+        "message": "Zamknij"
+    },
+    "complete_fd828dea": {
+        "message": "Ukończony"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Nie spełniono"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Opanowanie materiału"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Opanowanie materiału w pkt: { mastery }"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } z { total } opanowanego materiału"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Nie dostosowano wyników}\n    one {Jeden wynik jest dostosowany}\n  other {# wyników dostosowano}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Wyszukiwanie zwróciło zero wyników}\n    one {# wynik}\n  other {# wyników}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 wynik dostosowany}\n  other {# wyników dostosowano}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 pytanie}\n  other {# pytania}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 uczestnik }\n  other {# uczestnicy}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Grupa}\n  other {# grupy}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Wynik}\n  other {# wyniki}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Opis"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Usuń zaznaczenie wszystkich"
+    },
+    "details_98a31b68": {
+        "message": "Szczegóły"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Nie spełniono"
+    },
+    "difference_7496769c": {
+        "message": "Różnica"
+    },
+    "done_54e3d4b6": {
+        "message": "Gotowe"
+    },
+    "home_351838cd": {
+        "message": "Strona główna"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Wyniki i grupy poziomu głównego"
+    },
+    "institution_average_d4be375e": {
+        "message": "Średnia instytucji"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } usunięto dostosowanie"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Efekty Twojej nauki"
+    },
+    "loading_bde52856": {
+        "message": "Wczytywanie"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Wczytywanie strony { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Wczytywanie wyników wyszukiwania"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Wygląda na to, że jesteś tu za wcześnie"
+    },
+    "mastery_7ec348b5": {
+        "message": "Opanowanie materiału"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Opanowanie materiału w pkt: { mastery }"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Opanowanie materiału obliczone ze średniej zanikającej Większość ostatnich wyników liczy się jako { recent_percent, number, percent } wagi opanowania materiału, średnia z pozostałych wyników liczy się jako { remain_percent, number, percent } wagi. Jeśli jest tylko jeden wynik, zwrócona zostanie pojedyncza ocena."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Opanowanie materiału obliczono z najwyższego wyniku Opanowanie materiału w pkt odzwierciedla najwyższą punktację ocenionego testu."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Opanowanie materiału obliczone z najnowszego wyniku Opanowanie materiału w pkt odzwierciedla najnowszy oceniony test."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Opanowanie materiału obliczone przez n razy. Uczestnik musi opanować materiał co najmniej { n_times, number } razy.  Wyniki powyżej opanowania materiału będą uśredniane w celu obliczenia wyniku końcowego."
+    },
+    "next_page_d2a39853": {
+        "message": "Następna strona"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Nie wybrano teraz żadnych wyników"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Okazje do nauki i rozwoju"
+    },
+    "outcome_da397d20": {
+        "message": "Wynik"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Dane wyniku"
+    },
+    "previous_page_928fc112": {
+        "message": "Poprzednia strona"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Usuń { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Wyniki zaktualizowane dla strony { page } z { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Zapisywanie"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Wyniki wyszukiwania"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Wyniki wyszukiwania"
+    },
+    "select_all_f73344a8": {
+        "message": "Wybierz wszystko"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Wybrane wyniki:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Ocena uczestnika"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Aby wyniki zostały tu wyświetlone, uczestnicy muszą ukończyć test. Powróć tu, gdy niektórzy uczestnicy ukończą test."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Brak wyników powiązanych z tym testem. Przejdź do karty tworzenia, aby powiązać wyniki."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Brak dostępnych okazji."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Brak wyników"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Brak raportu do wyświetlenia"
+    },
+    "title_ee03d132": {
+        "message": "Tytuł"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Aby dodać lub utworzyć wyniki, odwiedź stronę wyników Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Zmienna wynikająca z wyboru Wszystkie/Losowe z banku elementów"
+    },
+    "variable_questions_fd841920": {
+        "message": "Pytania ze zmiennymi"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Wyświetl wynik"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Nie opanowano jeszcze żadnych wyników."
+    }
+}

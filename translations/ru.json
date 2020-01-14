@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Согласовать новые результаты"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Согласовать результаты"
+    },
+    "align_selected_34f35003": {
+        "message": "Согласовать выбранные"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Вложенные результаты"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Просмотреть и добавить результаты, щелкнув здесь."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Просмотрите свои результаты, воспользовавшись групповыми папками."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "При согласовании с этим { artifact_type_name }, если студент получает оценку выше { mastery_percent, number, percent }, это означает что он усвоил материал."
+    },
+    "cancel_caeb1e68": {
+        "message": "Отменить"
+    },
+    "close_d634289d": {
+        "message": "Закрыть"
+    },
+    "complete_fd828dea": {
+        "message": "Завершить"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Не соответствует"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Усвоение"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Усвоение при { mastery } баллах"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } из { total } усвоили материал"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Нет согласованных результатов}\n    one {Один результат согласован}\n  other {# результаты согласованы}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Поиск не дал результатов}\n    one {# результат}\n  other {# результаты}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 результат согласован}\n  other {# Результаты согласованы}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 вопрос}\n  other {# Вопросы}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 студент}\n  other {# Студенты}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Группа}\n  other {# Группы}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Результат}\n  other {# Результаты}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Описание"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Отменить выбор для всех"
+    },
+    "details_98a31b68": {
+        "message": "Подробные сведения"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Не соответствует"
+    },
+    "difference_7496769c": {
+        "message": "Разница"
+    },
+    "done_54e3d4b6": {
+        "message": "Готово"
+    },
+    "home_351838cd": {
+        "message": "Начальная страница"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Группы и результаты домашнего уровня"
+    },
+    "institution_average_d4be375e": {
+        "message": "Средняя по организации"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } согласование удалено"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Ваши результаты обучения"
+    },
+    "loading_bde52856": {
+        "message": "Загрузка"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Загрузка страницы { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Загрузка результатов поиска"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Кажется, что Вы немного спешите"
+    },
+    "mastery_7ec348b5": {
+        "message": "Усвоение"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Усвоение при { mastery } баллах"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Усвоение, рассчитываемое по снижаемой средней величине. Последние подсчеты в качестве { recent_percent, number, percent } удельного значения усвоения, среднее значение подсчета всех других результатов в качестве { remain_percent, number, percent } удельного значения. Если результат всего один, то присваивается только одна оценка."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Усвоение, рассчитываемое по самой высокой оценке. Оценка усвоения отражает наивысшую оценку из полученных оценок."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Усвоение, рассчитываемое по самой последней оценке. Оценка усвоения отражает последние полученные оценки."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Усвоение, рассчитываемое по количеству n раз. Большинство добиваются усвоения как минимум { n_times, number } раз (раза).  Оценки выше значения усвоения усредняются для расчета окончательной оценки."
+    },
+    "next_page_d2a39853": {
+        "message": "Следующая страница"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "В настоящее время не выбрано ни одного результата"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Возможности для обучения и роста"
+    },
+    "outcome_da397d20": {
+        "message": "Результат"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Информация по результатам"
+    },
+    "previous_page_928fc112": {
+        "message": "Предыдущая страница"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Удалить { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Результаты для страницы { page } из { totalPages } обновлены"
+    },
+    "saving_2521e616": {
+        "message": "Выполняется сохранение"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Результаты поиска"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Результаты поиска"
+    },
+    "select_all_f73344a8": {
+        "message": "Выбрать все"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Выбранные результаты:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Оценка студента"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Студенты должны получить оценки до того, как на данной странице появятся какие-либо результаты. После того, как отдельные студенты получат оценку, снова проверьте данную страницу."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Оценка не имеет привязанных к ней результатов. Перейдите к вкладке Скомпоновать для привязки результатов."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Нет доступных возможностей."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Результаты отсутствуют"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Нет отчетов для отображения"
+    },
+    "title_ee03d132": {
+        "message": "Заголовок"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Для добавления или создания результатов откройте страницу результатов Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Переменная, обязательная для всех/Случайный выбор из банка элементов"
+    },
+    "variable_questions_fd841920": {
+        "message": "Переменные вопросы"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Просмотреть результат"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Вы не достигли пока что никаких результатов."
+    }
+}

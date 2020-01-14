@@ -1,0 +1,9 @@
+.title {
+  margin: 2rem 0;
+  word-wrap: break-word; /* for IE support */
+  overflow-wrap: break-word;
+}
+
+.description {
+  margin: 2rem 0;
+}

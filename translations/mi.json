@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Hāngai putanga hou"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Hāngai Putanga"
+    },
+    "align_selected_34f35003": {
+        "message": "Hāngai tīpakonga"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Ngā putanga kua tāpiritia"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Tirotiro ka tāpiri putanga mā te pāwhiri i konei."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Tirotiro i ō putanga ma te whakamahi i ngā kōnae rōpū."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Na roto i te whakahāngai i ki tēnei { artifact_type_name } ki te tatau ākonga i runga { mastery_percent, number, percent } ka tutuki te hinganga"
+    },
+    "cancel_caeb1e68": {
+        "message": "Whakakore"
+    },
+    "close_d634289d": {
+        "message": "Katia"
+    },
+    "complete_fd828dea": {
+        "message": "Oti"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Kaore i tutaki"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Hingana"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Te Mana i { mastery } ngā koinga"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } O { total } tutaki i te hingana"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Kaore ngā putanga e hangai ki}\n    one {Kotahi putanga kei te hāngai}\n  other {# ngā putanga kei te hāngai}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Kaore i puta he hua mo tēnei rapu}\n    one {# hua}\n  other {# ngā hua}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 Putanga hāngai}\n  other {# Ngā putanga kei te hāngai}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Patai}\n  other {# Ngā pātai}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 Ākonga}\n  other {# ngā ākonga}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Rōpū}\n  other {# Nga rōpū}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Putanga}\n  other {# Ngā putanga}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Whakāhuatanga"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Whakawātea te katoa"
+    },
+    "details_98a31b68": {
+        "message": "Ngā taipitopito"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Kaore i tutaki"
+    },
+    "difference_7496769c": {
+        "message": "Rerekētanga"
+    },
+    "done_54e3d4b6": {
+        "message": "Kua mahia"
+    },
+    "home_351838cd": {
+        "message": "Kāinga"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Ngā röpu o te whare me ngā putanga"
+    },
+    "institution_average_d4be375e": {
+        "message": "Whakanōhanga Toharite"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } Kua tangohia te hāngaitanga"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Ngā Hua Akoranga Kua Tohua e koe"
+    },
+    "loading_bde52856": {
+        "message": "E tukuake ana"
+    },
+    "loading_page_page_d96157d": {
+        "message": "E uta ana i te whārangi { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Uta ana ngā rapu hua"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "E tiro ana he āhua wawe iti  koe"
+    },
+    "mastery_7ec348b5": {
+        "message": "Hingana"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Te Mana i { mastery } ngā koinga"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "I tatautia te Hingana e te heke Haere Toharite Ngā kaute o mua nei ko te { recent_percent, number, percent } o te hingana taumaha, toharite o ētahi atu hua katoa kaute ko te  { remain_percent, number, percent } te taumaha. Mehemea kotahi anake te hua, ka whakahokia te kaute kotahi."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Ka tatautia te Mana e te kaute Teitei E whakātu ana te kaute mana i te aromatawai kōeke o te kaute teitei."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Ka tatautia te Mana e te kaute Tomua tonu nei E whakātu ana te kaute mana i te aromatawai kōeke o nāianei."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Te hingana kua tautuhia e te n Maha o ngā Wā Me whakatutuki te hingana i te iti rawa { n_times, number } ngā wā.  Ngä kaute i runga i te hinganga ka toharitetia ki te tātai i te kaute whakamutunga."
+    },
+    "next_page_d2a39853": {
+        "message": "Whārangi haere ake nei"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Kaore ngā putanga i te tīpakohia ināianei"
+    },
+    "ok_c47544a2": {
+        "message": "Ae"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Ngā whai wāhitanga mo te Ako me te Tipuranga"
+    },
+    "outcome_da397d20": {
+        "message": "Putanga"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Putanga taipitopito"
+    },
+    "previous_page_928fc112": {
+        "message": "Te whārangi o muri nei"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Tango { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Kua whakahoutia ngā hua o te whārangi { page } ō { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "E tiaki ana"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Ngā putanga i rapua"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Ngā Putanga i rapua"
+    },
+    "select_all_f73344a8": {
+        "message": "Tīpako katoa"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Ngā putanga kua tīpakohia"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Kaute a te Akonga"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Me whakaoti e ngā akonga te aromatawai i mua i te whakātu mai o ngā huanga i konei. Whakahoki mai ki konei i muri i te whakaoti o te aromatawai i ētahi o ngā akonga."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Kaore he putanga o te aromatawai e hangai ana ki ia. Haere ki te Hanga ripa ki te whakapā ki ngā putanga"
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Kaore he wāhanga i te wātea."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Kaore ngā putanga."
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Kaore he rīpoata i konei hei whakātu"
+    },
+    "title_ee03d132": {
+        "message": "taitara"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Hei tāpiri, hei waihanga rānei i ngā hua, toro ki te whārangi putanga Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "He rerekētanga e tika ana mo te Katoa / Matapōkere tīpako mai i te tūemi pēke"
+    },
+    "variable_questions_fd841920": {
+        "message": "Ngā Pātai Rerekē"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Tiro putanga"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Kaore anō koe i tohu i ngā  hua i tēnei wā."
+    }
+}

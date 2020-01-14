@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Aligner les nouveaux résultats"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Aligner les résultats"
+    },
+    "align_selected_34f35003": {
+        "message": "Aligner la sélection"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Résultats attachés"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Naviguez et ajoutez des résultats en cliquant ici."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Parcourez vos résultats en utilisant les dossiers de groupe."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "En s''alignant avec le { artifact_type_name }, si l''élève atteint un score supérieur à { mastery_percent, number, percent } il atteindra le niveau de maîtrise."
+    },
+    "cancel_caeb1e68": {
+        "message": "Annuler"
+    },
+    "close_d634289d": {
+        "message": "Fermer"
+    },
+    "complete_fd828dea": {
+        "message": "Terminer"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } N''a pas atteint"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Maîtrise"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Maîtrise à { mastery } pts"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } sur { total } ont atteint la maîtrise"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Aucun résultat aligné}\n    one {Un résultat aligné}\n  other {# résultats alignés}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {La recherche n''a donné aucun résultat}\n    one {# résultat}\n  other {# résultats}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 résultat aligné}\n  other {# résultats alignés}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Question}\n  other {# Questions}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 élève}\n  other {# élèves}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Groupe}\n  other {# Groupes}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Résultat}\n  other {# Résultats}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Description"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Tout désélectionner"
+    },
+    "details_98a31b68": {
+        "message": "Détails"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "N''a pas atteint"
+    },
+    "difference_7496769c": {
+        "message": "Différence"
+    },
+    "done_54e3d4b6": {
+        "message": "Terminé"
+    },
+    "home_351838cd": {
+        "message": "Accueil"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Groupes et résultats de niveau à la maison"
+    },
+    "institution_average_d4be375e": {
+        "message": "Institution Moyenne"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } alignement supprimé"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Acquis d''apprentissage que vous avez maîtrisés"
+    },
+    "loading_bde52856": {
+        "message": "En cours de chargement"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Chargement de la page { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Chargement des résultats de recherche"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Il semblerait que vous soyez un peu en avance"
+    },
+    "mastery_7ec348b5": {
+        "message": "Maîtrise"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Maîtrise à { mastery } pts"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Maîtrise calculée par moyenne déclinante. Le plus récent compte pour { recent_percent, number, percent } du coefficient de maîtrise, la moyenne de tous les autres résultats compte pour { remain_percent, number, percent } du coefficient. S’il n’existe qu’un seul résultat, cet unique score sera retourné."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Maîtrise calculée par score le plus haut Le score de maîtrise correspond au plus haut score obtenu dans une évaluation notée."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Maîtrise calculée par dernier score Le score de maîtrise correspond à l’évaluation notée la plus récente."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Maîtrise calculée par nombre de fois n. La maîtrise doit être atteinte au moins { n_times, number } fois.  La moyenne des scores au dessus du niveau de maîtrise sera calculée pour déterminer le score final."
+    },
+    "next_page_d2a39853": {
+        "message": "Page suivante"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Aucun résultat sélectionné actuellement"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Opportunités d''apprentissage et d''évolution"
+    },
+    "outcome_da397d20": {
+        "message": "Acquis"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Détail du résultat"
+    },
+    "previous_page_928fc112": {
+        "message": "Page précédente"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Supprimer { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Résultats mis à jour pour la page { page } sur { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Sauvegarde"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Résultats de la recherche"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Résultats de la recherche"
+    },
+    "select_all_f73344a8": {
+        "message": "Sélectionner tout"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Résultats sélectionnés :"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Résultats de l''élève"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Les élèves doivent terminer l’évaluation avant que des résultats d''acquis ne s''affichent ici. Revenez voir à cet endroit lorsque des élèves auront terminé l’évaluation."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Cette évaluation n''a pas d''acquis lié. Accédez à l''onglet Construire pour aligner les résultats."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Aucune opportunité disponible."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Il n’y a pas d''acquis."
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Il n''y a aucun rapport à afficher ici"
+    },
+    "title_ee03d132": {
+        "message": "Titre"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Pour ajouter ou créer des acquis, visitez la page des acquis Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Variable en raison d''une sélection tout/aléatoire dans la banque d''éléments."
+    },
+    "variable_questions_fd841920": {
+        "message": "Questions variables"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Voir résultat"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Vous n’avez maîtrisé aucun acquis pour le moment."
+    }
+}

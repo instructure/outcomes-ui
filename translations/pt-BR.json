@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Alinhar novos resultados"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Alinhar resultados"
+    },
+    "align_selected_34f35003": {
+        "message": "Alinhar selecionado(s)"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Resultados anexados"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Navegue e adicione resultados ao clicar aqui."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Navegue nos seus resultados usando as pastas do grupo."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Ao alinhar para este { artifact_type_name } se o aluno pontuar acima de { mastery_percent, number, percent } domínio será alcançado."
+    },
+    "cancel_caeb1e68": {
+        "message": "Cancelar"
+    },
+    "close_d634289d": {
+        "message": "Fechar"
+    },
+    "complete_fd828dea": {
+        "message": "Concluído"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Não alcançaram"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Domínio"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Domínio em { mastery } pts"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } de { total } alcançaram domínio"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Nenhum resultado alinhado}\n    one {Um resultado está alinhado}\n  other {# resultados estão alinhados}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {A pesquisa não retornou resultados}\n    one {# resultado}\n  other {# resultados}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 Resultado alinhado}\n  other {# Resultados alinhados}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Pergunta}\n  other {# Perguntas}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 Aluno}\n  other {# Alunos}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Grupo}\n  other {# Grupos}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Resultado}\n  other {# Resultados}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Descrição"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Cancelar seleção de todos"
+    },
+    "details_98a31b68": {
+        "message": "Detalhes"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Não alcançaram"
+    },
+    "difference_7496769c": {
+        "message": "Diferença"
+    },
+    "done_54e3d4b6": {
+        "message": "Feito"
+    },
+    "home_351838cd": {
+        "message": "Página inicial"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Grupos e resultados do nível da página inicial"
+    },
+    "institution_average_d4be375e": {
+        "message": "Média da instituição"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } alinhamento removido"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Objetivos de aprendizagem que você dominou"
+    },
+    "loading_bde52856": {
+        "message": "Carregando"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Carregando a página { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Carregando resultados de pesquisa"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Parece que você está um pouco adiantado"
+    },
+    "mastery_7ec348b5": {
+        "message": "Domínio"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Domínio em { mastery } pts"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Domínio calculado pela Média em Deterioração. O mais recente conta como { recent_percent, number, percent } do peso de domínio, média de todos os outros resultados conta como { remain_percent, number, percent } do peso. Se houver apenas um resultado, a pontuação única será retornada."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Domínio calculado pela nota mais alta. Pontuação de domínio reflete a nota mais alta de uma avaliação avaliada."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Domínio calculado pela Pontuação mais recente. A pontuação do domínio reflete a nota da avaliação mais recente."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Domínio calculado pelo Número n de Tempos. Deve alcançar domínio ao menos { n_times, number } vezes.  Pontuações acima do domínio terão valor médio para calcular pontuação final."
+    },
+    "next_page_d2a39853": {
+        "message": "Próxima página"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Nenhum resultado atualmente selecionado"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Oportunidades para aprendizagem e crescimento"
+    },
+    "outcome_da397d20": {
+        "message": "Resultado"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Detalhe do resultado"
+    },
+    "previous_page_928fc112": {
+        "message": "Página anterior"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Remover { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Resultados atualizados para a página { page } de { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Salvando"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Pesquisar resultados"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Pesquisar resultados"
+    },
+    "select_all_f73344a8": {
+        "message": "Selecionar tudo"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Resultados selecionados:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Pontuação do aluno"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Alunos devem terminar a avaliação antes de quaisquer resultados serem exibidos aqui. Verifique novamente aqui após alguns alunos terem concluído a avaliação."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "A avaliação não tem resultados alinhados a ela. Vá até a aba Construir para alinhar resultados."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Não há oportunidades disponíveis."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Não há resultados"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Não há nenhum resultado aqui para mostrar"
+    },
+    "title_ee03d132": {
+        "message": "Título"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Para adicionar ou criar resultados, visite a página de resultados do Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Variável devido a seleção Todos/Aleatório do banco de itens"
+    },
+    "variable_questions_fd841920": {
+        "message": "Perguntas variáveis"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Visualizar resultado"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Você ainda não dominou quaisquer resultados."
+    }
+}

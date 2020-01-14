@@ -1,0 +1,93 @@
+.reportWrapper {
+  position: relative;
+  padding-left: 13rem;
+}
+
+.background {
+  background-color: white;
+}
+
+.table {
+  overflow-x: scroll;
+}
+
+.headerRow {
+  display: flex;
+  align-items: stretch;
+}
+
+.corner {
+  position: absolute;
+  box-sizing: border-box;
+  width: 13rem;
+  left: 0;
+  top: auto;
+  font-size: 3rem;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerCell, .corner {
+  box-sizing: border-box;
+  height: 5.5rem;
+  border-right: var(--reportBorder);
+  border-bottom: var(--reportBorder);
+}
+
+.headerCell {
+  box-sizing: border-box;
+  border-top: var(--reportBorder);
+  padding: 0.5rem;
+  flex: 1 0 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loadingSpinner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0.3125rem 1.25rem 0;
+}
+
+.studentRow {
+  box-sizing: border-box;
+  height: 4rem;
+  display: flex;
+  align-items: stretch;
+}
+
+.studentName {
+  position: absolute;
+  box-sizing: border-box;
+  left: 0;
+  top: auto;
+  width: 13rem;
+  height: 4rem;
+  padding-left: 0.5rem;
+  border-right: var(--reportBorder);
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: var(--reportBorder);
+  align-items: center;
+
+  & .avatar {
+    padding-right: .5rem;
+  }
+
+  & .name {
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+  }
+}
+
+.scoreCell {
+  box-sizing: border-box;
+  flex: 1 0 10rem;
+  border-bottom: var(--reportBorder);
+}

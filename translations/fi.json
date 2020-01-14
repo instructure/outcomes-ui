@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Kohdista uudet tulokset"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Kohdista tulokset"
+    },
+    "align_selected_34f35003": {
+        "message": "Kohdista valitut"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Liitetyt tulokset"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Selaa ja lisää tuloksia napsauttamalla tästä."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Selaa tuloksiasi ryhmäkansioiden avulla."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Kohdistamalla tähän { artifact_type_name }, jos opiskelijan pistemäärä ylittää pisteen { mastery_percent, number, percent } osaamisen."
+    },
+    "cancel_caeb1e68": {
+        "message": "Peruuta"
+    },
+    "close_d634289d": {
+        "message": "Sulje"
+    },
+    "complete_fd828dea": {
+        "message": "Valmis"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Ei saavuttanut"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Hallinta"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Hallinta { mastery } pistettä"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count }/{ total } saavutti hallinnan"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Ei kohdistettuja tuloksia}\n    one {Yksi tulos on kohdistettu}\n  other {# tulosta on kohdistettu}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Haku ei palauttanut tuloksia}\n    one {# tulosta}\n  other {# tuloksia}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 tulos kohdistettu}\n  other {# tulosta kohdistettu}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Kysymys}\n  other {# kysymystä}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 opiskelija}\n  other {# opiskelijaa}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# ryhmä}\n  other {# ryhmää}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# tulos}\n  other {# tulosta}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Kuvaus"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Poista kaikkien valinta"
+    },
+    "details_98a31b68": {
+        "message": "Lisätiedot"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Ei saavuttanut"
+    },
+    "difference_7496769c": {
+        "message": "Ero"
+    },
+    "done_54e3d4b6": {
+        "message": "Valmis"
+    },
+    "home_351838cd": {
+        "message": "Aloitussivu"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Aloitussivun tason ryhmät ja tulokset"
+    },
+    "institution_average_d4be375e": {
+        "message": "Laitoksen keskiarvo"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } kohdistus poistettu"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Oppimisen tulokset, jotka olet saavuttanut"
+    },
+    "loading_bde52856": {
+        "message": "Ladataan"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Ladataan sivua { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Ladataan hakutuloksia"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Näyttää, että olet vähän aikaisessa"
+    },
+    "mastery_7ec348b5": {
+        "message": "Hallinta"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Hallinta { mastery } pistettä"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Hallinta lasketaan huononemisen keskiarvona. Uusimmat lasketaan { recent_percent, number, percent } hallinnan painona, kaikkien muiden tulosmäärien keskiarvo { remain_percent, number, percent } painona. Jos tuloksia on vain yksi, palautetaan yksi pistemäärä."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Korkeimman pistemäärän mukaan laskettu hallinta. Hallinnan pistemäärä heijastaa arvostellun tehtävän korkeinta pistemäärää."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Uusimman pistemäärän mukaan laskettu hallinta. Hallinnan pistemäärä heijastaa äskettäimmin arvosteltua tehtävää."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Hallinta laskettu kertojen mukaan. Täytyy saavuttaa hallinta vähintään { n_times, number } kertaa.  Hallinnan yläpuolella olevista pistemääristä otetaan keskiarvo lopullisen pistemäärän laskemiseksi."
+    },
+    "next_page_d2a39853": {
+        "message": "Seuraava sivu"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Parhaillaan ei ole valittuja tuloksia."
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Mahdollisuudet oppimiseen ja kasvamiseen"
+    },
+    "outcome_da397d20": {
+        "message": "Tulos"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Tuloksen tiedot"
+    },
+    "previous_page_928fc112": {
+        "message": "Edellinen sivu"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Poista { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Tulokset päivitetty sivulle { page }/{ totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Tallennetaan"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Hakutulokset"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Hakutulokset"
+    },
+    "select_all_f73344a8": {
+        "message": "Valitse kaikki"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Valitut tulokset:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Opiskelijan pistemäärä"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Opiskelijoiden täytyy tehdä arviointi loppuun ennen kuin mitkään tulokset näkyvät täällä. Palaa takaisin sen jälkeen, kun jotkut opiskelijoista ovat suorittaneet arvioinnin."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Arvioinnilla ei ole siihen kohdistettuja tuloksia. Siirry Koonti-välilehteen kohdistaaksesi tulokset."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Mahdollisuuksia ei ole saatavissa."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Tuloksia ei ole"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Ei ole tässä näytettävää raporttia"
+    },
+    "title_ee03d132": {
+        "message": "Otsikko"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Jos haluat lisätä tai luoda tuloksia, käy Canvas-tulossivulla."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Vaihtelee kohdepankista tehdyn Kaikki-/Satunnainen-valinnan vuoksi."
+    },
+    "variable_questions_fd841920": {
+        "message": "Vaihtelevat kysymykset"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Tarkastele tulosta"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Et ole vielä hallinnut yhtään tulosta."
+    }
+}

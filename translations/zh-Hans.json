@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "调整新结果"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "调整结果"
+    },
+    "align_selected_34f35003": {
+        "message": "调整选定项"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "附加的结果"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "单击此处浏览和添加结果"
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "使用小组文件夹浏览您的结果。"
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "如果学生的分数高于 { mastery_percent, number, percent }，调整此 { artifact_type_name } 将达到掌握程度。"
+    },
+    "cancel_caeb1e68": {
+        "message": "取消"
+    },
+    "close_d634289d": {
+        "message": "关闭"
+    },
+    "complete_fd828dea": {
+        "message": "完成"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } 未达到"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } 掌握程度"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } 掌握程度为 { mastery } 分"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } （共 { total } 人）达到掌握程度"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {没有调整结果 }\n    one { 调整一个结果 }\n  other { 调整 # 个结果}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {搜索未返回结果}\n    one {#结果}\n  other {#结果}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {调整 1 个结果 }\n  other { 调整 # 个结果}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 个问题 }\n  other {（共 # 个问题）}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 个学生}\n  other {（共 # 个学生）}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# 组 }\n  other {（共 # 个组）}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# 结果 }\n  other {（共 # 个结果）}\n}"
+    },
+    "description_436c48d7": {
+        "message": "说明"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "取消选择所有"
+    },
+    "details_98a31b68": {
+        "message": "详情"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "未达到"
+    },
+    "difference_7496769c": {
+        "message": "差距"
+    },
+    "done_54e3d4b6": {
+        "message": "完成"
+    },
+    "home_351838cd": {
+        "message": "首页"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "首页级组和结果"
+    },
+    "institution_average_d4be375e": {
+        "message": "机构平均分"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } 已删除调整"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "您已经掌握的学习结果"
+    },
+    "loading_bde52856": {
+        "message": "加载中"
+    },
+    "loading_page_page_d96157d": {
+        "message": "正在加载页面{ page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "加载搜索结果"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "看来您来早了"
+    },
+    "mastery_7ec348b5": {
+        "message": "掌握程度"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "掌握程度为 { mastery } 分"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "按衰减平均值计算的掌握程度。最新计数为掌握程度权重的 { recent_percent, number, percent }，所有其他结果的平均值计数为权重的 { remain_percent, number, percent }。如果只有一个结果，将返回单个分数。"
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "按最高分数计算的掌握程度。掌握程度分数反映了已评分评估的最高分数。"
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "按最新分数计算的掌握程度。掌握程度分数反映了最近评分的评估。"
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "按次数计算的掌握程度。必须至少有 { n_times, number } 次达到掌握程度。高于掌握程度的分数将取平均值以计算最终分数。"
+    },
+    "next_page_d2a39853": {
+        "message": "下一页"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "当前没有选择结果"
+    },
+    "ok_c47544a2": {
+        "message": "确定"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "学习和发展机会"
+    },
+    "outcome_da397d20": {
+        "message": "结果"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "结果详细信息"
+    },
+    "previous_page_928fc112": {
+        "message": "上一页"
+    },
+    "remove_title_f3f4683a": {
+        "message": "移除{ title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "更新了第{ page }/{ totalPages }页的结果"
+    },
+    "saving_2521e616": {
+        "message": "保存"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "搜索结果"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "搜索结果"
+    },
+    "select_all_f73344a8": {
+        "message": "全选"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "所选结果："
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "学生分数"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "学生必须完成评估后，此处才会显示结果。一些学生完成评估后，再返回此处查看。"
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "此评估没有匹配的结果。请转到“生成”选项卡以匹配结果。"
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "没有机会可用。"
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "没有结果"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "此处没有报告可以显示"
+    },
+    "title_ee03d132": {
+        "message": "标题"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "若要添加或创建结果，请访问 Canvas 结果页。"
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "因在项目库中全部/随机选择而变化"
+    },
+    "variable_questions_fd841920": {
+        "message": "可变问题"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "查看结果"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "您尚未掌握任何结果。"
+    }
+}

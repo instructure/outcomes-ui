@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "محاذاة نتائج جديدة"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "محاذاة النتائج"
+    },
+    "align_selected_34f35003": {
+        "message": "تم تحديد محاذاة"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "نتائج مرفقة"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "استعراض وإضافة نتائج عن طريق النقر هنا."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "استعراض حصائلك باستخدام مجلدات المجموعات."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "عن طريق المحاذاة إلى هذا { artifact_type_name } إذا كانت درجات الطالب أعلى من { mastery_percent, number, percent }، سيتم تحقيق الإتقان."
+    },
+    "cancel_caeb1e68": {
+        "message": "إلغاء"
+    },
+    "close_d634289d": {
+        "message": "إغلاق"
+    },
+    "complete_fd828dea": {
+        "message": "مكتمل"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } لم يستوفِ"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } الإتقان"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } الإجادة حسب { mastery } نقاط"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } من { total } استوفوا الإتقان"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {لا توجد نتائج تمت محاذاتها}\n    one {تم محاذاة نتيجة واحدة}\n  other {# نتائج تمت محاذاتها}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {نتج البحث لا شيء}\n    one {# نتيجة}\n  other {# نتائج}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 نتيجة تمت محاذاتها}\n  other {# نتائج تمت محاذاتها}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 سؤال}\n  other {# أسئلة}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 طالب}\n  other {# طلاب}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# مجموعة}\n  other {# مجموعات}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# نتيجة}\n  other {# نتائج}\n}"
+    },
+    "description_436c48d7": {
+        "message": "الوصف"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "إلغاء تحديد الكل"
+    },
+    "details_98a31b68": {
+        "message": "التفاصيل"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "لم يستوفِ"
+    },
+    "difference_7496769c": {
+        "message": "الفرق"
+    },
+    "done_54e3d4b6": {
+        "message": "تم"
+    },
+    "home_351838cd": {
+        "message": "الصفحة الرئيسية"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "مجموعات ونتائج مستوى الصفحة الرئيسية"
+    },
+    "institution_average_d4be375e": {
+        "message": "متوسط المؤسسة"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } تمت إزالة المحاذاة"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "معرفة النتائج التي قمت بإجادتها"
+    },
+    "loading_bde52856": {
+        "message": "يتم الآن التحميل"
+    },
+    "loading_page_page_d96157d": {
+        "message": "جار تحميل الصفحة { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "جارٍ نتائج البحث"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "يبدو أنك جئت مبكرًا لحدٍ ما."
+    },
+    "mastery_7ec348b5": {
+        "message": "الإتقان"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "الإجادة حسب { mastery } نقاط"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "تم حساب الإتقان عن طريق المتوسط المتقادم. تُحتسب معظم النتائج الأخيرة كـ { recent_percent, number, percent } من وزن الإتقان، ويُحتسب متوسط كل النتائج الأخرى كـ { remain_percent, number, percent } من الوزن. إذا كانت هناك نتيجة واحدة فقط، سيتم إعادة الدرجة الفردية."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "تم حساب الإجادة عن طريق أعلى درجة. تعكس درجة الإجادة أعلى درجة لاختبار تقييمي تم تقييم درجته."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "تم حساب الإجادة عن طريق أحدث درجة. تعكس درجة الإجادة أحدث اختبار تقييمي تم تقييم درجته."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "تم حساب الإجادة عن طريق عدد المرات. يجب تحقيق الإجادة { n_times, number } مرة على الأقل.  سيتم احتساب متوسط الدرجات فوق الإجادة لحساب الدرجة النهائية."
+    },
+    "next_page_d2a39853": {
+        "message": "الصفحة التالية"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "لم يتم تحديد أي نتائج حاليًا"
+    },
+    "ok_c47544a2": {
+        "message": "موافق"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "فرص للتعلم والتطور"
+    },
+    "outcome_da397d20": {
+        "message": "النتيجة"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "تفاصيل النتيجة"
+    },
+    "previous_page_928fc112": {
+        "message": "الصفحة السابقة"
+    },
+    "remove_title_f3f4683a": {
+        "message": "إزالة { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "تم تحديث النتائج لصفحة { page } من { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "جارٍ الحفظ"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "نتائج بحث"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "نتائج بحث"
+    },
+    "select_all_f73344a8": {
+        "message": "تحديد الكل"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "النتائج المحددة:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "تقدير الطالب"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "يجب على الطلاب إنهاء التقييم قبل ظهور أي نتائج هنا. تحقق لاحقًا بعد إكمال بعض الطلاب للتقييم."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "لا توجد نواتج محاذية للتقييم. انتقل إلى علامة تبويب البناء لمحاذاة النواتج."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "لا توجد أي فرص متاحة."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "لا توجد نواتج"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "لا يوجد تقرير هنا لعرضه"
+    },
+    "title_ee03d132": {
+        "message": "العنوان"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "لإضافة أو إنشاء ناتج، الرجاء زيارة صفحة نواتج Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "متغير نظرًا لتحديد الجميع/العشوائي من بنك العناصر."
+    },
+    "variable_questions_fd841920": {
+        "message": "الأسئلة المتغيرة"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "عرض النتيجة"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "لم تقم بإجادة أي نواتج حتى الآن."
+    }
+}

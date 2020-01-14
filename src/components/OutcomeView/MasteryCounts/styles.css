@@ -1,0 +1,47 @@
+@media screen and (min-width: 768px) {
+  .masteryBarGraph {
+    margin-top: 2rem;
+  }
+
+  .masteryScoreSection {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .masteryBarGraph {
+    display: none;
+  }
+
+  .masteryScoreSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+  }
+
+  .masteryScoreBoxAboveMastery {
+    color: var(--masteryColor);
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .masteryScoreBoxBelowMastery {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.masteryBarDetails {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.25rem;
+}
+
+.masteryCountText {
+  color: var(--masteryColor);
+}

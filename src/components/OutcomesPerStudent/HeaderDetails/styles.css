@@ -1,0 +1,10 @@
+.numQuestions {
+  box-sizing: border-box;
+  height: 1.5rem;
+  text-align: left;
+}
+
+.masteryBarDetails {
+  display: flex;
+  justify-content: space-between;
+}

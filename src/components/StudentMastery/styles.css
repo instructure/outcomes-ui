@@ -1,0 +1,77 @@
+/* element selector increases specificity to override instui padding */
+table th.masteryCaptionHeader {
+  padding-left: 0;
+  width: auto;
+}
+
+table th.masteryScoreHeader {
+  width: 0.0625rem;
+}
+
+table th.masteryDiffHeader {
+  padding-right: 0;
+  width: 0.0625rem;
+}
+
+table th.masteryHiddenHeader {
+  height: 0;
+  padding: 0;
+  border: 0;
+}
+
+table th.masteryOutcomeTitle {
+  padding-left: 0;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  vertical-align: top;
+  width: 10rem;
+  word-wrap: break-word; /* for IE support */
+  overflow-wrap: break-word;
+}
+
+table td.masteryOutcomeDescriptionContainer {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  vertical-align: top;
+  width: auto;
+}
+
+.masteryOutcomeDescription {
+  text-align: left;
+  overflow: hidden;
+
+  & p:first-child {
+    margin-top: 0;
+  }
+
+  & p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+table td.masteryOutcomeScore {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.emptyRow {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  padding: 1.25rem 0.3125rem 1.25rem 0;
+}
+
+.loadingRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0.3125rem 1.25rem 0;
+}
+
+
+@media screen and (min-width: 768px) {
+  table th.masteryScoreHeader {
+    white-space: nowrap;
+    padding-right: 1.5rem;
+  }
+}

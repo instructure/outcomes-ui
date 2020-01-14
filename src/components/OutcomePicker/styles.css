@@ -1,0 +1,26 @@
+.outcomeTree {
+  overflow: scroll;
+  height: 100%;
+}
+
+.outcomeContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.selectedOutcomeCollection {
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
+.selectedOutcomeCollection .outcomeDescription > p {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+
+  &:last-child {
+    margin-bottom: 0
+  }
+}

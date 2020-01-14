@@ -1,0 +1,188 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Align new outcomes"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Align outcomes"
+    },
+    "align_selected_34f35003": {
+        "message": "Align Selected"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Attached Outcomes"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Browse and add outcomes by clicking here."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "By aligning to this { artifact_type_name } if the student scores above { mastery_percent, number, percent } mastery will be achieved."
+    },
+    "cancel_caeb1e68": {
+        "message": "Cancel"
+    },
+    "close_d634289d": {
+        "message": "Close"
+    },
+    "complete_fd828dea": {
+        "message": "Complete"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Did not Meet"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Mastery"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Mastery at { mastery } pts"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } of { total } met mastery"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {No outcomes are aligned}\n    one {One outcome is aligned}\n  other {# outcomes are aligned}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 Outcome Aligned}\n  other {# Outcomes Aligned}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Question}\n  other {# Questions}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 Student}\n  other {# Students}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Group}\n  other {# Groups}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Description"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Deselect all"
+    },
+    "details_98a31b68": {
+        "message": "Details"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Did not Meet"
+    },
+    "difference_7496769c": {
+        "message": "Difference"
+    },
+    "done_54e3d4b6": {
+        "message": "Done"
+    },
+    "home_351838cd": {
+        "message": "Home"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Home level groups and outcomes"
+    },
+    "institution_average_d4be375e": {
+        "message": "Institution average"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } alignment removed"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Learning outcomes you''ve mastered"
+    },
+    "loading_bde52856": {
+        "message": "Loading"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Looks like you''re a little early"
+    },
+    "mastery_7ec348b5": {
+        "message": "Mastery"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Mastery at { mastery } pts"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Mastery calculated by decaying average. Most recent counts as { recent_percent, number, percent } of mastery weight, average of all other results count as { remain_percent, number, percent } of weight. If there is only one result, the single score will be returned."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Mastery calculated using Highest Score. Mastery score reflects the highest score of a graded assessment."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Mastery calculated by Most Recent Score. Mastery score reflects the most recent graded assessment."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Mastery calculated by number of times. Must achieve mastery at least { n_times, number } times.  Scores above mastery will be averaged to calculate final score."
+    },
+    "next_page_d2a39853": {
+        "message": "Next Page"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "No Outcomes are currently selected"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Opportunities for learning and growth"
+    },
+    "outcome_da397d20": {
+        "message": "Outcome"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Outcome Detail"
+    },
+    "previous_page_928fc112": {
+        "message": "Previous Page"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Remove { title }"
+    },
+    "saving_2521e616": {
+        "message": "Saving"
+    },
+    "select_all_f73344a8": {
+        "message": "Select all"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Selected outcomes:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Student''s Score"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Students must finish the assessment before any outcome results will show here. Check back here after some students have completed the assessment."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "The assessment has no outcomes aligned to it. Go to the Build tab to align outcomes."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "There are no opportunities available."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "There are no outcomes"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "There is no report here to show"
+    },
+    "title_ee03d132": {
+        "message": "Title"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "To add or create outcomes, visit the Canvas outcomes page."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Variable due to all/random selection from item bank"
+    },
+    "variable_questions_fd841920": {
+        "message": "Variable questions"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "View Outcome"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "You have not mastered any outcomes yet."
+    }
+}

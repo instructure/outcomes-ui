@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Alinear nuevas competencias"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Alinear competencias"
+    },
+    "align_selected_34f35003": {
+        "message": "Alinear seleccionados"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Competencias adjuntas"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Explorar y agregar competencias haciendo clic aquí."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Explore sus competencias usando las carpetas grupales."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Al alinearlo con este { artifact_type_name } si el estudiante obtiene un puntaje superior a { mastery_percent, number, percent }, alcanzará el dominio."
+    },
+    "cancel_caeb1e68": {
+        "message": "Cancelar"
+    },
+    "close_d634289d": {
+        "message": "Cerrar"
+    },
+    "complete_fd828dea": {
+        "message": "Completa"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } No alcanzó"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } Dominio"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } Dominio a los { mastery } pts"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } de { total } dominio alcanzado"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {No hay competencias alineadas}\n    one {Una competencia está alineada}\n  other {# competencias están alineadas}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {La búsqueda no dio resultados}\n    one {# resultado}\n  other {# resultados}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 competencia alineada}\n  other {# competencias alineadas}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 pregunta}\n  other {# preguntas}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 estudiante}\n  other {# estudiantes}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# grupo}\n  other {# grupos}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {#Competencia}\n  other {#Competencias}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Descripción"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Deseleccionar todo"
+    },
+    "details_98a31b68": {
+        "message": "Detalles"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "No alcanzó"
+    },
+    "difference_7496769c": {
+        "message": "Diferencia"
+    },
+    "done_54e3d4b6": {
+        "message": "Listo"
+    },
+    "home_351838cd": {
+        "message": "Página de inicio"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Grupos a nivel del hogar y competencias"
+    },
+    "institution_average_d4be375e": {
+        "message": "Promedio de la institución"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } alineación eliminada"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Competencias de aprendizaje que ha dominado"
+    },
+    "loading_bde52856": {
+        "message": "Cargando"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Cargando página { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Cargando resultados de búsqueda"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Parece que es muy pronto"
+    },
+    "mastery_7ec348b5": {
+        "message": "Dominio"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Dominio a los { mastery } pts"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Dominio calculado, según el promedio de decaimiento. El resultado más reciente se considera como el { recent_percent, number, percent } de la ponderación del dominio; el promedio de todos los demás resultados se considera como el { remain_percent, number, percent } de la ponderación. Si solo hay un resultado, se mostrará un único puntaje."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Dominio calculado, según el puntaje máximo. El puntaje del dominio refleja el puntaje máximo de una evaluación calificada."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Dominio calculado según el puntaje más reciente. El puntaje del dominio refleja la evaluación calificada más recientemente."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Dominio calculado, según n número de veces. Debe alcanzar dominio al menos { n_times, number } veces.  Los puntajes que superan el dominio se promediarán para calcular el puntaje final."
+    },
+    "next_page_d2a39853": {
+        "message": "Próxima página"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "No hay competencias seleccionados actualmente"
+    },
+    "ok_c47544a2": {
+        "message": "Aceptar"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Oportunidades de aprendizaje y crecimiento"
+    },
+    "outcome_da397d20": {
+        "message": "Competencia"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Detalles de la competencia"
+    },
+    "previous_page_928fc112": {
+        "message": "Página anterior"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Eliminar { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Resultados actualizados para la página { page } de { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Guardando"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Competencias de la búsqueda"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Competencias de la búsqueda"
+    },
+    "select_all_f73344a8": {
+        "message": "Seleccionar todo"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Competencias seleccionados:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Puntaje del estudiante"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Los estudiantes deben terminar primero la evaluación para que se muestren los resultados de competencia aquí. Vuelva a intentarlo después de que algunos estudiantes hayan completado la evaluación."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "La evaluación no tiene competencias alineadas. Ingrese a la pestaña Construcción para alinear las competencias."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "No hay oportunidades disponibles."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "No hay competencias"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "No hay ningún reporte aquí para mostrar"
+    },
+    "title_ee03d132": {
+        "message": "Título"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Para agregar o crear competencias, visite la página de competencias de Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Variable por Todos/Selección aleatoria del banco de items"
+    },
+    "variable_questions_fd841920": {
+        "message": "Preguntas variables"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Ver competencia"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Aún no ha dominado ninguna competencia."
+    }
+}

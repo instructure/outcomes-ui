@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# This hook confirms a clean lint on new code changes before pushing the code up
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local sha1> <remote ref> <remote sha1>
+
+remote="$1"
+url="$2"
+
+z40=0000000000000000000000000000000000000000
+
+which "$(npm bin)/eslint" &> /dev/null
+if [[ "$?" == 1 ]]; then
+  echo "\t\033[41mPlease install ESlint\033[0m"
+  exit 1
+fi
+
+while read local_ref local_sha remote_ref remote_sha
+do
+	if [ "$local_sha" = $z40 ]
+	then
+		# Handle delete
+		:
+	else
+		if [ "$remote_sha" = $z40 ]
+		then
+			# New branch, examine all commits
+			range="$local_sha^"
+		else
+			# Update to existing branch, examine new commits
+			range="$remote_sha..$local_sha^"
+		fi
+
+		# Check ESLINT status
+    resp=`git diff --name-only "$range" | egrep '.jsx?$' | xargs $(npm bin)/eslint --max-warnings 1`
+		if [[ "$?" -ne 0 ]]; then
+			echo >&2 "eslint errors, or too many warnings, please to fix :allthethings:!"
+      echo "$resp"
+			exit 1
+		fi
+	fi
+done
+
+echo "ESLINT says it looks good!"
+exit 0

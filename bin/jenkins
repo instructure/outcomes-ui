@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -e
+
+YARN_LOCK_SHA256=`sha256sum yarn.lock`
+
+yarn --ignore-scripts
+
+if [ "$YARN_LOCK_SHA256" != "`sha256sum yarn.lock`" ]; then
+  echo
+  echo "    The Yarn lock file appears to be out of date!";
+  echo "    Please run \"docker-compose run --rm ui yarn\",";
+  echo "    and add any lock file changes to your commit.";
+  echo
+  exit 1;
+fi
+
+yarn run lint
+
+EN_JSON_SHA256=`sha256sum translations/en.json`
+
+yarn run extract
+
+if [ "$EN_JSON_SHA256" != "`sha256sum translations/en.json`" ]; then
+  echo
+  echo "    The translations/en.json catalog appears to be out of date!";
+  echo "    Please run \"docker-compose run --rm ui yarn run extract\",";
+  echo "    and add any translation file changes to your commit.";
+  echo
+  exit 1;
+fi
+
+if [ "${GERRIT_EVENT_TYPE}" = "change-merged" ]; then
+  set +e # Don't let current issues fail the job.
+  yarn run snyk-test
+  yarn run snyk-monitor
+  set -e
+fi
+
+yarn test:headless -- --single-run --no-auto-watch --coverage

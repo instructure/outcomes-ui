@@ -1,0 +1,12 @@
+.DS_Store
+coverage/
+/.env
+**/*.log
+
+# UI
+.transifexrc
+node_modules
+**/build
+yarn-error.log
+
+.babel-cache

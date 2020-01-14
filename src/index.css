@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 1rem;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+.root {
+  background: white;
+  color: black;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+.item {
+  padding-bottom: 1rem;
+
+  & > div {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+.report {
+  max-width: calc(85vw - 128px);
+}
+
+.mastery {
+  padding-bottom: 2rem;
+}
+
+#screenreaderNotifications {
+  height: 1px;
+  width: 1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}

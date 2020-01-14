@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "對齊新學習成果"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "對齊學習成果"
+    },
+    "align_selected_34f35003": {
+        "message": "選定學習成果"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "隨附學習成果"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "按此瀏覽及添加學習成果。"
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "使用群組資料夾瀏覽您的學習成果。"
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "對齊 { artifact_type_name } 後，如學生得分高於 { mastery_percent, number, percent }，代表學生已掌握有關課題。"
+    },
+    "cancel_caeb1e68": {
+        "message": "取消"
+    },
+    "close_d634289d": {
+        "message": "關閉"
+    },
+    "complete_fd828dea": {
+        "message": "完成"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } 未達標"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } 掌握程度"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } 掌握程度 { mastery } 分"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count }  { total } 已掌握有關課題"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {未有對齊學習成果}\n    one {已對齊一項學習成果}\n  other {# 已對齊 項學習成果}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {搜索無返回結果}\n    one {# 結果}\n  other {# 結果}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {已對齊 1 項學習成果}\n  other {# 已對齊 項學習成果}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {１ 條問題}\n  other {# 問題}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 位學生}\n  other {# 學生}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# 群組}\n  other {# 群組}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# 成果}\n  other {# 成果}\n}"
+    },
+    "description_436c48d7": {
+        "message": "說明"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "取消全選"
+    },
+    "details_98a31b68": {
+        "message": "詳細資料"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "未達標"
+    },
+    "difference_7496769c": {
+        "message": "差別"
+    },
+    "done_54e3d4b6": {
+        "message": "已完成"
+    },
+    "home_351838cd": {
+        "message": "首頁"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "家庭級別小組和學習成果"
+    },
+    "institution_average_d4be375e": {
+        "message": "機構平均"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } 移除對齊"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "了解您已經掌握的學習成果"
+    },
+    "loading_bde52856": {
+        "message": "正在載入"
+    },
+    "loading_page_page_d96157d": {
+        "message": "正在載入頁面 { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "正在加載搜索結果"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "您似乎太早了"
+    },
+    "mastery_7ec348b5": {
+        "message": "掌握程度"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "掌握程度 { mastery } 分"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "掌握程度計算自衰減平均值。最近的計算為 { recent_percent, number, percent } 的精通水平加權， 所有其他結果的平均值為 { remain_percent, number, percent } 的加權。如果只有一個結果，單一分數將被返回。"
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "掌握程度計算自最高分數。掌握程度得分反映了一項評分評估的最高分數。"
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "掌握程度計算自最近得分。掌握程度得分反映最近評分的評估的情況。"
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "掌握程度計算自作答次數。須達致掌握程度至少 { n_times, number } 次。掌握程或以上的得分將被平均計算至最終得分。"
+    },
+    "next_page_d2a39853": {
+        "message": "下一頁"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "現無選取學習成果"
+    },
+    "ok_c47544a2": {
+        "message": "確定"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "學習和成長的機會"
+    },
+    "outcome_da397d20": {
+        "message": "成果"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "成果詳細資料"
+    },
+    "previous_page_928fc112": {
+        "message": "上一頁"
+    },
+    "remove_title_f3f4683a": {
+        "message": "移除{ title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "已更新頁面 { page } 的結果，共 { totalPages } 頁"
+    },
+    "saving_2521e616": {
+        "message": "正在保存"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "搜索結果"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "搜索結果"
+    },
+    "select_all_f73344a8": {
+        "message": "全選"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "所選學習成果："
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "學生分數"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "學生須先完成評估，才能在此處顯示學習成果結果。請待部分學生已完成評估後，再返回此處查看。"
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "評估沒有與之相符的學習成果。請至配置標籤配對學習成果。"
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "沒有可使用的機會。"
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "沒有學習成果"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "此處沒有可顯示的報告"
+    },
+    "title_ee03d132": {
+        "message": "標題"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "要添加或創建學習成果，請前往 Canvas 學習成果內容頁。"
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "變數由於項目題庫中的所有/隨機選擇"
+    },
+    "variable_questions_fd841920": {
+        "message": "變數問題"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "檢視成果"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "您還沒有掌握任何學習成果。"
+    }
+}

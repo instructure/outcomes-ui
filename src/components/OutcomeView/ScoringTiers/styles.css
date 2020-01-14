@@ -1,0 +1,63 @@
+.score {
+  border: 1px solid #ccc;
+  color: #888;
+  border-radius: 100%;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.1rem;
+  margin-right: 1.0rem;
+}
+
+.description {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mastery {
+  margin-top: 0.25rem;
+}
+
+.rating {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.scoringTier {
+  margin-bottom: 1.0rem;
+}
+
+.masteryCount {
+  font-weight: bold;
+  margin-left: 3.5rem;
+}
+
+.gap:not(:empty) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  margin-left: 3.5rem;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.pill.mastery {
+  color: var(--masteryColor);
+}
+
+.pill.average {
+  color: var(--averageColor)
+}
+
+.pill:not(:last-child) {
+  margin-bottom: 0.75rem;
+}

@@ -1,0 +1,209 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Cysoni deilliannau newydd"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Cysoni Deilliannau"
+    },
+    "align_selected_34f35003": {
+        "message": "Cysoni''r rhai dan sylw"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Deilliannau wedi’u hatodi"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Mae modd pori drwy ddeilliannau a’u hychwanegu drwy glicio yma."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Porwch eich deilliannau gan ddefnyddio’r ffolderi grŵp."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Drwy alinio â''r { artifact_type_name } yma, os bydd y myfyriwr yn cael sgôr uwch na { mastery_percent, number, percent } bydd yn cyrraedd lefel meistroli."
+    },
+    "cancel_caeb1e68": {
+        "message": "Canslo"
+    },
+    "close_d634289d": {
+        "message": "Cau"
+    },
+    "complete_fd828dea": {
+        "message": "Cwblhau"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "{ count } Heb gyrraedd"
+    },
+    "count_mastery_9808a307": {
+        "message": "{ count } ar Lefel Meistroli"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "{ count } ar Lefel Meistroli ar ôl cyrraedd { mastery } pwynt"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } o { total } wedi cyrraedd lefel meistroli"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Dim deilliannau wedi’u cysoni}\n    one {Un deilliant wedi''i gysoni}\n  other {# deilliant wedi’i gysoni}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Mae’r broses chwilio wedi methu dod o hyd i unrhyw ganlyniadau}\n    one {# canlyniad}\n  other {# canlyniad}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 Deilliant wedi’i Gysoni}\n  other {# Deilliant wedi’i Gysoni}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Cwestiwn}\n  other {# Cwestiwn}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 Myfyriwr}\n  other {# Myfyriwr}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Grŵp}\n  other {# Grŵp}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Deilliant}\n  other {# Deilliant}\n}"
+    },
+    "description_436c48d7": {
+        "message": "Disgrifiad"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Dad-ddewis y cyfan"
+    },
+    "details_98a31b68": {
+        "message": "Manylion"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Heb gyrraedd"
+    },
+    "difference_7496769c": {
+        "message": "Gwahaniaeth"
+    },
+    "done_54e3d4b6": {
+        "message": "Wedi gorffen"
+    },
+    "home_351838cd": {
+        "message": "Hafan"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Grwpiau a deilliannau ar lefel hafan"
+    },
+    "institution_average_d4be375e": {
+        "message": "Cyfartaledd Sefydliad"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "{ label } aliniad wedi’i dynnu"
+    },
+    "learning_outcomes_you_ve_mastered_672aaa66": {
+        "message": "Deilliannau Dysgu rydych wedi''u Meistroli"
+    },
+    "loading_bde52856": {
+        "message": "Wrthi’n llwytho"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Wrthi’n llwytho tudalen { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Wrthi’n llwytho canlyniadau chwilio"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Rydych chi braidd yn fuan"
+    },
+    "mastery_7ec348b5": {
+        "message": "Lefel Meistroli"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Lefel Meistroli ar ôl cyrraedd { mastery } pwynt"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Wedi cyfrifo’r lefel meistroli drwy Gyfartaledd sy’n Edwino. Mae''r niferoedd mwyaf diweddar yn cyfrif fel { recent_percent, number, percent } o bwysiad y lefel meistroli, mae cyfartaledd yr holl ganlyniadau eraill yn cyfrif fel { remain_percent, number, percent } o''r pwysiad. Os dim ond un canlyniad sydd, bydd un sgôr yn cael ei chyflwyno."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Lefel Meistrolaeth wedi’i chyfrifo yn ôl Sgôr Uchaf. Mae sgôr meistroli yn adlewyrchu sgôr uchaf aseiniad wedi''i raddio."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Lefel Meistroli wedi’i chyfrifo yn ôl Sgôr Ddiweddaraf. Mae sgôr meistroli yn adlewyrchu’r aseiniad wedi''i raddio mwyaf diweddar."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Wedi cyfrifo’r lefel meistroli drwy n Nifer o Weithiau. Rhaid i chi gyrraedd y lefel meistroli o leiaf { n_times, number } gwaith.  Bydd cymedr y sgoriau sy’n uwch na lefel meistroli yn cael ei gyfrifo i roi sgôr derfynol."
+    },
+    "next_page_d2a39853": {
+        "message": "Tudalen Nesaf"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Dim Deilliannau wedi’u dewis ar hyn o bryd"
+    },
+    "ok_c47544a2": {
+        "message": "Iawn"
+    },
+    "opportunities_for_learning_and_growth_231b48db": {
+        "message": "Cyfleoedd Dysgu a Thwf"
+    },
+    "outcome_da397d20": {
+        "message": "Deilliant"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Manylion y Deilliant"
+    },
+    "previous_page_928fc112": {
+        "message": "Tudalen Flaenorol"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Tynnu { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Canlyniadau wedi’u diweddaru ar gyfer tudalen { page } o { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Wrthi’n cadw"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Deilliannau chwilio"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Deilliannau Chwilio"
+    },
+    "select_all_f73344a8": {
+        "message": "Dewis y cyfan"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Deilliannau wedi’u dewis:"
+    },
+    "student_s_score_34d8a1ca": {
+        "message": "Sgôr Myfyriwr"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Rhaid i fyfyrwyr orffen yr aseiniad hwn cyn bydd canlyniadau deilliannau yn dangos yma. Dewch yn ôl yma i weld ar ôl i rai myfyrwyr gwblhau’r asesiad."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Does dim deilliannau wedi’u cysoni â''r asesiad. Ewch i''r tab Adeiladu i gysoni deilliannau."
+    },
+    "there_are_no_opportunities_available_3a3b0554": {
+        "message": "Dim cyfleoedd ar gael."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Does dim deilliannau"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Does dim adroddiad i’w ddangos yma"
+    },
+    "title_ee03d132": {
+        "message": "Teitl"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "I ychwanegu neu greu deilliannau, ewch i dudalen deilliannau Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Newidiol o ganlyniad i ddewis Y Cyfan/Ar Hap o''r banc eitemau"
+    },
+    "variable_questions_fd841920": {
+        "message": "Cwestiynau Newidiol"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Gweld y Deilliant"
+    },
+    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
+        "message": "Dydych chi ddim wedi meistroli unrhyw ddeilliannau eto."
+    }
+}
