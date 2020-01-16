@@ -4,8 +4,8 @@ Outcomes uses [mocha], [chai], and [karma] for our test suite. Where applicable,
 we have `__tests__` directories located at any level of the filesystem
 where tests can be created using the following convention:
 
-logic: `ui/src/components/lol.js`
-tests: `ui/src/components/__tests__/lol.test.js`
+logic: `src/components/lol.js`
+tests: `src/components/__tests__/lol.test.js`
 
 To get setup for testing, make sure you have the `karma` service listed
 in your `docker-compose.override.yml` and the `karma` image built. Then
@@ -50,4 +50,4 @@ To run a code coverage report add the following script argument:
 After running tests as described above, you'll see a brief text overview
 in your logs and can also inspect a generated HTML report like so:
 
-`open ui/coverage/ui/index.html`
+`open coverage/ui/index.html`

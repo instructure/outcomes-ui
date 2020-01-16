@@ -17,7 +17,7 @@ function or plain object `zomg.js` or `zomgFrd.js`.
 The important bits of our application are organized like so:
 
 ```
-ui
+outcomes-ui
 └──src
    ├──components
    ├──containers
@@ -63,8 +63,8 @@ The `store` directory captures all logic related to managing the redux
 store, which includes reducers, selectors, and action creators. The
 directory is namespaced further by application domain. For example:
 
-`ui/src/store/admin/reducer.js`
+`src/store/admin/reducer.js`
 _Admin reducer as a default export with all selectors as named exports_
 
-`ui/src/store/admin/action.js`
+`src/store/admin/action.js`
 _All the admin action creators as named exports, including thunks etc_

@@ -2,6 +2,7 @@
 
 This library contains learning standards components used in [Canvas LMS](https://github.com/instructure/canvas-lms), including outcome alignment and reporting.
 
+Components are based on React and Redux, and we follow these organizational [conventions](doc/conventions.md).
 
 [![npm](https://img.shields.io/npm/v/outcomes-react.svg)](https://www.npmjs.com/package/outcomes-react)
 
