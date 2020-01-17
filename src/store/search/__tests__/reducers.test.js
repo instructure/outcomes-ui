@@ -8,8 +8,10 @@ describe('search/reducers', () => {
     searchText: 'lion',
     isLoading: false,
     entries: [],
-    page: 1,
-    total: 10
+    pagination: {
+      page: 1,
+      total: 10
+    }
   })
 
   describe('searchText', () => {
@@ -36,14 +38,14 @@ describe('search/reducers', () => {
   describe('page', () => {
     it('is set by setSearchPage', () => {
       const next = reducer(state, actions.setSearchPage(111))
-      expect(next.get('page')).to.equal(111)
+      expect(next.get('pagination').get('page')).to.equal(111)
     })
   })
 
   describe('total', () => {
     it('is set by setSearchTotal', () => {
       const next = reducer(state, actions.setSearchTotal(9))
-      expect(next.get('total')).to.equal(9)
+      expect(next.get('pagination').get('total')).to.equal(9)
     })
   })
 })

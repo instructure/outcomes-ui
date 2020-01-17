@@ -8,15 +8,14 @@ import OutcomeList from '../index'
 describe('OutcomeList', () => {
   function makeProps (props = {}) {
     return Object.assign({
-      outcomeList: [
+      outcomes: [
         {id: '1', label: 'foo', title: 'bar' }
       ],
       setFocusedOutcome: sinon.spy(),
       isOutcomeSelected: sinon.spy(),
       selectOutcomeIds: sinon.spy(),
       deselectOutcomeIds: sinon.spy(),
-      outcomePickerState: 'choosing',
-      setOutcomePickerState: sinon.spy(),
+      isLoading: false,
     }, props)
   }
 
@@ -26,9 +25,14 @@ describe('OutcomeList', () => {
   })
 
   it('renders loading spinner when state is loading', () => {
-    const props = makeProps({ outcomePickerState: 'loading' })
+    const props = makeProps({ isLoading: true })
     const wrapper = shallow(<OutcomeList {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('Spinner')).to.have.length(1)
+  })
+
+  it('renders pagination', () => {
+    const wrapper = shallow(<OutcomeList {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Pagination')).to.have.length(1)
   })
 
   it('meets a11y standards', () => {

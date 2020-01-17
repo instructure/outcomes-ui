@@ -14,6 +14,11 @@ const toJson = (response) => {
   return response.json()
 }
 
+const getTotal = (response) => {
+  const total = response.headers.get('total')
+  return total ? Number.parseInt(total) : 0
+}
+
 class OutcomesService {
   get (host, jwt, path) {
     return fetch(host + path, {
@@ -148,23 +153,24 @@ class OutcomesService {
       .then(toJson)
   }
 
-  listOutcomes (host, jwt, contextUuid = '') {
-    let params = `?&per_page=10`
+  listOutcomes (host, jwt, page, contextUuid = '') {
+    const params = { per_page: 10, page }
     if (contextUuid) {
-      params += `&${queryString.stringify({
-        context_uuid: contextUuid
-      })}`
+      params['context_uuid'] = contextUuid
     }
-    return this.get(host, jwt, `/api/outcomes/list${params}`)
+    let total = 0
+    return this.get(host, jwt, `/api/outcomes/list?${queryString.stringify(params)}`)
       .then(checkResponse)
+      .then((response) => {
+        total = getTotal(response)
+        return response
+      })
       .then(toJson)
+      .then((json) => ({ outcomes: json, total }))
   }
 
   getSearchResults (host, jwt, text, page, contextUuid = '') {
-    let params = {
-      text,
-      page
-    }
+    const params = { text, page }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
     }
@@ -172,10 +178,7 @@ class OutcomesService {
     return this.get(host, jwt, `/api/outcomes/search?${queryString.stringify(params)}`)
       .then(checkResponse)
       .then((response) => {
-        total = response.headers.get('total')
-        if (total) {
-          total = Number.parseInt(total)
-        }
+        total = getTotal(response)
         return response
       })
       .then(toJson)

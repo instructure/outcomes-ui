@@ -22,7 +22,9 @@ import {
   isOutcomeSelected,
 } from '../store/OutcomePicker/selectors'
 import {
-  getOutcomeList
+  getOutcomeList,
+  getListPage,
+  getListTotal
 } from '../store/OutcomeTray/selectors'
 import { getAnyOutcome } from '../store/alignments/selectors'
 import OutcomeTray from '../components/OutcomeTray'
@@ -42,7 +44,9 @@ function mapStateToProps (state, ownProps) {
     selectedOutcomeIds: getSelectedOutcomeIds(state, scope),
     isOutcomeSelected: isOutcomeSelected.bind(null, state, scope),
     isOutcomeGroup: isOutcomeGroup.bind(null, state, scope),
-    outcomeList: getOutcomeList(state, scope),
+    outcomes: getOutcomeList(state),
+    listPage: getListPage(state),
+    listTotal: getListTotal(state),
   }
 }
 

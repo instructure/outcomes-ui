@@ -4,6 +4,10 @@ function restrict (state) {
   return state.getIn(['OutcomePicker']).get('search') || Map()
 }
 
+function pagination (state) {
+  return restrict(state).get('pagination') || Map()
+}
+
 export function getSearchText (state) {
   return restrict(state).get('searchText')
 }
@@ -18,9 +22,9 @@ export function getSearchEntries (state) {
 }
 
 export function getSearchPage (state) {
-  return restrict(state).get('page')
+  return pagination(state).get('page')
 }
 
 export function getSearchTotal (state) {
-  return restrict(state).get('total')
+  return pagination(state).get('total')
 }

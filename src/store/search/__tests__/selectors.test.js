@@ -15,8 +15,10 @@ describe('search/selectors', () => {
         searchText: 'abc',
         isLoading: true,
         entries: [],
-        page: 7,
-        total: 100
+        pagination: {
+          page: 7,
+          total: 100
+        }
       }
     }
   })

@@ -356,4 +356,37 @@ describe('OutcomesService', () => {
         })
     })
   })
+
+  describe('listOutcomes', () => {
+    it('uses correct query', () => {
+      fetchMock.getOnce((url, opts) => {
+        expect(url).to.match(/\/outcomes\/list\?context_uuid=def&page=999&per_page=10$/)
+        return true
+      }, [])
+      return subject.listOutcomes(host, jwt, 999, 'def')
+    })
+
+    it('resolves with json on success', () => {
+      const body = [
+        { id: 1, title: 'abc', label: '123' },
+        { id: 2, title: 'foo', label: 'bar' }
+      ]
+      const headers = {
+        total: 101
+      }
+      mockGet('/api/outcomes/list?context_uuid=def&page=999&per_page=10', { body, headers })
+      return subject.listOutcomes(host, jwt, 999, 'def')
+        .then((result) => {
+          expect(result).to.deep.equal({outcomes: body, total: 101})
+        })
+    })
+
+    it('rejects on error', () => {
+      mockGet('/api/outcomes/list?context_uuid=def&page=999&per_page=10', 500)
+      return subject.listOutcomes(host, jwt, 999, 'def')
+        .catch((err) => {
+          expect(err).to.have.property('status', 500)
+        })
+    })
+  })
 })

@@ -58,6 +58,8 @@ export const SET_SEARCH_TOTAL = 'SET_SEARCH_TOTAL'
 * tray
 */
 export const SET_OUTCOME_LIST = 'SET_OUTCOME_LIST'
+export const SET_LIST_PAGE = 'SET_LIST_PAGE'
+export const SET_LIST_TOTAL = 'SET_LIST_TOTAL'
 
 /*
  * student mastery

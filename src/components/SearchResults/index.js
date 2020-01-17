@@ -5,13 +5,13 @@ import themeable from '@instructure/ui-themeable'
 import { Text } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-flex'
 import { View } from '@instructure/ui-layout'
-import { Pagination } from '@instructure/ui-pagination'
 import { Spinner } from '@instructure/ui-spinner'
 import isEqual from 'lodash/isEqual'
 
 import t from 'format-message'
 import OutcomeFolder from '../OutcomeFolder'
 import OutcomeCheckbox from '../OutcomeCheckbox'
+import Pagination from '../Pagination'
 import theme from '../theme'
 import styles from './styles.css'
 
@@ -105,23 +105,15 @@ class SearchResults extends React.Component {
     return Math.ceil(searchTotal / RESULTS_PER_PAGE)
   }
 
-  renderPage (i) {
+  renderPagination () {
     const { searchPage, updateSearchPage } = this.props
     return (
-      <Pagination.Page key={i} current={i === searchPage} onClick={() => updateSearchPage(i)} data-automation='searchResults__pageButton'>
-        {t.number(i)}
-      </Pagination.Page>
+     <Pagination
+        page={searchPage}
+        updatePage={updateSearchPage}
+        numPages={this.getPageCount()}
+      />
     )
-  }
-  renderPagination () {
-    const numPages = this.getPageCount()
-    if (numPages > 1) {
-      return (
-        <Pagination margin="small" variant="compact" labelNext={t('Next Page')} labelPrev={t('Previous Page')}>
-          { Array(numPages).fill(0).map((_value, i) => this.renderPage(i+1)) }
-        </Pagination>
-      )
-    }
   }
 
   getResultCountText () {

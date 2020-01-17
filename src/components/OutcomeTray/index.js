@@ -41,11 +41,13 @@ export default class OutcomeTray extends React.Component {
     placement: PropTypes.string,
     outcomePickerState: PropTypes.string.isRequired,
     setOutcomePickerState: PropTypes.func.isRequired,
-    loadOutcomeTray: PropTypes.func.isRequired,
     searchTotal: PropTypes.number.isRequired,
     searchPage: PropTypes.number.isRequired,
-    outcomeList: PropTypes.array.isRequired,
+    outcomes: PropTypes.array.isRequired,
+    getOutcomesList: PropTypes.func.isRequired,
     updateSearchPage: PropTypes.func.isRequired,
+    listPage: PropTypes.number.isRequired,
+    listTotal: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -57,11 +59,11 @@ export default class OutcomeTray extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { loadOutcomeTray, outcomePickerState, updateSearchText } = this.props
+    const { getOutcomesList, outcomePickerState, updateSearchText } = this.props
     const closed = outcomePickerState === "closed"
 
     if (prevProps.outcomePickerState === "closed" && !closed) {
-      loadOutcomeTray()
+      getOutcomesList({ page: 1 })
       updateSearchText("")
     }
   }
@@ -75,14 +77,17 @@ export default class OutcomeTray extends React.Component {
     return true
   }
 
-  renderOutcomeList () {
+  renderList () {
     const {
-      outcomeList,
+      outcomes,
       setFocusedOutcome,
       isOutcomeSelected,
       selectOutcomeIds,
       deselectOutcomeIds,
-      outcomePickerState
+      outcomePickerState,
+      listPage,
+      listTotal,
+      getOutcomesList
     } = this.props
 
     return (
@@ -90,18 +95,21 @@ export default class OutcomeTray extends React.Component {
         display="block"
         padding="small none none none">
         <OutcomeList
-          outcomeList={outcomeList}
+          outcomes={outcomes}
           setFocusedOutcome={setFocusedOutcome}
           isOutcomeSelected={isOutcomeSelected}
           selectOutcomeIds={selectOutcomeIds}
           deselectOutcomeIds={deselectOutcomeIds}
-          outcomePickerState={outcomePickerState}
+          isLoading={outcomePickerState === 'loading'}
+          listPage={listPage}
+          listTotal={listTotal}
+          getOutcomesList={getOutcomesList}
         />
       </View>
     )
   }
 
-  renderSearchMode = () => {
+  renderSearchMode () {
     const {
       screenreaderNotification,
       setSearchLoading,
@@ -158,7 +166,7 @@ export default class OutcomeTray extends React.Component {
         </Flex>
       )
     }
-    return searchText ? this.renderSearchMode() : this.renderOutcomeList()
+    return searchText ? this.renderSearchMode() : this.renderList()
   }
 
   render () {

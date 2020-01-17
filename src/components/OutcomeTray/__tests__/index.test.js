@@ -28,9 +28,11 @@ describe('OutcomeTray', () => {
       setOutcomePickerState: sinon.spy(),
       searchTotal: 0,
       searchPage: 0,
-      loadOutcomeTray: sinon.spy(),
-      outcomeList: [],
-      scope: 'scopeForTest'
+      getOutcomesList: sinon.spy(),
+      outcomes: [],
+      scope: 'scopeForTest',
+      listPage: 0,
+      listTotal: 0,
     }, props)
   }
 

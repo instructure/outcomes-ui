@@ -22,7 +22,10 @@ describe('search/actions', () => {
     OutcomePicker: {
       search: {
         searchText: 'abc',
-        page: 1,
+        pagination: {
+          page: 1,
+          total: null,
+        },
         isLoading: true,
         entries: []
       }
