@@ -162,6 +162,7 @@ function rerender () {
             alignmentSetId="d15f9530-81af-4ab5-9da7-7b49ee1aac0d"
             artifactType={artifactType}
             artifactId={artifactId}
+            contextUuid="dummy_uuid"
             emptySetHeading="Align Institution outcomes to this quiz."
             displayMasteryDescription
             displayMasteryPercentText
@@ -171,7 +172,7 @@ function rerender () {
           <DemoAlignment
             alignmentSetId=""
             name="Question #100"
-            contextUuid={null}
+            contextUuid="dummy_uuid"
             artifactType="quizzes.item"
             artifactId="100"
             emptySetHeading="Align Institution outcomes to this question."
