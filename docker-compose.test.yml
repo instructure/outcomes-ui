@@ -1,6 +1,17 @@
 version: '2'
 
 services:
+  gergich:
+    image: instructure/gergich
+    environment:
+      GERGICH_KEY: "${GERGICH_KEY}"
+      GERRIT_PROJECT: "${GERRIT_PROJECT}"
+      GERRIT_HOST: "${GERRIT_HOST}"
+      GERRIT_BRANCH: "${GERRIT_BRANCH}"
+    volumes:
+      - '.git:/app/.git'
+      - 'tmp:/tmp'
+
   karma:
     build:
       context: .
@@ -14,3 +25,4 @@ services:
 volumes:
   karma-modules: {}
   karma-translations: {}
+  tmp: {}

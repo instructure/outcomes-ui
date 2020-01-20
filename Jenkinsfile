@@ -1,4 +1,5 @@
 #! /usr/bin/env groovy
+gergich_msg = ''
 
 def verify_lockfile_up_to_date() {
   def exit_status = 0
@@ -79,7 +80,11 @@ pipeline {
       steps {
         script {
           echo 'Running ESLint'
-          sh 'docker-compose run --rm karma yarn run lint'
+          sh '''#!/usr/bin/env bash
+          set -o pipefail
+          docker-compose run --rm karma yarn run lint \
+            | docker-compose run --rm gergich capture eslint -
+          '''
 
           echo 'Verifying Translations'
           def translations_status = verify_translations_up_to_date()
@@ -111,6 +116,7 @@ pipeline {
             def ui_coverage = sh (script: 'grep -B 1 "Lines" ui_coverage/index.html | head -1 | grep -Eo "[0-9]+\\.[0-9]+\\%"',
               returnStdout: true
             ).trim()
+            gergich_msg += ":js: <$env.BUILD_URL/UI_20Coverage_20Report/|${ui_coverage}>"
 
             if (env.GERRIT_EVENT_TYPE == "change-merged") {
               // publish html
@@ -130,6 +136,11 @@ pipeline {
   }
 
   post {
+    always {
+      sh "docker-compose run --rm gergich message \"${gergich_msg}\""
+      sh 'docker-compose run --rm gergich status'
+      sh 'docker-compose run --rm gergich publish'
+    }
     cleanup {
       sh 'if [ -d "ui_coverage" ]; then rm -rf "ui_coverage"; fi'
       sh 'docker-compose down --volumes --remove-orphans --rmi all'
