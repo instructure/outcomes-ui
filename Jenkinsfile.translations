@@ -34,7 +34,7 @@ pipeline {
         ],
         ) {
           // Build UI Container
-          sh 'docker build --tag ui:latest ui'
+          sh 'docker build -f Dockerfile --tag ui:latest .'
 
           // execute the sync command to push and pull catalogs.
           sh '''
@@ -54,11 +54,11 @@ pipeline {
           '''
 
           // copy out translation files
-          sh 'docker cp translations:/usr/src/app/translations/. ui/translations'
+          sh 'docker cp translations:/usr/src/app/translations/. translations'
 
           // Remove empty/missing strings from catalogs.
           sh '''#!/bin/bash
-            for file in $(ls ui/translations/*.json | grep -v ui/translations/en.json); do
+            for file in $(ls translations/*.json | grep -v translations/en.json); do
               jq --indent 4 'with_entries(select(.value.message != ""))' $file > tmp.json && mv tmp.json $file
             done
           '''
