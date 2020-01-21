@@ -16,7 +16,7 @@ export const setListTotal = createAction(SET_LIST_TOTAL)
 
 export const getOutcomesList = ({ page } = {}) => {
   return (dispatch, getState, _arg, scope) => {
-    const initialPage = page || getListPage(getState())
+    const initialPage = page || getListPage(getState(), scope)
     if (page) {
       dispatch(setListPage(page))
     }
@@ -30,7 +30,7 @@ export const getOutcomesList = ({ page } = {}) => {
         args: [host, jwt, initialPage, contextUuid]
       }
     }).then((json) => {
-      if (getListPage(getState()) === initialPage) {
+      if (getListPage(getState(), scope) === initialPage) {
         dispatch(setOutcomeList(json.outcomes))
         dispatch(setListTotal(json.total))
         dispatch(setOutcomePickerState('choosing'))

@@ -1,30 +1,30 @@
 import { Map } from 'immutable'
 
-function restrict (state) {
-  return state.getIn(['OutcomePicker']).get('search') || Map()
+function restrict (state, scope) {
+  return state.getIn([scope, 'OutcomePicker']).get('search') || Map()
 }
 
-function pagination (state) {
-  return restrict(state).get('pagination') || Map()
+function pagination (state, scope) {
+  return restrict(state, scope).get('pagination') || Map()
 }
 
-export function getSearchText (state) {
-  return restrict(state).get('searchText')
+export function getSearchText (state, scope) {
+  return restrict(state, scope).get('searchText')
 }
 
-export function getIsSearchLoading (state) {
-  return restrict(state).get('isLoading')
+export function getIsSearchLoading (state, scope) {
+  return restrict(state, scope).get('isLoading')
 }
 
-export function getSearchEntries (state) {
-  const entries = restrict(state).get('entries')
+export function getSearchEntries (state, scope) {
+  const entries = restrict(state, scope).get('entries')
   return entries ? entries.toJS() : []
 }
 
-export function getSearchPage (state) {
-  return pagination(state).get('page')
+export function getSearchPage (state, scope) {
+  return pagination(state, scope).get('page')
 }
 
-export function getSearchTotal (state) {
-  return pagination(state).get('total')
+export function getSearchTotal (state, scope) {
+  return pagination(state, scope).get('total')
 }

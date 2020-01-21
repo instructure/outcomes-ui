@@ -9,14 +9,16 @@ import ConnectedOutcomeTray from '../ConnectedOutcomeTray'
 describe('ConnectedOutcomeTray', () => {
   it('renders', () => {
     const store = createMockStore(fromJS({
-      OutcomePicker: {
-        state: 'loading',
-        search: {
-          searchText: 'testing',
-          isLoading: false,
-          entries: []
-        },
-        scope: 'scopeForTest'
+      scopeForTest: {
+        OutcomePicker: {
+          state: 'loading',
+          search: {
+            searchText: 'testing',
+            isLoading: false,
+            entries: []
+          },
+          scope: 'scopeForTest'
+        }
       }
     }))
     //

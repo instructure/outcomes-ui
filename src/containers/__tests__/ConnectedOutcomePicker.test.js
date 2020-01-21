@@ -9,11 +9,13 @@ import ConnectedOutcomePicker from '../ConnectedOutcomePicker'
 describe('ConnectedOutcomePicker', () => {
   it('renders', () => {
     const store = createMockStore(fromJS({
-      OutcomePicker: {
-        focusedOutcome: null,
-        state: 'loading',
-        activeChildren: [],
-        scope: 'scopeForTest'
+      scopeForTest: {
+        OutcomePicker: {
+          focusedOutcome: null,
+          state: 'loading',
+          activeChildren: [],
+          scope: 'scopeForTest'
+        }
       }
     }))
     const wrapper = mount(

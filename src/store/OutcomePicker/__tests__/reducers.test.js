@@ -99,7 +99,6 @@ describe('OutcomePicker/reducers', () => {
       const newState = reduce(state, RESET_OUTCOME_PICKER, 'scopeForTest')
       expect(newState.get('state')).to.equal('closed') // eslint-disable-line no-console
       expect(newState.get('selected').toJS()).to.deep.equal([])
-      expect(newState.get('scope')).to.equal('')
     })
   })
 })

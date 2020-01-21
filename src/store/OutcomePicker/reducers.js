@@ -43,10 +43,6 @@ const state = handleActions({
   SET_OUTCOME_PICKER_STATE: (state, action) => action.payload
 }, 'closed')
 
-const scope = handleActions({
-  SET_SCOPE: (state, action) => action.payload
-}, '')
-
 const OutcomePickerReducer = combineReducers({
   state,
   selected,
@@ -55,7 +51,6 @@ const OutcomePickerReducer = combineReducers({
   expandedIds,
   search,
   tray,
-  scope,
 })
 
 export default (state, action) => {

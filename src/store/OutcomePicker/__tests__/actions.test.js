@@ -7,15 +7,15 @@ import {
   UNSELECT_OUTCOME_IDS,
   SET_SELECTED_OUTCOME_IDS,
   SET_OUTCOME_PICKER_STATE,
-  SET_SCOPE,
   RESET_OUTCOME_PICKER
 } from '../../../constants'
 import createMockStore, { scopeActions } from '../../../test/createMockStore'
 import * as actions from '../actions'
 import { setError, setScoringMethod } from '../../../store/context/actions'
 import { setAlignments } from '../../alignments/actions'
+import { setScope } from '../../activePicker/actions'
 
-const scopedActions = scopeActions({ ...actions, setError, setScoringMethod, setAlignments })
+const scopedActions = scopeActions({ ...actions, setError, setScoringMethod, setAlignments, setScope })
 
 describe('OutcomePicker/actions', () => {
   describe('selectOutcomeIds', () => {
@@ -175,11 +175,11 @@ describe('OutcomePicker/actions', () => {
         config: {
           contextUuid: 'course_100'
         },
+        OutcomePicker: {
+          selected: ['1', '2'],
+          scope: 'scopeForTest',
+        }
       },
-      OutcomePicker: {
-        selected: ['1', '2'],
-        scope: 'scopeForTest',
-      }
     })
 
     it('wraps its calls in setOutcomePickerState', () => {
@@ -267,11 +267,13 @@ describe('OutcomePicker/actions', () => {
     })
   })
 
-  describe('setScope', () => {
-    it('creates an action', () => {
-      const action = actions.setScope('valid-scope')
-      expect(action.type).to.equal(SET_SCOPE)
-      expect(action.payload).to.equal('valid-scope')
+  describe('closeOutcomePicker', () => {
+    it('dispatches flow in the correct order', () => {
+    const store = createMockStore()
+      store.dispatch(actions.closeOutcomePicker())
+      expect(store.getActions()[0]).to.deep.equal(scopedActions.setScope(''))
+      expect(store.getActions()[1]).to.deep.equal(scopedActions.setOutcomePickerState('closed'))
+      expect(store.getActions()).to.have.length(2)
     })
   })
 })

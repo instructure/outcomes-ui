@@ -2,36 +2,36 @@ import { Map } from 'immutable'
 
 import { getOutcome, getOutcomeSummary } from '../context/selectors'
 
-function restrict (state) {
-  return state.getIn(['OutcomePicker']) || Map()
+function restrict (state, scope) {
+  return state.getIn([scope, 'OutcomePicker']) || Map()
 }
 
 export function getSelectedOutcomeIds (state, scope) {
-  const ids = restrict(state).get('selected')
+  const ids = restrict(state, scope).get('selected')
   return ids ? ids.toJS() : []
 }
 
 export function getFocusedOutcome (state, scope) {
-  return restrict(state).get('focusedOutcome')
+  return restrict(state, scope).get('focusedOutcome')
 }
 
 export function getExpandedIds (state, scope) {
-  const ids = restrict(state).get('expandedIds')
+  const ids = restrict(state, scope).get('expandedIds')
   return ids ? ids.toJS() : []
 }
 
 export function isOutcomeSelected (state, scope, id) {
-  const ids = restrict(state).get('selected')
+  const ids = restrict(state, scope).get('selected')
   return ids ? ids.has(id.toString()) : false
 }
 
 export function anyOutcomeSelected (state, scope) {
-  const ids = restrict(state).get('selected')
+  const ids = restrict(state, scope).get('selected')
   return ids ? !ids.isEmpty() : false
 }
 
 export function getActiveCollectionId (state, scope) {
-  return restrict(state).get('activeCollection')
+  return restrict(state, scope).get('activeCollection')
 }
 
 export function getActiveOutcomeHeader (state, scope) {
@@ -60,13 +60,7 @@ export function getActiveOutcomeDescription (state, scope) {
   return outcome ? outcome.description : ''
 }
 
-export function getOutcomePickerState (state, scope) {
-  const pickerState = restrict(state)
-  if (pickerState.get('scope') !== scope) {
-    return 'closed'
-  }
-  return pickerState.get('state')
-}
+export const getOutcomePickerState = (state, scope) => restrict(state, scope).get('state')
 
 export function getActiveChildrenIds (state, scope) {
   const activeId = getActiveCollectionId(state, scope)

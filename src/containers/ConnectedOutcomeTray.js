@@ -1,6 +1,7 @@
 import { bindActionCreators as bindScopedActionCreators } from 'multireducer'
 import { connect } from 'react-redux'
 import * as contextActions from '../store/context/actions'
+import * as activePickerActions from '../store/activePicker/actions'
 import * as searchActions from '../store/search/actions'
 import * as outcomePickerActions from '../store/OutcomePicker/actions'
 import * as trayActions from '../store/OutcomeTray/actions'
@@ -28,6 +29,7 @@ import {
 } from '../store/OutcomeTray/selectors'
 import { getAnyOutcome } from '../store/alignments/selectors'
 import OutcomeTray from '../components/OutcomeTray'
+import { isOpen } from '../store/activePicker/selectors'
 
 function mapStateToProps (state, ownProps) {
   const { scope } = ownProps
@@ -40,13 +42,14 @@ function mapStateToProps (state, ownProps) {
     getOutcome: getAnyOutcome.bind(null, state, scope),
     getOutcomeSummary: getOutcomeSummary.bind(null, state, scope),
     focusedOutcome: getFocusedOutcome(state, scope),
-    outcomePickerState: getOutcomePickerState(state, scope),
+    isOpen: isOpen(state, scope),
+    isFetching: getOutcomePickerState(state, scope) === 'loading',
     selectedOutcomeIds: getSelectedOutcomeIds(state, scope),
     isOutcomeSelected: isOutcomeSelected.bind(null, state, scope),
     isOutcomeGroup: isOutcomeGroup.bind(null, state, scope),
-    outcomes: getOutcomeList(state),
-    listPage: getListPage(state),
-    listTotal: getListTotal(state),
+    outcomes: getOutcomeList(state, scope),
+    listPage: getListPage(state, scope),
+    listTotal: getListTotal(state, scope)
   }
 }
 
@@ -54,6 +57,7 @@ function mapDispatchToProps (dispatch, ownProps) {
   const { screenreaderNotification, scope } = ownProps
   return {
     ...bindScopedActionCreators(outcomePickerActions, dispatch, scope),
+    ...bindScopedActionCreators(activePickerActions, dispatch),
     ...bindScopedActionCreators(contextActions, dispatch, scope),
     ...bindScopedActionCreators(searchActions, dispatch, scope),
     ...bindScopedActionCreators(trayActions, dispatch, scope),

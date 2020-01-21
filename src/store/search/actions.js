@@ -24,8 +24,8 @@ const getSearchResultsAction = (...args) => dispatch => getSearchResultsDebounce
 
 export const searchOutcomes = ({ text, page }) => {
   return (dispatch, getState, _arg, scope) => {
-    const initialText = text || getSearchText(getState())
-    const initialPage = page || getSearchPage(getState())
+    const initialText = text || getSearchText(getState(), scope)
+    const initialPage = page || getSearchPage(getState(), scope)
 
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
     return dispatch({
@@ -37,8 +37,8 @@ export const searchOutcomes = ({ text, page }) => {
       }
     })
     .then((json) => {
-      if (getSearchText(getState()) === initialText
-        && getSearchPage(getState()) === initialPage) {
+      if (getSearchText(getState(), scope) === initialText
+        && getSearchPage(getState(), scope) === initialPage) {
         dispatch(setSearchEntries(json.matches))
         dispatch(setSearchTotal(json.total))
         dispatch(setOutcomes({ [contextUuid]: json.outcomes }))

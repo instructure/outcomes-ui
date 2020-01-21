@@ -18,16 +18,16 @@ describe('search/actions', () => {
       config: {
         contextUuid: 'course_100'
       },
-    },
-    OutcomePicker: {
-      search: {
-        searchText: 'abc',
-        pagination: {
-          page: 1,
-          total: null,
-        },
-        isLoading: true,
-        entries: []
+      OutcomePicker: {
+        search: {
+          searchText: 'abc',
+          pagination: {
+            page: 1,
+            total: null,
+          },
+          isLoading: true,
+          entries: []
+        }
       }
     }
   })

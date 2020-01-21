@@ -12,13 +12,15 @@ const scopedActions = scopeActions({ ...actions, setError, setOutcomePickerState
 describe('OutcomeTray/actions', () => {
   describe('getOutcomesList', () => {
     const state = fromJS({
-      OutcomePicker: {
-        tray: {
-          pagination: {
-            page: 1,
-            total: null,
-          },
-          list: []
+      scopeForTest: {
+        OutcomePicker: {
+          tray: {
+            pagination: {
+              page: 1,
+              total: null,
+            },
+            list: []
+          }
         }
       }
     })

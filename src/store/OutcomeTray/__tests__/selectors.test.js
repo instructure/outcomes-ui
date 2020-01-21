@@ -7,13 +7,19 @@ import {
 } from '../selectors'
 
 describe('OutcomeTray/selectors', () => {
+  const scope = 'scopeForTest'
   const state = fromJS({
-    OutcomePicker: {
-      tray: {
-        list: [],
-        pagination: {
-          page: 7,
-          total: 100
+    scopeForTest: {
+      config: {
+        contextUuid: 'course_100'
+      },
+      OutcomePicker: {
+        tray: {
+          list: [],
+          pagination: {
+            page: 7,
+            total: 100
+          }
         }
       }
     }
@@ -21,19 +27,19 @@ describe('OutcomeTray/selectors', () => {
 
   describe('getOutcomeList', () => {
     it('returns the outcome list', () => {
-      expect(getOutcomeList(state)).to.deep.equal([])
+      expect(getOutcomeList(state, scope)).to.deep.equal([])
     })
   })
 
   describe('getListPage', () => {
     it('returns the current page', () => {
-      expect(getListPage(state)).to.equal(7)
+      expect(getListPage(state, scope)).to.equal(7)
     })
   })
 
   describe('getListTotal', () => {
     it('returns the current total', () => {
-      expect(getListTotal(state)).to.equal(100)
+      expect(getListTotal(state, scope)).to.equal(100)
     })
   })
 })

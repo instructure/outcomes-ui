@@ -14,6 +14,7 @@ import OutcomePicker from './OutcomePicker/reducers'
 import alignments from './alignments/reducers'
 import report from './report/reducers'
 import StudentMastery from './StudentMastery/reducers'
+import activePicker from './activePicker/reducers'
 
 /**
  * The outcomes redux store is shared between components on a page.
@@ -48,7 +49,7 @@ function createRootReducer () {
   return combineReducers({
     context,
     features,
-    OutcomePicker,
+    activePicker,
     ...dynamicReducers
   })
 }
@@ -75,7 +76,8 @@ function addScopeToStore (store, key, host, jwt, contextUuid) {
       config: config({ host, jwt, contextUuid }),
       alignments,
       report,
-      StudentMastery
+      StudentMastery,
+      OutcomePicker
     }), key)
     store.replaceReducer(createRootReducer())
   }

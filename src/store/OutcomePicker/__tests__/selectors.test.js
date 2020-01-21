@@ -16,16 +16,16 @@ import {
 describe('OutcomePicker/selectors', () => {
   const scope = 'scopeForTest'
   const state = fromJS({
-    OutcomePicker: {
-      selected: ['1', '2', '3'],
-      state: 'testing',
-      expandedIds: ['1'],
-      scope,
-    },
     scopeForTest: {
       config: {
         contextUuid: 'course_100'
-      }
+      },
+      OutcomePicker: {
+        selected: ['1', '2', '3'],
+        state: 'testing',
+        expandedIds: ['1'],
+        scope,
+      },
     },
     context: {
       outcomes: {
@@ -89,7 +89,7 @@ describe('OutcomePicker/selectors', () => {
     })
 
     it('returns false if empty selected outcomes', () => {
-      const newState = state.setIn(['OutcomePicker', 'selected'], new List())
+      const newState = state.setIn([scope, 'OutcomePicker', 'selected'], new List())
       expect(anyOutcomeSelected(newState, scope)).to.be.false
     })
 
@@ -105,7 +105,7 @@ describe('OutcomePicker/selectors', () => {
     })
 
     it('returns the active collection id if present', () => {
-      const newState = state.setIn(['OutcomePicker', 'activeCollection'], '1')
+      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
       expect(getActiveCollectionId(newState, scope)).to.equal('1')
     })
   })
@@ -116,7 +116,7 @@ describe('OutcomePicker/selectors', () => {
     })
 
     it('returns header from active collection', () => {
-      const newState = state.setIn(['OutcomePicker', 'activeCollection'], '1')
+      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
       expect(getActiveOutcomeHeader(newState, scope)).to.equal('Some outcome 1')
     })
   })
@@ -127,7 +127,7 @@ describe('OutcomePicker/selectors', () => {
     })
 
     it('returns summary from active collection', () => {
-      const newState = state.setIn(['OutcomePicker', 'activeCollection'], '1')
+      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
       expect(getActiveOutcomeSummary(newState, scope)).to.equal('1 Group | 1 Outcome')
     })
   })
@@ -138,7 +138,7 @@ describe('OutcomePicker/selectors', () => {
     })
 
     it('returns description from active collection', () => {
-      const newState = state.setIn(['OutcomePicker', 'activeCollection'], '1')
+      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
       expect(getActiveOutcomeDescription(newState, scope)).to.equal('Description 1')
     })
   })
@@ -149,12 +149,12 @@ describe('OutcomePicker/selectors', () => {
     })
 
     it('returns the set of ids when present', () => {
-      const newState = state.setIn(['OutcomePicker', 'activeCollection'], '1')
+      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
       expect(getActiveChildrenIds(newState, scope)).to.deep.equal(['2', '3'])
     })
 
     it('returns an empty array when no child ids are present', () => {
-      const newState = state.setIn(['OutcomePicker', 'activeCollection'], '4')
+      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '4')
       expect(getActiveChildrenIds(newState, scope)).to.deep.equal([])
     })
   })

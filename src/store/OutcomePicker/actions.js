@@ -9,13 +9,13 @@ import {
   SET_FOCUSED_OUTCOME,
   SET_ACTIVE_COLLECTION_ID,
   TOGGLE_EXPANDED_IDS,
-  SET_SCOPE,
   RESET_OUTCOME_PICKER
 } from '../../constants'
 import { loadRootOutcomes, loadMoreOutcomes, setError, setScoringMethod } from '../context/actions'
 import { getAlignedOutcomeIds, getAnyOutcome } from '../alignments/selectors'
 import { getSelectedOutcomeIds } from './selectors'
 import { updateAlignments, createAlignmentSet } from '../alignments/actions'
+import { setScope } from '../activePicker/actions'
 
 export const selectOutcomeIds = createAction(SELECT_OUTCOME_IDS)
 export const deselectOutcomeIds = createAction(UNSELECT_OUTCOME_IDS)
@@ -24,7 +24,6 @@ export const setOutcomePickerState = createAction(SET_OUTCOME_PICKER_STATE)
 export const setActiveCollectionFrd = createAction(SET_ACTIVE_COLLECTION_ID)
 export const setFocusedOutcomeAction = createAction(SET_FOCUSED_OUTCOME)
 export const toggleExpandedIds = createAction(TOGGLE_EXPANDED_IDS)
-export const setScope = createAction(SET_SCOPE)
 export const resetOutcomePicker = createAction(RESET_OUTCOME_PICKER)
 
 export const loadOutcomePicker = () => {
@@ -95,5 +94,12 @@ export const openOutcomePicker = () => {
   return (dispatch, getState, _arg, scope) => {
     dispatch(setScope(scope))
     dispatch(setOutcomePickerState('loading'))
+  }
+}
+
+export const closeOutcomePicker = () => {
+  return (dispatch, getState, _arg, _scope) => {
+    dispatch(setScope(''))
+    dispatch(setOutcomePickerState('closed'))
   }
 }

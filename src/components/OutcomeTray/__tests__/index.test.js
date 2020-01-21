@@ -24,15 +24,17 @@ describe('OutcomeTray', () => {
       selectOutcomeIds: sinon.spy(),
       deselectOutcomeIds: sinon.spy(),
       screenreaderNotification: sinon.spy(),
-      outcomePickerState: 'choosing',
-      setOutcomePickerState: sinon.spy(),
       searchTotal: 0,
       searchPage: 0,
       getOutcomesList: sinon.spy(),
       outcomes: [],
+      isOpen: true,
+      isFetching: false,
       scope: 'scopeForTest',
       listPage: 0,
       listTotal: 0,
+      resetOutcomePicker: sinon.spy(),
+      closeOutcomePicker: sinon.spy(),
     }, props)
   }
 
@@ -50,7 +52,7 @@ describe('OutcomeTray', () => {
   })
 
   it('renders tray closed by when state is closed', () => {
-    const props = makeProps({ outcomePickerState: 'closed' })
+    const props = makeProps({ isOpen: false })
     wrapper = shallow(<OutcomeTray {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('Tray').prop('open')).to.be.false
   })
@@ -74,7 +76,7 @@ describe('OutcomeTray', () => {
     const props = makeProps()
     wrapper = mount(<OutcomeTray {...props} />)
     wrapper.find('CloseButton').prop('onClick')()
-    expect(props.setOutcomePickerState.getCall(0).args).to.deep.equal(['closed'])
+    expect(props.closeOutcomePicker).to.be.calledOnce
   })
 
   it('shows only search results when searchText is present', () => {
@@ -96,11 +98,11 @@ describe('OutcomeTray', () => {
     let p = new Promise((r) => { resolve = r })
     const props = makeProps({
       searchText: 'foo',
-      outcomePickerState: 'closed',
+      isOpen: false,
       updateSearchText: () => resolve()
     })
     wrapper = mount(<OutcomeTray {...props} />)
-    wrapper.setProps({ outcomePickerState: 'choosing' })
+    wrapper.setProps({ isOpen: true })
     p.then(done)
   })
 })

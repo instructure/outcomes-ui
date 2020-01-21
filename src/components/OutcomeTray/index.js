@@ -39,8 +39,6 @@ export default class OutcomeTray extends React.Component {
     mountNode: PropTypes.element,
     size: PropTypes.string,
     placement: PropTypes.string,
-    outcomePickerState: PropTypes.string.isRequired,
-    setOutcomePickerState: PropTypes.func.isRequired,
     searchTotal: PropTypes.number.isRequired,
     searchPage: PropTypes.number.isRequired,
     outcomes: PropTypes.array.isRequired,
@@ -48,6 +46,10 @@ export default class OutcomeTray extends React.Component {
     updateSearchPage: PropTypes.func.isRequired,
     listPage: PropTypes.number.isRequired,
     listTotal: PropTypes.number.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    closeOutcomePicker: PropTypes.func.isRequired,
+    resetOutcomePicker: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -59,10 +61,9 @@ export default class OutcomeTray extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { getOutcomesList, outcomePickerState, updateSearchText } = this.props
-    const closed = outcomePickerState === "closed"
+    const { getOutcomesList, isOpen, updateSearchText } = this.props
 
-    if (prevProps.outcomePickerState === "closed" && !closed) {
+    if (!prevProps.isOpen && isOpen) {
       getOutcomesList({ page: 1 })
       updateSearchText("")
     }
@@ -71,7 +72,7 @@ export default class OutcomeTray extends React.Component {
   shouldComponentUpdate (nextProps) {
     // We don't want to rerender this component when the picker is closed as it's an unnecessary render
     // Also, if we are closing the tray, we don't want to allow a rerender as it's closing
-    if (this.props.outcomePickerState === 'closed' && nextProps.outcomePickerState === 'closed') {
+    if (!this.props.isOpen && !nextProps.isOpen) {
       return false
     }
     return true
@@ -84,7 +85,7 @@ export default class OutcomeTray extends React.Component {
       isOutcomeSelected,
       selectOutcomeIds,
       deselectOutcomeIds,
-      outcomePickerState,
+      isFetching,
       listPage,
       listTotal,
       getOutcomesList
@@ -100,7 +101,7 @@ export default class OutcomeTray extends React.Component {
           isOutcomeSelected={isOutcomeSelected}
           selectOutcomeIds={selectOutcomeIds}
           deselectOutcomeIds={deselectOutcomeIds}
-          isLoading={outcomePickerState === 'loading'}
+          isLoading={isFetching}
           listPage={listPage}
           listTotal={listTotal}
           getOutcomesList={getOutcomesList}
@@ -156,8 +157,8 @@ export default class OutcomeTray extends React.Component {
   }
 
   renderBody () {
-    const { searchText, outcomePickerState } = this.props
-    if (outcomePickerState === 'loading') {
+    const { searchText, isFetching } = this.props
+    if (isFetching) {
       return (
         <Flex justifyItems="center">
           <Flex.Item padding="small">
@@ -174,11 +175,12 @@ export default class OutcomeTray extends React.Component {
       liveRegion,
       mountNode,
       searchText,
-      outcomePickerState,
       placement,
       size,
       updateSearchText,
-      setOutcomePickerState
+      closeOutcomePicker,
+      isOpen,
+      resetOutcomePicker,
     } = this.props
 
     const trayProps = { placement, size }
@@ -187,7 +189,8 @@ export default class OutcomeTray extends React.Component {
         data-automation="outcomeTrayPicker__view"
         liveRegion={liveRegion}
         mountNode={mountNode}
-        open={outcomePickerState !== "closed"}
+        open={isOpen}
+        onExiting={resetOutcomePicker}
         {...trayProps}
       >
         <div className={styles.trayContainer}>
@@ -196,7 +199,7 @@ export default class OutcomeTray extends React.Component {
               <Heading level="h3" margin="0 0 x-small">{t('Align Outcomes')}</Heading>
             </Flex.Item>
             <Flex.Item>
-              <CloseButton onClick={() => setOutcomePickerState('closed')}>
+              <CloseButton onClick={closeOutcomePicker}>
                 {t('Cancel')}
               </CloseButton>
             </Flex.Item>

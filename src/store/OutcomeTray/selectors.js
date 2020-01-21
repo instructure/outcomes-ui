@@ -1,22 +1,22 @@
 import { Map } from 'immutable'
 
-function restrict (state) {
-  return state.getIn(['OutcomePicker']).get('tray') || Map()
+function restrict (state, scope) {
+  return state.getIn([scope, 'OutcomePicker']).get('tray') || Map()
 }
 
-function pagination (state) {
-  return restrict(state).get('pagination') || Map()
+function pagination (state, scope) {
+  return restrict(state, scope).get('pagination') || Map()
 }
 
-export function getOutcomeList (state) {
-  const outcomes = restrict(state).get('list')
+export function getOutcomeList (state, scope) {
+  const outcomes = restrict(state, scope).get('list')
   return outcomes ? outcomes.toJS() : []
 }
 
-export function getListPage (state) {
-  return pagination(state).get('page')
+export function getListPage (state, scope) {
+  return pagination(state, scope).get('page')
 }
 
-export function getListTotal (state) {
-  return pagination(state).get('total')
+export function getListTotal (state, scope) {
+  return pagination(state, scope).get('total')
 }
