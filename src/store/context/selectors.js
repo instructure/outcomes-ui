@@ -1,5 +1,6 @@
 import formatMessage from 'format-message'
 import { Map } from 'immutable'
+import createCachedSelector from 're-reselect'
 
 import { getConfig } from '../config/selectors'
 
@@ -20,11 +21,18 @@ export function getAllOutcomeIds (state, scope) {
   return outcomes.slice(0, 10).map((id) => id.toString())
 }
 
-export function getOutcome (state, scope, id) {
-  const { contextUuid } = getConfig(state, scope)
-  const outcome = restrict(state, 'outcomes').getIn([contextUuid, id.toString()])
-  return outcome ? outcome.toJS() : null
-}
+export const getOutcome = createCachedSelector(
+  (state, scope, id) => {
+    const { contextUuid } = getConfig(state, scope)
+    return restrict(state, 'outcomes').getIn([contextUuid, id.toString()])
+  },
+  (outcome) => outcome ? outcome.toJS() : null
+) (
+  (state, scope, id) => {
+    const { contextUuid } = getConfig(state, scope)
+    return `${contextUuid}#${id}`
+  }
+)
 
 export function isOutcomeGroup (state, scope, id) {
   const outcome = getOutcome(state, scope, id)

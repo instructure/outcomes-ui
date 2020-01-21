@@ -7,18 +7,7 @@ import SearchResults from '../index'
 import checkA11y from '../../../test/checkA11y'
 
 describe('SearchResults', () => {
-  const folderIds = ['1']
-  const leafIds = ['2']
-
   function makeProps (props = {}) {
-    const isOutcomeGroup = sinon.stub()
-    folderIds.forEach((id) => isOutcomeGroup.withArgs(id).returns(true))
-    leafIds.forEach((id) => isOutcomeGroup.withArgs(id).returns(false))
-
-    const getOutcome = sinon.stub()
-    getOutcome.withArgs('1').returns({ id: '1', label: 'foo', title: 'bar' })
-    getOutcome.withArgs('2').returns({ id: '2', label: 'abc', title: '123' })
-
     return Object.assign({
       searchText: 'foo',
       searchPage: 1,
@@ -29,13 +18,10 @@ describe('SearchResults', () => {
       updateSearchPage: sinon.stub(),
       isSearchLoading: true,
       searchEntries: [],
-      getOutcome: getOutcome,
-      getOutcomeSummary: sinon.spy(),
       setActiveCollection: sinon.spy(),
       toggleExpandedIds: sinon.stub(),
       setFocusedOutcome: sinon.spy(),
       isOutcomeSelected: sinon.spy(),
-      isOutcomeGroup: isOutcomeGroup,
       selectOutcomeIds: sinon.spy(),
       deselectOutcomeIds: sinon.spy(),
       screenreaderNotification: sinon.stub()
@@ -47,28 +33,13 @@ describe('SearchResults', () => {
     expect(wrapper.find('Spinner')).to.have.length(1)
   })
 
-  it('passes correct params to OutcomeFolder components', () => {
-    const props = makeProps()
-    props.isSearchLoading = false
-    props.searchEntries = [{ id: '1' }]
-    const wrapper = shallow(<SearchResults {...props} />, {disableLifecycleMethods: true})
-    const folder = wrapper.find('OutcomeFolder')
-    const checkbox = wrapper.find('OutcomeCheckbox')
-
-    expect(folder).to.have.length(1)
-    expect(checkbox).to.have.length(0)
-    expect(folder.prop('outcome')).to.eql({ id: '1', label: 'foo', title: 'bar' })
-  })
-
   it('passes correct params to OutcomeCheckbox components', () => {
     const props = makeProps()
     props.isSearchLoading = false
-    props.searchEntries = [{ id: '2' }]
+    props.searchEntries = [{ id: '2', label: 'abc', title: '123' }]
     const wrapper = shallow(<SearchResults {...props} />, {disableLifecycleMethods: true})
-    const folder = wrapper.find('OutcomeFolder')
     const checkbox = wrapper.find('OutcomeCheckbox')
 
-    expect(folder).to.have.length(0)
     expect(checkbox).to.have.length(1)
     expect(checkbox.prop('outcome')).to.eql({ id: '2', label: 'abc', title: '123' })
   })

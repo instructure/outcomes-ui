@@ -1,30 +1,33 @@
 import { Map } from 'immutable'
+import { createSelectorCreator, defaultMemoize } from 'reselect'
+import createCachedSelector from 're-reselect'
+import { isEqual } from 'lodash'
+import { getAnyOutcome } from '../alignments/selectors'
 
-function restrict (state, scope) {
-  return state.getIn([scope, 'OutcomePicker']).get('search') || Map()
-}
+const customDeepComparisonSelector = createSelectorCreator(defaultMemoize, isEqual)
+const getSearch = (state, scope) => state.getIn([scope, 'OutcomePicker', 'search']) || Map()
 
-function pagination (state, scope) {
-  return restrict(state, scope).get('pagination') || Map()
-}
+export const getSearchEntries = createCachedSelector(
+  (state, scope) => {
+    let entries = getSearch(state, scope).get('entries')
+    entries = entries ? entries.toJS() : []
+    return entries.map((entry) => getAnyOutcome(state, scope, entry.id))
+  },
+  (entries) => entries,
+) (
+  (_state, scope) => scope,
+  {
+    // Deep comparison: https://github.com/toomuchdesign/re-reselect/issues/31
+    selectorCreator: customDeepComparisonSelector
+  }
+)
 
-export function getSearchText (state, scope) {
-  return restrict(state, scope).get('searchText')
-}
+export const getSearchText = (state, scope) => getSearch(state, scope).get('searchText')
 
-export function getIsSearchLoading (state, scope) {
-  return restrict(state, scope).get('isLoading')
-}
+export const getIsSearchLoading = (state, scope) => getSearch(state, scope).get('isLoading')
 
-export function getSearchEntries (state, scope) {
-  const entries = restrict(state, scope).get('entries')
-  return entries ? entries.toJS() : []
-}
+const pagination = (state, scope) => getSearch(state, scope).get('pagination') || Map()
 
-export function getSearchPage (state, scope) {
-  return pagination(state, scope).get('page')
-}
+export const getSearchPage = (state, scope) => pagination(state, scope).get('page')
 
-export function getSearchTotal (state, scope) {
-  return pagination(state, scope).get('total')
-}
+export const getSearchTotal = (state, scope) => pagination(state, scope).get('total')

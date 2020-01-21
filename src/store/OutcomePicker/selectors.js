@@ -1,4 +1,5 @@
 import { Map } from 'immutable'
+import createCachedSelector from 're-reselect'
 
 import { getOutcome, getOutcomeSummary } from '../context/selectors'
 
@@ -6,10 +7,16 @@ function restrict (state, scope) {
   return state.getIn([scope, 'OutcomePicker']) || Map()
 }
 
-export function getSelectedOutcomeIds (state, scope) {
-  const ids = restrict(state, scope).get('selected')
-  return ids ? ids.toJS() : []
+function selectedOutcomeIds (state, scope) {
+  return restrict(state, scope).get('selected')
 }
+
+export const getSelectedOutcomeIds = createCachedSelector(
+  selectedOutcomeIds,
+  (ids) => ids ? ids.toJS() : []
+) (
+  (_state, scope) => scope
+)
 
 export function getFocusedOutcome (state, scope) {
   return restrict(state, scope).get('focusedOutcome')
@@ -20,10 +27,12 @@ export function getExpandedIds (state, scope) {
   return ids ? ids.toJS() : []
 }
 
-export function isOutcomeSelected (state, scope, id) {
-  const ids = restrict(state, scope).get('selected')
-  return ids ? ids.has(id.toString()) : false
-}
+export const makeIsOutcomeSelected = createCachedSelector(
+  selectedOutcomeIds,
+  (selected) => (id) => selected ? selected.has(id.toString()) : false
+) (
+  (_state, scope) => scope
+)
 
 export function anyOutcomeSelected (state, scope) {
   const ids = restrict(state, scope).get('selected')

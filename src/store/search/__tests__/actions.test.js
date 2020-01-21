@@ -118,9 +118,9 @@ describe('search/actions', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.searchOutcomes('abc'))
         .then(() => {
-          expect(store.getActions()[1]).to.deep.equal(scopedActions.setSearchEntries(matches))
-          expect(store.getActions()[2]).to.deep.equal(scopedActions.setSearchTotal(101))
-          expect(store.getActions()[3]).to.deep.equal(scopedActions.setOutcomes(outcomes))
+          expect(store.getActions()[1]).to.deep.equal(scopedActions.setOutcomes(outcomes))
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setSearchEntries(matches))
+          expect(store.getActions()[3]).to.deep.equal(scopedActions.setSearchTotal(101))
           expect(store.getActions()[4]).to.deep.equal(scopedActions.setSearchLoading(false))
         })
     })

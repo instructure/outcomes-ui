@@ -39,9 +39,9 @@ export const searchOutcomes = ({ text, page }) => {
     .then((json) => {
       if (getSearchText(getState(), scope) === initialText
         && getSearchPage(getState(), scope) === initialPage) {
+        dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
         dispatch(setSearchEntries(json.matches))
         dispatch(setSearchTotal(json.total))
-        dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
         dispatch(setSearchLoading(false))
       }
       return Promise.resolve()

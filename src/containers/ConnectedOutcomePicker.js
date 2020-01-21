@@ -22,7 +22,7 @@ import {
   getOutcomePickerState,
   getActiveChildrenIds,
   getSelectedOutcomeIds,
-  isOutcomeSelected,
+  makeIsOutcomeSelected,
   getActiveCollectionId,
   getActiveOutcomeHeader,
   getActiveOutcomeSummary,
@@ -46,7 +46,7 @@ function mapStateToProps (state, ownProps) {
     expandedIds: getExpandedIds(state, scope),
     outcomePickerState: getOutcomePickerState(state, scope),
     selectedOutcomeIds: getSelectedOutcomeIds(state, scope),
-    isOutcomeSelected: isOutcomeSelected.bind(null, state, scope),
+    isOutcomeSelected: makeIsOutcomeSelected(state, scope),
     isOutcomeGroup: isOutcomeGroup.bind(null, state, scope),
     activeCollection: {
       id: getActiveCollectionId(state, scope),

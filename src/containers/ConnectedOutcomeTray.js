@@ -6,10 +6,6 @@ import * as searchActions from '../store/search/actions'
 import * as outcomePickerActions from '../store/OutcomePicker/actions'
 import * as trayActions from '../store/OutcomeTray/actions'
 import {
-  isOutcomeGroup,
-  getOutcomeSummary
-} from '../store/context/selectors'
-import {
   getSearchText,
   getIsSearchLoading,
   getSearchEntries,
@@ -17,17 +13,15 @@ import {
   getSearchTotal
 } from '../store/search/selectors'
 import {
-  getFocusedOutcome,
-  getOutcomePickerState,
   getSelectedOutcomeIds,
-  isOutcomeSelected,
+  getOutcomePickerState,
+  makeIsOutcomeSelected,
 } from '../store/OutcomePicker/selectors'
 import {
   getOutcomeList,
   getListPage,
   getListTotal
 } from '../store/OutcomeTray/selectors'
-import { getAnyOutcome } from '../store/alignments/selectors'
 import OutcomeTray from '../components/OutcomeTray'
 import { isOpen } from '../store/activePicker/selectors'
 
@@ -39,14 +33,10 @@ function mapStateToProps (state, ownProps) {
     searchEntries: getSearchEntries(state, scope),
     searchPage: getSearchPage(state, scope),
     searchTotal: getSearchTotal(state, scope),
-    getOutcome: getAnyOutcome.bind(null, state, scope),
-    getOutcomeSummary: getOutcomeSummary.bind(null, state, scope),
-    focusedOutcome: getFocusedOutcome(state, scope),
     isOpen: isOpen(state, scope),
     isFetching: getOutcomePickerState(state, scope) === 'loading',
     selectedOutcomeIds: getSelectedOutcomeIds(state, scope),
-    isOutcomeSelected: isOutcomeSelected.bind(null, state, scope),
-    isOutcomeGroup: isOutcomeGroup.bind(null, state, scope),
+    isOutcomeSelected: makeIsOutcomeSelected(state, scope),
     outcomes: getOutcomeList(state, scope),
     listPage: getListPage(state, scope),
     listTotal: getListTotal(state, scope)

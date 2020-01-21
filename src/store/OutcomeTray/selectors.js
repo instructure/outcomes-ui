@@ -1,22 +1,17 @@
 import { Map } from 'immutable'
+import createCachedSelector from 're-reselect'
 
-function restrict (state, scope) {
-  return state.getIn([scope, 'OutcomePicker']).get('tray') || Map()
-}
+const getTray = (state, scope) => state.getIn([scope, 'OutcomePicker', 'tray']) || Map()
 
-function pagination (state, scope) {
-  return restrict(state, scope).get('pagination') || Map()
-}
+export const getOutcomeList = createCachedSelector(
+  (state, scope) => getTray(state, scope).get('list'),
+  (list) => list ? list.toJS() : []
+) (
+  (_, scope) => scope
+)
 
-export function getOutcomeList (state, scope) {
-  const outcomes = restrict(state, scope).get('list')
-  return outcomes ? outcomes.toJS() : []
-}
+const pagination = (state, scope) => getTray(state, scope).get('pagination') || Map()
 
-export function getListPage (state, scope) {
-  return pagination(state, scope).get('page')
-}
+export const getListPage = (state, scope) => pagination(state, scope).get('page')
 
-export function getListTotal (state, scope) {
-  return pagination(state, scope).get('total')
-}
+export const getListTotal = (state, scope) => pagination(state, scope).get('total')

@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { Map, List, fromJS } from 'immutable'
 import {
   getSelectedOutcomeIds,
-  isOutcomeSelected,
+  makeIsOutcomeSelected,
   anyOutcomeSelected,
   getActiveCollectionId,
   getActiveOutcomeHeader,
@@ -68,18 +68,18 @@ describe('OutcomePicker/selectors', () => {
     })
   })
 
-  describe('isOutcomeSelected', () => {
+  describe('makeIsOutcomeSelected', () => {
     it('returns true if outcome id is selected', () => {
-      expect(isOutcomeSelected(state, scope, '2')).to.be.true
+      expect(makeIsOutcomeSelected(state, scope)('2')).to.be.true
     })
 
     it('returns false if outcome is not selected', () => {
-      expect(isOutcomeSelected(state, scope, '4')).to.be.false
+      expect(makeIsOutcomeSelected(state, scope)('4')).to.be.false
     })
 
     it('returns false if no outcomes are selected', () => {
       const newState = Map()
-      expect(isOutcomeSelected(newState, scope, '1')).to.be.false
+      expect(makeIsOutcomeSelected(newState, scope)('1')).to.be.false
     })
   })
 

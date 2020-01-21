@@ -25,13 +25,8 @@ export default class OutcomeTray extends React.Component {
     setSearchEntries: PropTypes.func.isRequired,
     isSearchLoading: PropTypes.bool.isRequired,
     searchEntries: PropTypes.array.isRequired,
-    getOutcome: PropTypes.func.isRequired,
-    getOutcomeSummary: PropTypes.func.isRequired,
-    setActiveCollection: PropTypes.func.isRequired,
-    toggleExpandedIds: PropTypes.func.isRequired,
     setFocusedOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
-    isOutcomeGroup: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
     screenreaderNotification: PropTypes.func,
@@ -67,15 +62,6 @@ export default class OutcomeTray extends React.Component {
       getOutcomesList({ page: 1 })
       updateSearchText("")
     }
-  }
-
-  shouldComponentUpdate (nextProps) {
-    // We don't want to rerender this component when the picker is closed as it's an unnecessary render
-    // Also, if we are closing the tray, we don't want to allow a rerender as it's closing
-    if (!this.props.isOpen && !nextProps.isOpen) {
-      return false
-    }
-    return true
   }
 
   renderList () {
@@ -120,13 +106,8 @@ export default class OutcomeTray extends React.Component {
       isSearchLoading,
       isOutcomeSelected,
       searchEntries,
-      getOutcome,
-      getOutcomeSummary,
-      isOutcomeGroup,
       searchPage,
       searchTotal,
-      toggleExpandedIds,
-      setActiveCollection,
       selectOutcomeIds,
       deselectOutcomeIds,
       setFocusedOutcome
@@ -142,13 +123,8 @@ export default class OutcomeTray extends React.Component {
         isSearchLoading={isSearchLoading}
         isOutcomeSelected={isOutcomeSelected}
         searchEntries={searchEntries}
-        getOutcome={getOutcome}
-        getOutcomeSummary={getOutcomeSummary}
-        isOutcomeGroup={isOutcomeGroup}
         searchPage={searchPage}
         searchTotal={searchTotal}
-        toggleExpandedIds={toggleExpandedIds}
-        setActiveCollection={setActiveCollection}
         selectOutcomeIds={selectOutcomeIds}
         deselectOutcomeIds={deselectOutcomeIds}
         setFocusedOutcome={setFocusedOutcome}
