@@ -117,25 +117,41 @@ pipeline {
               returnStdout: true
             ).trim()
             gergich_msg += ":js: <$env.BUILD_URL/UI_20Coverage_20Report/|${ui_coverage}>"
-
-            if (env.GERRIT_EVENT_TYPE == "change-merged") {
-              // publish html
-              publishHTML target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: false,
-                keepAll: true,
-                reportDir: 'ui_coverage',
-                reportFiles: 'index.html',
-                reportName: 'UI Coverage Report'
-              ]
-              // publish coverage to code-coverage.inseng.net/outcomes-ui/coverage
-              uploadCoverage([
-                uploadSource: '/ui_coverage',
-                uploadDest: 'outcomes-ui/coverage'
-              ])
-            }
           }
         }
+      }
+    }
+
+    stage('Post Merge') {
+      when { environment name: "GERRIT_EVENT_TYPE", value: "change-merged" }
+      environment { SONAR_TOKEN = credentials('OUTCOMES_UI_SONAR_TOKEN') }
+      steps {
+        // publish html
+        publishHTML target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: false,
+          keepAll: true,
+          reportDir: 'ui_coverage',
+          reportFiles: 'index.html',
+          reportName: 'UI Coverage Report'
+        ]
+        // publish coverage to code-coverage.inseng.net/outcomes-ui/coverage
+        uploadCoverage([
+          uploadSource: '/ui_coverage',
+          uploadDest: 'outcomes-ui/coverage'
+        ])
+        // upload to sonarqube
+        sh '''
+          docker run --rm -v "$(pwd)":/usr/src/app instructure/sonar-cli \
+            -Dsonar.projectKey=outcomes-ui \
+            -Dsonar.host.url=https://sonarqube.core.inseng.net \
+            -Dsonar.working.directory=/tmp \
+            -Dsonar.sources=src \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.projectBaseDir=/usr/src/app \
+            -Dsonar.coverage.exclusions=**/__tests__/*,**/*.test.js \
+            -Dsonar.javascript.lcov.reportPaths='ui_coverage/lcov.info'
+        '''
       }
     }
   }

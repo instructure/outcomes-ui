@@ -17,6 +17,7 @@ if (withCoverage) {
   coverageArgs.coverageReporter = {
     reporters: [
       { type: 'text-summary' },
+      { type: 'lcov', dir: 'coverage/', subdir: 'ui' },
       { type: 'html', dir: 'coverage/', subdir: 'ui' }
     ],
     check: {
