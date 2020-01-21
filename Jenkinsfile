@@ -128,6 +128,11 @@ pipeline {
                 reportFiles: 'index.html',
                 reportName: 'UI Coverage Report'
               ]
+              // publish coverage to code-coverage.inseng.net/outcomes-ui/coverage
+              uploadCoverage([
+                uploadSource: '/ui_coverage',
+                uploadDest: 'outcomes-ui/coverage'
+              ])
             }
           }
         }
