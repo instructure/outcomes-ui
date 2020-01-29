@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 import sinon from 'sinon'
 import { Map } from 'immutable'
-import serviceMiddleware from 'inst-redux-service-middleware'
+import serviceMiddleware from '@instructure/redux-service-middleware'
 import { wrapAction, wrapDispatch } from 'multireducer'
 
 const mockService = {

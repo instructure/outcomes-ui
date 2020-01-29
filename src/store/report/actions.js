@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import { CALL_SERVICE } from 'inst-redux-service-middleware'
+import { CALL_SERVICE } from '@instructure/redux-service-middleware'
 import { getUsers, getPageLoading } from './selectors'
 import {
   SET_REPORT_PAGE,

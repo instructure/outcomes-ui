@@ -1063,6 +1063,11 @@
   dependencies:
     postcss "^7"
 
+"@instructure/redux-service-middleware@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@instructure/redux-service-middleware/-/redux-service-middleware-1.0.0.tgz#16e18ad18d28a24e8f6f8e5eae66c0e638dd75d5"
+  integrity sha512-Bb/GzXhgWXnCI5UPjEwsVHHsTKIq1PwU8GXVH9dqkkp+0vzQzpFLsVUy2AUasxdMIHphe1bKq/+aR34/x7/PEw==
+
 "@instructure/ui-a11y-content@^6.17.0":
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-a11y-content/-/ui-a11y-content-6.17.0.tgz#f87841670303eea3395d9effb1d2cfd918960d84"
@@ -7675,11 +7680,6 @@ inquirer@^6.2.2:
     string-width "^2.1.0"
     strip-ansi "^5.1.0"
     through "^2.3.6"
-
-inst-redux-service-middleware@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/inst-redux-service-middleware/-/inst-redux-service-middleware-1.0.8.tgz#b4f636f6deef4d3d1487e4071f6a045ee0ce8a95"
-  integrity sha1-tPY29t7vTT0Uh+QHH2oEXuDOipU=
 
 internal-ip@^4.3.0:
   version "4.3.0"

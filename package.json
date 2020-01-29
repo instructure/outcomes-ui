@@ -21,6 +21,7 @@
   "dependencies": {
     "@instructure/canvas-high-contrast-theme": "^6.17.0",
     "@instructure/canvas-theme": "^6.17.0",
+    "@instructure/redux-service-middleware": "^1.0.0",
     "@instructure/ui-a11y": "^6.17.0",
     "@instructure/ui-billboard": "^6.17.0",
     "@instructure/ui-buttons": "^6.17.0",
@@ -45,7 +46,6 @@
     "html-webpack-plugin": "^3.2.0",
     "ignore-styles": "^5.0.1",
     "immutable": "^3.8.1",
-    "inst-redux-service-middleware": "^1.0.8",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5",
     "lodash.frompairs": "^4.0.1",

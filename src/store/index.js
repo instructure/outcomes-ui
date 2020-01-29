@@ -2,7 +2,7 @@ import { createStore as reduxCreateStore, applyMiddleware, compose as reduxCompo
 import { combineReducers } from 'redux-immutable'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import serviceMiddleware from 'inst-redux-service-middleware'
+import serviceMiddleware from '@instructure/redux-service-middleware'
 import multireducer from 'multireducer/immutable'
 
 import OutcomesService from '../services/OutcomesService'
