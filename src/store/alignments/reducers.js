@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux-immutable'
-import { fromJS, Map } from 'immutable'
+import { fromJS, Map, List } from 'immutable'
 
 const alignedOutcomes = handleActions({
   SET_ALIGNMENTS: (state, action) => {
@@ -15,7 +15,7 @@ const alignedOutcomes = handleActions({
     const { outcome } = action.payload
     return state.set(idx, Map(outcome))
   }
-}, null)
+}, List())
 
 const openAlignmentId = handleActions({
   VIEW_ALIGNMENT: (state, action) => action.payload,

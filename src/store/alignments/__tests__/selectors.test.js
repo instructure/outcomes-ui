@@ -6,7 +6,7 @@ import {
   getAlignedOutcome,
   getAlignedOutcomeCount,
   getAnyOutcome,
-  isOpen
+  makeIsOpen
 } from '../selectors'
 
 describe('alignments/selectors', () => {
@@ -44,6 +44,15 @@ describe('alignments/selectors', () => {
         { id: '103', label: 'l3', title: 't3' }
       ])
     })
+
+    it('memoizes alignedOutcomes by scope', () => {
+      getAlignedOutcomes.resetRecomputations()
+      getAlignedOutcomes.clearCache()
+      getAlignedOutcomes(state, 'scopeForTest')
+      getAlignedOutcomes(Map(), 'newScope')
+      getAlignedOutcomes(state, 'scopeForTest')
+      expect(getAlignedOutcomes.recomputations()).to.equal(2)
+    })
   })
 
   describe('getAlignedOutcomeCount', () => {
@@ -58,18 +67,18 @@ describe('alignments/selectors', () => {
     })
   })
 
-  describe('isOpen', () => {
+  describe('makeIsOpen', () => {
     it('returns true if alignment id is openAlignmentId', () => {
-      expect(isOpen(state, 'scopeForTest', 12)).to.be.true
+      expect(makeIsOpen(state, 'scopeForTest')(12)).to.be.true
     })
 
     it('returns false if another alignment id is openAlignmentId', () => {
-      expect(isOpen(state, 'scopeForTest', 13)).to.be.false
+      expect(makeIsOpen(state, 'scopeForTest')(13)).to.be.false
     })
 
     it('returns false if no alignment is openAlignmentId', () => {
       const newState = Map()
-      expect(isOpen(newState, 'scopeForTest', 12)).to.be.false
+      expect(makeIsOpen(newState, 'scopeForTest')(12)).to.be.false
     })
   })
 

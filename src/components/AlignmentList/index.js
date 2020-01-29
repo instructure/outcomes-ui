@@ -32,7 +32,6 @@ class AlignmentList extends React.Component {
     closeAlignment: PropTypes.func.isRequired,
     isOpen: PropTypes.func.isRequired,
     openOutcomePicker: PropTypes.func.isRequired,
-    outcomePickerState: PropTypes.string.isRequired,
     onModalOpen: PropTypes.func,
     onModalClose: PropTypes.func,
     scope: PropTypes.string.isRequired,
@@ -59,10 +58,7 @@ class AlignmentList extends React.Component {
   }
 
   handleModalOpen = () => {
-    const { openOutcomePicker, outcomePickerState } = this.props
-    if (outcomePickerState !== 'choosing') {
-      openOutcomePicker()
-    }
+    this.props.openOutcomePicker()
   }
 
   handleRemoveAlignment (outcome, index) {

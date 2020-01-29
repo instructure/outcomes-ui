@@ -265,6 +265,23 @@ describe('OutcomePicker/actions', () => {
       expect(store.getActions()[1]).to.deep.equal(scopedActions.setOutcomePickerState('loading'))
       expect(store.getActions()).to.have.length(2)
     })
+
+    it('does not try to open an already open picker', () => {
+      const state = fromJS({
+        scopeForTest: {
+          config: {
+            contextUuid: 'course_100'
+          },
+          OutcomePicker: {
+            scope: 'scopeForTest',
+            state: 'choosing',
+          }
+        },
+      })
+      const store = createMockStore(state)
+      store.dispatch(actions.openOutcomePicker())
+      expect(store.getActions()).to.have.length(0)
+    })
   })
 
   describe('closeOutcomePicker', () => {

@@ -13,7 +13,7 @@ import {
 } from '../../constants'
 import { loadRootOutcomes, loadMoreOutcomes, setError, setScoringMethod } from '../context/actions'
 import { getAlignedOutcomeIds, getAnyOutcome } from '../alignments/selectors'
-import { getSelectedOutcomeIds } from './selectors'
+import { getSelectedOutcomeIds, getOutcomePickerState } from './selectors'
 import { updateAlignments, createAlignmentSet } from '../alignments/actions'
 import { setScope } from '../activePicker/actions'
 
@@ -92,8 +92,11 @@ export const saveOutcomePickerAlignments = (updateCallback) => {
 
 export const openOutcomePicker = () => {
   return (dispatch, getState, _arg, scope) => {
-    dispatch(setScope(scope))
-    dispatch(setOutcomePickerState('loading'))
+    const pickerState = getOutcomePickerState(getState(), scope)
+    if (pickerState !== 'choosing') {
+      dispatch(setScope(scope))
+      dispatch(setOutcomePickerState('loading'))
+    }
   }
 }
 
