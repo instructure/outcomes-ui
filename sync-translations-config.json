@@ -1,6 +1,6 @@
 {
   "to": "s3",
-  "project": "Outcomes React",
+  "project": "Outcomes UI",
   "projectSlug": "outcomes-react",
   "resource": "UI messages",
   "resourceSlug": "{lang}.json",

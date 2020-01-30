@@ -1,6 +1,6 @@
 {
-  "name": "outcomes-react",
-  "version": "5.1.6",
+  "name": "@instructure/outcomes-ui",
+  "version": "1.0.0",
   "description": "Outcomes Application for general alignment and assessment",
   "author": "Instructure, Inc. Engineering and Product Design",
   "license": "MIT",
