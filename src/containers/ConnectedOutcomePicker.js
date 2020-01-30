@@ -6,7 +6,6 @@ import * as outcomePickerActions from '../store/OutcomePicker/actions'
 import {
   getRootOutcomeIds,
   getCollectionData,
-  getAllOutcomeIds,
   isOutcomeGroup,
   getOutcomeSummary
 } from '../store/context/selectors'
@@ -37,7 +36,6 @@ function mapStateToProps (state, ownProps) {
   const { artifactTypeName, displayMasteryDescription, displayMasteryPercentText, scope } = ownProps
   return {
     collections: getCollectionData(state, scope),
-    allOutcomeIds: getAllOutcomeIds(state, scope),
     rootOutcomeIds: getRootOutcomeIds(state, scope),
     activeChildrenIds: getActiveChildrenIds(state, scope),
     getOutcome: getAnyOutcome.bind(null, state, scope),

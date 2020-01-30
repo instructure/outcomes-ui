@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { List, fromJS } from 'immutable'
 import {
-  getAllOutcomeIds,
+  hasContextOutcomes,
   getOutcome,
   isOutcomeGroup,
   getOutcomeSummary,
@@ -34,19 +34,19 @@ describe('context/selectors', () => {
     }
   })
 
-  describe('getAllOutcomeIds', () => {
-    it('retrieves the correct value', () => {
-      expect(getAllOutcomeIds(state, scope)).to.deep.equal(['1', '2', '3', '4'])
+  describe('hasContextOutcomes', () => {
+    it('returns true when outcomes exist', () => {
+      expect(hasContextOutcomes(state, scope)).to.equal(true)
     })
 
-    it('returns [] when empty', () => {
+    it('returns false when empty', () => {
       const newState = state.setIn(['context', 'outcomes'], List())
-      expect(getAllOutcomeIds(newState, scope)).to.deep.equal([])
+      expect(hasContextOutcomes(newState, scope)).to.equal(false)
     })
 
-    it('returns [] when unset', () => {
+    it('returns false when unset', () => {
       const newState = state.deleteIn(['context', 'outcomes'])
-      expect(getAllOutcomeIds(newState, scope)).to.deep.equal([])
+      expect(hasContextOutcomes(newState, scope)).to.equal(false)
     })
   })
 
@@ -73,16 +73,16 @@ describe('context/selectors', () => {
 
   describe('isOutcomeGroup', () => {
     it('returns true for outcome groups', () => {
-      expect(isOutcomeGroup(state, scope, '1')).to.be.truthy
+      expect(isOutcomeGroup(state, scope, '1')).to.be.ok
     })
 
-    it('returns true if has_children is set', () => {
-      expect(isOutcomeGroup(state, scope, '5')).to.be.truthy
+    it('returns false if not present', () => {
+      expect(isOutcomeGroup(state, scope, '5')).to.not.be.ok
     })
 
     it('returns false for non-outcome groups', () => {
-      expect(isOutcomeGroup(state, scope, '3')).to.be.falsey
-      expect(isOutcomeGroup(state, scope, '4')).to.be.falsey
+      expect(isOutcomeGroup(state, scope, '3')).to.not.be.ok
+      expect(isOutcomeGroup(state, scope, '4')).to.not.be.ok
     })
   })
 

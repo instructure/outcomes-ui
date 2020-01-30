@@ -7,7 +7,7 @@ import {
   SET_ROOT_OUTCOME_IDS,
   SET_SCORING_METHOD
 } from '../../constants'
-import { getAllOutcomeIds, getChildrenToLoad } from './selectors'
+import { hasContextOutcomes, getChildrenToLoad } from './selectors'
 import { getConfig } from '../config/selectors'
 
 export const setOutcomes = createAction(SET_OUTCOMES)
@@ -18,7 +18,7 @@ export const setScoringMethod = createAction(SET_SCORING_METHOD)
 export const loadRootOutcomes = () => {
   return (dispatch, getState, _arg, scope) => {
     const { contextUuid } = getConfig(getState(), scope)
-    if (getAllOutcomeIds(getState(), scope).length > 0) {
+    if (hasContextOutcomes(getState(), scope)) {
       return Promise.resolve()
     }
     return dispatch(loadOutcomes(null))

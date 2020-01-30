@@ -1,85 +1,81 @@
 import formatMessage from 'format-message'
 import { Map } from 'immutable'
-import createCachedSelector from 're-reselect'
+import { createSelector } from 'reselect'
+import createCachedSelector, { LruObjectCache } from 're-reselect'
 
 import { getConfig } from '../config/selectors'
-
-function restrictHasIn (state, contextUuid, key) {
-  return state.hasIn(['context', key, contextUuid])
-}
 
 function restrict (state, contextUuid) {
   return state.getIn(['context', contextUuid]) || Map()
 }
 
-export function getAllOutcomeIds (state, scope) {
-  const { contextUuid } = getConfig(state, scope)
-  let outcomes = []
-  if (state && restrictHasIn(state, contextUuid, 'outcomes')) {
-    outcomes = restrict(state, 'outcomes').get(contextUuid).keySeq().toJS()
-  }
-  return outcomes.slice(0, 10).map((id) => id.toString())
+function getContextUuid (state, scope) {
+  return getConfig(state, scope).contextUuid || ''
+}
+
+const getContextOutcomes = createCachedSelector(
+  (state, scope) => {
+    const uuid = getContextUuid(state, scope)
+    return restrict(state, 'outcomes').get(uuid)
+  },
+  (contextOutcomes) => contextOutcomes ? contextOutcomes.toJS() : {}
+) (getContextUuid)
+
+export const hasContextOutcomes = (state, scope) => {
+  const contextOutcomes = getContextOutcomes(state, scope)
+  return Object.keys(contextOutcomes).length > 0
 }
 
 export const getOutcome = createCachedSelector(
   (state, scope, id) => {
-    const { contextUuid } = getConfig(state, scope)
-    return restrict(state, 'outcomes').getIn([contextUuid, id.toString()])
+    const uuid = getContextUuid(state, scope)
+    return restrict(state, 'outcomes').getIn([uuid, id.toString()])
   },
   (outcome) => outcome ? outcome.toJS() : null
-) (
-  (state, scope, id) => {
-    const { contextUuid } = getConfig(state, scope)
-    return `${contextUuid}#${id}`
-  }
-)
+) ({
+  keySelector: (state, scope, id) => `${getContextUuid(state, scope)}#${id}`,
+  cacheObject: new LruObjectCache({cacheSize: 50})
+})
 
 export function isOutcomeGroup (state, scope, id) {
   const outcome = getOutcome(state, scope, id)
   return outcome && (outcome.has_children || (outcome.child_ids && outcome.child_ids.length > 0))
 }
 
-export function getRootOutcomeIds (state, scope) {
-  const { contextUuid } = getConfig(state, scope)
-  const ids = restrict(state, 'rootOutcomeIds').get(contextUuid)
-  return ids ? ids.toJS() : []
-}
+export const getRootOutcomeIds = createSelector(
+  (state, scope) => {
+    const uuid = getContextUuid(state, scope)
+    return restrict(state, 'rootOutcomeIds').get(uuid)
+  },
+  (ids) => ids ? ids.toJS() : []
+)
 
 export function getOutcomeSummary (state, scope, id) {
-  const { contextUuid } = getConfig(state, scope)
-  const outcomes = restrict(state, 'outcomes').get(contextUuid)
+  const outcomes = getContextOutcomes(state, scope)
   return getCollectionDetails(outcomes, id).descriptor
 }
-
-const cachedCollectionData = {}
-
-export function getCollectionData (state, scope) {
-  const { contextUuid } = getConfig(state, scope)
-  let outcomes = {}
-  if (state && restrictHasIn(state, contextUuid, 'outcomes')) {
-    outcomes = restrict(state, 'outcomes').get(contextUuid)
-  } else {
-    return // return null so OutcomeTree doesn't try to render an empty object
-  }
-  if (cachedCollectionData[contextUuid] &&
-      cachedCollectionData[contextUuid].outcomes === outcomes) {
-    return cachedCollectionData[contextUuid].collections
-  }
-  const collections = {}
-  for (const id of outcomes.keys()) { // eslint-disable-line no-restricted-syntax
-    if (!isCollectionId(outcomes, id)) {
-      continue // eslint-disable-line no-continue
+export const getCollectionData = createSelector(
+  getContextOutcomes,
+  (outcomes) => {
+    if (outcomes.length === 0) {
+      return // return null so tree doesnt try to render an empty object
     }
-    collections[id] = getCollectionDetails(outcomes, id) // eslint-disable-line immutable/no-mutation
+    const collections = {}
+    for (const id of Object.keys(outcomes)) { // eslint-disable-line no-restricted-syntax
+      if (!isCollectionId(outcomes, id)) {
+        continue // eslint-disable-line no-continue
+      }
+      collections[id] = getCollectionDetails(outcomes, id) // eslint-disable-line immutable/no-mutation
+    }
+    return collections
   }
-  cachedCollectionData[contextUuid] = { outcomes, collections } // eslint-disable-line immutable/no-mutation
-  return collections
-}
+)
 
 const isCollectionId = (outcomes, id) => {
-  return outcomes.has(id) &&
-          (outcomes.getIn([id, 'has_children']) ||
-          (outcomes.hasIn([id, 'child_ids']) && outcomes.getIn([id, 'child_ids']).size > 0))
+  const outcome = outcomes[id]
+  return outcome &&
+          (outcome.has_children ||
+          (outcome.child_ids && outcome.child_ids.length > 0))
 }
 
 const getGroupText = (count) => {
@@ -114,7 +110,7 @@ export const getDescriptor = (groupCount, outcomeCount) => {
 }
 
 const getCollectionDetails = (outcomes, id) => {
-  const outcome = outcomes.get(id).toJS()
+  const outcome = outcomes[id.toString()]
   const childIds = outcome.child_ids || []
   const subcollections = childIds.filter((id) => isCollectionId(outcomes, id))
   const groupCount = subcollections.length
