@@ -11,6 +11,7 @@ import Alignment from '../Alignment'
 import theme from '../theme'
 import styles from './styles.css'
 import Clipboard from '../../icons/Clipboard.svg'
+import OutcomePickerModal from '../OutcomePickerModal'
 
 @themeable(theme, styles)
 class AlignmentList extends React.Component {
@@ -25,7 +26,7 @@ class AlignmentList extends React.Component {
       title: PropTypes.string.isRequired
     })).isRequired,
     emptySetHeading: PropTypes.string.isRequired,
-    readOnly: PropTypes.bool.isRequired,
+    readOnly: PropTypes.bool,
     removeAlignment: PropTypes.func.isRequired,
     onUpdate: PropTypes.func,
     viewAlignment: PropTypes.func.isRequired,
@@ -39,8 +40,8 @@ class AlignmentList extends React.Component {
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
     screenreaderNotification: PropTypes.func,
-    liveRegion: PropTypes.element,
-    mountNode: PropTypes.element
+    liveRegion: OutcomePickerModal.propTypes.liveRegion,
+    mountNode: OutcomePickerModal.propTypes.mountNode
   }
 
   static defaultProps = {
@@ -49,6 +50,7 @@ class AlignmentList extends React.Component {
     onUpdate: null,
     onModalOpen: null,
     onModalClose: null,
+    readOnly: false,
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,

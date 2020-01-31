@@ -8,6 +8,7 @@ export default OutcomeSDKComponent(AlignmentList, {
   onUpdate: PropTypes.func,
   onModalOpen: PropTypes.func,
   onModalClose: PropTypes.func,
+  readOnly: PropTypes.bool,
   artifactTypeName: PropTypes.string,
   displayMasteryDescription: PropTypes.bool,
   displayMasteryPercentText: PropTypes.bool,

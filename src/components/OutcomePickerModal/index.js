@@ -28,8 +28,8 @@ export default class OutcomePickerModal extends React.Component {
     displayMasteryPercentText: PropTypes.bool,
     setSearchText: PropTypes.func.isRequired,
     screenreaderNotification: PropTypes.func,
-    liveRegion: PropTypes.element,
-    mountNode: PropTypes.element,
+    liveRegion: Modal.propTypes.liveRegion,
+    mountNode: Modal.propTypes.mountNode,
   }
 
   static defaultProps = {
