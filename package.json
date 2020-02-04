@@ -4,7 +4,11 @@
   "description": "Outcomes Application for general alignment and assessment",
   "author": "Instructure, Inc. Engineering and Product Design",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
   "scripts": {
     "prepublishOnly": "yarn run clean && yarn run transpile",
     "transpile": "bin/transpile",
