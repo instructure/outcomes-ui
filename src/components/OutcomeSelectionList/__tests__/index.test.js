@@ -16,14 +16,13 @@ describe('OutcomeSelectionList', () => {
   }
 
   function makeProps (props = {}) {
-    const getOutcome = sinon.stub()
-    getOutcome.withArgs('1').returns({ id: '1', label: 'ABC', title: 'Title1' })
-    getOutcome.withArgs('2').returns({ id: '2', label: 'DEF', title: 'Title2' })
-    getOutcome.withArgs('3').returns({ id: '3', label: 'GHI', title: 'Title3' })
-
+    const outcomes = [
+      { id: '1', label: 'ABC', title: 'Title1' },
+      { id: '2', label: 'DEF', title: 'Title2' },
+      { id: '3', label: 'GHI', title: 'Title3' },
+    ]
     return Object.assign({
-      ids: ['1', '2', '3'],
-      getOutcome,
+      outcomes,
       setFocusedOutcome: sinon.spy(),
       isOutcomeSelected: selectedIds([]),
       selectOutcomeIds: sinon.spy(),

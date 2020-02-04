@@ -1,4 +1,6 @@
-export function getFeatures (state) {
-  const features = state.getIn(['features'])
-  return features ? features.toJS() : []
-}
+import { createSelector } from 'reselect'
+
+export const getFeatures = createSelector(
+  (state) => state.getIn(['features']),
+  (features) => features ? features.toJS() : []
+)

@@ -6,15 +6,14 @@ import OutcomeFolderList from '../index'
 import checkA11y from '../../../test/checkA11y'
 
 describe('OutcomeFolderList', () => {
+  const outcomes = [
+    { id: '1', label: 'ABC', title: 'Title1' },
+    { id: '2', label: 'DEF', title: 'Title2' },
+    { id: '3', label: 'GHI', title: 'Title3' }
+  ]
   function makeProps (props = {}) {
-    const getOutcome = sinon.stub()
-    getOutcome.withArgs('1').returns({ id: '1', label: 'ABC', title: 'Title1' })
-    getOutcome.withArgs('2').returns({ id: '2', label: 'DEF', title: 'Title2' })
-    getOutcome.withArgs('3').returns({ id: '3', label: 'GHI', title: 'Title3' })
-
     return Object.assign({
-      ids: ['1', '2', '3'],
-      getOutcome,
+      outcomes,
       getOutcomeSummary: sinon.spy(),
       setActiveCollection: sinon.spy()
     }, props)

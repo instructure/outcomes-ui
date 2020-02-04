@@ -13,13 +13,17 @@ function getContextUuid (state, scope) {
   return getConfig(state, scope).contextUuid || ''
 }
 
-const getContextOutcomes = createCachedSelector(
+export const isGroup = (outcome) => {
+  return outcome && (outcome.has_children || (outcome.child_ids && outcome.child_ids.length > 0))
+}
+
+const getContextOutcomes = createSelector(
   (state, scope) => {
     const uuid = getContextUuid(state, scope)
     return restrict(state, 'outcomes').get(uuid)
   },
   (contextOutcomes) => contextOutcomes ? contextOutcomes.toJS() : {}
-) (getContextUuid)
+)
 
 export const hasContextOutcomes = (state, scope) => {
   const contextOutcomes = getContextOutcomes(state, scope)
@@ -39,7 +43,7 @@ export const getOutcome = createCachedSelector(
 
 export function isOutcomeGroup (state, scope, id) {
   const outcome = getOutcome(state, scope, id)
-  return outcome && (outcome.has_children || (outcome.child_ids && outcome.child_ids.length > 0))
+  return isGroup(outcome)
 }
 
 export const getRootOutcomeIds = createSelector(
@@ -50,10 +54,11 @@ export const getRootOutcomeIds = createSelector(
   (ids) => ids ? ids.toJS() : []
 )
 
-export function getOutcomeSummary (state, scope, id) {
-  const outcomes = getContextOutcomes(state, scope)
-  return getCollectionDetails(outcomes, id).descriptor
-}
+export const makeGetOutcomeSummary = createSelector(
+  [getContextOutcomes],
+  (outcomes) => (id) => getCollectionDetails(outcomes, id).descriptor
+)
+
 export const getCollectionData = createSelector(
   getContextOutcomes,
   (outcomes) => {

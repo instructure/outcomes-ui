@@ -6,6 +6,7 @@ import t from 'format-message'
 import themeable from '@instructure/ui-themeable'
 
 import OutcomeCheckbox from '../OutcomeCheckbox'
+import { outcomeShape } from '../../store/shapes'
 
 import theme from '../theme'
 import styles from './styles.css'
@@ -15,20 +16,20 @@ export default class OutcomeSelectionList extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     setFocusedOutcome: PropTypes.func.isRequired,
-    getOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
-    ids: PropTypes.array.isRequired
+    outcomes: PropTypes.arrayOf(outcomeShape).isRequired
   }
 
   allSelected () {
-    const { ids, isOutcomeSelected } = this.props
-    return ids.every((id) => isOutcomeSelected(id))
+    const { outcomes, isOutcomeSelected } = this.props
+    return outcomes.every((o) => isOutcomeSelected(o.id))
   }
 
   toggleAllSelected () {
-    const { deselectOutcomeIds, selectOutcomeIds, ids } = this.props
+    const { deselectOutcomeIds, selectOutcomeIds, outcomes } = this.props
+    const ids = outcomes.map((o) => o.id)
     if (this.allSelected()) {
       deselectOutcomeIds(ids)
     } else {
@@ -45,8 +46,8 @@ export default class OutcomeSelectionList extends React.Component {
   }
 
   render () {
-    const { ids, getOutcome, setFocusedOutcome } = this.props
-    if (ids.length === 0) {
+    const { outcomes, setFocusedOutcome } = this.props
+    if (outcomes.length === 0) {
       return <div />
     }
     return (
@@ -64,8 +65,7 @@ export default class OutcomeSelectionList extends React.Component {
           />
         </div>
         {
-          ids.map((id) => {
-            const o = getOutcome(id)
+          outcomes.map((o) => {
             return (
               <div key={o.id} className={styles.checkbox}>
                 <OutcomeCheckbox

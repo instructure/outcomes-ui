@@ -4,7 +4,7 @@ import {
   hasContextOutcomes,
   getOutcome,
   isOutcomeGroup,
-  getOutcomeSummary,
+  makeGetOutcomeSummary,
   getRootOutcomeIds,
   getCollectionData,
   getDescriptor,
@@ -86,9 +86,9 @@ describe('context/selectors', () => {
     })
   })
 
-  describe('getOutcomeSummary', () => {
+  describe('makeGetOutcomeSummary', () => {
     it('returns the correct summary', () => {
-      expect(getOutcomeSummary(state, scope, '1')).to.equal('1 Group | 1 Outcome')
+      expect(makeGetOutcomeSummary(state, scope)('1')).to.equal('1 Group | 1 Outcome')
     })
   })
 

@@ -10,10 +10,9 @@ import styles from './styles.css'
 export default class OutcomeFolderList extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
-    getOutcome: PropTypes.func.isRequired,
     getOutcomeSummary: PropTypes.func.isRequired,
     setActiveCollection: PropTypes.func.isRequired,
-    ids: PropTypes.array.isRequired,
+    outcomes: PropTypes.array.isRequired,
     toggleExpandedIds: PropTypes.func.isRequired,
     activeCollectionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }
@@ -24,23 +23,22 @@ export default class OutcomeFolderList extends React.Component {
 
   render () {
     const {
-      ids,
-      getOutcome,
+      outcomes,
       getOutcomeSummary,
       setActiveCollection,
       toggleExpandedIds,
       activeCollectionId
     } = this.props
-    if (ids.length === 0) {
+    if (outcomes.length === 0) {
       return <div />
     }
     return (
       <div className={styles.picker}>
         {
-          ids.map((id) => (
+          outcomes.map((outcome) => (
             <OutcomeFolder
-              key={id}
-              outcome={getOutcome(id)}
+              key={outcome.id}
+              outcome={outcome}
               getOutcomeSummary={getOutcomeSummary}
               setActiveCollection={setActiveCollection}
               toggleExpandedIds={toggleExpandedIds}

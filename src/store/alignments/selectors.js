@@ -1,14 +1,11 @@
-import { List, Map } from 'immutable'
+import { Map, List } from 'immutable'
+import { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getOutcome } from '../context/selectors'
 
 const restrict = (state, scope) => state.getIn([scope, 'alignments']) || Map()
 const alignedOutcomes = (state, scope) => restrict(state, scope).get('alignedOutcomes') || List()
 const openAlignmentId = (state, scope) => restrict(state, scope).get('openAlignmentId')
-
-export function getAlignedOutcomeIds (state, scope) {
-  return getAlignedOutcomes(state, scope).map((o) => o.id)
-}
 
 export const getAlignedOutcomes = createCachedSelector(
   alignedOutcomes,
@@ -21,6 +18,11 @@ export const getAlignedOutcomes = createCachedSelector(
   (_state, scope) => scope
 )
 
+export const getAlignedOutcomeIds = createSelector(
+  getAlignedOutcomes,
+  (outcomes) => outcomes.map((o) => o.id)
+)
+
 export function getAlignedOutcomeCount (state, scope) {
   if (state && restrict(state, scope).get('alignedOutcomes')) {
     return restrict(state, scope).get('alignedOutcomes').size
@@ -28,10 +30,10 @@ export function getAlignedOutcomeCount (state, scope) {
   return 0
 }
 
-export function getAlignedOutcome (state, scope, id) {
-  const outcomes = getAlignedOutcomes(state, scope)
-  return outcomes.find((outcome) => outcome.id === id)
-}
+export const getAlignedOutcome = createSelector(
+  (state, scope, id) => getAlignedOutcomes(state, scope).find((o) => o.id === id),
+  (outcome) => outcome
+)
 
 export function getAnyOutcome (state, scope, id) {
   return getAlignedOutcome(state, scope, id) || getOutcome(state, scope, id)

@@ -4,10 +4,7 @@ import * as contextActions from '../store/context/actions'
 import * as searchActions from '../store/search/actions'
 import * as outcomePickerActions from '../store/OutcomePicker/actions'
 import {
-  getRootOutcomeIds,
-  getCollectionData,
-  isOutcomeGroup,
-  getOutcomeSummary
+  hasContextOutcomes
 } from '../store/context/selectors'
 import {
   getSearchText,
@@ -19,39 +16,23 @@ import {
 import {
   getFocusedOutcome,
   getOutcomePickerState,
-  getActiveChildrenIds,
   getSelectedOutcomeIds,
-  makeIsOutcomeSelected,
-  getActiveCollectionId,
-  getActiveOutcomeHeader,
-  getActiveOutcomeSummary,
-  getActiveOutcomeDescription,
-  getExpandedIds
+  makeIsOutcomeSelected
 } from '../store/OutcomePicker/selectors'
 import { getAnyOutcome } from '../store/alignments/selectors'
 import { getFeatures } from '../store/features/selectors'
 import OutcomePicker from '../components/OutcomePicker'
+import ConnectedOutcomeTree from './ConnectedOutcomeTree'
 
 function mapStateToProps (state, ownProps) {
   const { artifactTypeName, displayMasteryDescription, displayMasteryPercentText, scope } = ownProps
   return {
-    collections: getCollectionData(state, scope),
-    rootOutcomeIds: getRootOutcomeIds(state, scope),
-    activeChildrenIds: getActiveChildrenIds(state, scope),
     getOutcome: getAnyOutcome.bind(null, state, scope),
-    getOutcomeSummary: getOutcomeSummary.bind(null, state, scope),
+    hasOutcomes: hasContextOutcomes(state, scope),
     focusedOutcome: getFocusedOutcome(state, scope),
-    expandedIds: getExpandedIds(state, scope),
     outcomePickerState: getOutcomePickerState(state, scope),
     selectedOutcomeIds: getSelectedOutcomeIds(state, scope),
     isOutcomeSelected: makeIsOutcomeSelected(state, scope),
-    isOutcomeGroup: isOutcomeGroup.bind(null, state, scope),
-    activeCollection: {
-      id: getActiveCollectionId(state, scope),
-      header: getActiveOutcomeHeader(state, scope),
-      summary: getActiveOutcomeSummary(state, scope),
-      description: getActiveOutcomeDescription(state, scope)
-    },
     artifactTypeName: artifactTypeName,
     displayMasteryDescription: displayMasteryDescription,
     displayMasteryPercentText: displayMasteryPercentText,
@@ -60,7 +41,8 @@ function mapStateToProps (state, ownProps) {
     isSearchLoading: getIsSearchLoading(state, scope),
     searchPage: getSearchPage(state, scope),
     searchEntries: getSearchEntries(state, scope),
-    searchTotal: getSearchTotal(state, scope)
+    searchTotal: getSearchTotal(state, scope),
+    treeView: ConnectedOutcomeTree
   }
 }
 

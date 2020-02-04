@@ -1,157 +1,138 @@
 import { expect } from 'chai'
 import React from 'react'
 import sinon from 'sinon'
-import { mount } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import OutcomeTree from '../index'
+import styles from '../styles.css'
 import checkA11y from '../../../test/checkA11y'
 
 describe('OutcomeTree', () => {
+  const outcomeData = { label: 'FOO', title: 'bar' }
+  const groups = [
+    {'id': '2', ...outcomeData },
+    {'id': '3', ...outcomeData},
+    {'id': '6', ...outcomeData}
+  ]
+  const nonGroups = [
+    {'id': '4', ...outcomeData}, {'id': '5', ...outcomeData}
+  ]
+
   function makeProps (props = {}) {
     return Object.assign({
+      activeChildren: {
+        groups, nonGroups
+      },
+      rootOutcomeIds: [],
+      toggleExpandedIds: sinon.spy(),
+      isOutcomeSelected: sinon.stub().returns(false),
+      getOutcomeSummary: sinon.spy(),
+      selectOutcomeIds: sinon.spy(),
+      deselectOutcomeIds: sinon.spy(),
+      setFocusedOutcome: sinon.spy(),
+      setActiveCollection: sinon.spy(),
       collections: {
-        1: {
-          id: '1',
-          name: 'Collectiony Collectionface',
-          collections: ['3']
-        },
-        2: {
-          id: '2',
-          name: 'Collection 2 Electric Boogaloo'
-        },
-        3: {
-          id: '3',
-          name: 'Collection Trifection'
-        }
+        100: { id: '100', name: 'Outcome group' }
       },
       expandedIds: [],
-      toggleExpandedIds: sinon.spy(),
-      items: {},
-      rootOutcomeIds: [],
-      setActiveCollection: sinon.spy()
+      activeCollection: {
+        id: '100',
+        header: 'Outcome group',
+        summary: '1 outcome',
+        description: 'This is the description'
+      },
     }, props)
   }
 
-  function collectionsWithRoot (rootIds, collections = null) {
-    const cols = collections || rootIds
-    return Object.assign(makeProps().collections, {
-      root: {id: 'root', name: 'Home', collections: cols, child_ids: rootIds}
-    })
-  }
-
-  it('renders a TreeBrowser component', () => {
-    const wrapper = mount(<OutcomeTree {...makeProps()} />)
-    expect(wrapper.find('TreeBrowser')).to.have.length(1)
+  it('passes the correct params to OutcomeBrowser', () => {
+    const props = makeProps()
+    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('OutcomeBrowser')).to.have.length(1)
+    expect(wrapper.find('OutcomeBrowser').prop('collections')).to.deep.equal(props.collections)
+    expect(wrapper.find('OutcomeBrowser').prop('rootOutcomeIds')).to.deep.equal(props.rootOutcomeIds)
+    expect(wrapper.find('OutcomeBrowser').prop('expandedIds')).to.deep.equal(props.expandedIds)
   })
 
-  it('does not require a set of rootOutcomeIds', () => {
-    const wrapper = mount(<OutcomeTree {...makeProps()} />)
-    expect(wrapper.find('TreeButton')).to.have.length(3)
+  it('wraps the browser with the proper CSS styling', () => {
+    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(`.${styles.outcomeTree}`).exists()).to.equal(true)
   })
 
-  it('does not render a Home directory if only existing root is a collection', () => {
-    const wrapper = mount(
-      <OutcomeTree
-        {...makeProps({
-          rootOutcomeIds: [1],
-          collections: collectionsWithRoot([1])
-        })}
-      />
-    )
-    expect(wrapper.find('TreeButton')).to.have.length(2)
-    expect(wrapper.find('TreeButton').at(0).text()).to.include('Collectiony Collectionface')
+  it('passes correct params to OutcomeSelectionList component', () => {
+    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('OutcomeSelectionList').prop('outcomes')).to.deep.equal(nonGroups)
   })
 
-  it('renders a Home directory if only existing root is not a collection', () => {
-    const rootIds = ['4']
-    const wrapper = mount(
-      <OutcomeTree
-        {...makeProps({
-          rootOutcomeIds: rootIds,
-          collections: collectionsWithRoot(rootIds, [])
-        })}
-      />
-    )
-    expect(wrapper.find('TreeButton')).to.have.length(1)
-    expect(wrapper.find('TreeButton').at(0).text()).to.include('Home')
+  it('passes correct params to OutcomeFolderList component', () => {
+    const props = makeProps()
+    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('OutcomeFolderList').prop('outcomes')).to.deep.equal(groups)
+    expect(wrapper.find('OutcomeFolderList').prop('activeCollectionId')).to.deep.equal(props.activeCollection.id)
   })
 
-  it('does not render Home level if all roots are collections', () => {
-    const rootIds = ['1', '2']
-    const wrapper = mount(
-      <OutcomeTree
-        {...makeProps({
-          rootOutcomeIds: rootIds,
-          collections: collectionsWithRoot(rootIds)
-        })}
-      />
-    )
-    expect(wrapper.find('TreeButton')).to.have.length(2)
+  it('passes correct params to the Text components', () => {
+    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    const texts = wrapper.find('Text')
+    const header = wrapper.find('Heading')
+    expect(texts.at(0).render().text()).to.equal('1 outcome')
+    expect(texts.at(1).render().text()).to.equal('This is the description')
+    expect(header.at(0).render().text()).to.equal('Outcome group')
   })
 
-  it('passes children of root collections', () => {
-    const rootIds = ['1', '2']
-    const wrapper = mount(
-      <OutcomeTree {...makeProps({
-          rootOutcomeIds: rootIds,
-          collections: collectionsWithRoot(rootIds),
-          expandedIds: ['1']
-        })}
-      />
-    )
-    expect(wrapper.find('TreeButton')).to.have.length(3)
-  })
-
-  it('can expand non-root collections', () => {
-    const collections = {
-        1: {
-          id: '1',
-          name: 'Collectiony Collectionface',
-          collections: ['2']
-        },
-        2: {
-          id: '2',
-          name: 'Collection 2 Electric Boogaloo',
-          collections: ['3']
-        },
-        3: {
-          id: '3',
-          name: 'Collection 2 Electric Boogaloo',
-          collections: ['4']
-        },
-        4: {
-          id: '4',
-          name: 'Collection Trifection'
-        },
-        root: {id: 'root', name: 'Home', collections: ['1'], child_ids: ['1']}
-      }
-
-    const rootIds = ['1']
-    const wrapper = mount(
-      <OutcomeTree {...makeProps({
-          rootOutcomeIds: rootIds,
-          collections: collections,
-          expandedIds: ['2', '3']
-        })}
-      />
-    )
-    expect(wrapper.find('TreeButton')).to.have.length(4)
-  })
-
-  it('does not render if collections are undefined', () => {
-    const props = makeProps({ collections: void 0 })
+  it('sanitizes the outcome description', () => {
+    const props = makeProps()
+    props.activeCollection.description = 'I have <blink>invalid html'
     const wrapper = mount(<OutcomeTree {...props} />)
-    expect(wrapper.find('TreeBrowser')).to.have.length(0)
+    expect(wrapper.html()).to.include('</blink>')
   })
 
-  it('sets the active collection and when clicked', () => {
-    const setActiveCollection = sinon.stub()
-    const props = makeProps({ setActiveCollection })
+  it('sets the CSS styling when there is a description', () => {
+    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(`.${styles.outcomeDescription}`).exists()).to.equal(true)
+  })
+
+  it('shows the proper billboard when there are no active collection details', () => {
+    const props = makeProps({activeCollection: {}})
+    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Billboard')).to.have.length(1)
+    expect(wrapper.find('Billboard').prop('heading')).to.equal('Align Outcomes')
+  })
+
+  it('shows the proper billboard when there is no active collection id', () => {
+    const props = makeProps()
+    delete props.activeCollection.id
+    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Billboard')).to.have.length(1)
+    expect(wrapper.find('Billboard').prop('heading')).to.equal('Align Outcomes')
+  })
+
+  it('does not set the CSS description styling when there are no active collection details', () => {
+    const props = makeProps({activeCollection: {}})
+    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(`.${styles.outcomeDescription}`).exists()).to.equal(false)
+  })
+
+  it('sets the CSS content styling', () => {
+    const props = makeProps({activeCollection: {}})
+    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(`.${styles.outcomeContent}`).exists()).to.equal(true)
+  })
+
+  it('handles missing activeCollection props', () => {
+    const props = makeProps()
+    delete props.activeCollection
     const wrapper = mount(<OutcomeTree {...props} />)
-    wrapper.find('TreeButton').first().simulate('click')
-    expect(props.setActiveCollection.calledWith()).to.equal(true)
+    const texts = wrapper.find('Text')
+    expect(texts.at(0).render().text()).to.equal('Select all')
   })
 
   it('meets a11y standards', () => {
-    return checkA11y(<OutcomeTree {...makeProps()} />)
+    const props = makeProps()
+    return checkA11y(<OutcomeTree {...props} />)
+  })
+
+  it('resets focus on update', () => {
+    const wrapper = mount(<OutcomeTree {...makeProps()} />)
+    wrapper.setProps({...makeProps({activeCollection: {id: '101'}})})
+    expect(wrapper.getDOMNode().contains(document.activeElement))
   })
 })

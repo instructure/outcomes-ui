@@ -4,11 +4,8 @@ import {
   getSelectedOutcomeIds,
   makeIsOutcomeSelected,
   anyOutcomeSelected,
-  getActiveCollectionId,
-  getActiveOutcomeHeader,
-  getActiveOutcomeSummary,
-  getActiveOutcomeDescription,
-  getActiveChildrenIds,
+  getActiveCollection,
+  getActiveChildren,
   getOutcomePickerState,
   getExpandedIds
 } from '../selectors'
@@ -99,63 +96,55 @@ describe('OutcomePicker/selectors', () => {
     })
   })
 
-  describe('getActiveCollectionId', () => {
-    it('returns undefined if no active collection id', () => {
-      expect(getActiveCollectionId(state, scope)).to.be.undefined
+  describe('getActiveCollection', () => {
+    it('returns correct values if there is no active collection', () => {
+      const data = getActiveCollection(state, scope)
+      expect(data.id).to.equal('')
+      expect(data.header).to.equal('')
+      expect(data.summary).to.equal('')
+      expect(data.description).to.equal('')
     })
 
-    it('returns the active collection id if present', () => {
+    it('returns the correct values if id if present', () => {
       const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
-      expect(getActiveCollectionId(newState, scope)).to.equal('1')
+      const data = getActiveCollection(newState, scope)
+      expect(data.id).to.equal(1)
+      expect(data.header).to.equal('Some outcome 1')
+      expect(data.summary).to.equal('1 Group | 1 Outcome')
+      expect(data.description).to.equal('Description 1')
     })
   })
 
-  describe('getActiveOutcomeHeader', () => {
-    it('returns no header if no active collection', () => {
-      expect(getActiveOutcomeHeader(state, scope)).to.equal('')
+  describe('getActiveChildren', () => {
+    it('returns an empty map when no set active', () => {
+      expect(getActiveChildren(state, scope)).to.deep.equal({groups: [], nonGroups: []})
     })
 
-    it('returns header from active collection', () => {
+    it('returns the list of groups and non groups when present', () => {
       const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
-      expect(getActiveOutcomeHeader(newState, scope)).to.equal('Some outcome 1')
-    })
-  })
+      const { groups, nonGroups } = getActiveChildren(newState, scope)
+      expect(groups).to.deep.equal([
+        {
+          id: 2,
+          title: 'Some outcome 2',
+          description: 'Description 2',
+          child_ids: ['4']
+        }
+      ])
 
-  describe('getActiveOutcomeSummary', () => {
-    it('returns no summary if no active collection', () => {
-      expect(getActiveOutcomeSummary(state, scope)).to.equal('')
-    })
-
-    it('returns summary from active collection', () => {
-      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
-      expect(getActiveOutcomeSummary(newState, scope)).to.equal('1 Group | 1 Outcome')
-    })
-  })
-
-  describe('getActiveOutcomeDescription', () => {
-    it('returns no description if no active collection', () => {
-      expect(getActiveOutcomeDescription(state, scope)).to.equal('')
-    })
-
-    it('returns description from active collection', () => {
-      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
-      expect(getActiveOutcomeDescription(newState, scope)).to.equal('Description 1')
-    })
-  })
-
-  describe('getActiveChildrenIds', () => {
-    it('returns an empty array when no set active', () => {
-      expect(getActiveChildrenIds(state, scope)).to.deep.equal([])
+      expect(nonGroups).to.deep.equal([
+        {
+          id: 3,
+          title: 'Some outcome 3',
+          description: 'Description 3',
+          child_ids: []
+        }
+      ])
     })
 
-    it('returns the set of ids when present', () => {
-      const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '1')
-      expect(getActiveChildrenIds(newState, scope)).to.deep.equal(['2', '3'])
-    })
-
-    it('returns an empty array when no child ids are present', () => {
+    it('returns an empty map when no child ids are present', () => {
       const newState = state.setIn([scope, 'OutcomePicker', 'activeCollection'], '4')
-      expect(getActiveChildrenIds(newState, scope)).to.deep.equal([])
+      expect(getActiveChildren(newState, scope)).to.deep.equal({groups: [], nonGroups: []})
     })
   })
 
