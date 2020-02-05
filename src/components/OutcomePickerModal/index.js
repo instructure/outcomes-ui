@@ -13,6 +13,7 @@ export default class OutcomePickerModal extends React.Component {
   static propTypes = {
     outcomePickerState: PropTypes.string.isRequired,
     resetOutcomePicker: PropTypes.func.isRequired,
+    closeOutcomePicker: PropTypes.func.isRequired,
     loadOutcomePicker: PropTypes.func.isRequired,
     setFocusedOutcome: PropTypes.func.isRequired,
     saveOutcomePickerAlignments: PropTypes.func.isRequired,
@@ -61,6 +62,10 @@ export default class OutcomePickerModal extends React.Component {
   }
 
   handleModalRequestClose () {
+    this.props.closeOutcomePicker()
+  }
+
+  handleModalExited () {
     this.props.resetOutcomePicker()
   }
 
@@ -110,6 +115,7 @@ export default class OutcomePickerModal extends React.Component {
           onOpen={() => this.handleModalReady()}
           onClose={() => this.handleModalClose()}
           onDismiss={() => this.handleModalRequestClose()}
+          onExited={() => this.handleModalExited()}
           transition="fade"
           size="fullscreen"
           label={t('Align Outcomes')}

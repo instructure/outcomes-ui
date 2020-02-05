@@ -14,6 +14,7 @@ describe('OutcomePickerModal', () => {
       outcomePickerState: 'choosing',
       outcomePicker: () => <div className="outcomePicker" />, // eslint-disable-line react/display-name
       resetOutcomePicker: sinon.spy(),
+      closeOutcomePicker: sinon.spy(),
       loadOutcomePicker: sinon.spy(),
       setFocusedOutcome: sinon.spy(),
       onModalOpen: sinon.spy(),
@@ -56,7 +57,17 @@ describe('OutcomePickerModal', () => {
     const props = makeProps()
     const wrapper = shallow(<OutcomePickerModal {...props} />)
     wrapper.find('Modal').simulate('dismiss')
-    expect(props.resetOutcomePicker.calledOnce).to.be.true
+    expect(props.closeOutcomePicker.calledOnce).to.be.true
+  })
+
+  it('resets modal on via onExited prop', (done) => {
+    const props = makeProps()
+    const wrapper = shallow(<OutcomePickerModal {...props} />)
+    wrapper.find('Modal').prop('onExited')()
+    setTimeout(() => {
+      expect(props.resetOutcomePicker.calledOnce).to.be.true
+      done()
+    }, 1)
   })
 
   it('calls focus on the trigger element when modal dismissed', () => {
@@ -115,7 +126,7 @@ describe('OutcomePickerModal', () => {
     const wrapper = shallow(<OutcomePickerModal {...props} />)
     wrapper.find(primaryButtonSelector).simulate('click')
     setTimeout(() => {
-      expect(props.resetOutcomePicker.called).to.be.true
+      expect(props.closeOutcomePicker.called).to.be.true
       done()
     }, 1)
   })
@@ -137,11 +148,11 @@ describe('OutcomePickerModal', () => {
     expect(props.saveOutcomePickerAlignments.called).to.be.false
   })
 
-  it('resets modal state when Cancel is pressed', () => {
+  it('triggers closeOutcomePicker on closeButton click', () => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
     wrapper.find(cancelButtonSelector).simulate('click')
-    expect(props.resetOutcomePicker.called).to.be.true
+    expect(props.closeOutcomePicker.called).to.be.true
   })
 
   it('meets a11y standards', () => {
