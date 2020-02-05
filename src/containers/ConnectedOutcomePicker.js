@@ -16,10 +16,9 @@ import {
 import {
   getFocusedOutcome,
   getOutcomePickerState,
-  getSelectedOutcomeIds,
+  getSelectedOutcomes,
   makeIsOutcomeSelected
 } from '../store/OutcomePicker/selectors'
-import { getAnyOutcome } from '../store/alignments/selectors'
 import { getFeatures } from '../store/features/selectors'
 import OutcomePicker from '../components/OutcomePicker'
 import ConnectedOutcomeTree from './ConnectedOutcomeTree'
@@ -27,11 +26,10 @@ import ConnectedOutcomeTree from './ConnectedOutcomeTree'
 function mapStateToProps (state, ownProps) {
   const { artifactTypeName, displayMasteryDescription, displayMasteryPercentText, scope } = ownProps
   return {
-    getOutcome: getAnyOutcome.bind(null, state, scope),
     hasOutcomes: hasContextOutcomes(state, scope),
     focusedOutcome: getFocusedOutcome(state, scope),
     outcomePickerState: getOutcomePickerState(state, scope),
-    selectedOutcomeIds: getSelectedOutcomeIds(state, scope),
+    selectedOutcomes: getSelectedOutcomes(state, scope),
     isOutcomeSelected: makeIsOutcomeSelected(state, scope),
     artifactTypeName: artifactTypeName,
     displayMasteryDescription: displayMasteryDescription,

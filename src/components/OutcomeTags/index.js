@@ -12,9 +12,8 @@ import styles from './styles.css'
 export default class OutcomeTags extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
-    ids: PropTypes.arrayOf(PropTypes.string).isRequired,
     emptyText: PropTypes.string.isRequired,
-    getOutcome: PropTypes.func.isRequired,
+    outcomes: PropTypes.array.isRequired,
     deselectOutcomeIds: PropTypes.func,
   }
 
@@ -23,8 +22,8 @@ export default class OutcomeTags extends React.Component {
   }
 
   componentDidUpdate (oldProps) {
-    const { ids } = this.props
-    if (oldProps.ids.length && !ids.length) {
+    const { outcomes } = this.props
+    if (oldProps.outcomes.length && !outcomes.length) {
       this.emptyResults.focus()
     }
   }
@@ -38,11 +37,8 @@ export default class OutcomeTags extends React.Component {
   focusInput = (id) => this.inputRefs[id].focus()
 
   getSortedOutcomes () {
-    const { ids, getOutcome } = this.props
-    return ids.map((id) => {
-      const o = getOutcome(id)
-      return o
-    }).sort((a, b) => {
+    const { outcomes } = this.props
+    return outcomes.sort((a, b) => {
       return a.title ? a.title.localeCompare(b.title) : -1
     })
   }
@@ -99,7 +95,7 @@ export default class OutcomeTags extends React.Component {
           <IconOutcomesLine />
         </Text>
         <div className={styles.tags}>
-          { this.props.ids.length ? this.renderTags() : this.renderEmpty() }
+          { this.props.outcomes.length ? this.renderTags() : this.renderEmpty() }
         </div>
       </div>
     )

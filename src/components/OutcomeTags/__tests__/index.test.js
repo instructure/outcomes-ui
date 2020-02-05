@@ -8,18 +8,15 @@ import checkA11y from '../../../test/checkA11y'
 
 describe('OutcomeTags', () => {
   function makeProps (props = {}) {
-    const getOutcome = sinon.stub()
     const deselectOutcomeIds = sinon.stub()
-    getOutcome.withArgs('1').returns({ id: '1', label: 'ABC', title: 'Title1' })
-    getOutcome.withArgs('2').returns({ id: '2', label: 'DEF', title: 'Title2' })
-    getOutcome.withArgs('3').returns({ id: '3', label: 'GHI', title: 'Title3' })
-    getOutcome.withArgs('4').returns(
-      { id: '4', label: 'JKL', title: 'supercalifragilisticexpialidocious' }
-    )
+    const outcomes = [
+      { id: '1', label: 'ABC', title: 'Title1' },
+      { id: '2', label: 'DEF', title: 'Title2' },
+      { id: '3', label: 'GHI', title: 'Title3' }
+    ]
 
     return Object.assign({
-      ids: ['1', '2', '3'],
-      getOutcome,
+      outcomes,
       deselectOutcomeIds
     }, props)
   }
@@ -59,7 +56,7 @@ describe('OutcomeTags', () => {
   })
 
   it('renders default text when outcome list empty', () => {
-    const props = makeProps({ ids: [] })
+    const props = makeProps({ outcomes: [] })
 
     const wrapper = render(<OutcomeTags {...props} />)
     expect(wrapper.text().match(/No Outcomes are currently selected/)).to.be.truthy

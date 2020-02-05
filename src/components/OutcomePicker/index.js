@@ -24,7 +24,7 @@ class OutcomePicker extends React.Component {
   static propTypes = {
     focusedOutcome: outcomeShape,
     setFocusedOutcome: PropTypes.func.isRequired,
-    selectedOutcomeIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+    selectedOutcomes: PropTypes.arrayOf(outcomeShape).isRequired,
     getOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
@@ -129,8 +129,7 @@ class OutcomePicker extends React.Component {
 
   renderHeader () {
     const {
-      selectedOutcomeIds,
-      getOutcome,
+      selectedOutcomes,
       features,
       searchText,
       updateSearchText,
@@ -152,8 +151,7 @@ class OutcomePicker extends React.Component {
           padding="none none small none">
           <ScreenReaderContent>{t('Selected outcomes:')}</ScreenReaderContent>
           <OutcomeTags
-            ids={selectedOutcomeIds}
-            getOutcome={getOutcome}
+            outcomes={selectedOutcomes}
             emptyText={t('No Outcomes are currently selected')}
             deselectOutcomeIds={deselectOutcomeIds}
           />

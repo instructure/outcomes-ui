@@ -11,8 +11,7 @@ describe('OutcomePicker', () => {
   function makeProps (props = {}) {
     return Object.assign({
       focusedOutcome: null,
-      selectedOutcomeIds: ['2', '3'],
-      getOutcome: sinon.stub().returns({ id: '1', label: 'FOO', title: 'bar' }),
+      selectedOutcomes: [{ id: '2'}, { id: '3' }],
       hasOutcomes: true,
       isOutcomeSelected: sinon.stub().returns(false),
       deselectOutcomeIds: sinon.spy(),
@@ -36,7 +35,7 @@ describe('OutcomePicker', () => {
 
   it('passes correct params to OutcomeTags component', () => {
     const wrapper = shallow(<OutcomePicker {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeTags').prop('ids')).to.deep.equal(['2', '3'])
+    expect(wrapper.find('OutcomeTags').prop('outcomes')).to.deep.equal([{ id: '2'}, { id: '3' }])
   })
 
   it('has a screen reader content for selected outcomes', () => {
