@@ -20,7 +20,7 @@ module.exports = Object.assign({}, defaultConfig, {
     }],
     'function-paren-newline': ['error', 'consistent'],
     'import/no-extraneous-dependencies': ['error', {
-      devDependencies:['*.config.js', '**/test/*', '**/__tests__/*', '**/demo.js']
+      devDependencies:['*.config.js', '**/test/*', '**/__tests__/*', '**/demo.js', '**/index.stories.js']
     }],
     'jsx-a11y/anchor-is-valid': 0,
     'security/detect-object-injection': 0,
