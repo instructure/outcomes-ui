@@ -36,16 +36,16 @@ export const searchOutcomes = ({ text, page }) => {
         args: [host, jwt, initialText, initialPage, contextUuid]
       }
     })
-    .then((json) => {
-      if (getSearchText(getState(), scope) === initialText
+      .then((json) => {
+        if (getSearchText(getState(), scope) === initialText
         && getSearchPage(getState(), scope) === initialPage) {
-        dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
-        dispatch(setSearchEntries(json.matches))
-        dispatch(setSearchTotal(json.total))
-        dispatch(setSearchLoading(false))
-      }
-      return Promise.resolve()
-    })
+          dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
+          dispatch(setSearchEntries(json.matches))
+          dispatch(setSearchTotal(json.total))
+          dispatch(setSearchLoading(false))
+        }
+        return Promise.resolve()
+      })
   }
 }
 

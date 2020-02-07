@@ -80,7 +80,7 @@ class SearchResults extends React.Component {
   renderPagination () {
     const { searchPage, updateSearchPage } = this.props
     return (
-     <Pagination
+      <Pagination
         page={searchPage}
         updatePage={updateSearchPage}
         numPages={this.getPageCount()}
@@ -106,7 +106,7 @@ class SearchResults extends React.Component {
           <View data-automation='searchResults__resultsList'
             display="block"
             padding="small none none none">
-              {this.renderEntries()}
+            {this.renderEntries()}
           </View>
         }
       </View>
@@ -140,13 +140,13 @@ class SearchResults extends React.Component {
       <Flex
         height="100%" width="100%"
         padding="small none none none" alignItems="stretch" direction="column">
-          <Flex.Item shouldGrow>
-            {this.renderHeader()}
-            {isSearchLoading ? this.renderLoading() : this.renderResults()}
-          </Flex.Item>
-          <Flex.Item>
-            {!isSearchLoading && this.renderPagination()}
-          </Flex.Item>
+        <Flex.Item shouldGrow>
+          {this.renderHeader()}
+          {isSearchLoading ? this.renderLoading() : this.renderResults()}
+        </Flex.Item>
+        <Flex.Item>
+          {!isSearchLoading && this.renderPagination()}
+        </Flex.Item>
       </Flex>
     )
   }

@@ -12,8 +12,12 @@ module.exports = Object.assign({}, defaultConfig, {
     bugs in subtle ways. We should work to fix all these warnings and remove these
     lines so they are treated as errors.
     */
-    'react/forbid-prop-types': 0,
-
+    'react/no-unused-prop-types': 'error',
+    'react/forbid-prop-types': ['error', {
+      forbid: ['any'] // TODO: add 'array', 'object'
+    }],
+    'quotes': ['error', 'single', { 'avoidEscape': true }],
+    'indent': ['error', 2, {'SwitchCase': 1}],
     'object-curly-newline': ['error', {
       consistent: true,
       multiline: true

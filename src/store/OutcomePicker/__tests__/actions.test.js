@@ -286,7 +286,7 @@ describe('OutcomePicker/actions', () => {
 
   describe('closeOutcomePicker', () => {
     it('dispatches flow in the correct order', () => {
-    const store = createMockStore()
+      const store = createMockStore()
       store.dispatch(actions.closeOutcomePicker())
       expect(store.getActions()[0]).to.deep.equal(scopedActions.setScope(''))
       expect(store.getActions()[1]).to.deep.equal(scopedActions.setOutcomePickerState('closed'))

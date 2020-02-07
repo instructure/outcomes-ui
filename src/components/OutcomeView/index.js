@@ -56,37 +56,37 @@ export default class OutcomeView extends React.Component {
           </Text>
         </div>
         {
-        scoringMethod && outcomeResult &&
+          scoringMethod && outcomeResult &&
           <MasteryCounts
             outcomeResult={outcomeResult}
             scoringMethod={scoringMethod}
           />
-      }
+        }
         <div className={styles.description} data-automation='outcomeView__description'>
           <Text size="medium">
             <div
               dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-              __html: sanitizeHtml(description)
-            }}
+                __html: sanitizeHtml(description)
+              }}
             />
           </Text>
         </div>
         {
-        scoringTiers && scoringMethod &&
+          scoringTiers && scoringMethod &&
           <ScoringTiers
             outcomeResult={outcomeResult}
             scoringTiers={scoringTiers}
             scoringMethod={scoringMethod}
           />
-      }
+        }
         {
-        displayMasteryDescription &&
+          displayMasteryDescription &&
           <MasteryDescription
             artifactTypeName={artifactTypeName}
             displayMasteryPercentText={displayMasteryPercentText}
             scoringMethod={scoringMethod}
           />
-      }
+        }
       </div>
     )
   }

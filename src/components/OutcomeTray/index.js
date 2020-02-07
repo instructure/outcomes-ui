@@ -51,8 +51,8 @@ export default class OutcomeTray extends React.Component {
     screenreaderNotification: null,
     liveRegion: null,
     mountNode: null,
-    size: "regular",
-    placement: "end"
+    size: 'regular',
+    placement: 'end'
   }
 
   componentDidUpdate (prevProps) {
@@ -60,7 +60,7 @@ export default class OutcomeTray extends React.Component {
 
     if (!prevProps.isOpen && isOpen) {
       getOutcomesList({ page: 1 })
-      updateSearchText("")
+      updateSearchText('')
     }
   }
 

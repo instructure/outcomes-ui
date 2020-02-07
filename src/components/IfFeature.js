@@ -4,13 +4,12 @@ import PropTypes from 'prop-types'
 export default class IfFeature extends Component {
   static propTypes = {
     children: PropTypes.node,
-    features: PropTypes.array,
+    features: PropTypes.arrayOf(PropTypes.string).isRequired,
     name: PropTypes.string.isRequired
   }
 
   static defaultProps = {
-    children: null,
-    features: []
+    children: null
   }
 
   get isOn () {

@@ -92,10 +92,10 @@ describe('TreeBrowser', () => {
     const rootIds = ['1', '2']
     const wrapper = mount(
       <TreeBrowser {...makeProps({
-          rootOutcomeIds: rootIds,
-          collections: collectionsWithRoot(rootIds),
-          expandedIds: ['1']
-        })}
+        rootOutcomeIds: rootIds,
+        collections: collectionsWithRoot(rootIds),
+        expandedIds: ['1']
+      })}
       />
     )
     expect(wrapper.find('TreeButton')).to.have.length(3)
@@ -103,35 +103,35 @@ describe('TreeBrowser', () => {
 
   it('can expand non-root collections', () => {
     const collections = {
-        1: {
-          id: '1',
-          name: 'Collectiony Collectionface',
-          collections: ['2']
-        },
-        2: {
-          id: '2',
-          name: 'Collection 2 Electric Boogaloo',
-          collections: ['3']
-        },
-        3: {
-          id: '3',
-          name: 'Collection 2 Electric Boogaloo',
-          collections: ['4']
-        },
-        4: {
-          id: '4',
-          name: 'Collection Trifection'
-        },
-        root: {id: 'root', name: 'Home', collections: ['1'], child_ids: ['1']}
-      }
+      1: {
+        id: '1',
+        name: 'Collectiony Collectionface',
+        collections: ['2']
+      },
+      2: {
+        id: '2',
+        name: 'Collection 2 Electric Boogaloo',
+        collections: ['3']
+      },
+      3: {
+        id: '3',
+        name: 'Collection 2 Electric Boogaloo',
+        collections: ['4']
+      },
+      4: {
+        id: '4',
+        name: 'Collection Trifection'
+      },
+      root: {id: 'root', name: 'Home', collections: ['1'], child_ids: ['1']}
+    }
 
     const rootIds = ['1']
     const wrapper = mount(
       <TreeBrowser {...makeProps({
-          rootOutcomeIds: rootIds,
-          collections: collections,
-          expandedIds: ['2', '3']
-        })}
+        rootOutcomeIds: rootIds,
+        collections: collections,
+        expandedIds: ['2', '3']
+      })}
       />
     )
     expect(wrapper.find('TreeButton')).to.have.length(4)

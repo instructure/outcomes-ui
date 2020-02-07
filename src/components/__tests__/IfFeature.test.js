@@ -6,12 +6,12 @@ import IfFeature from '../IfFeature'
 
 describe('IfFeature', () => {
   it('returns a valid React Element', () => {
-    const element = <IfFeature name={'feature1'}/>
+    const element = <IfFeature name={'feature1'} features={[]}/>
     expect(isValidElement(element)).to.be.true
   })
 
   it('renders an IfFeature', () => {
-    expect(mount(<IfFeature name={'feature1'} />).find('IfFeature')).to.have.length(1)
+    expect(mount(<IfFeature name={'feature1'} features={[]} />).find('IfFeature')).to.have.length(1)
   })
 
   context('when turned off', () => {

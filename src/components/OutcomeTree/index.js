@@ -132,14 +132,14 @@ class OutcomeTree extends React.Component {
         </Flex.Item>
         <Flex.Item size="0" shouldGrow display="flex" borderWidth="0 0 0 small">
           <Flex
-             height="100%"
-             width="100%"
-             direction="column"
-             alignItems="stretch"
-             className={styles.outcomeContent}
-             elementRef={(rhs) => this.setRHS(rhs)}
-             data-automation="outcomePicker__outcomeContent"
-             >
+            height="100%"
+            width="100%"
+            direction="column"
+            alignItems="stretch"
+            className={styles.outcomeContent}
+            elementRef={(rhs) => this.setRHS(rhs)}
+            data-automation="outcomePicker__outcomeContent"
+          >
             <Flex.Item size="0" shouldGrow>
               { this.renderActiveCollection() }
               <OutcomeSelectionList

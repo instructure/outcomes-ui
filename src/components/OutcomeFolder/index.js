@@ -57,7 +57,7 @@ export default class OutcomeFolder extends React.Component {
           </Link>
         </Text>
       )
-     :
+      :
       (
         <Text size="x-small">{outcome.title}</Text>
       )

@@ -55,9 +55,9 @@ export default class SearchInput extends React.Component {
           size="medium"
           renderAfterInput={
             searchText ?
-            this.renderClearSearchButton()
-            :
-            <IconSearchLine size="x-small"/>
+              this.renderClearSearchButton()
+              :
+              <IconSearchLine size="x-small"/>
           }
         />
       </span>

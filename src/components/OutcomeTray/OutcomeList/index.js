@@ -61,7 +61,7 @@ export default class OutcomeList extends React.Component {
   renderPagination () {
     const { listPage, listTotal, getOutcomesList } = this.props
     return (
-     <Pagination
+      <Pagination
         page={listPage}
         updatePage={(page) => getOutcomesList({ page })}
         numPages={Math.ceil(listTotal / RESULTS_PER_PAGE)}
@@ -75,12 +75,12 @@ export default class OutcomeList extends React.Component {
       <Flex
         height="100%" width="100%"
         padding="none none none none" alignItems="stretch" direction="column">
-          <Flex.Item shouldGrow>
-            {isLoading ? this.renderLoading() : this.renderList()}
-          </Flex.Item>
-          <Flex.Item>
-            {!isLoading && this.renderPagination()}
-          </Flex.Item>
+        <Flex.Item shouldGrow>
+          {isLoading ? this.renderLoading() : this.renderList()}
+        </Flex.Item>
+        <Flex.Item>
+          {!isLoading && this.renderPagination()}
+        </Flex.Item>
       </Flex>
     )
   }

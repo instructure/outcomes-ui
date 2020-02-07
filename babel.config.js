@@ -10,7 +10,7 @@ module.exports = {
     }]
   ],
   plugins: [
-    "inline-react-svg",
+    'inline-react-svg',
     ...getFormatMessageConfig()
   ]
 }

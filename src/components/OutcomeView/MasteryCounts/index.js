@@ -49,11 +49,11 @@ export default class Header extends React.Component {
             <Progress
               size="small"
               label={
-              t('{count} of {total} met mastery', {
-                count: outcomeResult.masteryCount,
-                total: outcomeResult.count
-              })
-            }
+                t('{count} of {total} met mastery', {
+                  count: outcomeResult.masteryCount,
+                  total: outcomeResult.count
+                })
+              }
               valueMax={outcomeResult.count}
               valueNow={outcomeResult.masteryCount}
             />
@@ -62,15 +62,15 @@ export default class Header extends React.Component {
             <div className={styles.masteryCountText}>
               <Text size="small" data-automation='outcomeView__masteryCount'>
                 { t('{count} Mastery at {mastery} pts', {
-                count: outcomeResult.masteryCount,
-                mastery: masteryPoints
-              }) }
+                  count: outcomeResult.masteryCount,
+                  mastery: masteryPoints
+                }) }
               </Text>
             </div>
             <Text size="small" data-automation='outcomeView__noMasteryCount'>
               { t("{count} Didn't Meet", {
-              count: (outcomeResult.count - outcomeResult.masteryCount)
-            }) }
+                count: (outcomeResult.count - outcomeResult.masteryCount)
+              }) }
             </Text>
           </div>
         </div>

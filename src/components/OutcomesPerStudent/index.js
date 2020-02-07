@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Billboard } from "@instructure/ui-billboard"
+import { Billboard } from '@instructure/ui-billboard'
 import { Pagination, PaginationButton } from '@instructure/ui-pagination'
 import { Avatar, Text } from '@instructure/ui-elements'
 import { Spinner } from '@instructure/ui-spinner'

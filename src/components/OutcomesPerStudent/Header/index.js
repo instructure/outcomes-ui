@@ -40,7 +40,7 @@ export default class Header extends React.Component {
         <Text size="medium" transform="uppercase">
           <TruncateText
             maxLines={1}
-            position={"middle"}
+            position={'middle'}
             onUpdate={(isTruncated) => this.setState({showTooltip: isTruncated})}>
             <AccessibleContent alt={outcome.title}>
               {outcome.title}

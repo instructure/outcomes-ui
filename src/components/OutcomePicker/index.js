@@ -141,11 +141,11 @@ class OutcomePicker extends React.Component {
         display="block"
         borderWidth="none none small none"
         padding={features.includes('outcomes_search') ?
-        "small small medium small"
-        :
-        "small"
+          'small small medium small'
+          :
+          'small'
         }
-        >
+      >
         <View
           display="block"
           padding="none none small none">
@@ -164,8 +164,8 @@ class OutcomePicker extends React.Component {
             onChange={(_, value) => updateSearchText(value)}
             onClear={() => updateSearchText('')}
             searchText={searchText}
-            />
-          </IfFeature>
+          />
+        </IfFeature>
       </View>
     )
   }

@@ -20,7 +20,7 @@ describe('activePicker/selectors', () => {
 
   describe('isOpen', () => {
     it('returns true if the scope matches', () => {
-        expect(isOpen(state, 'current_scope')).to.equal(true)
+      expect(isOpen(state, 'current_scope')).to.equal(true)
     })
 
     it('returns false if the scope doesnt match', () => {

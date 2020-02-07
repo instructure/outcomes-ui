@@ -128,11 +128,11 @@ export default class ScoringTiers extends React.Component {
       <div data-automation='outcomeView__scoringTiers'>
         { renderGap(scoringMethod, outcomeResult, null, ...scoringTiers.slice(0, 1))}
         {
-        scoringTiers.map((tier, i) => ([
-          renderTier(scoringMethod, tier),
-          renderGap(scoringMethod, outcomeResult, ...scoringTiers.slice(i, i + 2))
-        ]))
-      }
+          scoringTiers.map((tier, i) => ([
+            renderTier(scoringMethod, tier),
+            renderGap(scoringMethod, outcomeResult, ...scoringTiers.slice(i, i + 2))
+          ]))
+        }
       </div>
     )
   }

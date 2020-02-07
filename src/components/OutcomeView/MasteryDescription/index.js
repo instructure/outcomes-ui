@@ -81,7 +81,7 @@ export default class Footer extends React.Component {
         <div className={styles.scoreMasteryText}>
           <Text size="small">{ masteryText(scoringMethod.mastery_percent, artifactTypeName) }</Text>
         </div>
-      }
+        }
       </div>
     )
   }
