@@ -116,7 +116,8 @@ pipeline {
             def ui_coverage = sh (script: 'grep -B 1 "Lines" ui_coverage/index.html | head -1 | grep -Eo "[0-9]+\\.[0-9]+\\%"',
               returnStdout: true
             ).trim()
-            gergich_msg += ":js: <$env.BUILD_URL/UI_20Coverage_20Report/|${ui_coverage}>"
+            def path_to_coverage = "$env.BUILD_URL" + 'artifact/ui_coverage/index.html'
+            gergich_msg += ":js: ${ui_coverage} <$path_to_coverage>"
           }
         }
       }
