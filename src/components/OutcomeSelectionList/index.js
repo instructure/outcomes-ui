@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Checkbox } from '@instructure/ui-forms'
 import { Text } from '@instructure/ui-elements'
 import t from 'format-message'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 
 import OutcomeCheckbox from '../OutcomeCheckbox'
 import { outcomeShape } from '../../store/shapes'

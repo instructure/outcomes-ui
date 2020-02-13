@@ -2,13 +2,25 @@
 
 # Generates all the pre-translated code in lib/translated/{locale}.
 
-set -e
-rm -rf lib
-TRANSPILE=true babel src -d lib --ignore *.test.js,*.html,*.svg --copy-files --quiet &
+set -ex
 
-ls translations/*.json | \
-  xargs basename -s .json | \
-  xargs -t -n 1 -P 5 -I % env \
-    TRANSPILE=true BUILD_LOCALE=% babel src --out-dir lib/translated/% --ignore *.test.js,*.html,*.svg --copy-files --quiet
+rm -rf lib es
+for TYPE in commonjs esmodules
+do
+  if [ "$TYPE" == "commonjs" ]
+  then
+    DIRECTORY=lib
+    ARGS="TRANSFORM_IMPORTS=1"
+  else
+    DIRECTORY=es
+    ARGS="ES_MODULES=1"
+  fi
+  env TRANSPILE=true $ARGS babel src -d $DIRECTORY --ignore *.test.js,*.html,*.svg --copy-files --quiet &
 
-wait # wait for the default untranslated build that we backgrounded above with an "&"
+  ls translations/*.json | \
+    xargs basename -s .json | \
+    xargs -t -n 1 -P 5 -I % env \
+      TRANSPILE=true BUILD_LOCALE=% $ARGS babel src --out-dir $DIRECTORY/translated/% --ignore *.test.js,*.html,*.svg --copy-files --quiet
+
+  wait # wait for the default untranslated build that we backgrounded above with an "&"
+done

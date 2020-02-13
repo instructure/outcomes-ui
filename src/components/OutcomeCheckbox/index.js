@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, Text } from '@instructure/ui-elements'
 import { Checkbox } from '@instructure/ui-forms'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { sanitizeHtmlForList } from '../../lib/sanitize'
 import { outcomeShape } from '../../store/shapes'
 

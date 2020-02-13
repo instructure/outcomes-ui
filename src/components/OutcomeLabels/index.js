@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-elements'
 import { IconOutcomesLine } from '@instructure/ui-icons'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 
 import theme from '../theme'
 import styles from './styles.css'

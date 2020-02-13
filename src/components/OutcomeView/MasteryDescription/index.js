@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-elements'
 import { Spinner } from '@instructure/ui-spinner'
 import t from 'format-message'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { scoringMethodShape } from '../../../store/shapes'
 
 import theme from '../../theme'

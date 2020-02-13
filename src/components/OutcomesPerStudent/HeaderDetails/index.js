@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ApplyTheme, themeable } from '@instructure/ui-themeable'
 import { Text } from '@instructure/ui-elements'
-import { Progress, ProgressBar } from '@instructure/ui-elements/lib/Progress' // eslint-disable-line no-restricted-imports
+import { Progress, ProgressBar } from '@instructure/ui-progress'
 import { Tooltip } from '@instructure/ui-overlays'
 import t from 'format-message'
 

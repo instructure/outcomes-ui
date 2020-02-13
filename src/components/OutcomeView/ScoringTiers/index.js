@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { IconStarSolid, IconEmptyLine } from '@instructure/ui-icons'
 import { Pill, Text } from '@instructure/ui-elements'
 import t from 'format-message'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { outcomeResultShape, scoringMethodShape, scoringTierShape } from '../../../store/shapes'
 
 import convertToPoints from '../convertToPoints'

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 
 import { Text } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-flex'

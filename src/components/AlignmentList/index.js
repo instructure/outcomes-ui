@@ -5,7 +5,7 @@ import { Billboard } from '@instructure/ui-billboard'
 import { Button } from '@instructure/ui-buttons'
 import { IconPlusLine } from '@instructure/ui-icons'
 import t from 'format-message'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import Alignment from '../Alignment'
 
 import theme from '../theme'

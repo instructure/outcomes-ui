@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { ScreenReaderContent } from '@instructure/ui-a11y'
 import { IconButton } from '@instructure/ui-buttons'
 import { IconEndSolid, IconSearchLine } from '@instructure/ui-icons'

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { AccessibleContent } from '@instructure/ui-a11y'
 import { Tag, Text } from '@instructure/ui-elements'
 import { IconOutcomesLine } from '@instructure/ui-icons'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 
 import theme from '../theme'
 import styles from './styles.css'

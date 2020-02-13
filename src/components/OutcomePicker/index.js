@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
 import { ScreenReaderContent } from '@instructure/ui-a11y'

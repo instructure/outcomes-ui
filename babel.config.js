@@ -5,7 +5,8 @@ module.exports = {
   presets: [
     ['@instructure/ui-babel-preset', {
       themeable: !process.env.DEBUG && process.env.NODE_ENV !== 'test',
-      coverage: process.env.NODE_ENV === 'test'
+      coverage: process.env.NODE_ENV === 'test',
+      esModules: Boolean(process.env.ES_MODULES)
     }]
   ],
   plugins: [

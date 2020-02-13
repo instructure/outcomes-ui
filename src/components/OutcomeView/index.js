@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-elements'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 
 import { outcomeResultShape, scoringMethodShape, scoringTierShape } from '../../store/shapes'
 import ScoringTiers from './ScoringTiers'

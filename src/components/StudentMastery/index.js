@@ -4,7 +4,7 @@ import t, { number } from 'format-message'
 import { ScreenReaderContent } from '@instructure/ui-a11y'
 import { Table, Text } from '@instructure/ui-elements'
 import { Spinner } from '@instructure/ui-spinner'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { individualResultShape } from '../../store/shapes'
 import { sanitizeHtml } from '../../lib/sanitize'
 

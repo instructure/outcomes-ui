@@ -4,7 +4,7 @@ import { Text } from '@instructure/ui-elements'
 import { IconStarSolid } from '@instructure/ui-icons'
 import t from 'format-message'
 import classNames from 'classnames'
-import themeable from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 
 import theme from '../../theme'
 import styles from './styles.css'
