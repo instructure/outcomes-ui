@@ -1,6 +1,6 @@
 import React from 'react'
-import { array } from '@storybook/addon-knobs'
-import { getOutcome, getOutcomeSummary, defaultOutcomeIds } from '../../../.storybook/constants'
+import { object } from '@storybook/addon-knobs'
+import { getOutcome, getOutcomeSummary, defaultOutcomes } from '../../../.storybook/constants'
 import OutcomeFolderList from './'
 
 export default {
@@ -9,9 +9,9 @@ export default {
 
 export const standard = () => (
   <OutcomeFolderList
-    ids={ array('Outcome Ids', defaultOutcomeIds) }
     getOutcome={ getOutcome }
     getOutcomeSummary={ getOutcomeSummary }
+    outcomes={ object('Outcomes', defaultOutcomes()) }
     setActiveCollection={ () => {} }
     toggleExpandedIds={ () => {} }
     activeCollectionId="1"

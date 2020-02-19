@@ -1,6 +1,6 @@
 import React from 'react'
-import { array } from '@storybook/addon-knobs'
-import { getOutcome, defaultOutcomeIds } from '../../../.storybook/constants'
+import { object } from '@storybook/addon-knobs'
+import { defaultOutcomes } from '../../../.storybook/constants'
 import OutcomeSelectionList from './'
 
 export default {
@@ -10,10 +10,9 @@ export default {
 export const standard = () => (
   <OutcomeSelectionList
     setFocusedOutcome={ () => {} }
-    getOutcome={ getOutcome }
     isOutcomeSelected={ () => {} }
     selectOutcomeIds={ () => {} }
     deselectOutcomeIds={ () => {} }
-    ids={ array('Outcome Ids', defaultOutcomeIds) }
+    outcomes={ object('Outcomes', defaultOutcomes()) }
   />
 )

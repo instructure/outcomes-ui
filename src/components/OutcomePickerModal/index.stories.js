@@ -25,6 +25,6 @@ export const standard = () => (
     screenreaderNotification={ () => {} }
     liveRegion=""
     mountNode={ () => {} }
-    outcomePicker={ () => (<div><br/>Outcome Picker would go here</div>) }
+    outcomePicker={ () => (<div><br/>OutcomePicker would go here</div>) }
   />
 )

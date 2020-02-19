@@ -1,6 +1,6 @@
 import React from 'react'
-import { array, text } from '@storybook/addon-knobs'
-import { getOutcome, defaultOutcomeIds } from '../../../.storybook/constants'
+import { text, object } from '@storybook/addon-knobs'
+import { defaultOutcomes } from '../../../.storybook/constants'
 
 import OutcomeTags from './'
 
@@ -10,18 +10,16 @@ export default {
 
 export const noAlignedOutcomes = () => (
   <OutcomeTags
-    ids={ [] }
+    outcomes={ [] }
     emptyText={ text('Empty Message', 'No Outcomes are currently selected') }
-    getOutcome={ ()=>{} }
     deselectOutcomeIds={ ()=>{} }
   />
 )
 
 export const alignedOutcomes = () => (
   <OutcomeTags
-    ids={ array('Outcome IDs', defaultOutcomeIds) }
+    outcomes={ object('Outcomes', defaultOutcomes()) }
     emptyText="No Outcomes are currently selected"
-    getOutcome={ getOutcome }
     deselectOutcomeIds={ () => {} }
   />
 )

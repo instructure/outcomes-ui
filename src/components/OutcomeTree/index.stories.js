@@ -9,31 +9,37 @@ export default {
 }
 
 export const collapsed = () => (
-  <OutcomeTree
-    collections={ object('Collections', defaultCollections) }
-    setActiveCollection={ () => {} }
-    rootOutcomeIds={ [1,2,3] }
-    expandedIds={ [] }
-    toggleExpandedIds={ () => {} }
-  />
+  <div style={ { height: '100vh' } }>
+    <OutcomeTree
+      collections={ object('Collections', defaultCollections) }
+      setActiveCollection={ () => {} }
+      rootOutcomeIds={ [1,2,3] }
+      expandedIds={ [] }
+      toggleExpandedIds={ () => {} }
+    />
+  </div>
 )
 
 export const oneLevelExpanded = () => (
-  <OutcomeTree
-    collections={ object('Collections', defaultCollections) }
-    setActiveCollection={ () => {} }
-    rootOutcomeIds={ [1,2,3] }
-    expandedIds={ array('Expanded Group Ids', [1]) }
-    toggleExpandedIds={ () => {} }
-  />
+  <div style={ { height: '100vh' } }>
+    <OutcomeTree
+      collections={ object('Collections', defaultCollections) }
+      setActiveCollection={ () => {} }
+      rootOutcomeIds={ [1,2,3] }
+      expandedIds={ array('Expanded Group Ids', [1]) }
+      toggleExpandedIds={ () => {} }
+    />
+  </div>
 )
 
 export const twoLevelExpanded = () => (
-  <OutcomeTree
-    collections={ object('Collections', defaultCollections) }
-    setActiveCollection={ () => {} }
-    rootOutcomeIds={ [1,2,3] }
-    expandedIds={ array('Expanded Group Ids', [1,4]) }
-    toggleExpandedIds={ () => {} }
-  />
+  <div style={ { height: '100vh' } }>
+    <OutcomeTree
+      collections={ object('Collections', defaultCollections) }
+      setActiveCollection={ () => {} }
+      rootOutcomeIds={ [1,2,3] }
+      expandedIds={ array('Expanded Group Ids', [1,4]) }
+      toggleExpandedIds={ () => {} }
+    />
+  </div>
 )

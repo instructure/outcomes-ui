@@ -1,5 +1,5 @@
 import React from 'react'
-import { text } from '@storybook/addon-knobs'
+import { text, object } from '@storybook/addon-knobs'
 import { defaultOutcomes } from '../../../.storybook/constants'
 import OutcomeLabels from './'
 
@@ -17,6 +17,6 @@ export const noAlignedOutcomes = () => (
 export const alignedOutcomes = () => (
   <OutcomeLabels
     emptyText="No Outcomes are currently selected"
-    outcomes={ defaultOutcomes() }
+    outcomes={ object('Outcomes', defaultOutcomes()) }
   />
 )

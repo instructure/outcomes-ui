@@ -10,15 +10,13 @@ export const defaultOutcomes = () => {
   let outcomes = []
   for(let i = 1; i <= OUTCOME_COUNT; i++) {
     outcomes.push(
-      object(
-        `Outcome ${i}`,
-        {
-          id: i,
-          label: `Lbl-0${i}`,
-          title: `Grade ${i}`,
-          description: `Description of Grade ${i}`
-        }
-      )
+      {
+        id: i,
+        label: `Lbl-0${i}`,
+        title: `Grade ${i}`,
+        summary: `Summary of Grade ${i}`,
+        description: `Description of Grade ${i}`
+      }
     )
   }
   return outcomes
@@ -34,7 +32,6 @@ const defaultOutcomeIdsAsStrings = () => {
 
 export const defaultOutcomeIds = defaultOutcomeIdsAsStrings()
 
-
 export const defaultOutcomeIdsAsObjects = () => {
   let outcomeIds = []
   for(let i = 1; i <= OUTCOME_COUNT; i++) {
@@ -48,18 +45,18 @@ export const getOutcome = (id) => {
 
   for(let i = 0; i < outcomes.length; i++){
     if(parseInt(outcomes[i].id) === parseInt(id)) {
-      return outcomes[i]
+      return object(`Outcome ${i+1}`, outcomes[i])
     }
   }
   return null
 }
 
 export const getOutcomeSummary = (id) => {
-  const outcomes = defaultOutcomes()
+  const outcomes = object('Outcomes', defaultOutcomes())
 
   for(let i = 0; i < outcomes.length; i++){
     if(parseInt(outcomes[i].id) === parseInt(id)) {
-      return outcomes[i].description
+      return outcomes[i].summary
     }
   }
   return null

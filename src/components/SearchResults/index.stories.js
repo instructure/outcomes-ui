@@ -1,6 +1,6 @@
 import React from 'react'
-import { object, number } from '@storybook/addon-knobs'
-import { getOutcome, getOutcomeSummary, defaultOutcomeIdsAsObjects } from '../../../.storybook/constants'
+import { number, object } from '@storybook/addon-knobs'
+import { defaultOutcomes } from '../../../.storybook/constants'
 import SearchResults from './'
 
 export default {
@@ -9,16 +9,11 @@ export default {
 
 export const paginated = () => (
   <SearchResults
-    getOutcome={ getOutcome }
-    setActiveCollection={ () => {} }
-    toggleExpandedIds={ () => {} }
     setFocusedOutcome={ () => {} }
     isOutcomeSelected={ () => {} }
     selectOutcomeIds={ () => {} }
     deselectOutcomeIds={ () => {} }
-    searchEntries={ object('Search Result Ids', defaultOutcomeIdsAsObjects()) }
-    getOutcomeSummary={ getOutcomeSummary }
-    isOutcomeGroup={ () => {} }
+    searchEntries={ object('Outcomes', defaultOutcomes()) }
     searchTotal={ number('Search Total', 10)}
   />
 )

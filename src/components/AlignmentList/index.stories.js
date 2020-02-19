@@ -7,11 +7,10 @@ export default {
   title: 'AlignmentList'
 }
 
-const outcomes = defaultOutcomes()
 
 export const alignedOutcomes = () => (
   <AlignmentList
-    alignedOutcomes={ object('Outcomes', outcomes) }
+    alignedOutcomes={ object('Outcomes', defaultOutcomes()) }
     emptySetHeading='Align Institution outcomes to this question'
     removeAlignment={ () => {} }
     viewAlignment={ () => {} }
