@@ -26,7 +26,7 @@ export const alignedOutcomes = () => (
     addModal={ () => null }
     outcomePickerState="closed"
     pickerType="dialog"
-   />
+  />
 )
 
 export const noAlignedOutcomes = () => (
@@ -46,5 +46,5 @@ export const noAlignedOutcomes = () => (
     addModal={ () => null }
     outcomePickerState="closed"
     pickerType="dialog"
-   />
+  />
 )

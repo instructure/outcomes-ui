@@ -18,5 +18,5 @@ export const standard = () => (
     displayMasteryDescription={ true }
     displayMasteryPercentText={ true }
     readOnly={ boolean('Read Only', false) }
-   />
+  />
 )

@@ -38,7 +38,7 @@ export const paginatedNoSearch = () => (
     searchPage={ 1 }
     getOutcome={ () => {} }
     getOutcomeSummary={ () => {} }
-/>
+  />
 )
 
 export const searchResults = () => (
@@ -53,5 +53,5 @@ export const searchResults = () => (
     searchPage={ number('Search Page Index', 1) }
     getOutcome={ getOutcome }
     getOutcomeSummary={ getOutcomeSummary }
-/>
+  />
 )

@@ -47,7 +47,7 @@ export const combinedResults = () => (
       results={ object('MasteryResults', individualMasteryResults) }
       displayOutcomeLabel={ boolean('DisplayOutcomeLabel', true) }
       state="loaded"
-      />
+    />
     <StudentMastery
       artifactType="quizzes.quiz"
       artifactId=""
@@ -58,6 +58,6 @@ export const combinedResults = () => (
       results={ object('NoMasteryResults', individualNoMasteryResults) }
       displayOutcomeLabel={ boolean('DisplayOutcomeLabel', true) }
       state="loaded"
-      />
+    />
   </div>
 )

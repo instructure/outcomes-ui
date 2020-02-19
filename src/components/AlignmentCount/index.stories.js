@@ -9,5 +9,5 @@ export default {
 export const alignedOutcomes = () => (
   <AlignmentCount
     count={ number('Alignments', 5) }
-   />
+  />
 )

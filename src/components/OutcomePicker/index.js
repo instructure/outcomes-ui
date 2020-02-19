@@ -25,7 +25,6 @@ class OutcomePicker extends React.Component {
     focusedOutcome: outcomeShape,
     setFocusedOutcome: PropTypes.func.isRequired,
     selectedOutcomes: PropTypes.arrayOf(outcomeShape).isRequired,
-    getOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,

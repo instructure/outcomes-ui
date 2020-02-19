@@ -9,16 +9,16 @@ export default {
 
 export const noResults = () => (
   <ScoringTiers
-      outcomeResult={null}
-      scoringTiers={object('ScoringTiers', sbConstants.defaultScoringTiers)}
-      scoringMethod={object('ScoringMethod', sbConstants.defaultScoringMethod)}
+    outcomeResult={null}
+    scoringTiers={object('ScoringTiers', sbConstants.defaultScoringTiers)}
+    scoringMethod={object('ScoringMethod', sbConstants.defaultScoringMethod)}
   />
 )
 
 export const results = () => (
   <ScoringTiers
-      outcomeResult={object('OutcomeResult', sbConstants.resultAverageScore)}
-      scoringTiers={object('ScoringTiers', sbConstants.scoringTiersWithResults)}
-      scoringMethod={object('ScoringMethod', sbConstants.defaultScoringMethod)}
+    outcomeResult={object('OutcomeResult', sbConstants.resultAverageScore)}
+    scoringTiers={object('ScoringTiers', sbConstants.scoringTiersWithResults)}
+    scoringMethod={object('ScoringMethod', sbConstants.defaultScoringMethod)}
   />
 )
