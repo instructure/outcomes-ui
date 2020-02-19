@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { AccessibleContent, PresentationContent } from '@instructure/ui-a11y'
-import { Link, Text, TruncateText } from '@instructure/ui-elements'
+import { Link, Text } from '@instructure/ui-elements'
 import { Tooltip } from '@instructure/ui-overlays'
 import t from 'format-message'
 import { themeable } from '@instructure/ui-themeable'
+import { TruncateText } from '@instructure/ui-truncate-text'
 
 import OutcomeViewModal from '../../OutcomeViewModal'
 import HeaderDetails from '../HeaderDetails'

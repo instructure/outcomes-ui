@@ -47,6 +47,7 @@
     "@instructure/ui-themeable": "^6.17.0",
     "@instructure/ui-themes": "^6.17.0",
     "@instructure/ui-tree-browser": "^6.17.0",
+    "@instructure/ui-truncate-text": "6.17.0",
     "@instructure/ui-view": "^6.17.0",
     "classnames": "^2.2.5",
     "core-js": "^3.2.1",

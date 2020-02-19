@@ -40,9 +40,10 @@ describe('OutcomeCheckbox', () => {
   })
 
   it('sanitizes an outcome description', () => {
-    const props = makeProps({ description: 'Hello <img src="bigimage" />' })
+    const props = makeProps({outcome: { id: 101, description: 'Hello <img src="bigimage" />' }})
     const wrapper = mount(<OutcomeCheckbox {...props} />)
     expect(wrapper.html()).not.to.include('bigimage')
+    expect(wrapper.html()).not.to.include('img')
   })
 
   it('will focus an outcome when the title is clicked', () => {
@@ -63,6 +64,13 @@ describe('OutcomeCheckbox', () => {
     const wrapper = shallow(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('Checkbox').prop('checked')).to.equal(false)
   })
+
+  it('renders a TruncateText element if the outcome description is long', () => {
+    const props = makeProps({outcome: { id: 101, description: 'a'.repeat(500) }})
+    const wrapper = shallow(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('TruncateText')).to.have.length(1)
+  })
+
   it('does not select the checkbox when not isOutcomeSelected', () => {
     const isOutcomeSelected = sinon.stub().withArgs(101).returns(true)
     const props = makeProps({ isOutcomeSelected })

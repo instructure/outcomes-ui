@@ -7,19 +7,6 @@
   padding-left: var(--checkboxDescriptionLeftPadding);
 }
 
-.richDescription > p {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-
-  &:first-child {
-    margin-top: 0
-  }
-
-  &:last-child {
-    margin-bottom: 0
-  }
-}
-
 .linkText {
   display: table;
   table-layout: fixed;

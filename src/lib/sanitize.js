@@ -27,14 +27,3 @@ export function sanitizeHtml (html) {
     }
   })
 }
-
-export function sanitizeHtmlForList (html) {
-  return libSanitizeHtml(html, {
-    allowedTags: [
-      // format tags
-      'b', 'i', 'ul', 'sub', 'sup', 'strong', 'em',
-      // grouping tags
-      'p', 'br', 'ol', 'ul', 'li', 'dl', 'dt', 'dd'
-    ]
-  })
-}
