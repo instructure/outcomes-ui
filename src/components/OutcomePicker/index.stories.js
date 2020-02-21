@@ -1,5 +1,6 @@
 import React from 'react'
 import { array, text, object } from '@storybook/addon-knobs'
+import { View } from '@instructure/ui-view'
 import * as sbConstants from '../../../.storybook/constants'
 import OutcomePicker from './'
 
@@ -26,7 +27,7 @@ const defaultProps = {
 }
 
 export const collapsed = () => (
-  <div style={ { height: '100vh' } }>
+  <View as='div' height='100vh'>
     <OutcomePicker {...defaultProps}
       selectedOutcomes={ object('Outcomes', sbConstants.defaultOutcomes()) }
       features={ array('Features', ['outcomes_search']) }
@@ -36,5 +37,5 @@ export const collapsed = () => (
       treeView = { () => <div><br /> OutcomeTree Placeholder </div> }
       hasOutcomes = { true }
     />
-  </div>
+  </View>
 )

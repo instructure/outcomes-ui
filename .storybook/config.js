@@ -1,6 +1,9 @@
 import { storyNameFromExport } from '@storybook/router/utils'
-import {  addParameters, configure, storiesOf } from '@storybook/react'
+import { addParameters, configure, storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
+import requireContext from 'require-context.macro'
+import ReactDOM from 'react-dom'
+
 import theme from '@instructure/canvas-theme'
 
 addParameters({
@@ -9,7 +12,7 @@ addParameters({
   }
 })
 
-const manualExamplesContext = require.context('../../', true, /^.*\/src\/.*\.stories\.js$/)
+const manualExamplesContext = requireContext('../../', true, /^.*\/src\/.*\.stories\.js$/)
 
 function loadStories () {
   manualExamplesContext.keys().forEach(fname => {

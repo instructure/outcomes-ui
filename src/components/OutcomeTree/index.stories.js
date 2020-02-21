@@ -1,7 +1,7 @@
 import React from 'react'
 import { object, array } from '@storybook/addon-knobs'
 import { defaultCollections } from '../../../.storybook/constants'
-
+import { View } from '@instructure/ui-view'
 import OutcomeTree from './'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 }
 
 export const collapsed = () => (
-  <div style={ { height: '100vh' } }>
+  <View as='div' height='100vh'>
     <OutcomeTree
       collections={ object('Collections', defaultCollections) }
       setActiveCollection={ () => {} }
@@ -17,11 +17,11 @@ export const collapsed = () => (
       expandedIds={ [] }
       toggleExpandedIds={ () => {} }
     />
-  </div>
+  </View>
 )
 
 export const oneLevelExpanded = () => (
-  <div style={ { height: '100vh' } }>
+  <View as='div' height='100vh'>
     <OutcomeTree
       collections={ object('Collections', defaultCollections) }
       setActiveCollection={ () => {} }
@@ -29,11 +29,11 @@ export const oneLevelExpanded = () => (
       expandedIds={ array('Expanded Group Ids', [1]) }
       toggleExpandedIds={ () => {} }
     />
-  </div>
+  </View>
 )
 
 export const twoLevelExpanded = () => (
-  <div style={ { height: '100vh' } }>
+  <View as='div' height='100vh'>
     <OutcomeTree
       collections={ object('Collections', defaultCollections) }
       setActiveCollection={ () => {} }
@@ -41,5 +41,5 @@ export const twoLevelExpanded = () => (
       expandedIds={ array('Expanded Group Ids', [1,4]) }
       toggleExpandedIds={ () => {} }
     />
-  </div>
+  </View>
 )

@@ -98,6 +98,12 @@ pipeline {
       }
     }
 
+    stage('Validate Storybook Stories') {
+      steps {
+        sh 'docker-compose run --rm karma yarn test-storybook'
+      }
+    }
+
     stage('Post Merge') {
       when { environment name: "GERRIT_EVENT_TYPE", value: "change-merged" }
       environment { SONAR_TOKEN = credentials('OUTCOMES_UI_SONAR_TOKEN') }

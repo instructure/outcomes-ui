@@ -3,7 +3,11 @@ import { object } from '@storybook/addon-knobs'
 const OUTCOME_COUNT=10
 
 export const basicOutcome = {
-  id: '1', group: false, title: 'Kindergarten', description: 'Description of Kindergarten'
+  id: '1',
+  group: false,
+  title: 'Kindergarten',
+  description: 'Description of Kindergarten',
+  label: 'Kindergarten'
 }
 
 export const defaultOutcomes = () => {

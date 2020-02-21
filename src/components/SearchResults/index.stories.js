@@ -13,7 +13,10 @@ export const paginated = () => (
     isOutcomeSelected={ () => {} }
     selectOutcomeIds={ () => {} }
     deselectOutcomeIds={ () => {} }
+    updateSearchPage={ () => {} }
+    isSearchLoading={ false }
     searchEntries={ object('Outcomes', defaultOutcomes()) }
-    searchTotal={ number('Search Total', 10)}
+    searchTotal={ number('Search Total', 100) }
+    searchPage={ number('Page Number', 1) }
   />
 )

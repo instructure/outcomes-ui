@@ -1,5 +1,6 @@
 import React from 'react'
 import { object, boolean } from '@storybook/addon-knobs'
+import { View } from '@instructure/ui-view'
 import { individualMasteryResults, individualNoMasteryResults } from '../../../.storybook/constants'
 import StudentMastery from './'
 
@@ -36,7 +37,7 @@ export const mastery = () => (
 )
 
 export const combinedResults = () => (
-  <div>
+  <View as='div'>
     <StudentMastery
       artifactType="quizzes.quiz"
       artifactId=""
@@ -59,5 +60,5 @@ export const combinedResults = () => (
       displayOutcomeLabel={ boolean('DisplayOutcomeLabel', true) }
       state="loaded"
     />
-  </div>
+  </View>
 )
