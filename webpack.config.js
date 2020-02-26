@@ -80,16 +80,6 @@ Object.assign(exports, {
   },
   plugins: plugins.concat([
     new webpack.DefinePlugin(WHITELIST_ENV),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: 'index.html',
-      minify: {
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-        removeScriptTypeAttributes: true,
-        removeOptionalTags: true
-      }
-    })
   ]),
   resolveLoader: {
     alias: require('@instructure/ui-webpack-config/config/resolveLoader/alias')
@@ -138,6 +128,16 @@ if (isProduction) {
     }),
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: 'index.html',
+        minify: {
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeScriptTypeAttributes: true,
+          removeOptionalTags: true
+        }
+      }),
       ...exports.plugins
     ]
   })

@@ -1,6 +1,5 @@
 import 'core-js'
 import 'regenerator-runtime/runtime'
-import '@instructure/canvas-theme'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Enzyme from 'enzyme'
 // eslint-disable-next-line import/no-extraneous-dependencies
