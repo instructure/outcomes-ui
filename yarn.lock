@@ -1984,6 +1984,22 @@
     postcss-reporter "^6.0.1"
     postcss-simple-vars "^5.0.1"
 
+"@instructure/ui-progress@^6.17.0":
+  version "6.17.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-progress/-/ui-progress-6.17.0.tgz#e3148ddcf8b990c6e968e08af8560f6543a65e5d"
+  integrity sha512-DzltUN7XxVy5j2eskINqNJClt8aQdD61M/LHXd0qFSxzvVK8BtYvg+gq0Ub0+b5q1G41/5hAibRiEmaYX8O85Q==
+  dependencies:
+    "@babel/runtime" "^7.5.0"
+    "@instructure/console" "^6.17.0"
+    "@instructure/ui-a11y-content" "^6.17.0"
+    "@instructure/ui-color-utils" "^6.17.0"
+    "@instructure/ui-react-utils" "^6.17.0"
+    "@instructure/ui-testable" "^6.17.0"
+    "@instructure/ui-themeable" "^6.17.0"
+    "@instructure/ui-view" "^6.17.0"
+    classnames "^2"
+    prop-types "^15"
+
 "@instructure/ui-prop-types@^6.17.0":
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-prop-types/-/ui-prop-types-6.17.0.tgz#7c6071ea6847290bf2dd664dab3531fba1665b97"
