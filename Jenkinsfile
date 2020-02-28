@@ -1,31 +1,6 @@
 #! /usr/bin/env groovy
 gergich_msg = ''
 
-def verify_lockfile_up_to_date() {
-  def exit_status = 0
-
-  script {
-    // Compare existing yarn.lock and generated yarn.lock
-    def existing_yarn_lock_sha256 = sh (script: 'docker-compose run --rm karma sha256sum yarn.lock',
-      returnStdout: true
-    ).trim()
-
-    sh 'docker-compose run --rm karma yarn --ignore-scripts'
-
-    def new_yarn_lock_sha256 = sh (script: 'docker-compose run --rm karma sha256sum yarn.lock',
-      returnStdout: true
-    ).trim()
-
-    if (existing_yarn_lock_sha256 != new_yarn_lock_sha256) {
-      echo '    The Yarn lock file appears to be out of date!'
-      echo '    Please run \"docker-compose run --rm ui yarn\",'
-      echo '    and add any lock file changes to your commit.'
-      exit_status = 1
-    }
-  }
-  return exit_status
-}
-
 def verify_translations_up_to_date() {
   def exit_status = 0
 
@@ -69,9 +44,6 @@ pipeline {
       steps {
         script {
           sh 'docker-compose build --pull karma'
-
-          def lockfile_status = verify_lockfile_up_to_date()
-          sh "exit $lockfile_status"
         }
       }
     }
@@ -79,6 +51,9 @@ pipeline {
     stage('Static UI Analysis') {
       steps {
         script {
+          echo 'Verifying Lockfile up to date'
+          sh 'docker-compose run --rm karma yarn --ignore-scripts --frozen-lockfile'
+
           echo 'Running ESLint'
           sh '''#!/usr/bin/env bash
           set -o pipefail
