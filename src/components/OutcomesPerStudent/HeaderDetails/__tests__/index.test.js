@@ -28,12 +28,12 @@ describe('OutcomesPerStudent/HeaderDetails', () => {
 
   it('includes a progress bar', () => {
     const wrapper = shallow(<HeaderDetails {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Progress')).to.have.length(1)
+    expect(wrapper.find('ProgressBar')).to.have.length(1)
   })
 
   it('hides the progress bar when rollups are hidden', () => {
     const wrapper = shallow(<HeaderDetails {...makeProps({showRollups: false})} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Progress')).to.have.length(0)
+    expect(wrapper.find('ProgressBar')).to.have.length(0)
   })
 
   it('includes the rollup summary', () => {

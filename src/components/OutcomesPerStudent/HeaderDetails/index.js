@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ApplyTheme, themeable } from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { Text } from '@instructure/ui-elements'
-import { Progress, ProgressBar } from '@instructure/ui-progress'
+import { ProgressBar } from '@instructure/ui-progress'
 import { Tooltip } from '@instructure/ui-overlays'
 import t from 'format-message'
 
@@ -50,27 +50,20 @@ export default class HeaderDetails extends React.Component {
   }
 
   renderRollup (outcomeResult) {
-    const progressTheme = {
-      [ProgressBar.theme]: {
-        meterColorStart: this.theme.masteryBarColorStart,
-        meterColorEnd: this.theme.masteryBarColorEnd
-      }
-    }
     return (
       <div>
-        <ApplyTheme theme={progressTheme}>
-          <Progress
-            size="x-small"
-            label={
-              t('{count} of {total} met mastery', {
-                count: outcomeResult.masteryCount,
-                total: outcomeResult.count
-              })
-            }
-            valueMax={outcomeResult.count}
-            valueNow={outcomeResult.masteryCount}
-          />
-        </ApplyTheme>
+        <ProgressBar
+          size="x-small"
+          screenReaderLabel={
+            t('{count} of {total} met mastery', {
+              count: outcomeResult.masteryCount,
+              total: outcomeResult.count
+            })
+          }
+          meterColor="success"
+          valueMax={outcomeResult.count}
+          valueNow={outcomeResult.masteryCount}
+        />
         <div className={styles.masteryBarDetails} data-automation='outcomesPerStudent__masteryBarDetails'>
           <Text size="x-small" data-automation='outcomesPerStudent__masteryCount'>
             { t('{count} Mastery', { count: outcomeResult.masteryCount }) }

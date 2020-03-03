@@ -1,7 +1,7 @@
 import React from 'react'
-import { ApplyTheme, themeable } from '@instructure/ui-themeable'
+import { themeable } from '@instructure/ui-themeable'
 import { Text } from '@instructure/ui-elements'
-import { Progress, ProgressBar } from '@instructure/ui-progress'
+import { ProgressBar } from '@instructure/ui-progress'
 import t from 'format-message'
 
 import { outcomeResultShape, scoringMethodShape } from '../../../store/shapes'
@@ -25,12 +25,6 @@ export default class Header extends React.Component {
     } = this.props
 
     const masteryPoints = convertToPoints(scoringMethod.mastery_percent, scoringMethod)
-    const progressTheme = {
-      [ProgressBar.theme]: {
-        meterColorStart: this.theme.masteryBarColorStart,
-        meterColorEnd: this.theme.masteryBarColorEnd
-      }
-    }
 
     return (
       <div>
@@ -45,19 +39,18 @@ export default class Header extends React.Component {
           </div>
         </div>
         <div className={styles.masteryBarGraph} data-automation='outcomeView__masteryBarGraph'>
-          <ApplyTheme theme={progressTheme}>
-            <Progress
-              size="small"
-              label={
-                t('{count} of {total} met mastery', {
-                  count: outcomeResult.masteryCount,
-                  total: outcomeResult.count
-                })
-              }
-              valueMax={outcomeResult.count}
-              valueNow={outcomeResult.masteryCount}
-            />
-          </ApplyTheme>
+          <ProgressBar
+            size="small"
+            screenReaderLabel={
+              t('{count} of {total} met mastery', {
+                count: outcomeResult.masteryCount,
+                total: outcomeResult.count
+              })
+            }
+            meterColor="success"
+            valueMax={outcomeResult.count}
+            valueNow={outcomeResult.masteryCount}
+          />
           <div className={styles.masteryBarDetails} data-automation='outcomeView__masteryBarDetails'>
             <div className={styles.masteryCountText}>
               <Text size="small" data-automation='outcomeView__masteryCount'>
