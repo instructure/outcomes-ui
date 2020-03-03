@@ -85,6 +85,7 @@ pipeline {
         always {
           sh 'docker cp outcomes_ui:/usr/src/app/coverage/ui ./ui_coverage'
           archiveArtifacts 'ui_coverage/**'
+          junit 'ui_coverage/karma-junit-reports/**/*.xml'
         }
         success {
           script {

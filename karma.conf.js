@@ -67,8 +67,22 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'].concat(coverageArgs.reporters),
+    reporters: ['progress', 'spec', 'junit'].concat(coverageArgs.reporters),
 
+    // this is to make a nice "spec failures" report in the jenkins build instead of having to look at the log output
+    junitReporter: {
+      outputDir: 'coverage/ui/karma-junit-reports',
+      useBrowserName: false // don't add browser name to report and classes names
+    },
+    specReporter: {
+      maxLogLines: 25,             // limit number of lines logged per test
+      suppressErrorSummary: false, // do not print error summary
+      suppressFailed: false,       // do not print information about failed tests
+      suppressPassed: false,       // do not print information about passed tests
+      suppressSkipped: true,       // do not print information about skipped tests
+      showSpecTiming: true,        // print the time elapsed for each spec
+      failFast: false              // test would finish with error when a first fail occurs.
+    },
     coverageReporter: coverageArgs.coverageReporter,
 
     // web server port
