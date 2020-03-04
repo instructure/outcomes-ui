@@ -63,7 +63,7 @@ export default class OutcomeView extends React.Component {
           />
         }
         <div className={styles.description} data-automation='outcomeView__description'>
-          <Text size="medium">
+          <Text size="medium" wrap="break-word">
             <div
               dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
                 __html: sanitizeHtml(description)
