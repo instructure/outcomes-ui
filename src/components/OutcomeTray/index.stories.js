@@ -20,6 +20,7 @@ const defaultProps = {
   isOutcomeGroup: () => {},
   selectOutcomeIds: () => {},
   deselectOutcomeIds: () => {},
+  saveOutcomePickerAlignments: () => Promise.resolve(),
   getOutcomesList: () => {},
   updateSearchPage: () => {},
   closeOutcomePicker: () => {},

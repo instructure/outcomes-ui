@@ -24,7 +24,7 @@ describe('OutcomeTray/actions', () => {
         }
       }
     })
-    const outcomes = ['1', '2']
+    const outcomes = [{id: '1', name: 'red'}, {id: '2', name: 'blue'}]
     const response = {outcomes, total: 2}
     const service = { listOutcomes: sinon.stub().returns(Promise.resolve(response)) }
     afterEach(() => service.listOutcomes.resetHistory())
@@ -47,9 +47,19 @@ describe('OutcomeTray/actions', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()[2]).to.deep.equal(scopedActions.setOutcomeList(outcomes))
-          expect(store.getActions()[3]).to.deep.equal(scopedActions.setListTotal(response.total))
-          expect(store.getActions()[4]).to.deep.equal(scopedActions.setOutcomePickerState('choosing'))
+          expect(store.getActions()[1]).to.deep.equal(scopedActions.setSelectedOutcomeIds([]))
+          expect(store.getActions()[3]).to.deep.equal(scopedActions.setOutcomeList(outcomes))
+          expect(store.getActions()[4]).to.deep.equal(scopedActions.setOutcomes(
+            {
+              [undefined]:
+                {
+                  '1': outcomes[0],
+                  '2': outcomes[1]
+                }
+            }
+          ))
+          expect(store.getActions()[5]).to.deep.equal(scopedActions.setListTotal(response.total))
+          expect(store.getActions()[6]).to.deep.equal(scopedActions.setOutcomePickerState('choosing'))
         })
     })
 
@@ -65,8 +75,8 @@ describe('OutcomeTray/actions', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()).to.have.length(3)
-          expect(store.getActions()[2]).to.deep.equal(scopedActions.setError(error))
+          expect(store.getActions()).to.have.length(4)
+          expect(store.getActions()[3]).to.deep.equal(scopedActions.setError(error))
         })
     })
   })

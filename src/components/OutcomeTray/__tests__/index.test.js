@@ -51,6 +51,11 @@ describe('OutcomeTray', () => {
     expect(wrapper.find('Tray')).to.have.length(1)
   })
 
+  it('renders cancel and alignment button', () => {
+    wrapper = shallow(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Button')).to.have.length(2)
+  })
+
   it('renders tray closed by when state is closed', () => {
     const props = makeProps({ isOpen: false })
     wrapper = shallow(<OutcomeTray {...props} />, {disableLifecycleMethods: true})
@@ -93,16 +98,22 @@ describe('OutcomeTray', () => {
     expect(props.updateSearchText.getCall(0).args).to.deep.equal(['text'])
   })
 
-  it('initiates search on open', (done) => {
-    let resolve = null
-    let p = new Promise((r) => { resolve = r })
+  it('initiates search on open', () => {
     const props = makeProps({
       searchText: 'foo',
-      isOpen: false,
-      updateSearchText: () => resolve()
+      isOpen: false
     })
     wrapper = mount(<OutcomeTray {...props} />)
     wrapper.setProps({ isOpen: true })
-    p.then(done)
+    expect(props.updateSearchText).to.be.called
+  })
+
+  it('aligns when confirm alignment button is clicked', () => {
+    const props = makeProps({
+      saveOutcomePickerAlignments: sinon.stub().resolves()
+    })
+    wrapper = mount(<OutcomeTray {...props} />)
+    wrapper.find('Button').at(2).prop('onClick')()
+    expect(props.saveOutcomePickerAlignments).to.be.called
   })
 })
