@@ -17,7 +17,8 @@ import {
   OutcomeCount,
   OutcomesPerStudentReport,
   OutcomeList,
-  StudentMastery
+  StudentMastery,
+  AlignmentButton
 } from './index'
 import styles from './index.css'
 
@@ -64,7 +65,8 @@ const DemoAlignment = (props) => {
     emptySetHeading,
     displayMasteryDescription,
     displayMasteryPercentText,
-    jwt
+    jwt,
+    useAlignmentButton
   } = props
   return (
     <div className={styles.item} data-automation="artifact">
@@ -88,23 +90,39 @@ const DemoAlignment = (props) => {
         jwt={jwt}
         emptyText="No outcomes are aligned"
       />
-      <OutcomeAlignments
-        alignmentSetId={alignmentSetId}
-        pickerType={currentPicker}
-        contextUuid={contextUuid}
-        emptySetHeading={emptySetHeading}
-        onUpdate={console.log}
-        artifactType={artifactType}
-        artifactId={artifactId}
-        artifactTypeName={artifactTypeName}
-        displayMasteryDescription={displayMasteryDescription}
-        displayMasteryPercentText={displayMasteryPercentText}
-        host={outcomesHost}
-        jwt={jwt}
-        screenreaderNotification={screenreaderNotification}
-        liveRegion={getLive()}
-        readOnly={readOnly}
-      />
+      {
+        useAlignmentButton ? (
+          <AlignmentButton
+            artifactType={artifactType}
+            artifactTypeName={artifactTypeName}
+            artifactId={artifactId}
+            alignmentSetId={alignmentSetId}
+            contextUuid={contextUuid}
+            host={outcomesHost}
+            jwt={jwt}
+            liveRegion={getLive()}
+            screenreaderNotification={screenreaderNotification}
+          />
+        ) : (
+          <OutcomeAlignments
+            alignmentSetId={alignmentSetId}
+            pickerType={currentPicker}
+            contextUuid={contextUuid}
+            emptySetHeading={emptySetHeading}
+            onUpdate={console.log}
+            artifactType={artifactType}
+            artifactId={artifactId}
+            artifactTypeName={artifactTypeName}
+            displayMasteryDescription={displayMasteryDescription}
+            displayMasteryPercentText={displayMasteryPercentText}
+            host={outcomesHost}
+            jwt={jwt}
+            screenreaderNotification={screenreaderNotification}
+            liveRegion={getLive()}
+            readOnly={readOnly}
+          />
+        )
+      }
     </div>
   )
 }
@@ -195,6 +213,17 @@ function rerender () {
             contextUuid="1-science"
             emptySetHeading="Align Institution outcomes to this question."
             jwt={createFirstGradeJwt}
+          />
+          <DemoAlignment
+            alignmentSetId=""
+            useAlignmentButton={true}
+            name="Quiz Question #103"
+            artifactType="quizzes.item"
+            artifactId="103"
+            contextUuid="dummy_uuid"
+            emptySetHeading="Align Institution outcomes to this question."
+            jwt={createJwt}
+            alignmentWidget={AlignmentButton}
           />
         </TabPanel>
         <TabPanel title="Report" textAlign="center">
