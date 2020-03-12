@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, CloseButton } from '@instructure/ui-buttons'
 import { Heading, Text } from '@instructure/ui-elements'
-import { Modal } from '@instructure/ui-overlays'
+import { Modal } from '@instructure/ui-modal'
 import t from 'format-message'
 
 import OutcomePickerLoader from '../OutcomePickerLoader'

@@ -1661,6 +1661,27 @@
     classnames "^2"
     prop-types "^15"
 
+"@instructure/ui-modal@^6.17.0":
+  version "6.17.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-modal/-/ui-modal-6.17.0.tgz#f5310d93af6fe62ee2a3cbb58a2b7cb4e250a29b"
+  integrity sha512-UqoAZHpyU9GbdCM06NO1AhQd6N3Bw1SgniJACVuFFPy2XVCK4rYSZaFKZVv5c5y199Maekp4wUwbRLpCo5iuxQ==
+  dependencies:
+    "@babel/runtime" "^7.5.0"
+    "@instructure/console" "^6.17.0"
+    "@instructure/ui-buttons" "^6.17.0"
+    "@instructure/ui-dialog" "^6.17.0"
+    "@instructure/ui-motion" "^6.17.0"
+    "@instructure/ui-overlays" "^6.17.0"
+    "@instructure/ui-portal" "^6.17.0"
+    "@instructure/ui-prop-types" "^6.17.0"
+    "@instructure/ui-react-utils" "^6.17.0"
+    "@instructure/ui-testable" "^6.17.0"
+    "@instructure/ui-themeable" "^6.17.0"
+    "@instructure/ui-utils" "^6.17.0"
+    "@instructure/ui-view" "^6.17.0"
+    classnames "^2"
+    prop-types "^15"
+
 "@instructure/ui-motion@^6.17.0":
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-motion/-/ui-motion-6.17.0.tgz#488d151a62c0c57919d05eccb1b251c03ced93ad"

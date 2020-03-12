@@ -38,6 +38,7 @@
     "@instructure/ui-forms": "^6.17.0",
     "@instructure/ui-icons": "^6.17.0",
     "@instructure/ui-layout": "^6.17.0",
+    "@instructure/ui-modal": "^6.17.0",
     "@instructure/ui-overlays": "^6.17.0",
     "@instructure/ui-pagination": "^6.17.0",
     "@instructure/ui-progress": "^6.17.0",
