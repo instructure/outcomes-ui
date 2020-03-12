@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Link, Text } from '@instructure/ui-elements'
 import { Checkbox } from '@instructure/ui-forms'
 import { themeable } from '@instructure/ui-themeable'
-import { TruncateText } from '@instructure/ui-truncate-text'
 import { outcomeShape } from '../../store/shapes'
+import OutcomeDescription from '../OutcomeDescription'
 
 import theme from '../theme'
 import styles from './styles.css'
@@ -18,11 +18,6 @@ export default class OutcomeCheckbox extends React.Component {
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired
-  }
-
-  stripHtmlTags (text) {
-    const doc = new DOMParser().parseFromString(text, 'text/html')
-    return doc.body.textContent || ''
   }
 
   selected () {
@@ -67,13 +62,7 @@ export default class OutcomeCheckbox extends React.Component {
           )}
         />
         <div className={styles.checkboxDescription}>
-          <Text size="x-small">
-            <TruncateText
-              maxLines={2}
-              position="end">
-              {this.stripHtmlTags(description)}
-            </TruncateText>
-          </Text>
+          <OutcomeDescription description={description} />
         </div>
       </div>
     )

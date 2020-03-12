@@ -1,0 +1,11 @@
+.spacing {
+  padding-left: var(--outcomeLabelsSpacing);
+}
+
+.line {
+  display: flex;
+}
+
+.button {
+  margin-top: 1rem;
+}

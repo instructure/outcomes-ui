@@ -12,7 +12,8 @@ export const outcomeShape = PropTypes.shape({
   label: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  scoring_method: scoringMethodShape
+  scoring_method: scoringMethodShape,
+  group: PropTypes.boolean,
 })
 
 export const outcomeResultShape = PropTypes.shape({

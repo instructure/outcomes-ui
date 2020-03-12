@@ -1,0 +1,9 @@
+.deleteButton {
+  flex: 0 0 1rem;
+}
+
+.outcomeTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
