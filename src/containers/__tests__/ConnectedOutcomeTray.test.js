@@ -17,7 +17,8 @@ describe('ConnectedOutcomeTray', () => {
             isLoading: false,
             entries: []
           },
-          scope: 'scopeForTest'
+          scope: 'scopeForTest',
+          focusedOutcome: null
         }
       }
     }))

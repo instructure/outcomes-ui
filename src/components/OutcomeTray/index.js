@@ -12,10 +12,12 @@ import { Tray } from '@instructure/ui-overlays'
 import { Spinner } from '@instructure/ui-spinner'
 
 import OutcomeList from './OutcomeList'
+import OutcomeViewModal from '../OutcomeViewModal'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
 import theme from '../theme'
 import styles from './styles.css'
+import { outcomeShape } from '../../store/shapes'
 
 const { Footer: ModalFooter } = Modal
 
@@ -49,7 +51,11 @@ export default class OutcomeTray extends React.Component {
     isOpen: PropTypes.bool.isRequired,
     closeOutcomePicker: PropTypes.func.isRequired,
     resetOutcomePicker: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    focusedOutcome: outcomeShape,
+    artifactTypeName: PropTypes.string,
+    displayMasteryDescription: PropTypes.bool,
+    displayMasteryPercentText: PropTypes.bool
   }
 
   static defaultProps = {
@@ -58,7 +64,11 @@ export default class OutcomeTray extends React.Component {
     mountNode: null,
     size: 'regular',
     placement: 'end',
-    onUpdate: null
+    onUpdate: null,
+    focusedOutcome: null,
+    artifactTypeName: null,
+    displayMasteryDescription: false,
+    displayMasteryPercentText: false,
   }
 
   componentDidUpdate (prevProps) {
@@ -99,6 +109,28 @@ export default class OutcomeTray extends React.Component {
           getOutcomesList={getOutcomesList}
         />
       </View>
+    )
+  }
+
+  renderViewModal () {
+    const {
+      focusedOutcome,
+      setFocusedOutcome,
+      artifactTypeName,
+      displayMasteryDescription,
+      displayMasteryPercentText
+    } = this.props
+
+    return (
+      focusedOutcome &&
+        <OutcomeViewModal
+          artifactTypeName={artifactTypeName}
+          displayMasteryDescription={displayMasteryDescription}
+          displayMasteryPercentText={displayMasteryPercentText}
+          outcome={focusedOutcome}
+          closeAlignment={() => setFocusedOutcome(null)}
+          isOpen
+        />
     )
   }
 
@@ -232,6 +264,7 @@ export default class OutcomeTray extends React.Component {
             {this.renderBody()}
           </div>
           {this.renderActions()}
+          {this.renderViewModal()}
         </div>
       </Tray>
     )

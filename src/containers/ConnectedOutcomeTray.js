@@ -13,6 +13,7 @@ import {
   getSearchTotal
 } from '../store/search/selectors'
 import {
+  getFocusedOutcome,
   getSelectedOutcomeIds,
   getOutcomePickerState,
   makeIsOutcomeSelected,
@@ -39,7 +40,8 @@ function mapStateToProps (state, ownProps) {
     isOutcomeSelected: makeIsOutcomeSelected(state, scope),
     outcomes: getOutcomeList(state, scope),
     listPage: getListPage(state, scope),
-    listTotal: getListTotal(state, scope)
+    listTotal: getListTotal(state, scope),
+    focusedOutcome: getFocusedOutcome(state, scope)
   }
 }
 
