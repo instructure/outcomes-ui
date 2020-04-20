@@ -80,7 +80,7 @@ export default class OutcomePickerModal extends React.Component {
       case 'loading':
       case 'choosing':
         if (this.props.anyOutcomeSelected) {
-          return t('Align Selected')
+          return t('Confirm Alignments')
         } else {
           return t('Done')
         }

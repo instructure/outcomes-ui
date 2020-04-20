@@ -77,10 +77,10 @@ describe('OutcomePickerModal', () => {
     expect(props.trigger.focus.called).to.be.true
   })
 
-  it('shows "Align Selected" when picker in choosing state and an outcome is selected', () => {
+  it('shows "Confirm Alignments" when picker in choosing state and an outcome is selected', () => {
     const props = makeProps({ outcomePickerState: 'choosing', anyOutcomeSelected: true })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('Align Selected')
+    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('Confirm Alignments')
   })
 
   it('shows "Done" when picker in choosing state and no outcome is selected', () => {
@@ -113,7 +113,7 @@ describe('OutcomePickerModal', () => {
     })
   })
 
-  it('saves outcome alignments when Align Selected is pressed', () => {
+  it('saves outcome alignments when Confirm Alignments is pressed', () => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
     wrapper.find(primaryButtonSelector).simulate('click')
@@ -121,7 +121,7 @@ describe('OutcomePickerModal', () => {
     expect(props.saveOutcomePickerAlignments.calledWith(props.onUpdate)).to.be.true
   })
 
-  it('closes modal when Align Selected is complete', (done) => {
+  it('closes modal when Confirm Alignments is complete', (done) => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
     wrapper.find(primaryButtonSelector).simulate('click')
