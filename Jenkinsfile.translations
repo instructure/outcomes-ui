@@ -29,6 +29,7 @@ pipeline {
       steps {
         withCredentials(
         [
+          sshUserPrivateKey(credentialsId: '44aa91d6-ab24-498a-b2b4-911bcb17cc35', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USERNAME'),
           string(credentialsId: 'NPM_PRIVATE_PASSWORD', variable: 'NPM_PRIVATE_PASSWORD'),
           usernamePassword(credentialsId: 'JIRA_BASIC_AUTH', usernameVariable: 'JIRA_USERNAME', passwordVariable: 'JIRA_PASSWORD')
         ],
@@ -39,28 +40,19 @@ pipeline {
           // execute the sync command to push and pull catalogs.
           sh '''
           docker run \
-            --env NPM_PRIVATE_SCOPE \
-            --env NPM_PRIVATE_REGISTRY \
-            --env NPM_PRIVATE_PASSWORD \
-            --env NPM_PRIVATE_USERNAME \
-            --env NPM_PRIVATE_EMAIL \
-            --env JIRA_PASSWORD \
-            --env JIRA_USERNAME \
-            --env AWS_ROLE_ARN \
-            --name translations \
-            ui:latest bash -c \
-              'yarn-private add --ignore-scripts @inst/sync-format-message-translations@1.3.0 && \
-              $(yarn bin)/sync-translations --config sync-translations-config.json'
-          '''
-
-          // copy out translation files
-          sh 'docker cp translations:/usr/src/app/translations/. translations'
-
-          // Remove empty/missing strings from catalogs.
-          sh '''#!/bin/bash
-            for file in $(ls translations/*.json | grep -v translations/en.json); do
-              jq --indent 4 'with_entries(select(.value.message != ""))' $file > tmp.json && mv tmp.json $file
-            done
+              -v "$SSH_KEY_FILE":/usr/src/sshkeyfile \
+              --env SSH_USERNAME \
+              --env AWS_ACCESS_KEY_ID \
+              --env AWS_SECRET_ACCESS_KEY \
+              --env NPM_PRIVATE_SCOPE \
+              --env NPM_PRIVATE_REGISTRY \
+              --env NPM_PRIVATE_PASSWORD \
+              --env NPM_PRIVATE_USERNAME \
+              --env NPM_PRIVATE_EMAIL \
+              --env JIRA_PASSWORD \
+              --env JIRA_USERNAME \
+              -u root \
+            ui:latest bash -c bin/sync-translations
           '''
         }
       }
@@ -71,9 +63,6 @@ pipeline {
         }
         failure {
           slackSend channel: '#outcomes', color: 'bad', message: "Outcomes Sync Translations Failed: $msg"
-        }
-        cleanup {
-          sh 'docker rm translations'
         }
       }
     }

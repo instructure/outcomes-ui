@@ -11,4 +11,8 @@ RUN yarn config set prefer-offline true \
   && yarn config set no-progress true \
   && yarn config set cache-folder $YARN_CACHE
 
+USER root
+RUN apt-get -q update && apt-get -yq install jq git openssh-client && apt-get clean
+USER docker
+
 EXPOSE 8080

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i /usr/src/sshkeyfile -l '$SSH_USERNAME'"
+export AWS_ROLE_ARN="arn:aws:iam::307761260553:role/translations-jenkins"
+
+yarn-private add @inst/sync-format-message-translations@1.3.0
+
+# execute the sync command to push and pull catalogs.
+"$(yarn bin)/sync-translations" --config sync-translations-config.json
+
+# Remove empty/missing strings from catalogs.
+for file in $(ls translations/*.json | grep -v translations/en.json); do
+  jq --indent 4 'with_entries(select(.value.message != ""))' $file > tmp.json && mv tmp.json $file
+done
+
+# If there are no changes to commit, bail out
+if [ -z "$(git status translations --porcelain)" ]
+then
+  echo "No new translations to commit"
+  exit 0
+fi
+
+git config --global user.name "Jenkins"
+git config --global user.email "svc.cloudjenkins@instructure.com"
+
+gitdir=$(git rev-parse --git-dir); scp -o StrictHostKeyChecking=no -i /usr/src/sshkeyfile -p -P 29418 "${SSH_USERNAME}@gerrit.instructure.com:hooks/commit-msg" "${gitdir}/hooks/"
+
+# Commit any changes into a temp branch then push to gerrit
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+git checkout -B sync-translations-tmp && \
+  git add -A translations && \
+  git commit -m "Update translations" && \
+  git push origin sync-translations-tmp:refs/for/master%submit,l=Verified+1 && \
+  git checkout "$CURRENT_BRANCH"
