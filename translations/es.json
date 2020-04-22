@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Alinear competencias"
     },
-    "align_selected_34f35003": {
-        "message": "Alinear seleccionados"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Competencias adjuntas"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Cancelar"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Borrar campo de búsqueda"
+    },
     "close_d634289d": {
         "message": "Cerrar"
     },
     "complete_fd828dea": {
         "message": "Completa"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Confirmar alineaciones"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } No alcanzó"

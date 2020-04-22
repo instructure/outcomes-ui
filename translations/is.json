@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Jafna niðurstöður"
     },
-    "align_selected_34f35003": {
-        "message": "Jafna valið"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Viðfestar niðurstöður"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Hætta við"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Hreinsa leitarreit"
+    },
     "close_d634289d": {
         "message": "Loka"
     },
     "complete_fd828dea": {
         "message": "Lokið"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Staðfesta jöfnun"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } Uppfyllti ekki"

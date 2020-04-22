@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Poravnaj učne izide"
     },
-    "align_selected_34f35003": {
-        "message": "Poravnava je izbrana."
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Dodani učni izidi"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Prekliči"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Počisti iskalno polje"
+    },
     "close_d634289d": {
         "message": "Zapri"
     },
     "complete_fd828dea": {
         "message": "Zaključeno"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Potrdi poravnave"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } ni izpolnjevalo."

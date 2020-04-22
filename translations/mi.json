@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Hāngai Putanga"
     },
-    "align_selected_34f35003": {
-        "message": "Hāngai tīpakonga"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Ngā putanga kua tāpiritia"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Whakakore"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Ūkui whīra rapu"
+    },
     "close_d634289d": {
         "message": "Katia"
     },
     "complete_fd828dea": {
         "message": "Oti"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Whakatau whakahurihuri"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } Kaore i tutaki"

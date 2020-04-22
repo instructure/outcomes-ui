@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Alinhar resultados"
     },
-    "align_selected_34f35003": {
-        "message": "Alinhar Selecionado"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Resultados anexados"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Cancelar"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Limpar campo de pesquisa"
+    },
     "close_d634289d": {
         "message": "Fechar"
     },
     "complete_fd828dea": {
         "message": "Completo"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Confirmar alinhamentos"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } Não reuniu"

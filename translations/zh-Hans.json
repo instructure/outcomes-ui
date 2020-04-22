@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "调整结果"
     },
-    "align_selected_34f35003": {
-        "message": "调整选定项"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "附加的结果"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "取消"
     },
+    "clear_search_field_75f595c7": {
+        "message": "清除搜索字段"
+    },
     "close_d634289d": {
         "message": "关闭"
     },
     "complete_fd828dea": {
         "message": "完成"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "确认对齐"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } 未达到"

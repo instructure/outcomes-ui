@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Aliyen Rezilta"
     },
-    "align_selected_34f35003": {
-        "message": "Aliyen Seleksyon"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Rezilta Atache"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Anile"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Efase espas rechèh la"
+    },
     "close_d634289d": {
         "message": "Fèmen"
     },
     "complete_fd828dea": {
         "message": "Fini"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Konfime Aliyman yo"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } Li pa Atenn"

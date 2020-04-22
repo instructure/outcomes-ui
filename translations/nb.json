@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Juster læringsmål"
     },
-    "align_selected_34f35003": {
-        "message": "Juster merkede elementer"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Vedlagte læringsmål"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Avbryt"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Tøm søkefelt"
+    },
     "close_d634289d": {
         "message": "Lukk"
     },
     "complete_fd828dea": {
         "message": "Fullført"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Bekrefte justeringene"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } Møttes ikke"

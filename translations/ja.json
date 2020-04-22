@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "結果の整列"
     },
-    "align_selected_34f35003": {
-        "message": "選択の整列"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "添付の結果"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "キャンセル"
     },
+    "clear_search_field_75f595c7": {
+        "message": "検索欄を取り消し"
+    },
     "close_d634289d": {
         "message": "閉じる"
     },
     "complete_fd828dea": {
         "message": "完了"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "表示位置を確認する"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } 合致しませんでした"

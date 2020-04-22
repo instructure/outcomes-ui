@@ -5,9 +5,6 @@
     "align_outcomes_c20e3f7f": {
         "message": "Kohdista tulokset"
     },
-    "align_selected_34f35003": {
-        "message": "Kohdista valitut"
-    },
     "attached_outcomes_d64ce1de": {
         "message": "Liitetyt tulokset"
     },
@@ -23,11 +20,17 @@
     "cancel_caeb1e68": {
         "message": "Peruuta"
     },
+    "clear_search_field_75f595c7": {
+        "message": "Tyhjennä hakukenttä"
+    },
     "close_d634289d": {
         "message": "Sulje"
     },
     "complete_fd828dea": {
         "message": "Valmis"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Vahvista kohdistukset"
     },
     "count_didn_t_meet_95e5947b": {
         "message": "{ count } Ei saavuttanut"
