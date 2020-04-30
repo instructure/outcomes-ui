@@ -35,6 +35,7 @@ describe('OutcomeTray', () => {
       listTotal: 0,
       resetOutcomePicker: sinon.spy(),
       closeOutcomePicker: sinon.spy(),
+      setInitialSelectedOutcomes: sinon.spy()
     }, props)
   }
 
@@ -115,5 +116,14 @@ describe('OutcomeTray', () => {
     wrapper = mount(<OutcomeTray {...props} />)
     wrapper.find('Button').at(2).prop('onClick')()
     expect(props.saveOutcomePickerAlignments).to.be.called
+  })
+
+  it('syncs selected and aligned outcomes on open', () => {
+    const props = makeProps({
+      isOpen: false
+    })
+    wrapper = mount(<OutcomeTray {...props} />)
+    wrapper.setProps({ isOpen: true })
+    expect(props.setInitialSelectedOutcomes).to.be.called
   })
 })

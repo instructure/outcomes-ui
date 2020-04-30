@@ -10,25 +10,27 @@ import { setOutcomePickerState } from '../../../store/OutcomePicker/actions'
 const scopedActions = scopeActions({ ...actions, setError, setOutcomePickerState })
 
 describe('OutcomeTray/actions', () => {
-  describe('getOutcomesList', () => {
-    const state = fromJS({
-      scopeForTest: {
-        OutcomePicker: {
-          tray: {
-            pagination: {
-              page: 1,
-              total: null,
-            },
-            list: []
-          }
+
+  const state = fromJS({
+    scopeForTest: {
+      OutcomePicker: {
+        tray: {
+          pagination: {
+            page: 1,
+            total: null,
+          },
+          list: [],
+          selected: ['2','3','4']
         }
       }
-    })
-    const outcomes = [{id: '1', name: 'red'}, {id: '2', name: 'blue'}]
-    const response = {outcomes, total: 2}
-    const service = { listOutcomes: sinon.stub().returns(Promise.resolve(response)) }
-    afterEach(() => service.listOutcomes.resetHistory())
+    }
+  })
+  const outcomes = [{id: '1', name: 'red'}, {id: '2', name: 'blue'}]
+  const response = {outcomes, total: 2}
+  const service = { listOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+  afterEach(() => service.listOutcomes.resetHistory())
 
+  describe('getOutcomesList', () => {
     it('dispatches state change to loading', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
@@ -47,9 +49,8 @@ describe('OutcomeTray/actions', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()[1]).to.deep.equal(scopedActions.setSelectedOutcomeIds([]))
-          expect(store.getActions()[3]).to.deep.equal(scopedActions.setOutcomeList(outcomes))
-          expect(store.getActions()[4]).to.deep.equal(scopedActions.setOutcomes(
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setOutcomeList(outcomes))
+          expect(store.getActions()[3]).to.deep.equal(scopedActions.setOutcomes(
             {
               [undefined]:
                 {
@@ -58,8 +59,8 @@ describe('OutcomeTray/actions', () => {
                 }
             }
           ))
-          expect(store.getActions()[5]).to.deep.equal(scopedActions.setListTotal(response.total))
-          expect(store.getActions()[6]).to.deep.equal(scopedActions.setOutcomePickerState('choosing'))
+          expect(store.getActions()[4]).to.deep.equal(scopedActions.setListTotal(response.total))
+          expect(store.getActions()[5]).to.deep.equal(scopedActions.setOutcomePickerState('choosing'))
         })
     })
 
@@ -75,8 +76,22 @@ describe('OutcomeTray/actions', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()).to.have.length(4)
-          expect(store.getActions()[3]).to.deep.equal(scopedActions.setError(error))
+          expect(store.getActions()).to.have.length(3)
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setError(error))
+        })
+    })
+  })
+
+  describe('setInitialSelectedOutcomes', () => {
+    const alignedOutcomes = [{ id: '1' }, { id: '999' }]
+    const alignmentState = state.setIn(['scopeForTest', 'alignments', 'alignedOutcomes'], fromJS(alignedOutcomes))
+    it('dispatches setSelectedOutcomeIds', () => {
+      const store = createMockStore(alignmentState, service)
+      return store.dispatch(actions.setInitialSelectedOutcomes())
+        .then(() => {
+          expect(store.getActions()).to.have.length(1)
+          expect(store.getActions()[0]).to.deep.equal(scopedActions.setSelectedOutcomeIds(['1', '999']))
+          expect(store.getActions()[0].payload).to.deep.equal(['1', '999'])
         })
     })
   })

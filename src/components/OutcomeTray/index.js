@@ -51,6 +51,7 @@ export default class OutcomeTray extends React.Component {
     isOpen: PropTypes.bool.isRequired,
     closeOutcomePicker: PropTypes.func.isRequired,
     resetOutcomePicker: PropTypes.func.isRequired,
+    setInitialSelectedOutcomes: PropTypes.func.isRequired,
     onUpdate: PropTypes.func,
     focusedOutcome: outcomeShape,
     artifactTypeName: PropTypes.string,
@@ -72,11 +73,12 @@ export default class OutcomeTray extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { getOutcomesList, isOpen, updateSearchText } = this.props
+    const { getOutcomesList, isOpen, updateSearchText, setInitialSelectedOutcomes } = this.props
 
     if (!prevProps.isOpen && isOpen) {
       getOutcomesList({ page: 1 })
       updateSearchText('')
+      setInitialSelectedOutcomes()
     }
   }
 

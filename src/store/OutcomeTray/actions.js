@@ -26,7 +26,6 @@ export const getOutcomesList = ({ page } = {}) => {
       dispatch(setListPage(page))
     }
     dispatch(setOutcomePickerState('loading'))
-    dispatch(setSelectedOutcomeIds(getAlignedOutcomeIds(getState(), scope)))
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
@@ -51,5 +50,12 @@ export const getOutcomesList = ({ page } = {}) => {
     }).catch((e) => {
       dispatch(setError(e))
     })
+  }
+}
+
+export const setInitialSelectedOutcomes = () => {
+  return (dispatch, getState, _arg, scope) => {
+    dispatch(setSelectedOutcomeIds(getAlignedOutcomeIds(getState(), scope)))
+    return Promise.resolve()
   }
 }
