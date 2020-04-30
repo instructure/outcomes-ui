@@ -43,7 +43,7 @@ export const viewAlignment = (outcomeId) => {
 }
 
 export const updateAlignments = (guid, outcomes, updateCallback) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(setAlignments({ guid, outcomes }))
     if (updateCallback) {
       updateCallback({ guid, outcomes })
@@ -70,6 +70,25 @@ export const loadAlignments = (alignmentSetId, updateCallback) => {
         })
       })
       .then(json => dispatch(updateAlignments(json.guid, json.outcomes, updateCallback)))
+      .catch(e => dispatch(setError(e)))
+  }
+}
+
+export const loadArtifact = ({ artifactType, artifactId }) => {
+  return (dispatch, getState, _arg, scope) => {
+    const { host, jwt } = getConfig(getState(), scope)
+    return dispatch(clearAlignmentSet())
+      .then(() => {
+        return dispatch({
+          type: CALL_SERVICE,
+          payload: {
+            service: 'outcomes',
+            method: 'getArtifact',
+            args: [host, jwt, artifactType, artifactId]
+          }
+        })
+      })
+      .then(json => dispatch(updateAlignments(json.guid, json.outcomes)))
       .catch(e => dispatch(setError(e)))
   }
 }

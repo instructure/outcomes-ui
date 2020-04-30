@@ -76,6 +76,14 @@ class OutcomesService {
       .then((json) => (json.alignment_set || json))
   }
 
+  getArtifact (host, jwt, artifactType, artifactId) {
+    const params = { artifact_type: artifactType, artifact_id: artifactId }
+    return this.get(host, jwt, `/api/artifact?${queryString.stringify(params)}`)
+      .then(checkResponse)
+      .then(toJson)
+      .then((json) => (json.alignment_set || json))
+  }
+
   createAlignmentSet (host, jwt, outcomeIds) {
     if (!outcomeIds.length) {
       return Promise.resolve({guid: null})

@@ -127,6 +127,43 @@ describe('OutcomesService', () => {
     })
   })
 
+  describe('getArtifact', () => {
+    const artifact = {
+      artifact_id: '1',
+      artifact_type: 'quizzes.quiz',
+      alignment_set: {
+        guid: 'xyz',
+        outcomes: [
+          { id: 1, outcome_id: 10 },
+          { id: 2, outcome_id: 20 }
+        ]
+      }
+    }
+    it('uses correct query', () => {
+      fetchMock.getOnce((url, opts) => {
+        expect(url).to.match(/\/artifact\?artifact_id=1&artifact_type=quizzes.quiz$/)
+        return true
+      }, [])
+      return subject.getArtifact(host, jwt, artifact.artifact_type, artifact.artifact_id)
+    })
+
+    it('resolves with json on success', () => {
+      mockGet('/api/artifact?artifact_id=1&artifact_type=quizzes.quiz', artifact)
+      return subject.getArtifact(host, jwt, artifact.artifact_type, artifact.artifact_id)
+        .then((result) => {
+          expect(result).to.deep.equal(artifact.alignment_set)
+        })
+    })
+
+    it('rejects on error', () => {
+      mockGet('/api/artifact?artifact_id=1&artifact_type=quizzes.quiz', 500)
+      return subject.getArtifact(host, jwt, artifact.artifact_type, artifact.artifact_id)
+        .catch((err) => {
+          expect(err).to.have.property('status', 500)
+        })
+    })
+  })
+
   describe('createAlignmentSet', () => {
     it('posts data in correct format', () => {
       fetchMock.postOnce((url, opts) => {

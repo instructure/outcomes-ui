@@ -217,11 +217,11 @@ function rerender () {
           <DemoAlignment
             alignmentSetId=""
             useAlignmentButton={true}
-            name="Quiz Question #103"
-            artifactType="quizzes.item"
+            name="Quiz #103"
+            artifactType="quizzes.quiz"
             artifactId="103"
             contextUuid="dummy_uuid"
-            emptySetHeading="Align Institution outcomes to this question."
+            emptySetHeading="Align Institution outcomes to this quiz."
             jwt={createJwt}
             alignmentWidget={AlignmentButton}
           />

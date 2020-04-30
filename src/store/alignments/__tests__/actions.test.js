@@ -188,6 +188,34 @@ describe('alignments/actions', () => {
     })
   })
 
+  describe('loadArtifact', () => {
+    it('calls outcome service to load artfiact', () => {
+      const response = {guid: 'guid', outcomes: [{id: '1'}]}
+      const service = { getArtifact: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(Map(), service)
+      return store.dispatch(actions.loadArtifact({artifactType: 'type', artifactId: '1'}))
+        .then(() => {
+          expect(store.getActions()).to.have.length(3)
+          expect(service.getArtifact.calledOnce).to.be.true
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setAlignments(response))
+          return null
+        })
+    })
+
+    it('dispatches setError on outcome service failure', () => {
+      const error = { message: 'foo bar baz' }
+      const service = { getArtifact: sinon.stub().returns(Promise.reject(error)) }
+      const store = createMockStore(Map(), service)
+      return store.dispatch(actions.loadArtifact({artifactType: '', artifactId: ''}))
+        .then(() => {
+          expect(store.getActions()).to.have.length(3)
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setError(error))
+          return null
+        })
+    })
+  })
+
+
   describe('removeAlignment', () => {
     it('calls outcomes service to create new alignment set', () => {
       const service = { createAlignmentSet: sinon.stub().returns(Promise.resolve()) }

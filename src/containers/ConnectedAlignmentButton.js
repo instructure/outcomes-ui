@@ -5,7 +5,7 @@ import * as alignmentActions from '../store/alignments/actions'
 import { getAlignedOutcomes } from '../store/alignments/selectors'
 import * as outcomePickerActions from '../store/OutcomePicker/actions'
 import AlignmentButton from '../components/AlignmentButton'
-import WithAlignmentSet from '../components/WithAlignmentSet'
+import WithArtifact from '../components/WithArtifact'
 import ConnectedOutcomeTray from './ConnectedOutcomeTray'
 
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const ConnectedAlignmentButton = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  WithAlignmentSet
+  WithArtifact
 )(AlignmentButton)
 
 export default ConnectedAlignmentButton

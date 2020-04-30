@@ -4,6 +4,7 @@ import OutcomeSDKComponent from './OutcomeSDKComponent'
 
 
 export default OutcomeSDKComponent(ConnectedAlignmentButton, {
-  alignmentSetId: PropTypes.string,
+  artifactType: PropTypes.string,
+  artifactId: PropTypes.string,
   screenreaderNotification: PropTypes.func
 })
