@@ -248,6 +248,24 @@ describe('OutcomePicker/actions', () => {
           return null
         })
     })
+
+    it('calls upsertArtifact if shouldUpdateArtifact is true', () => {
+      const service = {
+        upsertArtifact: sinon.stub().returns(Promise.resolve({guid: 'guid-1', outcomes: ['1', '2']}))
+      }
+      const store = createMockStore(state, service)
+      return store.dispatch(actions.saveOutcomePickerAlignments(null, true))
+        .then(() => {
+          expect(service.upsertArtifact.calledWith(['1', '2']))
+          expect(store.getActions()).to.deep.include(scopedActions.setAlignments({
+            guid: 'guid-1',
+            outcomes: [{id: '1'}, {id: '2'}]
+          }))
+          expect(store.getActions()[store.getActions().length - 1]).to.deep.equal(
+            scopedActions.setOutcomePickerState('complete')
+          )
+        })
+    })
   })
 
   describe('resetOutcomePicker', () => {

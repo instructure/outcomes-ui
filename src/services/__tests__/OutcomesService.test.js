@@ -164,6 +164,62 @@ describe('OutcomesService', () => {
     })
   })
 
+  describe('upsertArtifact', () => {
+    it('posts data in correct format', () => {
+      fetchMock.postOnce((_url, opts) => {
+        const body = JSON.parse(opts.body)
+        expect(body).to.deep.equal({ artifact_type: 'type',artifact_id: 'id', outcome_ids: [44, 99] })
+        return true
+      }, {})
+      return subject.upsertArtifact(host, jwt, 'type', 'id', [44, 99])
+    })
+
+    it('resolves on success', () => {
+      const payload = {
+        artifactId: '1',
+        artifactType: 'quizzes.quiz',
+        outcomeIds: ['1', '2']
+      }
+
+      const response = {
+        alignment_set: {
+          guid: 'foo',
+          outcomes: [
+            { id: 1, outcome_id: 10 },
+            { id: 2, outcome_id: 20 }
+          ]
+        }
+      }
+      fetchMock.postOnce('http://outcomes.docker/api/artifacts', {
+        status: 201,
+        body: { ...response }
+      })
+      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.outcomeIds)
+        .then(result => expect(result).to.deep.equal(response.alignment_set))
+    })
+
+
+    it('rejects on error', () => {
+      fetchMock.postOnce('http://outcomes.docker/api/artifacts', 500)
+      return subject.upsertArtifact(host, jwt, 'type', 'id', [1, 2, 3])
+        .catch(err => expect(err).to.have.property('status', 500))
+    })
+
+    it('resolves with an empty guid when there are no outcomes', () => {
+      const payload = {
+        artifactType: 'quizzes.quiz',
+        artifactId: '1',
+        outcomeIds: []
+      }
+      fetchMock.postOnce('http://outcomes.docker/api/artifacts', {
+        status: 201,
+        body: {} // a delete (caused by having no outcomeIds) returns nothing
+      })
+      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.outcomeIds)
+        .then(result => expect(result).to.deep.equal({guid: null}))
+    })
+  })
+
   describe('createAlignmentSet', () => {
     it('posts data in correct format', () => {
       fetchMock.postOnce((url, opts) => {

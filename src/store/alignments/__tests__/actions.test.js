@@ -267,5 +267,24 @@ describe('alignments/actions', () => {
           return null
         })
     })
+
+    it('calls upsertArtifact if shouldUpdateArtifact is true', () => {
+      const response = {guid: 'my-guid-1', outcomes: [{id: '1'}]}
+      const service = {upsertArtifact: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(fromJS({
+        scopeForTest: {
+          alignments: {
+            alignedOutcomes: [{id: '1'}, {id: '12'}]
+          }
+        }
+      }), service)
+      return store.dispatch(actions.removeAlignment('12', null, true))
+        .then(() => {
+          expect(service.upsertArtifact.calledOnce).to.be.true
+          expect(store.getActions()[0].payload.args.slice(-1)).to.deep.equal([['1']])
+          expect(store.getActions()).to.deep.include(scopedActions.setAlignments(response))
+          return null
+        })
+    })
   })
 })

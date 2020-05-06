@@ -39,9 +39,9 @@ const makeSDKComponent = (ComponentClass, additionalPropTypes = {}) => class ext
   }
 
   store () {
-    const { store, host, jwt } = this.props
+    const { store, host, jwt, artifactType, artifactId } = this.props
     // eslint-disable-next-line immutable/no-mutation
-    return store || getStore(host, jwt, this.scope(), this.contextUuid()) // eslint-disable-line immutable/no-mutation
+    return store || getStore(host, jwt, this.scope(), this.contextUuid(), artifactType, artifactId)
   }
 
   propsForChild () {

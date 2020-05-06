@@ -56,7 +56,8 @@ export default class OutcomeTray extends React.Component {
     focusedOutcome: outcomeShape,
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
-    displayMasteryPercentText: PropTypes.bool
+    displayMasteryPercentText: PropTypes.bool,
+    shouldModifyArtifact: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -70,6 +71,7 @@ export default class OutcomeTray extends React.Component {
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
+    shouldModifyArtifact: false
   }
 
   componentDidUpdate (prevProps) {
@@ -190,9 +192,10 @@ export default class OutcomeTray extends React.Component {
     const {
       saveOutcomePickerAlignments,
       onUpdate,
-      closeOutcomePicker
+      closeOutcomePicker,
+      shouldModifyArtifact
     } = this.props
-    return saveOutcomePickerAlignments(onUpdate)
+    return saveOutcomePickerAlignments(onUpdate, shouldModifyArtifact)
       .then(() => closeOutcomePicker())
   }
 

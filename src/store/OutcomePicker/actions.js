@@ -14,7 +14,7 @@ import {
 import { loadRootOutcomes, loadMoreOutcomes, setError, setScoringMethod } from '../context/actions'
 import { getAlignedOutcomeIds, getAnyOutcome } from '../alignments/selectors'
 import { getSelectedOutcomeIds, getOutcomePickerState } from './selectors'
-import { updateAlignments, createAlignmentSet } from '../alignments/actions'
+import { createAlignmentSet, updateAlignments, upsertArtifact } from '../alignments/actions'
 import { setScope } from '../activePicker/actions'
 
 export const selectOutcomeIds = createAction(SELECT_OUTCOME_IDS)
@@ -72,21 +72,18 @@ export const setFocusedOutcome = (outcome) => {
   }
 }
 
-export const saveOutcomePickerAlignments = (updateCallback) => {
+export const saveOutcomePickerAlignments = (updateCallback, shouldUpdateArtifact = false) => {
   return (dispatch, getState, _arg, scope) => {
     dispatch(setOutcomePickerState('saving'))
 
     const state = getState()
     const outcomeIds = getSelectedOutcomeIds(state, scope)
     const outcomes = outcomeIds.map((id) => getAnyOutcome(state, scope, id))
-    return dispatch(createAlignmentSet(outcomeIds))
-      .then((response) => {
-        return dispatch(updateAlignments(response.guid, outcomes, updateCallback))
-      })
+    const updateAlignmentFunc = shouldUpdateArtifact ? upsertArtifact : createAlignmentSet
+    return dispatch(updateAlignmentFunc(outcomeIds))
+      .then(response => dispatch(updateAlignments(response.guid, outcomes, updateCallback)))
       .then(() => dispatch(setOutcomePickerState('complete')))
-      .catch((err) => {
-        dispatch(setError(err))
-      })
+      .catch(err => dispatch(setError(err)))
   }
 }
 

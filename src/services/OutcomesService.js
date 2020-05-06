@@ -84,6 +84,23 @@ class OutcomesService {
       .then((json) => (json.alignment_set || json))
   }
 
+  upsertArtifact (host, jwt, artifactType, artifactId, outcomeIds) {
+    const params = {
+      artifact_id: artifactId,
+      artifact_type: artifactType,
+      outcome_ids: outcomeIds
+    }
+    return this.post(host, jwt, '/api/artifacts', params)
+      .then(checkResponse)
+      .then(response => {
+        if (!outcomeIds.length) {
+          return Promise.resolve({guid: null})
+        }
+        return toJson(response)
+      })
+      .then((json) => (json.alignment_set || json))
+  }
+
   createAlignmentSet (host, jwt, outcomeIds) {
     if (!outcomeIds.length) {
       return Promise.resolve({guid: null})

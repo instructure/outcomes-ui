@@ -50,37 +50,40 @@ describe('AlignmentButton', () => {
     return checkA11y(<AlignmentButton {...makeProps()} />)
   })
 
-  it('focuses on the previous alignment when second alignment deleted', (done) => {
-    const wrapper = mount(<AlignmentButton {...makeProps()} />)
-    wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
-    setTimeout(() => {
+  describe('when an alignment is removed', () => {
+    it('calls the removeAlignment action with shouldUpdateArtifact equal to true', () => {
+      const props = makeProps()
+      const wrapper = mount(<AlignmentButton {...props} />)
+      wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
+      const first = wrapper.find('AlignmentItem').at(0)
+      const remove = first.prop('removeAlignment')
+      const outcome = first.prop('outcome')
+      remove()
+      expect(props.removeAlignment.getCall(0).args).to.include(outcome.id, true)
+    })
+
+    it('focuses on the previous alignment when the second alignment deleted', () => {
+      const wrapper = mount(<AlignmentButton {...makeProps()} />)
+      wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
       const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
       const focus = sinon.spy(first.instance(), 'focus')
       const remove = next.prop('removeAlignment')
       remove()
-      setTimeout(() => {
-        expect(focus.calledOnce).to.be.true
-        expect(focus.calledWith()).to.be.true
-        done()
-      }, 1)
-    }, 1)
-  })
+      expect(focus.calledOnce).to.be.true
+      expect(focus.calledWith()).to.be.true
+    })
 
-  it('focuses on the next alignment when first alignment deleted', (done) => {
-    const wrapper = mount(<AlignmentButton {...makeProps()} />)
-    wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
-    setTimeout(() => {
+    it('focuses on the next alignment when first alignment deleted', () => {
+      const wrapper = mount(<AlignmentButton {...makeProps()} />)
+      wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
       const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
       const remove = first.prop('removeAlignment')
       const focus = sinon.spy(next.instance(), 'focus')
       remove()
-      setTimeout(() => {
-        expect(focus.calledOnce).to.be.true
-        expect(focus.calledWith()).to.be.true
-        done()
-      }, 1)
-    }, 1)
+      expect(focus.calledOnce).to.be.true
+      expect(focus.calledWith()).to.be.true
+    })
   })
 })

@@ -70,10 +70,10 @@ function createStore () {
   )
 }
 
-function addScopeToStore (store, key, host, jwt, contextUuid) {
+function addScopeToStore (store, key, host, jwt, contextUuid, artifactType, artifactId) {
   if (!dynamicReducers[key]) {
     dynamicReducers[key] = multireducer(combineReducers({ // eslint-disable-line immutable/no-mutation
-      config: config({ host, jwt, contextUuid }),
+      config: config({ host, jwt, contextUuid, artifactType, artifactId }),
       alignments,
       report,
       StudentMastery,
@@ -90,11 +90,11 @@ function initializeStore (store, { host, jwt }) {
 
 let store = null
 
-export function getStore (host, jwt, key, contextUuid) {
+export function getStore (host, jwt, key, contextUuid, artifactType, artifactId) {
   if (!store) {
     store = createStore()
     initializeStore(store, {host, jwt})
   }
-  addScopeToStore(store, key, host, jwt, contextUuid)
+  addScopeToStore(store, key, host, jwt, contextUuid, artifactType, artifactId)
   return store
 }

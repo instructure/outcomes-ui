@@ -24,6 +24,7 @@ describe('OutcomeTray', () => {
       selectOutcomeIds: sinon.spy(),
       deselectOutcomeIds: sinon.spy(),
       screenreaderNotification: sinon.spy(),
+      onUpdate: sinon.spy(),
       searchTotal: 0,
       searchPage: 0,
       getOutcomesList: sinon.spy(),
@@ -35,7 +36,8 @@ describe('OutcomeTray', () => {
       listTotal: 0,
       resetOutcomePicker: sinon.spy(),
       closeOutcomePicker: sinon.spy(),
-      setInitialSelectedOutcomes: sinon.spy()
+      setInitialSelectedOutcomes: sinon.spy(),
+      shouldModifyArtifact: false
     }, props)
   }
 
@@ -116,6 +118,7 @@ describe('OutcomeTray', () => {
     wrapper = mount(<OutcomeTray {...props} />)
     wrapper.find('Button').at(2).prop('onClick')()
     expect(props.saveOutcomePickerAlignments).to.be.called
+    expect(props.saveOutcomePickerAlignments).to.be.calledWith(props.onUpdate, false)
   })
 
   it('syncs selected and aligned outcomes on open', () => {

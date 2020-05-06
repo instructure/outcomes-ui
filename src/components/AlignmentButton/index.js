@@ -55,10 +55,10 @@ export default class AlignmentButton extends React.Component {
     }
   }
 
-  handleRemoveAlignment (outcome, index) {
+  handleRemoveAlignment (removedOutcome, index) {
     const { removeAlignment, onUpdate, alignedOutcomes } = this.props
-    removeAlignment(outcome.id, onUpdate)
-    this.props.screenreaderNotification(t('{label} alignment removed', {label: outcome.label}))
+    removeAlignment(removedOutcome.id, onUpdate, true)
+    this.props.screenreaderNotification(t('{label} alignment removed', {label: removedOutcome.label}))
     const priorListItem = this[`position${index - 1}`]
     if (priorListItem) {
       priorListItem.focus()
@@ -131,6 +131,7 @@ export default class AlignmentButton extends React.Component {
         screenreaderNotification={screenreaderNotification}
         liveRegion={liveRegion}
         scope={scope}
+        shouldModifyArtifact
         {...pickerProps}
       />
     )

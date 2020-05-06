@@ -74,9 +74,47 @@ export const loadAlignments = (alignmentSetId, updateCallback) => {
   }
 }
 
-export const loadArtifact = ({ artifactType, artifactId }) => {
+export const removeAlignment = (alignmentId, updateCallback, shouldUpdateArtifact = false) => {
+  return (dispatch, getState, _arg, scope) => {
+    const newIds = getAlignedOutcomeIds(getState(), scope).filter((id) => id !== alignmentId)
+    if (newIds.length === 0 && !shouldUpdateArtifact) {
+      return dispatch(clearAlignmentSet(updateCallback))
+    }
+
+    const updateAlignmentFunc = shouldUpdateArtifact ? upsertArtifact : createAlignmentSet
+    return dispatch(updateAlignmentFunc(newIds))
+      .then(response => {
+        const newOutcomes = newIds.map((id) => getAlignedOutcome(getState(), scope, id))
+        dispatch(updateAlignments(response.guid, newOutcomes, updateCallback))
+      })
+      .catch(e => dispatch(setError(e)))
+  }
+}
+
+export const createAlignmentSet = (outcomeIds) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt } = getConfig(getState(), scope)
+    return dispatch({
+      type: CALL_SERVICE,
+      payload: {
+        service: 'outcomes',
+        method: 'createAlignmentSet',
+        args: [host, jwt, outcomeIds]
+      }
+    })
+  }
+}
+
+export const clearAlignmentSet = (updateCallback) => {
+  return (dispatch) => {
+    dispatch(updateAlignments(null, [], updateCallback))
+    return Promise.resolve()
+  }
+}
+
+export const loadArtifact = () => {
+  return (dispatch, getState, _arg, scope) => {
+    const { host, jwt, artifactType, artifactId } = getConfig(getState(), scope)
     return dispatch(clearAlignmentSet())
       .then(() => {
         return dispatch({
@@ -93,43 +131,16 @@ export const loadArtifact = ({ artifactType, artifactId }) => {
   }
 }
 
-export const removeAlignment = (alignmentId, updateCallback) => {
+export const upsertArtifact = (outcomeIds) => {
   return (dispatch, getState, _arg, scope) => {
-    const state = getState()
-    const alignedIds = getAlignedOutcomeIds(state, scope)
-    const newIds = alignedIds.filter((id) => id !== alignmentId)
-    if (newIds.length > 0) {
-      const newOutcomes = newIds.map((id) => getAlignedOutcome(state, scope, id))
-      return dispatch(createAlignmentSet(newIds))
-        .then((response) => {
-          return dispatch(updateAlignments(response.guid, newOutcomes, updateCallback))
-        })
-        .catch((err) => {
-          dispatch(setError(err))
-        })
-    } else {
-      return dispatch(clearAlignmentSet(updateCallback))
-    }
-  }
-}
-
-export const createAlignmentSet = (alignedOutcomeIds) => {
-  return (dispatch, getState, _arg, scope) => {
-    const { host, jwt } = getConfig(getState(), scope)
+    const { host, jwt, artifactType, artifactId } = getConfig(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
-        method: 'createAlignmentSet',
-        args: [host, jwt, alignedOutcomeIds]
+        method: 'upsertArtifact',
+        args: [host, jwt, artifactType, artifactId, outcomeIds]
       }
     })
-  }
-}
-
-export const clearAlignmentSet = (updateCallback) => {
-  return (dispatch, getState) => {
-    dispatch(updateAlignments(null, [], updateCallback))
-    return Promise.resolve()
   }
 }
