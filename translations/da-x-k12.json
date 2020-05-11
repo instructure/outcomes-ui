@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Tilpas læringsudbytter"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Tilpassede læringsudbytter"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Vedhæftede læringsudbytter"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Ryd søgefelt"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Klik for at skjule tilpasninger"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Klik for at vise tilpasninger"
     },
     "close_d634289d": {
         "message": "Luk"

@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Juster læringsmål"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Innrettede læringsmål"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Vedlagte læringsmål"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Tøm søkefelt"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Klikk for å skjule justeringer"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Klikk for å vise justeringer"
     },
     "close_d634289d": {
         "message": "Lukk"

@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Alinear competencias"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Adaptar resultados"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Competencias adjuntas"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Borrar campo de búsqueda"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Haga clic para ocultar las alineaciones"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Haga clic para mostrar las alineaciones"
     },
     "close_d634289d": {
         "message": "Cerrar"

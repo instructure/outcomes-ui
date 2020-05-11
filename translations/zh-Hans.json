@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "调整结果"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "调整结果"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "附加的结果"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "清除搜索字段"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "单击以隐藏作业"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "单击以显示作业"
     },
     "close_d634289d": {
         "message": "关闭"

@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Kohdista tulokset"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Kohdista tulokset"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Liitetyt tulokset"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Tyhjennä hakukenttä"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Piilota linjaukset napsauttamalla"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Näytä linjaukset napsauttamalla"
     },
     "close_d634289d": {
         "message": "Sulje"

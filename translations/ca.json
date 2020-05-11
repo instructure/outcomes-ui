@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Alinea els resultats"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Resultats alineats"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Resultats adjunts"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Esborra el camp de cerca"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Feu clic per amagar les alineacions"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Feu clic per mostrar les alineacions"
     },
     "close_d634289d": {
         "message": "Tanca"

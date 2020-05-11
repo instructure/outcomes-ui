@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Aligner les acquis"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Acquis alignés"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Acquis joints"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Effacer le champ de recherche"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Cliquer pour masquer les alignements"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Cliquer pour afficher les alignements"
     },
     "close_d634289d": {
         "message": "Fermer"

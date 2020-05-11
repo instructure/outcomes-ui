@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Alinhar resultados"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Alinhar objetivos"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Resultados anexados"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Limpar campo de pesquisa"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Clique para ocultar alinhamentos"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Clique para exibir alinhamentos"
     },
     "close_d634289d": {
         "message": "Fechar"

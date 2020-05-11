@@ -5,6 +5,9 @@
     "align_outcomes_c20e3f7f": {
         "message": "Justera lärandemål"
     },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Tilldela lärandemål"
+    },
     "attached_outcomes_d64ce1de": {
         "message": "Bifogade lärandemål"
     },
@@ -22,6 +25,12 @@
     },
     "clear_search_field_75f595c7": {
         "message": "Rensa sökfältet"
+    },
+    "click_to_hide_alignments_65396d20": {
+        "message": "Klicka för att dölja justeringar"
+    },
+    "click_to_show_alignments_654a7927": {
+        "message": "Klicka för att visa justeringar"
     },
     "close_d634289d": {
         "message": "Stäng"
