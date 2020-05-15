@@ -7,7 +7,6 @@ import { Text } from '@instructure/ui-elements'
 import { IconOutcomesLine, IconPlusLine } from '@instructure/ui-icons'
 import { List } from '@instructure/ui-list'
 import { themeable } from '@instructure/ui-themeable'
-import { ToggleGroup } from '@instructure/ui-toggle-details'
 import OutcomePickerModal from '../OutcomePickerModal'
 import AlignmentItem from './AlignmentItem'
 import AlignmentCount from '../AlignmentCount'
@@ -28,6 +27,7 @@ export default class AlignmentButton extends React.Component {
     onUpdate: PropTypes.func,
     screenreaderNotification: PropTypes.func,
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
+    readOnly: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -36,14 +36,7 @@ export default class AlignmentButton extends React.Component {
     onUpdate: null,
     screenreaderNotification: null,
     liveRegion: null,
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      expanded: false
-    }
+    readOnly: false
   }
 
   componentDidUpdate (oldProps) {
@@ -69,52 +62,43 @@ export default class AlignmentButton extends React.Component {
   }
 
   renderHeader = () => {
-    return (
-      <div className={styles.line} data-automation='outcomeLabel__alignedOutcomes'>
-        <Text size="medium">
-          <div className={styles.spacing}>
-            <IconOutcomesLine />
-          </div>
-        </Text>
-        <Text size="medium">
-          <div className={styles.spacing}>
-            {t('Aligned Outcomes')} &nbsp;
-            <AlignmentCount count={this.props.alignedOutcomes.length} />
-          </div>
-        </Text>
-      </div>
-    )
-  }
-
-  handleToggle = (_event, expanded) => {
-    this.setState({expanded})
+    const { readOnly, alignedOutcomes } = this.props
+    if(!readOnly || alignedOutcomes.length) {
+      return (
+        <div className={styles.line} data-automation='outcomeLabel__alignedOutcomes'>
+          <Text size="medium">
+            <div className={styles.spacing}>
+              <IconOutcomesLine />
+            </div>
+          </Text>
+          <Text size="medium">
+            <div className={styles.spacing}>
+              {t('Aligned Outcomes')} &nbsp;
+              <AlignmentCount count={alignedOutcomes.length} />
+            </div>
+          </Text>
+        </div>
+      )
+    }
   }
 
   renderAlignmentList = () => {
-    const { alignedOutcomes } = this.props
-    const { expanded } = this.state
+    const { alignedOutcomes, readOnly } = this.props
     return (
-      <ToggleGroup
-        expanded={expanded}
-        onToggle={this.handleToggle}
-        toggleLabel={ expanded ? t('Click to hide alignments') : t('Click to show alignments')}
-        border={false}
-        summary={this.renderHeader()}
-      >
-        <List isUnstyled margin="small 0" delimiter="solid">
-          { alignedOutcomes.map((outcome, index) => {
-            return (
-              <List.Item margin="small 0" key={outcome.id}>
-                <AlignmentItem
-                  removeAlignment={() => this.handleRemoveAlignment(outcome, index)}
-                  ref={(o) => { this[`position${index}`] = o }} // eslint-disable-line immutable/no-mutation
-                  outcome={outcome}
-                />
-              </List.Item>
-            )
-          })}
-        </List>
-      </ToggleGroup>
+      <List isUnstyled margin="small 0" delimiter="solid">
+        { alignedOutcomes.map((outcome, index) => {
+          return (
+            <List.Item margin="small 0" key={outcome.id}>
+              <AlignmentItem
+                removeAlignment={() => this.handleRemoveAlignment(outcome, index)}
+                ref={(o) => { this[`position${index}`] = o }} // eslint-disable-line immutable/no-mutation
+                outcome={outcome}
+                readOnly={readOnly}
+              />
+            </List.Item>
+          )
+        })}
+      </List>
     )
   }
 
@@ -137,11 +121,10 @@ export default class AlignmentButton extends React.Component {
     )
   }
 
-  render() {
-    const { openOutcomePicker } = this.props
-    return (
-      <React.Fragment>
-        { this.renderAlignmentList() }
+  renderButton = () => {
+    const { openOutcomePicker, readOnly } = this.props
+    if(!readOnly) {
+      return (
         <div className={styles.button}>
           <Button
             ref={(d) => { this.align = d }} // eslint-disable-line immutable/no-mutation
@@ -153,6 +136,16 @@ export default class AlignmentButton extends React.Component {
             </AccessibleContent>
           </Button>
         </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        { this.renderHeader() }
+        { this.renderAlignmentList() }
+        { this.renderButton() }
         { this.renderTray() }
       </React.Fragment>
     )

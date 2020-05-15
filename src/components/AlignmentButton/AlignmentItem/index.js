@@ -16,29 +16,43 @@ export default class AlignmentItem extends React.Component {
   static propTypes = {
     outcome: outcomeShape.isRequired,
     removeAlignment: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool.isRequired
+  }
+
+  static defaultProps = {
+    readOnly: false
   }
 
   focus () {
     this.focusLink.focus()
   }
 
+  renderDeleteButton() {
+    const { outcome, removeAlignment, readOnly } = this.props
+    if(!readOnly) {
+      return (
+        <span className={styles.deleteButton}>
+          <IconButton
+            withBackground={false}
+            withBorder={false}
+            screenReaderLabel={t(`Remove ${outcome.title}`)}
+            elementRef={(link) => { this.focusLink = link }} // eslint-disable-line immutable/no-mutation
+            onClick={removeAlignment} >
+            <IconTrashLine />
+          </IconButton>
+        </span>
+      )
+    }
+  }
+
   render() {
-    const { outcome, removeAlignment } = this.props
+    const { outcome } = this.props
     return (
       <React.Fragment>
         <Text size="small">{ outcome.label }</Text>
         <div className={styles.outcomeTitle}>
           <Text weight="bold" size="small">{ outcome.title }</Text>
-          <span className={styles.deleteButton}>
-            <IconButton
-              withBackground={false}
-              withBorder={false}
-              screenReaderLabel={t(`Remove ${outcome.title}`)}
-              elementRef={(link) => { this.focusLink = link }} // eslint-disable-line immutable/no-mutation
-              onClick={removeAlignment} >
-              <IconTrashLine />
-            </IconButton>
-          </span>
+          { this.renderDeleteButton() }
         </div>
         <OutcomeDescription description={outcome.description} />
       </React.Fragment>

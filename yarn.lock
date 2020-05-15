@@ -1479,20 +1479,6 @@
     eslint-plugin-notice "^0.8.9"
     eslint-plugin-react "^7.14.3"
 
-"@instructure/ui-expandable@^6.17.0":
-  version "6.17.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-expandable/-/ui-expandable-6.17.0.tgz#cccaabfc009f011aa940df59293948798c8f189c"
-  integrity sha512-9Lf1+ke5+QW0fvNdfd5m7+3Ars84gEIeQ8m/rI2b/AUJ+Fi1vNwegMBdlWex0hYmfkz3jVoB+49Dd/xzdmpV2g==
-  dependencies:
-    "@babel/runtime" "^7.5.0"
-    "@instructure/ui-prop-types" "^6.17.0"
-    "@instructure/ui-react-utils" "^6.17.0"
-    "@instructure/ui-testable" "^6.17.0"
-    "@instructure/ui-themeable" "^6.17.0"
-    "@instructure/ui-utils" "^6.17.0"
-    "@instructure/uid" "^6.17.0"
-    prop-types "^15"
-
 "@instructure/ui-flex@^6.17.0":
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-flex/-/ui-flex-6.17.0.tgz#a4fb872031319f158356591fc01732c78cbdf384"
@@ -1675,6 +1661,21 @@
     classnames "^2"
     prop-types "^15"
 
+"@instructure/ui-list@^6.17.0":
+  version "6.17.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-list/-/ui-list-6.17.0.tgz#5eae594f73355f594e8a2c6072fe2bb794c2d45b"
+  integrity sha512-4uuqegT3KxsRpcADJCBUP//3KcN24uo8lmo8VevRvww8hBoiIbg16NQ0dLjBx77rhVYio1EQUEXBWH16bmY3KQ==
+  dependencies:
+    "@babel/runtime" "^7.5.0"
+    "@instructure/console" "^6.17.0"
+    "@instructure/ui-prop-types" "^6.17.0"
+    "@instructure/ui-react-utils" "^6.17.0"
+    "@instructure/ui-testable" "^6.17.0"
+    "@instructure/ui-themeable" "^6.17.0"
+    "@instructure/ui-view" "^6.17.0"
+    classnames "^2"
+    prop-types "^15"
+
 "@instructure/ui-modal@^6.17.0":
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-modal/-/ui-modal-6.17.0.tgz#f5310d93af6fe62ee2a3cbb58a2b7cb4e250a29b"
@@ -1694,44 +1695,6 @@
     "@instructure/ui-utils" "^6.17.0"
     "@instructure/ui-view" "^6.17.0"
     classnames "^2"
-    prop-types "^15"
-
-"@instructure/ui-list@^6.17.0":
-  version "6.17.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-list/-/ui-list-6.17.0.tgz#5eae594f73355f594e8a2c6072fe2bb794c2d45b"
-  integrity sha512-4uuqegT3KxsRpcADJCBUP//3KcN24uo8lmo8VevRvww8hBoiIbg16NQ0dLjBx77rhVYio1EQUEXBWH16bmY3KQ==
-  dependencies:
-    "@babel/runtime" "^7.5.0"
-    "@instructure/console" "^6.17.0"
-    "@instructure/ui-prop-types" "^6.17.0"
-    "@instructure/ui-react-utils" "^6.17.0"
-    "@instructure/ui-testable" "^6.17.0"
-    "@instructure/ui-themeable" "^6.17.0"
-    "@instructure/ui-view" "^6.17.0"
-    classnames "^2"
-    prop-types "^15"
-
-"@instructure/ui-menu@^6.17.0":
-  version "6.17.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-menu/-/ui-menu-6.17.0.tgz#661b771e94d96de6a7812b1588b84981cc945c44"
-  integrity sha512-VK0ctfTQbE9ayl2+908G9X/0nQ5fiQVIdxhdZ9Cki9P1zvsCwYogQCAIfUY88+MDlVoiFJvorP02N48zuRmdGA==
-  dependencies:
-    "@babel/runtime" "^7.5.0"
-    "@instructure/console" "^6.17.0"
-    "@instructure/ui-a11y-utils" "^6.17.0"
-    "@instructure/ui-dom-utils" "^6.17.0"
-    "@instructure/ui-elements" "^6.17.0"
-    "@instructure/ui-icons" "^6.17.0"
-    "@instructure/ui-overlays" "^6.17.0"
-    "@instructure/ui-position" "^6.17.0"
-    "@instructure/ui-prop-types" "^6.17.0"
-    "@instructure/ui-react-utils" "^6.17.0"
-    "@instructure/ui-testable" "^6.17.0"
-    "@instructure/ui-themeable" "^6.17.0"
-    "@instructure/ui-utils" "^6.17.0"
-    "@instructure/uid" "^6.17.0"
-    classnames "^2"
-    keycode "^2"
     prop-types "^15"
 
 "@instructure/ui-motion@^6.17.0":
@@ -2175,32 +2138,6 @@
   dependencies:
     "@instructure/canvas-high-contrast-theme" "^6.17.0"
     "@instructure/canvas-theme" "^6.17.0"
-
-"@instructure/ui-toggle-details@^6.17.0":
-  version "6.17.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-toggle-details/-/ui-toggle-details-6.17.0.tgz#51a2e8dcdc885e047065386864ec4b8d4240f668"
-  integrity sha512-GUrPflLgXUlDPcCAqzamW46St8tWPWpNxY87SbA1k6aoEZFMuCUr1GD94f/Ztv+DlMbQCIfxyMU4khE5I2OYzg==
-  dependencies:
-    "@babel/runtime" "^7.5.0"
-    "@instructure/ui-a11y-content" "^6.17.0"
-    "@instructure/ui-buttons" "^6.17.0"
-    "@instructure/ui-dom-utils" "^6.17.0"
-    "@instructure/ui-elements" "^6.17.0"
-    "@instructure/ui-expandable" "^6.17.0"
-    "@instructure/ui-flex" "^6.17.0"
-    "@instructure/ui-icons" "^6.17.0"
-    "@instructure/ui-layout" "^6.17.0"
-    "@instructure/ui-menu" "^6.17.0"
-    "@instructure/ui-motion" "^6.17.0"
-    "@instructure/ui-prop-types" "^6.17.0"
-    "@instructure/ui-react-utils" "^6.17.0"
-    "@instructure/ui-testable" "^6.17.0"
-    "@instructure/ui-themeable" "^6.17.0"
-    "@instructure/ui-utils" "^6.17.0"
-    "@instructure/ui-view" "^6.17.0"
-    "@instructure/uid" "^6.17.0"
-    classnames "^2"
-    prop-types "^15"
 
 "@instructure/ui-tooltip@^6.17.0":
   version "6.17.0"

@@ -18,7 +18,7 @@ describe('AlignmentButton', () => {
       openOutcomePicker: sinon.spy(),
       removeAlignment: sinon.spy(),
       onUpdate: sinon.spy(),
-      screenreaderNotification: sinon.spy(),
+      screenreaderNotification: sinon.spy()
     }, props)
   }
 
@@ -26,6 +26,20 @@ describe('AlignmentButton', () => {
     const wrapper = shallow(<AlignmentButton {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find('Button')).to.have.length(1)
     expect(wrapper.find('AccessibleContent')).to.have.length(1)
+  })
+
+  it('does not render an alignment button if readOnly is true', () => {
+    const wrapper = shallow(<AlignmentButton {...makeProps({readOnly: true})} />,
+      {disableLifecycleMethods: true})
+    expect(wrapper.find('Button')).to.have.length(0)
+  })
+
+  it('does not render header if readOnly is true and no outcomes are aligned', () => {
+    const wrapper = shallow(<AlignmentButton {...makeProps({readOnly: true, alignedOutcomes: []})} />,
+      {disableLifecycleMethods: true})
+    expect(wrapper.find('Text')).to.have.length(0)
+    expect(wrapper.find('IconOutcomesLine')).to.have.length(0)
+    expect(wrapper.find('AlignmentCount')).to.have.length(0)
   })
 
   it('calls openOutcomePicker when the button is pressed', () => {
@@ -37,7 +51,6 @@ describe('AlignmentButton', () => {
 
   it('renders AlignmentItems for each aligned outcome', () => {
     const wrapper = mount(<AlignmentButton {...makeProps()} />)
-    wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
     expect(wrapper.find('AlignmentItem')).to.have.length(3)
   })
 
@@ -54,7 +67,6 @@ describe('AlignmentButton', () => {
     it('calls the removeAlignment action with shouldUpdateArtifact equal to true', () => {
       const props = makeProps()
       const wrapper = mount(<AlignmentButton {...props} />)
-      wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
       const first = wrapper.find('AlignmentItem').at(0)
       const remove = first.prop('removeAlignment')
       const outcome = first.prop('outcome')
@@ -64,7 +76,6 @@ describe('AlignmentButton', () => {
 
     it('focuses on the previous alignment when the second alignment deleted', () => {
       const wrapper = mount(<AlignmentButton {...makeProps()} />)
-      wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
       const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
       const focus = sinon.spy(first.instance(), 'focus')
@@ -76,7 +87,6 @@ describe('AlignmentButton', () => {
 
     it('focuses on the next alignment when first alignment deleted', () => {
       const wrapper = mount(<AlignmentButton {...makeProps()} />)
-      wrapper.find('ToggleGroup button').simulate('click') //expand ToggleGroup
       const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
       const remove = first.prop('removeAlignment')
@@ -84,6 +94,22 @@ describe('AlignmentButton', () => {
       remove()
       expect(focus.calledOnce).to.be.true
       expect(focus.calledWith()).to.be.true
+    })
+  })
+
+  describe('componentDidUpdate', () => {
+    it('shifts focus to the |+Outcome| Button when alignments are removed', (done) => {
+      const outcomes = { alignedOutcomes: [{ id: '1', label: 'A1', title: 'tA1' }] }
+      const wrapper = mount(<AlignmentButton {...makeProps(outcomes)} />)
+
+      const trigger = wrapper.find('button').last()
+      const focus = sinon.spy(trigger.instance(), 'focus')
+      wrapper.setProps({alignedOutcomes: []}, () => {
+        expect(wrapper.find('button')).to.have.length(1)
+        expect(focus.calledOnce).to.be.true
+        expect(focus.calledWith()).to.be.true
+        done()
+      })
     })
   })
 })

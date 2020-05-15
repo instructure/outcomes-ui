@@ -92,16 +92,21 @@ const DemoAlignment = (props) => {
       />
       {
         useAlignmentButton ? (
-          <AlignmentButton
-            artifactType={artifactType}
-            artifactTypeName={artifactTypeName}
-            artifactId={artifactId}
-            contextUuid={contextUuid}
-            host={outcomesHost}
-            jwt={jwt}
-            liveRegion={getLive()}
-            screenreaderNotification={screenreaderNotification}
-          />
+          <div>
+            <br />
+            <AlignmentButton
+              artifactType={artifactType}
+              artifactTypeName={artifactTypeName}
+              artifactId={artifactId}
+              alignmentSetId={alignmentSetId}
+              contextUuid={contextUuid}
+              host={outcomesHost}
+              jwt={jwt}
+              liveRegion={getLive()}
+              screenreaderNotification={screenreaderNotification}
+              readOnly={readOnly}
+            />
+          </div>
         ) : (
           <OutcomeAlignments
             alignmentSetId={alignmentSetId}
