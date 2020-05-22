@@ -133,13 +133,13 @@ export const loadArtifact = () => {
 
 export const upsertArtifact = (outcomeIds) => {
   return (dispatch, getState, _arg, scope) => {
-    const { host, jwt, artifactType, artifactId } = getConfig(getState(), scope)
+    const { host, jwt, artifactType, artifactId, contextUuid } = getConfig(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'upsertArtifact',
-        args: [host, jwt, artifactType, artifactId, outcomeIds]
+        args: [host, jwt, artifactType, artifactId, contextUuid, outcomeIds]
       }
     })
   }

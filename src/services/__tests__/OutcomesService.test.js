@@ -168,16 +168,17 @@ describe('OutcomesService', () => {
     it('posts data in correct format', () => {
       fetchMock.postOnce((_url, opts) => {
         const body = JSON.parse(opts.body)
-        expect(body).to.deep.equal({ artifact_type: 'type',artifact_id: 'id', outcome_ids: [44, 99] })
+        expect(body).to.deep.equal({ artifact_type: 'type',artifact_id: 'id', context_uuid: 'context', outcome_ids: [44, 99] })
         return true
       }, {})
-      return subject.upsertArtifact(host, jwt, 'type', 'id', [44, 99])
+      return subject.upsertArtifact(host, jwt, 'type', 'id', 'context', [44, 99])
     })
 
     it('resolves on success', () => {
       const payload = {
         artifactId: '1',
         artifactType: 'quizzes.quiz',
+        contextUuid: 'context_uuid',
         outcomeIds: ['1', '2']
       }
 
@@ -194,14 +195,14 @@ describe('OutcomesService', () => {
         status: 201,
         body: { ...response }
       })
-      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.outcomeIds)
+      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.contextUuid, payload.outcomeIds)
         .then(result => expect(result).to.deep.equal(response.alignment_set))
     })
 
 
     it('rejects on error', () => {
       fetchMock.postOnce('http://outcomes.docker/api/artifacts', 500)
-      return subject.upsertArtifact(host, jwt, 'type', 'id', [1, 2, 3])
+      return subject.upsertArtifact(host, jwt, 'type', 'id', 'context', [1, 2, 3])
         .catch(err => expect(err).to.have.property('status', 500))
     })
 
@@ -209,13 +210,14 @@ describe('OutcomesService', () => {
       const payload = {
         artifactType: 'quizzes.quiz',
         artifactId: '1',
+        contextUuid: 'context_uuid',
         outcomeIds: []
       }
       fetchMock.postOnce('http://outcomes.docker/api/artifacts', {
         status: 201,
         body: {} // a delete (caused by having no outcomeIds) returns nothing
       })
-      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.outcomeIds)
+      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.contextUuid, payload.outcomeIds)
         .then(result => expect(result).to.deep.equal({guid: null}))
     })
   })

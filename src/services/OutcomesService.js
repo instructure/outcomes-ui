@@ -84,10 +84,11 @@ class OutcomesService {
       .then((json) => (json.alignment_set || json))
   }
 
-  upsertArtifact (host, jwt, artifactType, artifactId, outcomeIds) {
+  upsertArtifact (host, jwt, artifactType, artifactId, contextUuid, outcomeIds) {
     const params = {
       artifact_id: artifactId,
       artifact_type: artifactType,
+      context_uuid: contextUuid,
       outcome_ids: outcomeIds
     }
     return this.post(host, jwt, '/api/artifacts', params)
