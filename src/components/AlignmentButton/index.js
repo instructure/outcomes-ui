@@ -130,6 +130,7 @@ export default class AlignmentButton extends React.Component {
             ref={(d) => { this.align = d }} // eslint-disable-line immutable/no-mutation
             icon={IconPlusLine}
             onClick={openOutcomePicker}
+            data-automation="alignmentButton__button"
           >
             <AccessibleContent alt={t('Align Outcomes')}>
               {t('Outcome')}
