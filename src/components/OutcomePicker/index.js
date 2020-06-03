@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 
-import { themeable } from '@instructure/ui-themeable'
 import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
 import { ScreenReaderContent } from '@instructure/ui-a11y'
@@ -14,11 +13,8 @@ import IfFeature from '../IfFeature'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
 import NoReport from '../../icons/NoReport.svg'
-import theme from '../theme'
-import styles from './styles.css'
 import { outcomeShape } from '../../store/shapes'
 
-@themeable(theme, styles)
 class OutcomePicker extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {

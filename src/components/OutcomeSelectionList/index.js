@@ -67,7 +67,7 @@ export default class OutcomeSelectionList extends React.Component {
         {
           outcomes.map((o) => {
             return (
-              <div key={o.id} className={styles.checkbox}>
+              <div key={o.id}>
                 <OutcomeCheckbox
                   outcome={o}
                   setFocusedOutcome={setFocusedOutcome}

@@ -1,3 +1,7 @@
+.checkbox {
+  padding: var(--outcomePickerItemPadding);
+}
+
 .checkboxLabel {
   padding-left: var(--checkboxLabelLeftPadding);
   display: flex;

@@ -3,15 +3,11 @@ import t from 'format-message'
 import PropTypes from 'prop-types'
 import { Spinner } from '@instructure/ui-spinner'
 import { Flex } from '@instructure/ui-flex'
-import { themeable } from '@instructure/ui-themeable'
-import styles from './styles.css'
 import OutcomeCheckbox from '../../OutcomeCheckbox'
 import Pagination from '../../Pagination'
-import theme from '../../theme'
 
 export const RESULTS_PER_PAGE = 10
 
-@themeable(theme, styles)
 export default class OutcomeList extends React.Component {
   static propTypes = {
     outcomes: PropTypes.array.isRequired,
@@ -35,7 +31,7 @@ export default class OutcomeList extends React.Component {
     } = this.props
     return outcomes.map(outcome => {
       return (
-        <div key={outcome.id} className={styles.checkbox}>
+        <div key={outcome.id}>
           <OutcomeCheckbox
             outcome={outcome}
             setFocusedOutcome={setFocusedOutcome}

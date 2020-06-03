@@ -37,7 +37,7 @@ export default class OutcomeCheckbox extends React.Component {
     const { id, description, title } = outcome
 
     return (
-      <div className="OutcomeSelector">
+      <div className={`OutcomeSelector ${styles.checkbox}`}>
         <Checkbox
           value={id}
           checked={this.selected()}

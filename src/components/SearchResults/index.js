@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { themeable } from '@instructure/ui-themeable'
 
 import { Text } from '@instructure/ui-elements'
 import { Flex } from '@instructure/ui-flex'
@@ -11,12 +10,9 @@ import isEqual from 'lodash/isEqual'
 import t from 'format-message'
 import OutcomeCheckbox from '../OutcomeCheckbox'
 import Pagination from '../Pagination'
-import theme from '../theme'
-import styles from './styles.css'
 
 export const RESULTS_PER_PAGE = 10
 
-@themeable(theme, styles)
 class SearchResults extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -59,7 +55,7 @@ class SearchResults extends React.Component {
     } = this.props
     return searchEntries.map(outcome => {
       return (
-        <div key={outcome.id} className={styles.checkbox} data-automation="searchResults__outcomeResult">
+        <div key={outcome.id} data-automation="searchResults__outcomeResult">
           <OutcomeCheckbox
             outcome={outcome}
             setFocusedOutcome={setFocusedOutcome}
