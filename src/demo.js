@@ -102,7 +102,7 @@ const DemoAlignment = (props) => {
               contextUuid={contextUuid}
               host={outcomesHost}
               jwt={jwt}
-              liveRegion={getLive()}
+              liveRegion={getLive}
               screenreaderNotification={screenreaderNotification}
               readOnly={readOnly}
             />
@@ -122,7 +122,7 @@ const DemoAlignment = (props) => {
             host={outcomesHost}
             jwt={jwt}
             screenreaderNotification={screenreaderNotification}
-            liveRegion={getLive()}
+            liveRegion={getLive}
             readOnly={readOnly}
           />
         )
