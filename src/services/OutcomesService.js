@@ -179,10 +179,16 @@ class OutcomesService {
       .then(toJson)
   }
 
-  listOutcomes (host, jwt, page, contextUuid = '') {
+  listOutcomes (host, jwt, page, contextUuid = null, artifactId = null, artifactType = null) {
     const params = { per_page: 10, page }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
+    }
+    if (artifactId) {
+      params['artifact_id'] = artifactId
+    }
+    if (artifactType) {
+      params['artifact_type'] = artifactType
     }
     let total = 0
     return this.get(host, jwt, `/api/outcomes/list?${queryString.stringify(params)}`)

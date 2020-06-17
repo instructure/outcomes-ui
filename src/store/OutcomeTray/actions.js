@@ -26,13 +26,13 @@ export const getOutcomesList = ({ page } = {}) => {
       dispatch(setListPage(page))
     }
     dispatch(setOutcomePickerState('loading'))
-    const { host, jwt, contextUuid } = getConfig(getState(), scope)
+    const { host, jwt, contextUuid, artifactId, artifactType } = getConfig(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'listOutcomes',
-        args: [host, jwt, initialPage, contextUuid]
+        args: [host, jwt, initialPage, contextUuid, artifactId, artifactType]
       }
     }).then((json) => {
       if (getListPage(getState(), scope) === initialPage) {

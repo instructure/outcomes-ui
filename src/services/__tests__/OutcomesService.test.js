@@ -455,10 +455,11 @@ describe('OutcomesService', () => {
   describe('listOutcomes', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).to.match(/\/outcomes\/list\?context_uuid=def&page=999&per_page=10$/)
+        const exp_url = /\/outcomes\/list\?artifact_id=103&artifact_type=quizzes\.quiz&context_uuid=def&page=999&per_page=10$/
+        expect(url).to.match(exp_url)
         return true
       }, [])
-      return subject.listOutcomes(host, jwt, 999, 'def')
+      return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz' )
     })
 
     it('resolves with json on success', () => {
@@ -469,7 +470,8 @@ describe('OutcomesService', () => {
       const headers = {
         total: 101
       }
-      mockGet('/api/outcomes/list?context_uuid=def&page=999&per_page=10', { body, headers })
+      const url = '/api/outcomes/list?context_uuid=def&page=999&per_page=10'
+      mockGet(url, { body, headers })
       return subject.listOutcomes(host, jwt, 999, 'def')
         .then((result) => {
           expect(result).to.deep.equal({outcomes: body, total: 101})
@@ -477,10 +479,27 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      mockGet('/api/outcomes/list?context_uuid=def&page=999&per_page=10', 500)
-      return subject.listOutcomes(host, jwt, 999, 'def')
+      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&page=999&per_page=10'
+      mockGet(url, 500)
+      return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz')
         .catch((err) => {
           expect(err).to.have.property('status', 500)
+        })
+    })
+
+    it('resolves with json on success when artifact is specified', () => {
+      const body = [
+        { id: 1, title: 'abc', label: '123' },
+        { id: 2, title: 'foo', label: 'bar' }
+      ]
+      const headers = {
+        total: 101
+      }
+      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&page=999&per_page=10'
+      mockGet(url, { body, headers })
+      return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz')
+        .then((result) => {
+          expect(result).to.deep.equal({outcomes: body, total: 101})
         })
     })
   })
