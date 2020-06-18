@@ -31,7 +31,7 @@ export default class AlignmentItem extends React.Component {
     const { outcome, removeAlignment, readOnly } = this.props
     if(!readOnly) {
       return (
-        <span className={styles.deleteButton}>
+        <span className={styles.deleteButton} data-automation='outcomeAlignmentItem__delete'>
           <IconButton
             withBackground={false}
             withBorder={false}
@@ -50,7 +50,7 @@ export default class AlignmentItem extends React.Component {
     return (
       <React.Fragment>
         <Text size="small">{ outcome.label }</Text>
-        <div className={styles.outcomeTitle}>
+        <div className={styles.outcomeTitle} data-automation='outcomeAlignmentItem__title'>
           <Text weight="bold" size="small">{ outcome.title }</Text>
           { this.renderDeleteButton() }
         </div>
