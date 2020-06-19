@@ -34,7 +34,7 @@ class OutcomePicker extends React.Component {
     setSearchEntries: PropTypes.func.isRequired,
     isSearchLoading: PropTypes.bool.isRequired,
     searchEntries: PropTypes.array.isRequired,
-    searchTotal: PropTypes.number.isRequired,
+    searchTotal: PropTypes.number,
     searchPage: PropTypes.number.isRequired,
     screenreaderNotification: PropTypes.func,
     updateSearchText: PropTypes.func.isRequired,
@@ -51,6 +51,7 @@ class OutcomePicker extends React.Component {
     displayMasteryPercentText: false,
     searchText: '',
     screenreaderNotification: null,
+    searchTotal: null,
   }
 
   renderViewModal () {

@@ -18,7 +18,11 @@ export default class OutcomeList extends React.Component {
     getOutcomesList: PropTypes.func.isRequired,
     isLoading: PropTypes.bool.isRequired,
     listPage: PropTypes.number.isRequired,
-    listTotal: PropTypes.number.isRequired,
+    listTotal: PropTypes.number,
+  }
+
+  static defaultProps = {
+    listTotal: null,
   }
 
   renderList () {

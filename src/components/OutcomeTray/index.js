@@ -40,13 +40,13 @@ export default class OutcomeTray extends React.Component {
     mountNode: Tray.propTypes.mountNode,
     size: PropTypes.string,
     placement: PropTypes.string,
-    searchTotal: PropTypes.number.isRequired,
+    searchTotal: PropTypes.number,
     searchPage: PropTypes.number.isRequired,
     outcomes: PropTypes.array.isRequired,
     getOutcomesList: PropTypes.func.isRequired,
     updateSearchPage: PropTypes.func.isRequired,
     listPage: PropTypes.number.isRequired,
-    listTotal: PropTypes.number.isRequired,
+    listTotal: PropTypes.number,
     isFetching: PropTypes.bool.isRequired,
     isOpen: PropTypes.bool.isRequired,
     closeOutcomePicker: PropTypes.func.isRequired,
@@ -71,7 +71,9 @@ export default class OutcomeTray extends React.Component {
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
-    shouldModifyArtifact: false
+    shouldModifyArtifact: false,
+    searchTotal: null,
+    listTotal: null,
   }
 
   componentDidUpdate (prevProps) {

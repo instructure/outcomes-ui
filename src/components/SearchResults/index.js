@@ -19,7 +19,7 @@ class SearchResults extends React.Component {
     isSearchLoading: PropTypes.bool.isRequired,
     searchEntries: PropTypes.array.isRequired,
     searchPage: PropTypes.number.isRequired,
-    searchTotal: PropTypes.number.isRequired,
+    searchTotal: PropTypes.number,
     updateSearchPage: PropTypes.func.isRequired,
     setFocusedOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
@@ -30,6 +30,7 @@ class SearchResults extends React.Component {
 
   static defaultProps = {
     screenreaderNotification: null,
+    searchTotal: null,
   }
 
   componentDidUpdate (prevProps) {
