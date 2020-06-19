@@ -8,7 +8,8 @@ import {
   getRootOutcomeIds,
   getCollectionData,
   getDescriptor,
-  getChildrenToLoad
+  getChildrenToLoad,
+  hasRootOutcomes
 } from '../selectors'
 
 describe('context/selectors', () => {
@@ -47,6 +48,22 @@ describe('context/selectors', () => {
     it('returns false when unset', () => {
       const newState = state.deleteIn(['context', 'outcomes'])
       expect(hasContextOutcomes(newState, scope)).to.equal(false)
+    })
+  })
+
+  describe('hasRootOutcomes', () => {
+    it('returns true when outcomes exist', () => {
+      expect(hasRootOutcomes(state, scope)).to.equal(true)
+    })
+
+    it('returns false when empty', () => {
+      const newState = state.setIn(['context', 'rootOutcomeIds', 'course_100'], List())
+      expect(hasRootOutcomes(newState, scope)).to.equal(false)
+    })
+
+    it('returns false when unset', () => {
+      const newState = state.deleteIn(['context', 'rootOutcomeIds'])
+      expect(hasRootOutcomes(newState, scope)).to.equal(false)
     })
   })
 

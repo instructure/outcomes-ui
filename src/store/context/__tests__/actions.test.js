@@ -29,6 +29,9 @@ const stateWithOutcomes = fromJS({
   context: {
     outcomes: {
       course_100: [{ id: 1 }]
+    },
+    rootOutcomeIds: {
+      course_100: [ 1 ]
     }
   },
   scopeForTest: {
