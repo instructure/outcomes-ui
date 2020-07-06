@@ -249,6 +249,7 @@ export default class OutcomeTray extends React.Component {
         mountNode={mountNode}
         open={isOpen}
         onExiting={resetOutcomePicker}
+        label={t('Align Outcomes')}
         {...trayProps}
       >
         <div className={styles.outcomeTray}>
