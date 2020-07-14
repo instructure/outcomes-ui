@@ -66,3 +66,11 @@ export const SET_LIST_TOTAL = 'SET_LIST_TOTAL'
  */
 export const SET_INDIVIDUAL_RESULTS = 'SET_INDIVIDUAL_RESULTS'
 export const SET_INDIVIDUAL_RESULTS_STATE = 'SET_INDIVIDUAL_RESULTS_STATE'
+
+/*
+ * add feature flags here as strings
+ * this being a function allows it to be stubbed in tests
+*/
+export const getFeatureFlags = () => {
+  return []
+}
