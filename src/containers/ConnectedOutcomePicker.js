@@ -19,7 +19,6 @@ import {
   getSelectedOutcomes,
   makeIsOutcomeSelected
 } from '../store/OutcomePicker/selectors'
-import { getFeatures } from '../store/features/selectors'
 import OutcomePicker from '../components/OutcomePicker'
 import ConnectedOutcomeTree from './ConnectedOutcomeTree'
 
@@ -34,7 +33,6 @@ function mapStateToProps (state, ownProps) {
     artifactTypeName: artifactTypeName,
     displayMasteryDescription: displayMasteryDescription,
     displayMasteryPercentText: displayMasteryPercentText,
-    features: getFeatures(state),
     searchText: getSearchText(state, scope),
     isSearchLoading: getIsSearchLoading(state, scope),
     searchPage: getSearchPage(state, scope),

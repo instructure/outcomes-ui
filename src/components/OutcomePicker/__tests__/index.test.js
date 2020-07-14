@@ -21,7 +21,6 @@ describe('OutcomePicker', () => {
       setSearchEntries: sinon.spy(),
       updateSearchText: sinon.spy(),
       updateSearchPage: sinon.spy(),
-      features: [],
       searchText: '',
       searchPage: 1,
       searchTotal: 0,
@@ -64,9 +63,8 @@ describe('OutcomePicker', () => {
     expect(wrapper.find('Billboard').prop('heading')).to.equal('There are no outcomes')
   })
 
-  it('renders search bar if feature enabled', () => {
-    const props = makeProps({features: ['outcomes_search']})
-    const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
+  it('renders search bar', () => {
+    const wrapper = shallow(<OutcomePicker {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find('SearchInput')).to.have.length(1)
   })
 
@@ -78,8 +76,8 @@ describe('OutcomePicker', () => {
     expect(tree.prop('scope')).to.equal(props.scope)
   })
 
-  it('shows only search results when searchText is present and feature enabled', () => {
-    const props = makeProps({searchText: 'out', features: ['outcomes_search']})
+  it('shows only search results when searchText is present', () => {
+    const props = makeProps({searchText: 'out'})
     const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('SearchResults')).to.have.length(1)
     expect(wrapper.find('OutcomeTree')).to.have.length(0)
@@ -96,7 +94,7 @@ describe('OutcomePicker', () => {
   })
 
   it('correctly calls updateSearchText when search text is changed', () => {
-    const props = makeProps({features: ['outcomes_search']})
+    const props = makeProps()
     const wrapper = mount(<OutcomePicker {...props} />)
     const onChange = wrapper.find('TextInput').prop('onChange')
     onChange('', 'abc')

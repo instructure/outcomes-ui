@@ -9,7 +9,6 @@ import { View } from '@instructure/ui-view'
 
 import OutcomeTags from '../OutcomeTags'
 import OutcomeViewModal from '../OutcomeViewModal'
-import IfFeature from '../IfFeature'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
 import NoReport from '../../icons/NoReport.svg'
@@ -28,7 +27,6 @@ class OutcomePicker extends React.Component {
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
-    features: PropTypes.array.isRequired,
     searchText: PropTypes.string,
     setSearchLoading: PropTypes.func.isRequired,
     setSearchEntries: PropTypes.func.isRequired,
@@ -126,7 +124,6 @@ class OutcomePicker extends React.Component {
   renderHeader () {
     const {
       selectedOutcomes,
-      features,
       searchText,
       updateSearchText,
       deselectOutcomeIds
@@ -136,11 +133,7 @@ class OutcomePicker extends React.Component {
       <View
         display="block"
         borderWidth="none none small none"
-        padding={features.includes('outcomes_search') ?
-          'small small medium small'
-          :
-          'small'
-        }
+        padding="small small medium small"
       >
         <View
           display="block"
@@ -152,16 +145,11 @@ class OutcomePicker extends React.Component {
             deselectOutcomeIds={deselectOutcomeIds}
           />
         </View>
-        <IfFeature
-          name={'outcomes_search'}
-          features={features}
-        >
-          <SearchInput
-            onChange={(_, value) => updateSearchText(value)}
-            onClear={() => updateSearchText('')}
-            searchText={searchText}
-          />
-        </IfFeature>
+        <SearchInput
+          onChange={(_, value) => updateSearchText(value)}
+          onClear={() => updateSearchText('')}
+          searchText={searchText}
+        />
       </View>
     )
   }
