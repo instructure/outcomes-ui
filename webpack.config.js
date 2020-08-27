@@ -13,7 +13,7 @@ const build = resolve(__dirname, 'build')
 const plugins = require('@instructure/ui-webpack-config/config/plugins')
 
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
-const WHITELIST_ENV = [
+const ALLOWED_ENV = [
   'NODE_ENV',
   'OUTCOMES_HOST',
   'PUBLIC_SENTRY_DSN'
@@ -79,7 +79,7 @@ Object.assign(exports, {
     ].concat(require('@instructure/ui-webpack-config/config/module/rules'))
   },
   plugins: plugins.concat([
-    new webpack.DefinePlugin(WHITELIST_ENV),
+    new webpack.DefinePlugin(ALLOWED_ENV),
   ]),
   resolveLoader: {
     alias: require('@instructure/ui-webpack-config/config/resolveLoader/alias')
