@@ -96,7 +96,7 @@ describe('OutcomeTags', () => {
     }, 1)
   })
 
-  it ('focuses on empty results div when all tags are deleted', (done) => {
+  it('focuses on empty results div when all tags are deleted', (done) => {
     const wrapper = mount(<OutcomeTags {...makeProps()} />)
     setTimeout(() => {
       [0, 1, 2].forEach(tagIndex => {

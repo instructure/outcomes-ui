@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-elements'
 import { themeable } from '@instructure/ui-themeable'
 
-import { outcomeResultShape, scoringMethodShape, scoringTierShape } from '../../store/shapes'
+import { outcomeResultShape, scoringMethodShape, scoringTierShape, contextShape } from '../../store/shapes'
 import ScoringTiers from './ScoringTiers'
 import MasteryCounts from './MasteryCounts'
 import MasteryDescription from './MasteryDescription'
@@ -11,11 +11,13 @@ import { sanitizeHtml } from '../../lib/sanitize'
 
 import theme from '../theme'
 import styles from './styles.css'
+import { contextConfiguredWithProficiencies, getScoringMethodFromContext, getScoringTiersFromContext } from '../../util/proficienciesUtils'
 
 @themeable(theme, styles)
 export default class OutcomeView extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
+    context: contextShape,
     description: PropTypes.string.isRequired,
     outcomeResult: outcomeResultShape,
     title: PropTypes.string.isRequired,
@@ -28,6 +30,7 @@ export default class OutcomeView extends React.Component {
 
   // eslint-disable-next-line no-undef
   static defaultProps = {
+    context: null,
     outcomeResult: null,
     scoringMethod: null,
     scoringTiers: null,
@@ -36,17 +39,44 @@ export default class OutcomeView extends React.Component {
     displayMasteryPercentText: false
   }
 
+  getScoringMethod() {
+    const { scoringMethod, context } = this.props
+
+    return contextConfiguredWithProficiencies(context) ?
+      getScoringMethodFromContext(context) :
+      scoringMethod
+  }
+
+  getScoringTiers() {
+    const { scoringTiers, context } = this.props
+
+    return contextConfiguredWithProficiencies(context) ?
+      getScoringTiersFromContext(context) :
+      scoringTiers
+  }
+
+  getDisplayMasteryInformation() {
+    const {
+      context,
+      outcomeResult
+    } = this.props
+
+    return !(contextConfiguredWithProficiencies(context) && !outcomeResult)
+  }
+
   render () {
     const {
       description,
       outcomeResult,
       title,
-      scoringMethod,
-      scoringTiers,
       artifactTypeName,
       displayMasteryDescription,
       displayMasteryPercentText
     } = this.props
+
+    const scoringMethod = this.getScoringMethod()
+    const scoringTiers = this.getScoringTiers()
+    const displayMasteryInformation = this.getDisplayMasteryInformation()
 
     return (
       <div>
@@ -56,7 +86,7 @@ export default class OutcomeView extends React.Component {
           </Text>
         </div>
         {
-          scoringMethod && outcomeResult &&
+          scoringMethod && outcomeResult && displayMasteryInformation &&
           <MasteryCounts
             outcomeResult={outcomeResult}
             scoringMethod={scoringMethod}
@@ -71,16 +101,18 @@ export default class OutcomeView extends React.Component {
             />
           </Text>
         </div>
+
         {
-          scoringTiers && scoringMethod &&
+          scoringTiers && scoringMethod && displayMasteryInformation &&
           <ScoringTiers
             outcomeResult={outcomeResult}
             scoringTiers={scoringTiers}
             scoringMethod={scoringMethod}
           />
         }
+
         {
-          displayMasteryDescription &&
+          displayMasteryDescription && displayMasteryInformation &&
           <MasteryDescription
             artifactTypeName={artifactTypeName}
             displayMasteryPercentText={displayMasteryPercentText}

@@ -15,6 +15,12 @@ const outcomes = handleActions({
   }
 }, Map())
 
+const contexts = handleActions({
+  SET_CONTEXT: (state, action) => {
+    return state.merge(fromJS(action.payload))
+  }
+}, Map())
+
 const rootOutcomeIds = handleActions({
   SET_ROOT_OUTCOME_IDS: (state, action) => {
     return state.merge(fromJS(action.payload))
@@ -23,5 +29,6 @@ const rootOutcomeIds = handleActions({
 
 export default combineReducers({
   outcomes,
-  rootOutcomeIds
+  rootOutcomeIds,
+  contexts
 })

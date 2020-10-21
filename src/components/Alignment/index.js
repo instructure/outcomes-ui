@@ -26,6 +26,7 @@ export default class Alignment extends React.Component {
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
+    scope: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -49,6 +50,7 @@ export default class Alignment extends React.Component {
       displayMasteryDescription,
       displayMasteryPercentText,
       readOnly,
+      scope
     } = this.props
     const removeMessage = t({
       default: 'Remove {title}',
@@ -91,6 +93,7 @@ export default class Alignment extends React.Component {
           artifactTypeName={artifactTypeName}
           displayMasteryDescription={displayMasteryDescription}
           displayMasteryPercentText={displayMasteryPercentText}
+          scope={scope}
         />
       </li>
     )

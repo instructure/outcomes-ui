@@ -5,15 +5,40 @@ import {
   SET_ERROR,
   SET_OUTCOMES,
   SET_ROOT_OUTCOME_IDS,
+  SET_CONTEXT,
   SET_SCORING_METHOD
 } from '../../constants'
-import { hasRootOutcomes, getChildrenToLoad } from './selectors'
+import { hasRootOutcomes, getChildrenToLoad, getContext } from './selectors'
 import { getConfig } from '../config/selectors'
 
+export const setContext = createAction(SET_CONTEXT)
 export const setOutcomes = createAction(SET_OUTCOMES)
 export const setRootOutcomeIds = createAction(SET_ROOT_OUTCOME_IDS)
 export const setError = createAction(SET_ERROR)
 export const setScoringMethod = createAction(SET_SCORING_METHOD)
+
+export const loadContext = (host, jwt, contextUuid) => {
+  return (dispatch, getState) => {
+    if (getContext(getState(), contextUuid)) {
+      return Promise.resolve()
+    }
+
+    dispatch(setContext({ [contextUuid]: { loading: true } }))
+
+    return dispatch({
+      type: CALL_SERVICE,
+      payload: {
+        service: 'outcomes',
+        method: 'getContext',
+        args: [host, jwt, contextUuid]
+      }
+    })
+      .then(json => dispatch(setContext({ [contextUuid]: { loading: false, data: json } })))
+      .catch((e) => {
+        return dispatch(setError(e))
+      })
+  }
+}
 
 export const loadRootOutcomes = () => {
   return (dispatch, getState, _arg, scope) => {

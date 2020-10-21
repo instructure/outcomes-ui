@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 export const scoringMethodShape = PropTypes.shape({
   algorithm: PropTypes.isRequired,
   algorithm_data: PropTypes.object,
-  mastery_percent: PropTypes.number
+  mastery_percent: PropTypes.number,
+  points_possible: PropTypes.number
 })
 
 export const outcomeShape = PropTypes.shape({
@@ -13,7 +14,7 @@ export const outcomeShape = PropTypes.shape({
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   scoring_method: scoringMethodShape,
-  group: PropTypes.boolean,
+  group: PropTypes.bool,
 })
 
 export const outcomeResultShape = PropTypes.shape({
@@ -22,7 +23,7 @@ export const outcomeResultShape = PropTypes.shape({
   count: PropTypes.number.isRequired,
   masteryCount: PropTypes.number.isRequired,
   outcomeId: PropTypes.string.isRequired,
-  usesBank: PropTypes.boolean
+  usesBank: PropTypes.bool
 })
 
 export const scoringTierShape = PropTypes.shape({
@@ -38,4 +39,25 @@ export const individualResultShape = PropTypes.shape({
     average_score: PropTypes.number.isRequired
   }).isRequired,
   percent_score: PropTypes.number.isRequired
+})
+
+export const outcomeCalculationMethodShape = PropTypes.shape({
+  calculation_method: PropTypes.string.isRequired,
+  calculation_int: PropTypes.number
+})
+
+export const outcomeProficiencyRatingShape = PropTypes.shape({
+  color: PropTypes.string.isRequired,
+  mastery: PropTypes.bool.isRequired,
+  points: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+})
+
+export const outcomeProficiencyShape = PropTypes.shape({
+  outcome_proficiency_ratings: PropTypes.arrayOf(outcomeProficiencyRatingShape).isRequired
+})
+
+export const contextShape = PropTypes.shape({
+  outcome_calculation_method: outcomeCalculationMethodShape,
+  outcome_proficiency: outcomeProficiencyShape
 })

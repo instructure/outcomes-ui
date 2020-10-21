@@ -1,12 +1,21 @@
 import { fromJS } from 'immutable'
 import { expect } from 'chai'
-import { SET_OUTCOMES, SET_SCORING_METHOD, SET_ROOT_OUTCOME_IDS } from '../../../constants'
+import { SET_OUTCOMES, SET_SCORING_METHOD, SET_ROOT_OUTCOME_IDS, SET_CONTEXT } from '../../../constants'
 import reducer from '../reducers'
 
 describe('context/reducers', () => {
   const reduce = (state, type, payload) => reducer(state, { type, payload })
 
   const state = fromJS({
+    contexts: {
+      1: {
+        loading: false,
+        data: {
+          id: 1,
+          key: 'foo'
+        }
+      }
+    },
     outcomes: {
       course_100: {
         10: { id: 10, label: 'foo', title: 'bar' },
@@ -59,6 +68,18 @@ describe('context/reducers', () => {
     it('does not replace other context root outcome ids', () => {
       const newState = reduce(state, SET_ROOT_OUTCOME_IDS, { course_101: [7, 8, 9] })
       expect(Object.keys(newState.get('rootOutcomeIds').toJS()).length).to.equal(2)
+    })
+  })
+
+  describe('contexts', () => {
+    it('is replaced by SET_CONTEXT', () => {
+      const newState = reduce(state, SET_CONTEXT, { 1: { loading: false, data: { id: 1, key: 'bar' } } })
+      expect(newState.get('contexts').toJS()).to.deep.equal({ 1: { loading: false, data: { id: 1, key: 'bar' } } })
+    })
+
+    it('does not replace other context', () => {
+      const newState = reduce(state, SET_CONTEXT, { 2: { loading: false, data: { id: 2, key: 'bar' } } })
+      expect(Object.keys(newState.get('contexts').toJS()).length).to.equal(2)
     })
   })
 })

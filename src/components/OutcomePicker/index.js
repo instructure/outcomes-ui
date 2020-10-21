@@ -58,7 +58,8 @@ class OutcomePicker extends React.Component {
       setFocusedOutcome,
       artifactTypeName,
       displayMasteryDescription,
-      displayMasteryPercentText
+      displayMasteryPercentText,
+      scope
     } = this.props
 
     return (
@@ -68,6 +69,7 @@ class OutcomePicker extends React.Component {
           displayMasteryDescription={displayMasteryDescription}
           displayMasteryPercentText={displayMasteryPercentText}
           outcome={focusedOutcome}
+          scope={scope}
           closeAlignment={() => setFocusedOutcome(null)}
           isOpen
         />

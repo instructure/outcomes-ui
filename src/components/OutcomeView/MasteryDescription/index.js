@@ -52,7 +52,7 @@ const masteryText = (masteryPercent, artifactTypeName) => {
 }
 
 @themeable(theme, styles)
-export default class Footer extends React.Component {
+export default class MasteryDescription extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     artifactTypeName: PropTypes.string,

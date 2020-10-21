@@ -116,6 +116,7 @@ class AlignmentList extends React.Component {
       displayMasteryDescription,
       displayMasteryPercentText,
       readOnly,
+      scope,
     } = this.props
     return (
       <div>
@@ -133,6 +134,7 @@ class AlignmentList extends React.Component {
               displayMasteryDescription={displayMasteryDescription}
               displayMasteryPercentText={displayMasteryPercentText}
               readOnly={readOnly}
+              scope={scope}
             />
           ))}
           {!readOnly && this.renderAddOutcomeButton()}

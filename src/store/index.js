@@ -9,6 +9,7 @@ import OutcomesService from '../services/OutcomesService'
 import context from './context/reducers'
 import config from './config/reducers'
 import { loadFeatures } from './features/actions'
+import { loadContext } from './context/actions'
 import features from './features/reducers'
 import OutcomePicker from './OutcomePicker/reducers'
 import alignments from './alignments/reducers'
@@ -95,6 +96,7 @@ export function getStore (host, jwt, key, contextUuid, artifactType, artifactId)
     store = createStore()
     initializeStore(store, {host, jwt})
   }
+  store.dispatch(loadContext(host, jwt, contextUuid))
   addScopeToStore(store, key, host, jwt, contextUuid, artifactType, artifactId)
   return store
 }

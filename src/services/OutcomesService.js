@@ -39,6 +39,14 @@ class OutcomesService {
     })
   }
 
+  getContext (host, jwt, contextUuid) {
+    const params = '?includes[]=outcome_proficiency&includes[]=outcome_calculation_method'
+
+    return this.get(host, jwt, `/api/contexts/${contextUuid}${params}`)
+      .then(checkResponse)
+      .then(toJson)
+  }
+
   loadOutcomes (host, jwt, contextUuid = '', roots = null) {
     let params = `?excludes[]=scoring_method&depth=${OUTCOME_QUERY_DEPTH}`
     if (contextUuid) {

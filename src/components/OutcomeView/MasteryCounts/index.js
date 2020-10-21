@@ -11,7 +11,7 @@ import theme from '../../theme'
 import styles from './styles.css'
 
 @themeable(theme, styles)
-export default class Header extends React.Component {
+export default class MasteryCounts extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     outcomeResult: outcomeResultShape.isRequired,

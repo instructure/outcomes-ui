@@ -59,6 +59,16 @@ export const hasRootOutcomes = (state, scope) => {
   return rootIds.length > 0
 }
 
+export const getContext = (state, contextUuid) => {
+  return state.getIn(['context', 'contexts', contextUuid])?.toJS()
+}
+
+export const getContextByScope = createSelector(
+  state => state,
+  getContextUuid,
+  getContext
+)
+
 export const makeGetOutcomeSummary = createSelector(
   [getContextOutcomes],
   (outcomes) => (id) => getCollectionDetails(outcomes, id).descriptor

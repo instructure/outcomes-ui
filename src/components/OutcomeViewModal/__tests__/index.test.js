@@ -3,6 +3,9 @@ import React from 'react'
 import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import OutcomeViewModal from '../index'
+import { Provider } from 'react-redux'
+import createMockStore from '../../../test/createMockStore'
+import { fromJS } from 'immutable'
 
 describe('OutcomeViewModal', () => {
   function makeProps (props = {}) {
@@ -18,6 +21,8 @@ describe('OutcomeViewModal', () => {
       isOpen: true
     }, props)
   }
+
+  const store = createMockStore(fromJS({}))
 
   it('displays when isOpen true', () => {
     const wrapper = shallow(<OutcomeViewModal {...makeProps()} />)
@@ -73,7 +78,11 @@ describe('OutcomeViewModal', () => {
 
   it('renders an outcome view when loaded', () => {
     const props = makeProps()
-    const wrapper = mount(<OutcomeViewModal {...props} />)
+    const wrapper = mount(
+      <Provider store={store}>
+        <OutcomeViewModal {...props} />
+      </Provider>
+    )
     expect(wrapper.find('OutcomeView')).to.have.length(1)
   })
 })

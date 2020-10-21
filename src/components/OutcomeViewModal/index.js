@@ -6,7 +6,7 @@ import { Modal } from '@instructure/ui-modal'
 import { Focusable } from '@instructure/ui-focusable'
 import t from 'format-message'
 import { View } from '@instructure/ui-view'
-import OutcomeView from '../OutcomeView'
+import ConnectedOutcomeView from '../../containers/ConnectedOutcomeView'
 
 const { Header: ModalHeader, Body: ModalBody, Footer: ModalFooter } = Modal
 
@@ -17,7 +17,8 @@ const OutcomeViewModal = (props) => {
     outcomeResult,
     artifactTypeName,
     displayMasteryDescription,
-    displayMasteryPercentText
+    displayMasteryPercentText,
+    scope,
   } = props
   const {
     title,
@@ -63,7 +64,8 @@ const OutcomeViewModal = (props) => {
               focusPosition="inset"
               withFocusOutline={focusVisible}
             >
-              <OutcomeView
+              <ConnectedOutcomeView
+                scope={scope}
                 description={description}
                 title={title}
                 scoringMethod={scoringMethod}
@@ -103,7 +105,8 @@ OutcomeViewModal.propTypes = {
   artifactTypeName: PropTypes.string,
   displayMasteryDescription: PropTypes.bool,
   displayMasteryPercentText: PropTypes.bool,
-  header: PropTypes.string
+  header: PropTypes.string,
+  scope: PropTypes.string.isRequired
 }
 
 OutcomeViewModal.defaultProps = {

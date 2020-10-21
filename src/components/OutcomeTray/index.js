@@ -58,6 +58,7 @@ export default class OutcomeTray extends React.Component {
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
     shouldModifyArtifact: PropTypes.bool,
+    scope: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -124,7 +125,8 @@ export default class OutcomeTray extends React.Component {
       setFocusedOutcome,
       artifactTypeName,
       displayMasteryDescription,
-      displayMasteryPercentText
+      displayMasteryPercentText,
+      scope
     } = this.props
 
     return (
@@ -134,6 +136,7 @@ export default class OutcomeTray extends React.Component {
           displayMasteryDescription={displayMasteryDescription}
           displayMasteryPercentText={displayMasteryPercentText}
           outcome={focusedOutcome}
+          scope={scope}
           closeAlignment={() => setFocusedOutcome(null)}
           isOpen
         />

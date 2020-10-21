@@ -9,11 +9,14 @@ import {
   getCollectionData,
   getDescriptor,
   getChildrenToLoad,
-  hasRootOutcomes
+  hasRootOutcomes,
+  getContext,
+  getContextByScope
 } from '../selectors'
 
 describe('context/selectors', () => {
   const scope = 'scopeForTest'
+
   const state = fromJS({
     scopeForTest: {
       config: {
@@ -29,10 +32,38 @@ describe('context/selectors', () => {
           4: { id: 4, label: 'l4', title: 't4' }
         }
       },
+      contexts: {
+        course_100: {
+          loading: false,
+          data: {
+            id: 1
+          }
+        }
+      },
       rootOutcomeIds: {
         course_100: [1]
       }
     }
+  })
+
+  describe('getContext', () => {
+    it('returns context when outcomes exist', () => {
+      expect(getContext(state, 'course_100').data.id).to.be.equal(1)
+    })
+
+    it('returns undefined when does not exists', () => {
+      expect(getContext(state, 'course_101')).to.be.undefined
+    })
+  })
+
+  describe('getContextByScope', () => {
+    it('returns context when outcomes exist', () => {
+      expect(getContextByScope(state, scope).data.id).to.be.equal(1)
+    })
+
+    it('returns undefined when does not exists', () => {
+      expect(getContextByScope(state, 'any_scope')).to.be.undefined
+    })
   })
 
   describe('hasContextOutcomes', () => {

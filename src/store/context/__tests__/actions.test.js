@@ -204,4 +204,92 @@ describe('context/actions', () => {
         })
     })
   })
+
+  describe('loadContext', () => {
+    const response = {
+      id: 1
+    }
+
+    const stateWithoutContext = fromJS({
+      context: {
+        contexts: {}
+      }
+    })
+
+    const stateWithContext = fromJS({
+      context: {
+        contexts: {
+          '1': {
+            loading: false,
+            data: {
+              id: 1
+            }
+          }
+        }
+      }
+    })
+
+    const stateWithContextLoading = fromJS({
+      context: {
+        contexts: {
+          '1': {
+            loading: true
+          }
+        }
+      }
+    })
+
+    it('calls getContext for unloaded children', () => {
+      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithoutContext, service)
+      return store.dispatch(actions.loadContext('host', 'jwt', '1'))
+        .then(() => {
+          expect(service.getContext.calledOnce).to.be.true
+          expect(service.getContext.args[0][2]).to.equal('1')
+          return null
+        })
+    })
+
+    it('adds its context to the state', () => {
+      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithoutContext, service)
+      return store.dispatch(actions.loadContext('host', 'jwt', '1'))
+        .then(() => {
+          expect(store.getActions()).to.deep.include(scopedActions.setContext({ '1': { loading: false, data: response } }))
+          return null
+        })
+    })
+
+    it('does not calls service when its already loaded', () => {
+      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithContext, service)
+      return store.dispatch(actions.loadContext('host', 'jwt', '1'))
+        .then(() => {
+          expect(store.getActions().length).to.be.equal(0)
+          return null
+        })
+    })
+
+    it('does not calls service when its loading', () => {
+      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithContextLoading, service)
+      return store.dispatch(actions.loadContext('host', 'jwt', '1'))
+        .then(() => {
+          expect(store.getActions().length).to.be.equal(0)
+          return null
+        })
+    })
+
+    it('dispatches setError on service failure', () => {
+      const error = { message: 'foo bar baz' }
+      const service = { getContext: sinon.stub().returns(Promise.reject(error)) }
+      const store = createMockStore(Map(), service)
+      return store.dispatch(actions.loadContext('host', 'jwt', '12'))
+        .then(() => {
+          expect(store.getActions()).to.have.length(3)
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setError(error))
+          return null
+        })
+    })
+  })
 })

@@ -145,7 +145,8 @@ class OutcomesPerStudentReport extends React.Component {
     getScore: PropTypes.func.isRequired,
     viewReportAlignment: PropTypes.func.isRequired,
     isOpen: PropTypes.func.isRequired,
-    closeReportAlignment: PropTypes.func.isRequired
+    closeReportAlignment: PropTypes.func.isRequired,
+    scope: PropTypes.string.isRequired
   }
 
   // eslint-disable-next-line no-undef
@@ -170,7 +171,8 @@ class OutcomesPerStudentReport extends React.Component {
       isOpen,
       closeReportAlignment,
       users,
-      showRollups
+      showRollups,
+      scope
     } = this.props
     return (
       <div className={styles.reportWrapper} data-automation='outcomesPerStudent__reportWrapper'>
@@ -191,6 +193,7 @@ class OutcomesPerStudentReport extends React.Component {
                       isOpen={isOpen(rollup.outcomeId)}
                       closeReportAlignment={closeReportAlignment}
                       showRollups={showRollups}
+                      scope={scope}
                     />
                   </div>
                 )

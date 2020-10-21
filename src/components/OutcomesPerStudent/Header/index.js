@@ -21,6 +21,7 @@ export default class Header extends React.Component {
     viewReportAlignment: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,
     closeReportAlignment: PropTypes.func.isRequired,
+    scope: PropTypes.string.isRequired,
     showRollups: PropTypes.bool
   }
 
@@ -58,7 +59,8 @@ export default class Header extends React.Component {
       getReportOutcome,
       isOpen,
       closeReportAlignment,
-      showRollups
+      showRollups,
+      scope
     } = this.props
     const { showTooltip } = this.state
     const outcome = getReportOutcome(outcomeResult.outcomeId)
@@ -78,6 +80,7 @@ export default class Header extends React.Component {
           outcomeResult={outcomeResult}
           closeAlignment={closeReportAlignment}
           isOpen={isOpen}
+          scope={scope}
           displayMasteryDescription
         />
       </div>

@@ -8,6 +8,7 @@ import { wrapAction, wrapDispatch } from 'multireducer'
 const mockService = {
   loadOutcomes: sinon.stub().returns(Promise.resolve([])),
   getAlignments: sinon.stub().returns(Promise.resolve([])),
+  getContext: sinon.stub().returns(Promise.resolve({})),
   createAlignmentSet: sinon.stub().returns(Promise.resolve({guid: 'newguid'})),
   outcomePickerState: 'closed'
 }
