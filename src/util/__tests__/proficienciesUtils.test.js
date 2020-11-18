@@ -114,4 +114,45 @@ describe('getScoringTiersFromContext', () => {
   it('returns undefined when context doesnt have proficiencies', () => {
     expect(getScoringTiersFromContext(contextWithoutProficiencies)).to.be.undefined
   })
+
+  it('translates default description keys', () => {
+    const context = {
+      id: 1,
+      outcome_proficiency: {
+        outcome_proficiency_ratings: [{
+          color: 'FF00FF',
+          mastery: false,
+          points: 4.0,
+          description: 'DEFAULT_EXCEEDS_MASTERY'
+        }, {
+          color: 'FF00FF',
+          mastery: true,
+          points: 3.0,
+          description: 'DEFAULT_MASTERY'
+        }, {
+          color: 'FF00FF',
+          mastery: true,
+          points: 2.0,
+          description: 'DEFAULT_NEAR_MASTERY'
+        }, {
+          color: 'FF00FF',
+          mastery: true,
+          points: 1.0,
+          description: 'DEFAULT_BELOW_MASTERY'
+        }, {
+          color: 'FF00FF',
+          mastery: false,
+          points: 0.0,
+          description: 'DEFAULT_NO_EVIDENCE'
+        }]
+      }
+    }
+    expect(getScoringTiersFromContext(context).map(tier => tier.description)).to.eql([
+      'Exceeds Mastery',
+      'Mastery',
+      'Near Mastery',
+      'Below Mastery',
+      'No Evidence'
+    ])
+  })
 })

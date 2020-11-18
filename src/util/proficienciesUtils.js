@@ -1,3 +1,5 @@
+import t from 'format-message'
+
 export const contextConfiguredWithProficiencies = context => {
   return !!(context?.outcome_proficiency && context?.outcome_calculation_method)
 }
@@ -46,6 +48,23 @@ export const getScoringMethodFromContext = context => {
   }
 }
 
+const translateDefaultRatingDescriptions = (description) => {
+  switch(description) {
+    case 'DEFAULT_EXCEEDS_MASTERY':
+      return t('Exceeds Mastery')
+    case 'DEFAULT_MASTERY':
+      return t('Mastery')
+    case 'DEFAULT_NEAR_MASTERY':
+      return t('Near Mastery')
+    case 'DEFAULT_BELOW_MASTERY':
+      return t('Below Mastery')
+    case 'DEFAULT_NO_EVIDENCE':
+      return t('No Evidence')
+    default:
+      return description
+  }
+}
+
 export const getScoringTiersFromContext = context => {
   const outcomeProficiencyRatings = context?.outcome_proficiency?.outcome_proficiency_ratings
 
@@ -56,7 +75,7 @@ export const getScoringTiersFromContext = context => {
   const maxPoints = getMaxPoints(outcomeProficiencyRatings)
 
   return outcomeProficiencyRatings.map(rating => ({
-    description: rating.description,
+    description: translateDefaultRatingDescriptions(rating.description),
     percent: rating.points / maxPoints,
   }))
 }
