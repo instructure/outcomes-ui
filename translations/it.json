@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Risultati allegati"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Al di sotto del livello di padronanza"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Sfoglia e aggiungi risultati facendo clic qui."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Fine"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Supera il livello di padronanza"
+    },
     "home_351838cd": {
         "message": "Home page"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Padronanza calcolata in base a n numero di volte. Occorre raggiungere il livello di padronanza almeno { n_times, number } volte.  La media dei punteggi al di sopra del livello di padronanza verrà utilizzata per calcolare il punteggio finale."
     },
+    "near_mastery_f25174a4": {
+        "message": "Padronanza quasi completa"
+    },
     "next_page_d2a39853": {
         "message": "Pagina successiva"
+    },
+    "no_evidence_75853352": {
+        "message": "Nessuna prova"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Nessun risultato selezionato al momento"

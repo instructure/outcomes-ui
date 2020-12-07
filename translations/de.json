@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Angefügte Lernziele"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Unterhalb des Leistungsziels"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Klicken Sie hier, um Lernziele zu suchen und hinzuzufügen."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Fertig"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Übertrifft Leistungsziel"
+    },
     "home_351838cd": {
         "message": "Start"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Leistungsziel berechnet nach n Malen. Das Leistungsziel muss mindestens { n_times, number }-mal erreicht werden.  Die Ergebnisse über dem Leistungsziel werden der Berechnung der Endnote als Durchschnitt zugrunde gelegt."
     },
+    "near_mastery_f25174a4": {
+        "message": "Leistungsziel knapp erreicht"
+    },
     "next_page_d2a39853": {
         "message": "Nächste Seite"
+    },
+    "no_evidence_75853352": {
+        "message": "Ohne Nachweis"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Aktuell sind keine Lernziele ausgewählt."

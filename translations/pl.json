@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Powiązane wyniki"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Poniżej poziomu biegłości"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Aby przeglądać i dodać wyniki, kliknij tutaj."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Gotowe"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Przekracza poziom biegłości"
+    },
     "home_351838cd": {
         "message": "Strona główna"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Opanowanie materiału obliczone przez n razy. Uczestnik musi opanować materiał co najmniej { n_times, number } razy.  Wyniki powyżej opanowania materiału będą uśredniane w celu obliczenia wyniku końcowego."
     },
+    "near_mastery_f25174a4": {
+        "message": "Blisko biegłości"
+    },
     "next_page_d2a39853": {
         "message": "Następna strona"
+    },
+    "no_evidence_75853352": {
+        "message": "Brak dowodów"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Nie wybrano teraz żadnych wyników"

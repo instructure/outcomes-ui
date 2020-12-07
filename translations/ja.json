@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "添付の結果"
     },
+    "below_mastery_abd1dca5": {
+        "message": "熟達スコア未満"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "ここをクリックすると、成果を参照して追加します。"
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "完了"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "熟達を上回る"
+    },
     "home_351838cd": {
         "message": "ホーム"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "熟達スコアは、n回の回数で計算されます。熟達スコアは、少なくとも { n_times, number } 回、達成しなければなりません。熟達スコア以上のスコアは、最終スコアを計算するために平均化されます。"
     },
+    "near_mastery_f25174a4": {
+        "message": "熟達に近い"
+    },
     "next_page_d2a39853": {
         "message": "次のページ"
+    },
+    "no_evidence_75853352": {
+        "message": "エビデンスなし"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "現在結果は選択されていません"

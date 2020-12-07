@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Vedlagte læringsmål"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Under mestring"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Bla gjennom og legg til læringsmål ved å klikke her."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Ferdig"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Overgår ekspertise"
+    },
     "home_351838cd": {
         "message": "Hjem"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Mestring beregnet etter n antall ganger. Må oppnå mestring minst { n_times, number } ganger.  Poengsummer over mestringsnivå blir jevnet med snittet for å beregne sluttresultatet."
     },
+    "near_mastery_f25174a4": {
+        "message": "Nær ekspertise"
+    },
     "next_page_d2a39853": {
         "message": "Neste side"
+    },
+    "no_evidence_75853352": {
+        "message": "Ingen bevis"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Ingen læringsmål valgt"

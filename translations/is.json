@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Viðfestar niðurstöður"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Fyrir neðan tileinkun"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Skoða og bæta niðurstöðum við með því að smella hér."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Lokið"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Fer fram úr tileinkun"
+    },
     "home_351838cd": {
         "message": "Heim"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Leikni reiknuð út frá n fjölda. Þarf að ná leikni að minnsta kosti { n_times, number } sinnum.  Meðaltal verður tekið af einkunnum yfir leikni til að reikna út lokaeinkunn."
     },
+    "near_mastery_f25174a4": {
+        "message": "Nálægt tileinkun"
+    },
     "next_page_d2a39853": {
         "message": "Næsta síða"
+    },
+    "no_evidence_75853352": {
+        "message": "Engin sönnunargögn"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Engar niðurstöður eru valdar í augnablikinu."

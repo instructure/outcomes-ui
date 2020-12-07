@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Resultats adjunts"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Per sota del nivell de domini"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Feu clic aquí per explorar i afegir els resultats."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Fet"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Supera el domini"
+    },
     "home_351838cd": {
         "message": "Inici"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Domini calculat a partir d''un nombre \"n\" de vegades. S''ha d''arribar al nivell de domini { n_times, number } vegades com a mínim.  Es farà una mitjana de les puntuacions per sobre del nivell de domini per calcular la puntuació final."
     },
+    "near_mastery_f25174a4": {
+        "message": "Domini gairebé assolit"
+    },
     "next_page_d2a39853": {
         "message": "Pàgina següent"
+    },
+    "no_evidence_75853352": {
+        "message": "No hi ha proves"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "En aquest moment, no hi ha cap resultat seleccionat"

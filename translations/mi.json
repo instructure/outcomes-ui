@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Ngā putanga kua tāpiritia"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Hingana o Raro"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Tirotiro ka tāpiri putanga mā te pāwhiri i konei."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Kua mahia"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Nui atu te mana"
+    },
     "home_351838cd": {
         "message": "Kāinga"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Te hingana kua tautuhia e te n Maha o ngā Wā Me whakatutuki te hingana i te iti rawa { n_times, number } ngā wā.  Ngä kaute i runga i te hinganga ka toharitetia ki te tātai i te kaute whakamutunga."
     },
+    "near_mastery_f25174a4": {
+        "message": "Tata Mātatau"
+    },
     "next_page_d2a39853": {
         "message": "Whārangi haere ake nei"
+    },
+    "no_evidence_75853352": {
+        "message": "Kaore he taunakitanga"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Kaore ngā putanga i te tīpakohia ināianei"

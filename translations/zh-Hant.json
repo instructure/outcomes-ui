@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "隨附學習成果"
     },
+    "below_mastery_abd1dca5": {
+        "message": "掌握程度不足"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "按此瀏覽及添加學習成果。"
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "已完成"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "超過掌握程度"
+    },
     "home_351838cd": {
         "message": "首頁"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "掌握程度計算自作答次數。須達致掌握程度至少 { n_times, number } 次。掌握程或以上的得分將被平均計算至最終得分。"
     },
+    "near_mastery_f25174a4": {
+        "message": "接近掌握程度"
+    },
     "next_page_d2a39853": {
         "message": "下一頁"
+    },
+    "no_evidence_75853352": {
+        "message": "沒有證明"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "現無選取學習成果"

@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Acquis joints"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Inférieur au niveau de maîtrise"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Parcourir et ajouter les acquis en cliquant ici."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Terminé"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Surpasse le niveau de Maîtrise"
+    },
     "home_351838cd": {
         "message": "Accueil"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Maîtrise calculée selon n Nombre de fois. Doit atteindre la maîtrise au moins { n_times, number } fois.  On calculera la moyenne des notes supérieures à la maîtrise pour calculer le score final."
     },
+    "near_mastery_f25174a4": {
+        "message": "Proche du niveau de maîtrise"
+    },
     "next_page_d2a39853": {
         "message": "Page suivante"
+    },
+    "no_evidence_75853352": {
+        "message": "Sans preuve"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Aucun acquis actuellement sélectionné"

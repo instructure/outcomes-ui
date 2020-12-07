@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Bijgevoegde leerdoelen"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Beneden vakbeheersing"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Klik hier om leerdoelen te bekijken en toe te voegen."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Gereed"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Overtreft vakbeheersing"
+    },
     "home_351838cd": {
         "message": "Startpagina"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Bekwaamheid berekend op basis van n aantal keren. Moet bekwaamheid minimaal { n_times, number } keer behalen.  Scores hoger dan bekwaamheid worden gemiddeld om de eindscore te berekenen."
     },
+    "near_mastery_f25174a4": {
+        "message": "Bijna vakbeheersing"
+    },
     "next_page_d2a39853": {
         "message": "Volgende pagina"
+    },
+    "no_evidence_75853352": {
+        "message": "Geen bewijs"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Er zijn momenteel geen leerdoelen beschikbaar."

@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Bifogade lärandemål"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Under måluppfyllelse"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Bläddra och lägg till lärandemål genom att klicka här."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Klar"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Överträffar måluppfyllelse"
+    },
     "home_351838cd": {
         "message": "Startsida"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Måluppfyllelse beräknad vid n antal gånger. Måste uppnå måluppfyllelse minst { n_times, number } gånger.  Resultat över måluppfyllelse kommer att medelvärde beräknas för beräkning av slutresultat."
     },
+    "near_mastery_f25174a4": {
+        "message": "Nära måluppfyllelse"
+    },
     "next_page_d2a39853": {
         "message": "Nästa sida"
+    },
+    "no_evidence_75853352": {
+        "message": "Inga bevis"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Inga lärandemål har valts för närvarande"

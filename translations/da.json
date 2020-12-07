@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Vedhæftede læringsudbytter"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Under opfyldelse af læringsmål"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Gennemse og tilføj læringsudbytter ved at klikke her."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Udført"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Overstiger opfyldelse af læringsmål"
+    },
     "home_351838cd": {
         "message": "Startside"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Beherskelse beregnes ved n antal gange. Skal opnå beherskelse mindst { n_times, number } gange.  Der udregnes gennemsnit for resultat over beherskelse for at beregne slutresultatet."
     },
+    "near_mastery_f25174a4": {
+        "message": "Tæt på opfyldelse af læringsmål"
+    },
     "next_page_d2a39853": {
         "message": "Næste side"
+    },
+    "no_evidence_75853352": {
+        "message": "Ingen beviser"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Der er ikke valgt nogen læringsudbytter"

@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Résultats attachés"
     },
+    "below_mastery_abd1dca5": {
+        "message": "En dessous du niveau de réussite"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Naviguez et ajoutez des résultats en cliquant ici."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Terminé"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Au-dessus du niveau de réussite"
+    },
     "home_351838cd": {
         "message": "Accueil"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Maîtrise calculée par nombre de fois n. La maîtrise doit être atteinte au moins { n_times, number } fois.  La moyenne des scores au dessus du niveau de maîtrise sera calculée pour déterminer le score final."
     },
+    "near_mastery_f25174a4": {
+        "message": "Proche du niveau de réussite"
+    },
     "next_page_d2a39853": {
         "message": "Page suivante"
+    },
+    "no_evidence_75853352": {
+        "message": "Aucune preuve"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Aucun résultat sélectionné actuellement"

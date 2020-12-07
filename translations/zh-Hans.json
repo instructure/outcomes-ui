@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "附加的结果"
     },
+    "below_mastery_abd1dca5": {
+        "message": "未掌握"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "单击此处浏览和添加结果"
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "完成"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "超过掌握"
+    },
     "home_351838cd": {
         "message": "首页"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "按次数计算的掌握程度。必须至少有 { n_times, number } 次达到掌握程度。高于掌握程度的分数将取平均值以计算最终分数。"
     },
+    "near_mastery_f25174a4": {
+        "message": "最接近的掌握"
+    },
     "next_page_d2a39853": {
         "message": "下一页"
+    },
+    "no_evidence_75853352": {
+        "message": "无证据"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "当前没有选择结果"

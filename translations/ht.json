@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Rezilta Atache"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Enferyè a Metriz"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Klike la pou navige epi ajoute rezilta."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Fini"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Depase Metriz"
+    },
     "home_351838cd": {
         "message": "Akèy"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Metriz kalkile pa n Kantite Fwa. Dwen gen metriz pou pi piti { n_times, number } fwa.  Nòt ki depase metriz la ap kalkile an mwayèn pou yo ka kalkile nòt final la,"
     },
+    "near_mastery_f25174a4": {
+        "message": "Pwòch Metriz"
+    },
     "next_page_d2a39853": {
         "message": "Pwochen Paj"
+    },
+    "no_evidence_75853352": {
+        "message": "Pa gen Evidans"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Pa gen rezilta ki seleksyone pou kounye a"

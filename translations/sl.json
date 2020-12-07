@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Dodani učni izidi"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Nedoseganje učnih ciljev"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Za brskanje in dodajanje učnih izidov kliknite tukaj."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Dokončano"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Presega učne cilje."
+    },
     "home_351838cd": {
         "message": "Glavna stran"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Odličnost, izračunana z n-kratnikom. Odličnost mora doseči vsaj { n_times, number }-krat.  Rezultati, ki presegajo odličnost, bodo za izračun končne ocene povprečeni."
     },
+    "near_mastery_f25174a4": {
+        "message": "Skoraj dosega učne cilje."
+    },
     "next_page_d2a39853": {
         "message": "Naslednja stran"
+    },
+    "no_evidence_75853352": {
+        "message": "Brez dokaza"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Trenutno niso izbrani nobeni učni izidi."

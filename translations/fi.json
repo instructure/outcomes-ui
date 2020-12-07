@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Liitetyt tulokset"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Vähemmän kuin osaamisen hallinta"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Selaa ja lisää tuloksia napsauttamalla tästä."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Valmis"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Erinomainen osaaminen"
+    },
     "home_351838cd": {
         "message": "Aloitussivu"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Hallinta laskettu kertojen mukaan. Täytyy saavuttaa hallinta vähintään { n_times, number } kertaa.  Hallinnan yläpuolella olevista pistemääristä otetaan keskiarvo lopullisen pistemäärän laskemiseksi."
     },
+    "near_mastery_f25174a4": {
+        "message": "Tyydyttävä osaaminen"
+    },
     "next_page_d2a39853": {
         "message": "Seuraava sivu"
+    },
+    "no_evidence_75853352": {
+        "message": "Ei näyttöä"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Parhaillaan ei ole valittuja tuloksia."

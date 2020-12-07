@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Resultados anexados"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Abaixo do domínio"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Navegue e adicione resultados ao clicar aqui."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Feito"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Excede Domínio"
+    },
     "home_351838cd": {
         "message": "Página inicial"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Domínio calculado pelo Número n de Tempos. Deve alcançar domínio ao menos { n_times, number } vezes.  Pontuações acima do domínio terão valor médio para calcular pontuação final."
     },
+    "near_mastery_f25174a4": {
+        "message": "Quase Domínio"
+    },
     "next_page_d2a39853": {
         "message": "Próxima página"
+    },
+    "no_evidence_75853352": {
+        "message": "Sem evidências"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Nenhum resultado atualmente selecionado"

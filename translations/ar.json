@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "نتائج مرفقة"
     },
+    "below_mastery_abd1dca5": {
+        "message": "دون مستوى الإجادة"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "استعراض وإضافة نتائج عن طريق النقر هنا."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "تم"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "تجاوز مستوى الإجادة"
+    },
     "home_351838cd": {
         "message": "الصفحة الرئيسية"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "تم حساب الإجادة عن طريق عدد المرات. يجب تحقيق الإجادة { n_times, number } مرة على الأقل.  سيتم احتساب متوسط الدرجات فوق الإجادة لحساب الدرجة النهائية."
     },
+    "near_mastery_f25174a4": {
+        "message": "قريب من مستوى الإجادة"
+    },
     "next_page_d2a39853": {
         "message": "الصفحة التالية"
+    },
+    "no_evidence_75853352": {
+        "message": "لا يوجد دليل"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "لم يتم تحديد أي نتائج حاليًا"

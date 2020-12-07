@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Deilliannau wedi’u hatodi"
     },
+    "below_mastery_abd1dca5": {
+        "message": "O dan Feistrolaeth"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Mae modd pori drwy ddeilliannau a’u hychwanegu drwy glicio yma."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Wedi gorffen"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Yn well na’r lefel meistroli"
+    },
     "home_351838cd": {
         "message": "Hafan"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Wedi cyfrifo’r lefel meistroli drwy n Nifer o Weithiau. Rhaid i chi gyrraedd y lefel meistroli o leiaf { n_times, number } gwaith.  Bydd cymedr y sgoriau sy’n uwch na lefel meistroli yn cael ei gyfrifo i roi sgôr derfynol."
     },
+    "near_mastery_f25174a4": {
+        "message": "Bron wedi Meistroli"
+    },
     "next_page_d2a39853": {
         "message": "Tudalen Nesaf"
+    },
+    "no_evidence_75853352": {
+        "message": "Dim Tystiolaeth"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "Dim Deilliannau wedi’u dewis ar hyn o bryd"

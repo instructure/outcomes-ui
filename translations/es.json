@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Competencias adjuntas"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Por debajo del dominio"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Explorar y agregar competencias haciendo clic aquí."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Listo"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Excede el dominio"
+    },
     "home_351838cd": {
         "message": "Página de inicio"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Dominio calculado, según n número de veces. Debe alcanzar dominio al menos { n_times, number } veces.  Los puntajes que superan el dominio se promediarán para calcular el puntaje final."
     },
+    "near_mastery_f25174a4": {
+        "message": "Cerca del dominio"
+    },
     "next_page_d2a39853": {
         "message": "Próxima página"
+    },
+    "no_evidence_75853352": {
+        "message": "Sin evidencia"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "No hay competencias seleccionados actualmente"

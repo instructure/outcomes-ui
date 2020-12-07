@@ -11,6 +11,9 @@
     "attached_outcomes_d64ce1de": {
         "message": "Вложенные результаты"
     },
+    "below_mastery_abd1dca5": {
+        "message": "Ниже уровня усвоения"
+    },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
         "message": "Просмотреть и добавить результаты, щелкнув здесь."
     },
@@ -89,6 +92,9 @@
     "done_54e3d4b6": {
         "message": "Готово"
     },
+    "exceeds_mastery_1f995dce": {
+        "message": "Превышает проходной балл"
+    },
     "home_351838cd": {
         "message": "Начальная страница"
     },
@@ -134,8 +140,14 @@
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Усвоение, рассчитываемое по количеству n раз. Большинство добиваются усвоения как минимум { n_times, number } раз (раза).  Оценки выше значения усвоения усредняются для расчета окончательной оценки."
     },
+    "near_mastery_f25174a4": {
+        "message": "Почти усвоено"
+    },
     "next_page_d2a39853": {
         "message": "Следующая страница"
+    },
+    "no_evidence_75853352": {
+        "message": "Нет подтверждения"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
         "message": "В настоящее время не выбрано ни одного результата"
