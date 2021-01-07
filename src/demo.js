@@ -240,6 +240,7 @@ function rerender () {
                 host={outcomesHost}
                 jwt={reportJwt}
                 scope="report"
+                contextUuid="dummy_uuid"
                 showRollups={showRollups}
               />
             </div>

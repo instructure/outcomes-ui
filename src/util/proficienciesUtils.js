@@ -35,7 +35,7 @@ export const getScoringMethodFromContext = context => {
   let algorithm_data = {}
 
   if (calculation_method === 'decaying_average') {
-    algorithm_data.decaying_average_percent = calculation_int
+    algorithm_data.decaying_average_percent = calculation_int / 100.0
   } else if (calculation_method === 'n_mastery') {
     algorithm_data.n_mastery_count = calculation_int
   }

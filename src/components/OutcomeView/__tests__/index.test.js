@@ -160,6 +160,15 @@ describe('OutcomeView', () => {
         expect(wrapper.find(ScoringTiers)).to.have.length(1)
       })
 
+      it('passes prop.scoringTiers to <ScoringTiers /> if defined', () => {
+        const props = makeProps({
+          outcomeResult: { count: 100, masteryCount: 50 },
+          scoringTiers: defaultProps.scoringTiers
+        })
+        const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        expect(wrapper.find(ScoringTiers).prop('scoringTiers')).to.deep.equal(defaultProps.scoringTiers)
+      })
+
       it('renders mastery description if displayMasteryDescription is true, no artifactTypeName provided and outcomeResult defined', () => {
         const props = makeProps({
           displayMasteryDescription: true,

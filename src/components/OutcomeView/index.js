@@ -49,10 +49,10 @@ export default class OutcomeView extends React.Component {
 
   getScoringTiers() {
     const { scoringTiers, context } = this.props
-
-    return contextConfiguredWithProficiencies(context) ?
-      getScoringTiersFromContext(context) :
-      scoringTiers
+    if (scoringTiers?.length > 0) {
+      return scoringTiers
+    }
+    return contextConfiguredWithProficiencies(context) ? getScoringTiersFromContext(context) : null
   }
 
   getDisplayMasteryInformation() {

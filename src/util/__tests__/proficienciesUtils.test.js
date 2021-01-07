@@ -71,7 +71,7 @@ describe('getScoringMethodFromContext', () => {
     })).to.be.deep.equal({
       algorithm: 'decaying_average',
       algorithm_data: {
-        decaying_average_percent: 65
+        decaying_average_percent: 0.65
       },
       mastery_percent: 0.6,
       points_possible: 5
