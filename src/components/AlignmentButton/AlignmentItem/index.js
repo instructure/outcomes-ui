@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 import { IconButton } from '@instructure/ui-buttons'
-import { Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
 import { IconTrashLine } from '@instructure/ui-icons'
 import { themeable } from '@instructure/ui-themeable'
 import OutcomeDescription from '../../OutcomeDescription'
@@ -23,21 +23,27 @@ export default class AlignmentItem extends React.Component {
     readOnly: false
   }
 
-  focus () {
+  focus() {
     this.focusLink.focus()
   }
 
   renderDeleteButton() {
     const { outcome, removeAlignment, readOnly } = this.props
-    if(!readOnly) {
+    if (!readOnly) {
       return (
-        <span className={styles.deleteButton} data-automation='outcomeAlignmentItem__delete'>
+        <span
+          className={styles.deleteButton}
+          data-automation="outcomeAlignmentItem__delete"
+        >
           <IconButton
             withBackground={false}
             withBorder={false}
             screenReaderLabel={t(`Remove ${outcome.title}`)}
-            elementRef={(link) => { this.focusLink = link }} // eslint-disable-line immutable/no-mutation
-            onClick={removeAlignment} >
+            elementRef={(link) => {
+              this.focusLink = link
+            }} // eslint-disable-line immutable/no-mutation
+            onClick={removeAlignment}
+          >
             <IconTrashLine />
           </IconButton>
         </span>
@@ -49,10 +55,15 @@ export default class AlignmentItem extends React.Component {
     const { outcome } = this.props
     return (
       <React.Fragment>
-        <Text size="small">{ outcome.label }</Text>
-        <div className={styles.outcomeTitle} data-automation='outcomeAlignmentItem__title'>
-          <Text weight="bold" size="small">{ outcome.title }</Text>
-          { this.renderDeleteButton() }
+        <Text size="small">{outcome.label}</Text>
+        <div
+          className={styles.outcomeTitle}
+          data-automation="outcomeAlignmentItem__title"
+        >
+          <Text weight="bold" size="small">
+            {outcome.title}
+          </Text>
+          {this.renderDeleteButton()}
         </div>
         <OutcomeDescription description={outcome.description} />
       </React.Fragment>

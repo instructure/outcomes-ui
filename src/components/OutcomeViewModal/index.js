@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, CloseButton } from '@instructure/ui-buttons'
-import { Heading, Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
+import { Heading } from '@instructure/ui-heading'
 import { Modal } from '@instructure/ui-modal'
 import { Focusable } from '@instructure/ui-focusable'
 import t from 'format-message'
@@ -18,15 +19,13 @@ const OutcomeViewModal = (props) => {
     artifactTypeName,
     displayMasteryDescription,
     displayMasteryPercentText,
-    scope,
+    scope
   } = props
-  const {
-    title,
-    description,
-    scoring_method: scoringMethod
-  } = outcome
+  const { title, description, scoring_method: scoringMethod } = outcome
 
-  const scoringTiers = outcome.scoring_method ? outcome.scoring_method.scoring_tiers : []
+  const scoringTiers = outcome.scoring_method
+    ? outcome.scoring_method.scoring_tiers
+    : []
   return (
     <Modal
       open={props.isOpen}
@@ -39,7 +38,7 @@ const OutcomeViewModal = (props) => {
       size="fullscreen"
       label={t('Outcome')}
       zIndex="9999"
-      data-automation='outcomeView__modal'
+      data-automation="outcomeView__modal"
     >
       <ModalHeader>
         <CloseButton
@@ -47,11 +46,15 @@ const OutcomeViewModal = (props) => {
           onClick={() => props.closeAlignment()}
           placement="end"
           variant="icon"
-          data-automation='outcomeView__closeButton'
+          data-automation="outcomeView__closeButton"
         >
           {t('Close')}
         </CloseButton>
-        <Heading><Text size="large" data-automation='outcomeView__header'>{header || t('View Outcome')}</Text></Heading>
+        <Heading>
+          <Text size="large" data-automation="outcomeView__header">
+            {header || t('View Outcome')}
+          </Text>
+        </Heading>
       </ModalHeader>
       <ModalBody padding="none">
         <Focusable>
@@ -83,7 +86,7 @@ const OutcomeViewModal = (props) => {
         <Button
           onClick={() => props.closeAlignment()}
           variant="primary"
-          data-automation='outcomeView__submitButton'
+          data-automation="outcomeView__submitButton"
         >
           {t('OK')}
         </Button>
@@ -97,7 +100,7 @@ OutcomeViewModal.propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    scoring_method: PropTypes.object,
+    scoring_method: PropTypes.object
   }).isRequired,
   outcomeResult: PropTypes.object,
   closeAlignment: PropTypes.func.isRequired,

@@ -3,12 +3,12 @@ import t from 'format-message'
 import PropTypes from 'prop-types'
 
 import { Button, CloseButton } from '@instructure/ui-buttons'
-import { Heading } from '@instructure/ui-elements'
+import { Heading } from '@instructure/ui-heading'
 import { Flex } from '@instructure/ui-flex'
 import { Modal } from '@instructure/ui-modal'
 import { themeable } from '@instructure/ui-themeable'
-import { View } from '@instructure/ui-layout'
-import { Tray } from '@instructure/ui-overlays'
+import { View } from '@instructure/ui-view'
+import { Tray } from '@instructure/ui-tray'
 import { Spinner } from '@instructure/ui-spinner'
 
 import OutcomeList from './OutcomeList'
@@ -58,7 +58,7 @@ export default class OutcomeTray extends React.Component {
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
     shouldModifyArtifact: PropTypes.bool,
-    scope: PropTypes.string.isRequired,
+    scope: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -74,11 +74,16 @@ export default class OutcomeTray extends React.Component {
     displayMasteryPercentText: false,
     shouldModifyArtifact: false,
     searchTotal: null,
-    listTotal: null,
+    listTotal: null
   }
 
-  componentDidUpdate (prevProps) {
-    const { getOutcomesList, isOpen, updateSearchText, setInitialSelectedOutcomes } = this.props
+  componentDidUpdate(prevProps) {
+    const {
+      getOutcomesList,
+      isOpen,
+      updateSearchText,
+      setInitialSelectedOutcomes
+    } = this.props
 
     if (!prevProps.isOpen && isOpen) {
       getOutcomesList({ page: 1 })
@@ -87,7 +92,7 @@ export default class OutcomeTray extends React.Component {
     }
   }
 
-  renderList () {
+  renderList() {
     const {
       outcomes,
       setFocusedOutcome,
@@ -101,9 +106,7 @@ export default class OutcomeTray extends React.Component {
     } = this.props
 
     return (
-      <View
-        display="block"
-        padding="small none none none">
+      <View display="block" padding="small none none none">
         <OutcomeList
           outcomes={outcomes}
           setFocusedOutcome={setFocusedOutcome}
@@ -119,7 +122,7 @@ export default class OutcomeTray extends React.Component {
     )
   }
 
-  renderViewModal () {
+  renderViewModal() {
     const {
       focusedOutcome,
       setFocusedOutcome,
@@ -130,7 +133,7 @@ export default class OutcomeTray extends React.Component {
     } = this.props
 
     return (
-      focusedOutcome &&
+      focusedOutcome && (
         <OutcomeViewModal
           artifactTypeName={artifactTypeName}
           displayMasteryDescription={displayMasteryDescription}
@@ -140,10 +143,11 @@ export default class OutcomeTray extends React.Component {
           closeAlignment={() => setFocusedOutcome(null)}
           isOpen
         />
+      )
     )
   }
 
-  renderSearchMode () {
+  renderSearchMode() {
     const {
       screenreaderNotification,
       setSearchLoading,
@@ -179,7 +183,7 @@ export default class OutcomeTray extends React.Component {
     )
   }
 
-  renderBody () {
+  renderBody() {
     const { searchText, isFetching } = this.props
     if (isFetching) {
       return (
@@ -193,35 +197,34 @@ export default class OutcomeTray extends React.Component {
     return searchText ? this.renderSearchMode() : this.renderList()
   }
 
-  handleSubmit () {
+  handleSubmit() {
     const {
       saveOutcomePickerAlignments,
       onUpdate,
       closeOutcomePicker,
       shouldModifyArtifact
     } = this.props
-    return saveOutcomePickerAlignments(onUpdate, shouldModifyArtifact)
-      .then(() => closeOutcomePicker())
+    return saveOutcomePickerAlignments(onUpdate, shouldModifyArtifact).then(
+      () => closeOutcomePicker()
+    )
   }
 
-  renderActions () {
-    const {
-      closeOutcomePicker
-    } = this.props
+  renderActions() {
+    const { closeOutcomePicker } = this.props
 
     return (
       <div className={styles.footerContainer}>
         <ModalFooter>
           <Button
-            margin='xxx-small'
-            variant='default'
+            margin="xxx-small"
+            variant="default"
             onClick={closeOutcomePicker}
           >
             {t('Cancel')}
           </Button>
           <Button
-            margin='xxx-small'
-            variant='primary'
+            margin="xxx-small"
+            variant="primary"
             onClick={() => this.handleSubmit()}
           >
             {t('Confirm Alignments')}
@@ -231,7 +234,7 @@ export default class OutcomeTray extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const {
       liveRegion,
       mountNode,
@@ -241,7 +244,7 @@ export default class OutcomeTray extends React.Component {
       updateSearchText,
       closeOutcomePicker,
       isOpen,
-      resetOutcomePicker,
+      resetOutcomePicker
     } = this.props
 
     const trayProps = { placement, size }
@@ -259,7 +262,9 @@ export default class OutcomeTray extends React.Component {
           <div className={styles.trayContainer}>
             <Flex margin="none none small none">
               <Flex.Item shouldGrow shouldShrink>
-                <Heading level="h3" margin="0 0 x-small">{t('Align Outcomes')}</Heading>
+                <Heading level="h3" margin="0 0 x-small">
+                  {t('Align Outcomes')}
+                </Heading>
               </Flex.Item>
               <Flex.Item>
                 <CloseButton onClick={closeOutcomePicker}>

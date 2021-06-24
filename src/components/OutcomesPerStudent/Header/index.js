@@ -1,8 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AccessibleContent, PresentationContent } from '@instructure/ui-a11y'
-import { Link, Text } from '@instructure/ui-elements'
-import { Tooltip } from '@instructure/ui-overlays'
+import {
+  AccessibleContent,
+  PresentationContent
+} from '@instructure/ui-a11y-content'
+import { Text } from '@instructure/ui-text'
+import { Link } from '@instructure/ui-link'
+import { Tooltip } from '@instructure/ui-tooltip'
 import t from 'format-message'
 import { themeable } from '@instructure/ui-themeable'
 import { TruncateText } from '@instructure/ui-truncate-text'
@@ -43,7 +47,10 @@ export default class Header extends React.Component {
           <TruncateText
             maxLines={1}
             position={'middle'}
-            onUpdate={(isTruncated) => this.setState({showTooltip: isTruncated})}>
+            onUpdate={(isTruncated) =>
+              this.setState({ showTooltip: isTruncated })
+            }
+          >
             <AccessibleContent alt={outcome.title}>
               {outcome.title}
             </AccessibleContent>
@@ -53,7 +60,7 @@ export default class Header extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const {
       outcomeResult,
       getReportOutcome,
@@ -70,9 +77,14 @@ export default class Header extends React.Component {
           <Tooltip tip={outcome.title} placement="bottom" variant="inverse">
             {this.renderTitle(outcome)}
           </Tooltip>
-        ) : this.renderTitle(outcome)}
+        ) : (
+          this.renderTitle(outcome)
+        )}
         <PresentationContent>
-          <HeaderDetails outcomeResult={outcomeResult} showRollups={showRollups} />
+          <HeaderDetails
+            outcomeResult={outcomeResult}
+            showRollups={showRollups}
+          />
         </PresentationContent>
         <OutcomeViewModal
           header={t('Outcome Detail')}

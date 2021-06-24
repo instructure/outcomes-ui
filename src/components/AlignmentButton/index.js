@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
-import { AccessibleContent } from '@instructure/ui-a11y'
+import { AccessibleContent } from '@instructure/ui-a11y-content'
 import { Button } from '@instructure/ui-buttons'
-import { Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
 import { IconOutcomesLine, IconPlusLine } from '@instructure/ui-icons'
 import { List } from '@instructure/ui-list'
 import { themeable } from '@instructure/ui-themeable'
@@ -27,7 +27,7 @@ export default class AlignmentButton extends React.Component {
     onUpdate: PropTypes.func,
     screenreaderNotification: PropTypes.func,
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
-    readOnly: PropTypes.bool.isRequired,
+    readOnly: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -39,7 +39,7 @@ export default class AlignmentButton extends React.Component {
     readOnly: false
   }
 
-  componentDidUpdate (oldProps) {
+  componentDidUpdate(oldProps) {
     const { alignedOutcomes } = this.props
     if (oldProps.alignedOutcomes.length && !alignedOutcomes.length) {
       if (this.align) {
@@ -48,24 +48,31 @@ export default class AlignmentButton extends React.Component {
     }
   }
 
-  handleRemoveAlignment (removedOutcome, index) {
+  handleRemoveAlignment(removedOutcome, index) {
     const { removeAlignment, onUpdate, alignedOutcomes } = this.props
     removeAlignment(removedOutcome.id, onUpdate, true)
-    this.props.screenreaderNotification(t('{label} alignment removed', {label: removedOutcome.label}))
+    this.props.screenreaderNotification(
+      t('{label} alignment removed', { label: removedOutcome.label })
+    )
     const priorListItem = this[`position${index - 1}`]
     if (priorListItem) {
       priorListItem.focus()
     } else if (alignedOutcomes.length > 0) {
       const nextListItem = this[`position${index + 1}`]
-      if (nextListItem) { nextListItem.focus() }
+      if (nextListItem) {
+        nextListItem.focus()
+      }
     }
   }
 
   renderHeader = () => {
     const { readOnly, alignedOutcomes } = this.props
-    if(!readOnly || alignedOutcomes.length) {
+    if (!readOnly || alignedOutcomes.length) {
       return (
-        <div className={styles.line} data-automation='outcomeLabel__alignedOutcomes'>
+        <div
+          className={styles.line}
+          data-automation="outcomeLabel__alignedOutcomes"
+        >
           <Text size="medium">
             <div className={styles.spacing}>
               <IconOutcomesLine />
@@ -86,12 +93,16 @@ export default class AlignmentButton extends React.Component {
     const { alignedOutcomes, readOnly } = this.props
     return (
       <List isUnstyled margin="small 0" delimiter="solid">
-        { alignedOutcomes.map((outcome, index) => {
+        {alignedOutcomes.map((outcome, index) => {
           return (
             <List.Item margin="small 0" key={outcome.id}>
               <AlignmentItem
-                removeAlignment={() => this.handleRemoveAlignment(outcome, index)}
-                ref={(o) => { this[`position${index}`] = o }} // eslint-disable-line immutable/no-mutation
+                removeAlignment={() =>
+                  this.handleRemoveAlignment(outcome, index)
+                }
+                ref={(o) => {
+                  this[`position${index}`] = o
+                }} // eslint-disable-line immutable/no-mutation
                 outcome={outcome}
                 readOnly={readOnly}
               />
@@ -106,9 +117,9 @@ export default class AlignmentButton extends React.Component {
     const {
       pickerProps,
       scope,
-      tray : OutcomeTray,
+      tray: OutcomeTray,
       liveRegion,
-      screenreaderNotification,
+      screenreaderNotification
     } = this.props
     return (
       <OutcomeTray
@@ -123,11 +134,13 @@ export default class AlignmentButton extends React.Component {
 
   renderButton = () => {
     const { openOutcomePicker, readOnly } = this.props
-    if(!readOnly) {
+    if (!readOnly) {
       return (
         <div className={styles.button}>
           <Button
-            ref={(d) => { this.align = d }} // eslint-disable-line immutable/no-mutation
+            ref={(d) => {
+              this.align = d
+            }} // eslint-disable-line immutable/no-mutation
             icon={IconPlusLine}
             onClick={openOutcomePicker}
             data-automation="alignmentButton__button"
@@ -144,10 +157,10 @@ export default class AlignmentButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        { this.renderHeader() }
-        { this.renderAlignmentList() }
-        { this.renderButton() }
-        { this.renderTray() }
+        {this.renderHeader()}
+        {this.renderAlignmentList()}
+        {this.renderButton()}
+        {this.renderTray()}
       </React.Fragment>
     )
   }

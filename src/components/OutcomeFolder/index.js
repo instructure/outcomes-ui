@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link, Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
+import { Link } from '@instructure/ui-link'
 import { IconFolderSolid } from '@instructure/ui-icons'
 import { themeable } from '@instructure/ui-themeable'
 
@@ -16,7 +17,10 @@ export default class OutcomeFolder extends React.Component {
     getOutcomeSummary: PropTypes.func.isRequired,
     setActiveCollection: PropTypes.func.isRequired,
     toggleExpandedIds: PropTypes.func.isRequired,
-    activeCollectionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    activeCollectionId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   }
 
   // eslint-disable-next-line no-undef
@@ -26,44 +30,35 @@ export default class OutcomeFolder extends React.Component {
   }
 
   handleClick = (id) => {
-    const {
-      setActiveCollection,
-      toggleExpandedIds,
-      activeCollectionId
-    } = this.props
+    const { setActiveCollection, toggleExpandedIds, activeCollectionId } =
+      this.props
 
     if (activeCollectionId) {
-      toggleExpandedIds({id: activeCollectionId, forceOpen: true})
+      toggleExpandedIds({ id: activeCollectionId, forceOpen: true })
     }
     setActiveCollection(id)
-    toggleExpandedIds({id, forceOpen: true})
+    toggleExpandedIds({ id, forceOpen: true })
   }
 
   renderTitle = (outcome) => {
-    const {
-      clickable
-    } = this.props
-
+    const { clickable } = this.props
 
     // Temporarily have the Folders rendered in search results
     // be unclickable, until we decide how to retrieve all
     // their ancestor outcomes and put them into state. A necessary
     // reqt in order to render the tree picker.
-    return clickable ?
-      (
-        <Text size="small">
-          <Link
-            onClick={() => this.handleClick(outcome.id)}>{outcome.title}
-          </Link>
-        </Text>
-      )
-      :
-      (
-        <Text size="x-small">{outcome.title}</Text>
-      )
+    return clickable ? (
+      <Text size="small">
+        <Link onClick={() => this.handleClick(outcome.id)}>
+          {outcome.title}
+        </Link>
+      </Text>
+    ) : (
+      <Text size="x-small">{outcome.title}</Text>
+    )
   }
 
-  renderSummary (outcome) {
+  renderSummary(outcome) {
     const { getOutcomeSummary } = this.props
     if (getOutcomeSummary(outcome.id)) {
       return (
@@ -74,11 +69,13 @@ export default class OutcomeFolder extends React.Component {
     }
   }
 
-  render () {
+  render() {
     const { outcome } = this.props
     return (
       <div className={styles.folder}>
-        <div className={styles.folderIcon}><IconFolderSolid /></div>
+        <div className={styles.folderIcon}>
+          <IconFolderSolid />
+        </div>
         <div className={styles.folderDetails}>
           <div data-automation="outcomeFolder__folderTitle">
             {this.renderTitle(outcome)}

@@ -2,9 +2,10 @@ import t from 'format-message'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@instructure/ui-buttons'
-import { Link, Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
+import { Link } from '@instructure/ui-link'
 import { IconTrashLine, IconOutcomesLine } from '@instructure/ui-icons'
-import { View } from '@instructure/ui-layout'
+import { View } from '@instructure/ui-view'
 import { themeable } from '@instructure/ui-themeable'
 import OutcomeViewModal from '../OutcomeViewModal'
 import theme from '../theme'
@@ -26,20 +27,20 @@ export default class Alignment extends React.Component {
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
-    scope: PropTypes.string.isRequired,
+    scope: PropTypes.string.isRequired
   }
 
   static defaultProps = {
     artifactTypeName: null,
     displayMasteryDescription: false,
-    displayMasteryPercentText: false,
+    displayMasteryPercentText: false
   }
 
-  focus () {
+  focus() {
     this.focusLink.focus()
   }
 
-  render () {
+  render() {
     const {
       outcome,
       removeAlignment,
@@ -52,12 +53,16 @@ export default class Alignment extends React.Component {
       readOnly,
       scope
     } = this.props
-    const removeMessage = t({
-      default: 'Remove {title}',
-      description: 'Screen reader caption for button that removes an alignment'
-    }, {
-      title: outcome.title
-    })
+    const removeMessage = t(
+      {
+        default: 'Remove {title}',
+        description:
+          'Screen reader caption for button that removes an alignment'
+      },
+      {
+        title: outcome.title
+      }
+    )
     return (
       <li className={styles.item} data-automation="outcomeAlignment__item">
         <span className={styles.outcome}>
@@ -68,10 +73,12 @@ export default class Alignment extends React.Component {
         <span className={styles.link}>
           <span className={styles.linkText}>
             <span className={styles.innerLinkText}>
-              <View as='div' margin='xx-small'>
+              <View as="div" margin="xx-small">
                 <Link
                   onClick={viewAlignment}
-                  ref={(link) => { this.focusLink = link }} // eslint-disable-line immutable/no-mutation
+                  ref={(link) => {
+                    this.focusLink = link
+                  }} // eslint-disable-line immutable/no-mutation
                 >
                   <Text weight="bold">{outcome.title}</Text>
                 </Link>
@@ -79,13 +86,13 @@ export default class Alignment extends React.Component {
             </span>
           </span>
         </span>
-        {!readOnly &&
+        {!readOnly && (
           <span className={styles.delete} data-automation="alignment-delete">
             <Button variant="icon" onClick={removeAlignment}>
               <IconTrashLine title={removeMessage} />
             </Button>
           </span>
-        }
+        )}
         <OutcomeViewModal
           outcome={outcome}
           closeAlignment={closeAlignment}

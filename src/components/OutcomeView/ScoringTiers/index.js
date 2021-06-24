@@ -2,10 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { IconStarSolid, IconEmptyLine } from '@instructure/ui-icons'
-import { Pill, Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
+import { Pill } from '@instructure/ui-pill'
 import t from 'format-message'
 import { themeable } from '@instructure/ui-themeable'
-import { outcomeResultShape, scoringMethodShape, scoringTierShape } from '../../../store/shapes'
+import {
+  outcomeResultShape,
+  scoringMethodShape,
+  scoringTierShape
+} from '../../../store/shapes'
 
 import convertToPoints from '../convertToPoints'
 
@@ -24,29 +29,40 @@ const valueBetweenTiers = (value, upperTier, lowerTier) => {
 
 const renderTier = (scoringMethod, tier) => {
   return (
-    <div key={tier.id} className={styles.scoringTier} data-automation='outcomeView__scoringTier'>
+    <div
+      key={tier.id}
+      className={styles.scoringTier}
+      data-automation="outcomeView__scoringTier"
+    >
       <div className={styles.rating}>
-        <div className={styles.score} data-automation='outcomeView__score'>
-          <Text size="medium">{convertToPoints(tier.percent, scoringMethod)}</Text>
+        <div className={styles.score} data-automation="outcomeView__score">
+          <Text size="medium">
+            {convertToPoints(tier.percent, scoringMethod)}
+          </Text>
         </div>
-        <div className={styles.description} data-automation='outcomeView__description'>
+        <div
+          className={styles.description}
+          data-automation="outcomeView__description"
+        >
           <Text size="small">{tier.description}</Text>
         </div>
       </div>
-      {
-        tier.count != null &&
-        <div className={styles.masteryCount} data-automation='outcomeView__masteryCount'>
+      {tier.count != null && (
+        <div
+          className={styles.masteryCount}
+          data-automation="outcomeView__masteryCount"
+        >
           <Text size="small">
             {t(
               `{count, plural,
                 one {1 Student}
                 other {# Students}
               }`,
-              {count: tier.count}
+              { count: tier.count }
             )}
           </Text>
         </div>
-      }
+      )}
     </div>
   )
 }
@@ -57,13 +73,13 @@ const ScorePill = ({ className, icon, text, variant }) => {
     [className]: true
   })
   return (
-    <span className={outerStyle} data-automation={`outcomeView__${variant}Pill`}>
-      { icon }
+    <span
+      className={outerStyle}
+      data-automation={`outcomeView__${variant}Pill`}
+    >
+      {icon}
       &nbsp;
-      <Pill
-        text={text}
-        variant={variant}
-      />
+      <Pill text={text} variant={variant} />
     </span>
   )
 }
@@ -81,18 +97,19 @@ const renderGap = (scoringMethod, outcomeResult, upperTier, lowerTier) => {
   const average = outcomeResult ? outcomeResult.averageScore : null
 
   const components = [
-    valueBetweenTiers(mastery, upperTier, lowerTier) &&
+    valueBetweenTiers(mastery, upperTier, lowerTier) && (
       <ScorePill
         key="mastery"
         text={`Mastery ${convertToPoints(mastery, scoringMethod)} pts`}
         className={styles.mastery}
         variant="success"
-        icon={<IconStarSolid data-automation='outcomeView__masteryStar'/>}
+        icon={<IconStarSolid data-automation="outcomeView__masteryStar" />}
       />
+    )
   ]
   if (average !== null) {
     components.push(
-      valueBetweenTiers(average, upperTier, lowerTier) &&
+      valueBetweenTiers(average, upperTier, lowerTier) && (
         <ScorePill
           key="average"
           text={`Avg. Score ${convertToPoints(average, scoringMethod)} pts`}
@@ -100,11 +117,14 @@ const renderGap = (scoringMethod, outcomeResult, upperTier, lowerTier) => {
           variant="primary"
           icon={<IconEmptyLine />}
         />
+      )
     )
   }
   return (
     <div className={styles.gap}>
-      { (average !== null && average <= mastery) ? components : components.reverse() }
+      {average !== null && average <= mastery
+        ? components
+        : components.reverse()}
     </div>
   )
 }
@@ -122,17 +142,24 @@ export default class ScoringTiers extends React.Component {
     outcomeResult: null
   }
 
-  render () {
+  render() {
     const { outcomeResult, scoringTiers, scoringMethod } = this.props
     return (
-      <div data-automation='outcomeView__scoringTiers'>
-        { renderGap(scoringMethod, outcomeResult, null, ...scoringTiers.slice(0, 1))}
-        {
-          scoringTiers.map((tier, i) => ([
-            renderTier(scoringMethod, tier),
-            renderGap(scoringMethod, outcomeResult, ...scoringTiers.slice(i, i + 2))
-          ]))
-        }
+      <div data-automation="outcomeView__scoringTiers">
+        {renderGap(
+          scoringMethod,
+          outcomeResult,
+          null,
+          ...scoringTiers.slice(0, 1)
+        )}
+        {scoringTiers.map((tier, i) => [
+          renderTier(scoringMethod, tier),
+          renderGap(
+            scoringMethod,
+            outcomeResult,
+            ...scoringTiers.slice(i, i + 2)
+          )
+        ])}
       </div>
     )
   }

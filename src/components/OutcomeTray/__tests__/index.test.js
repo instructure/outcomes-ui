@@ -116,7 +116,7 @@ describe('OutcomeTray', () => {
       saveOutcomePickerAlignments: sinon.stub().resolves()
     })
     wrapper = mount(<OutcomeTray {...props} />)
-    wrapper.find('Button').at(2).prop('onClick')()
+    wrapper.find('Button').last().prop('onClick')()
     expect(props.saveOutcomePickerAlignments).to.be.called
     expect(props.saveOutcomePickerAlignments).to.be.calledWith(props.onUpdate, false)
   })

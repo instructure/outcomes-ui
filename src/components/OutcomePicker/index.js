@@ -4,7 +4,7 @@ import t from 'format-message'
 
 import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
-import { ScreenReaderContent } from '@instructure/ui-a11y'
+import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 import { View } from '@instructure/ui-view'
 
 import OutcomeTags from '../OutcomeTags'
@@ -49,10 +49,10 @@ class OutcomePicker extends React.Component {
     displayMasteryPercentText: false,
     searchText: '',
     screenreaderNotification: null,
-    searchTotal: null,
+    searchTotal: null
   }
 
-  renderViewModal () {
+  renderViewModal() {
     const {
       focusedOutcome,
       setFocusedOutcome,
@@ -63,7 +63,7 @@ class OutcomePicker extends React.Component {
     } = this.props
 
     return (
-      focusedOutcome &&
+      focusedOutcome && (
         <OutcomeViewModal
           artifactTypeName={artifactTypeName}
           displayMasteryDescription={displayMasteryDescription}
@@ -73,10 +73,11 @@ class OutcomePicker extends React.Component {
           closeAlignment={() => setFocusedOutcome(null)}
           isOpen
         />
+      )
     )
   }
 
-  renderSearchMode () {
+  renderSearchMode() {
     const {
       screenreaderNotification,
       setSearchLoading,
@@ -91,7 +92,7 @@ class OutcomePicker extends React.Component {
       setFocusedOutcome,
       isOutcomeSelected,
       selectOutcomeIds,
-      deselectOutcomeIds,
+      deselectOutcomeIds
     } = this.props
 
     return (
@@ -114,16 +115,12 @@ class OutcomePicker extends React.Component {
     )
   }
 
-  renderTreePickerMode () {
+  renderTreePickerMode() {
     const { scope, treeView: OutcomeTree } = this.props
-    return (
-      <OutcomeTree
-        scope={scope}
-      />
-    )
+    return <OutcomeTree scope={scope} />
   }
 
-  renderHeader () {
+  renderHeader() {
     const {
       selectedOutcomes,
       searchText,
@@ -137,9 +134,7 @@ class OutcomePicker extends React.Component {
         borderWidth="none none small none"
         padding="small small medium small"
       >
-        <View
-          display="block"
-          padding="none none small none">
+        <View display="block" padding="none none small none">
           <ScreenReaderContent>{t('Selected outcomes:')}</ScreenReaderContent>
           <OutcomeTags
             outcomes={selectedOutcomes}
@@ -155,16 +150,15 @@ class OutcomePicker extends React.Component {
       </View>
     )
   }
-  render () {
-    const {
-      hasOutcomes,
-      searchText,
-    } = this.props
+  render() {
+    const { hasOutcomes, searchText } = this.props
 
     if (!hasOutcomes) {
       return (
         <Billboard
-          message={t('To add or create outcomes, visit the Canvas outcomes page.')}
+          message={t(
+            'To add or create outcomes, visit the Canvas outcomes page.'
+          )}
           heading={t('There are no outcomes')}
           headingAs="h3"
           headingLevel="h3"
@@ -175,7 +169,12 @@ class OutcomePicker extends React.Component {
       )
     }
     return (
-      <Flex direction="column" height="100%" width="100%" padding="x-small small 0 small">
+      <Flex
+        direction="column"
+        height="100%"
+        width="100%"
+        padding="x-small small 0 small"
+      >
         <Flex.Item>{this.renderHeader()}</Flex.Item>
         <Flex.Item shouldGrow maxHeight="100%" size="0">
           {searchText ? this.renderSearchMode() : this.renderTreePickerMode()}

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox } from '@instructure/ui-forms'
-import { Text } from '@instructure/ui-elements'
+import { Checkbox } from '@instructure/ui-checkbox'
+import { Text } from '@instructure/ui-text'
 import t from 'format-message'
 import { themeable } from '@instructure/ui-themeable'
 
@@ -22,12 +22,12 @@ export default class OutcomeSelectionList extends React.Component {
     outcomes: PropTypes.arrayOf(outcomeShape).isRequired
   }
 
-  allSelected () {
+  allSelected() {
     const { outcomes, isOutcomeSelected } = this.props
     return outcomes.every((o) => isOutcomeSelected(o.id))
   }
 
-  toggleAllSelected () {
+  toggleAllSelected() {
     const { deselectOutcomeIds, selectOutcomeIds, outcomes } = this.props
     const ids = outcomes.map((o) => o.id)
     if (this.allSelected()) {
@@ -37,7 +37,7 @@ export default class OutcomeSelectionList extends React.Component {
     }
   }
 
-  selectAllText () {
+  selectAllText() {
     if (this.allSelected()) {
       return t('Deselect all')
     } else {
@@ -45,13 +45,16 @@ export default class OutcomeSelectionList extends React.Component {
     }
   }
 
-  render () {
+  render() {
     const { outcomes, setFocusedOutcome } = this.props
     if (outcomes.length === 0) {
       return <div />
     }
     return (
-      <div className={styles.picker} data-automation='outcomeSelectionList__picker'>
+      <div
+        className={styles.picker}
+        data-automation="outcomeSelectionList__picker"
+      >
         <div className={styles.checkbox}>
           <Checkbox
             value="selectAll"
@@ -64,19 +67,17 @@ export default class OutcomeSelectionList extends React.Component {
             }
           />
         </div>
-        {
-          outcomes.map((o) => {
-            return (
-              <div key={o.id}>
-                <OutcomeCheckbox
-                  outcome={o}
-                  setFocusedOutcome={setFocusedOutcome}
-                  {...this.props}
-                />
-              </div>
-            )
-          })
-        }
+        {outcomes.map((o) => {
+          return (
+            <div key={o.id}>
+              <OutcomeCheckbox
+                outcome={o}
+                setFocusedOutcome={setFocusedOutcome}
+                {...this.props}
+              />
+            </div>
+          )
+        })}
       </div>
     )
   }

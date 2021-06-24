@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AccessibleContent } from '@instructure/ui-a11y'
-import { Tag, Text } from '@instructure/ui-elements'
+import { AccessibleContent } from '@instructure/ui-a11y-content'
+import { Text } from '@instructure/ui-text'
+import { Tag } from '@instructure/ui-tag'
 import { IconOutcomesLine } from '@instructure/ui-icons'
 import { themeable } from '@instructure/ui-themeable'
 
@@ -14,14 +15,14 @@ export default class OutcomeTags extends React.Component {
   static propTypes = {
     emptyText: PropTypes.string.isRequired,
     outcomes: PropTypes.array.isRequired,
-    deselectOutcomeIds: PropTypes.func,
+    deselectOutcomeIds: PropTypes.func
   }
 
   static defaultProps = {
-    deselectOutcomeIds: null,
+    deselectOutcomeIds: null
   }
 
-  componentDidUpdate (oldProps) {
+  componentDidUpdate(oldProps) {
     const { outcomes } = this.props
     if (oldProps.outcomes.length && !outcomes.length) {
       this.emptyResults.focus()
@@ -32,28 +33,32 @@ export default class OutcomeTags extends React.Component {
 
   setRef = (id, ref) => {
     this.inputRefs[id] = ref
-  };
+  }
 
   focusInput = (id) => this.inputRefs[id].focus()
 
-  getSortedOutcomes () {
+  getSortedOutcomes() {
     const { outcomes } = this.props
     return outcomes.sort((a, b) => {
       return a.title ? a.title.localeCompare(b.title) : -1
     })
   }
 
-  renderEmpty () {
+  renderEmpty() {
     const { emptyText } = this.props
-    return  (
+    return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-      <div className={styles.text} ref={(ref) => this.emptyResults = ref} tabIndex="-1">
-        { emptyText }
+      <div
+        className={styles.text}
+        ref={(ref) => (this.emptyResults = ref)}
+        tabIndex="-1"
+      >
+        {emptyText}
       </div>
     )
   }
 
-  renderTags () {
+  renderTags() {
     const { deselectOutcomeIds } = this.props
     const sortedOutcomes = this.getSortedOutcomes()
 
@@ -88,14 +93,17 @@ export default class OutcomeTags extends React.Component {
     })
   }
 
-  render () {
+  render() {
     return (
-      <div className={styles.line} data-automation='outcomeTag__alignedOutcomes'>
+      <div
+        className={styles.line}
+        data-automation="outcomeTag__alignedOutcomes"
+      >
         <Text size="medium">
           <IconOutcomesLine />
         </Text>
         <div className={styles.tags}>
-          { this.props.outcomes.length ? this.renderTags() : this.renderEmpty() }
+          {this.props.outcomes.length ? this.renderTags() : this.renderEmpty()}
         </div>
       </div>
     )

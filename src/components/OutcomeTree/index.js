@@ -6,7 +6,8 @@ import t from 'format-message'
 import themeable from '@instructure/ui-themeable'
 import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
-import { Heading, Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
+import { Heading } from '@instructure/ui-heading'
 
 import OutcomeSelectionList from '../OutcomeSelectionList'
 import OutcomeFolderList from '../OutcomeFolderList'
@@ -32,14 +33,14 @@ class OutcomeTree extends React.Component {
     rootOutcomeIds: PropTypes.array.isRequired,
     activeChildren: PropTypes.shape({
       groups: PropTypes.array,
-      nonGroups: PropTypes.array,
+      nonGroups: PropTypes.array
     }),
     activeCollection: PropTypes.shape({
       id: PropTypes.string,
       header: PropTypes.string,
       summary: PropTypes.string,
       description: PropTypes.string
-    }),
+    })
   }
 
   static defaultProps = {
@@ -51,30 +52,40 @@ class OutcomeTree extends React.Component {
     }
   }
 
-  setRHS (rhs) {
+  setRHS(rhs) {
     this.rhs = rhs // eslint-disable-line immutable/no-mutation
   }
 
-  componentDidUpdate (oldProps) {
-    const oldCollection = oldProps.activeCollection ? oldProps.activeCollection.id : null
-    const newCollection = this.props.activeCollection ? this.props.activeCollection.id : null
+  componentDidUpdate(oldProps) {
+    const oldCollection = oldProps.activeCollection
+      ? oldProps.activeCollection.id
+      : null
+    const newCollection = this.props.activeCollection
+      ? this.props.activeCollection.id
+      : null
     const parent = ReactDOM.findDOMNode(this) // eslint-disable-line react/no-find-dom-node
-    if (oldCollection !== newCollection &&
-      parent && !parent.contains(document.activeElement) &&
-      this.rhs) {
-      const next = this.rhs.querySelector('input') || this.rhs.querySelector('button')
+    if (
+      oldCollection !== newCollection &&
+      parent &&
+      !parent.contains(document.activeElement) &&
+      this.rhs
+    ) {
+      const next =
+        this.rhs.querySelector('input') || this.rhs.querySelector('button')
       if (next) {
         next.focus()
       }
     }
   }
 
-  renderActiveCollection () {
+  renderActiveCollection() {
     const { activeCollection } = this.props
     return activeCollection && activeCollection.id ? (
       <div className={styles.selectedOutcomeCollection}>
         <div>
-          <Heading level="h3" as="h2" margin="0 0 x-small">{activeCollection.header}</Heading>
+          <Heading level="h3" as="h2" margin="0 0 x-small">
+            {activeCollection.header}
+          </Heading>
         </div>
         <div>
           <Text size="x-small">{activeCollection.summary}</Text>
@@ -82,7 +93,8 @@ class OutcomeTree extends React.Component {
         <Text size="x-small">
           <div
             className={styles.outcomeDescription}
-            dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+            dangerouslySetInnerHTML={{
+              // eslint-disable-line react/no-danger
               __html: sanitizeHtml(activeCollection.description)
             }}
           />
@@ -101,7 +113,7 @@ class OutcomeTree extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const {
       activeChildren,
       collections,
@@ -114,13 +126,16 @@ class OutcomeTree extends React.Component {
       rootOutcomeIds,
       activeCollection,
       toggleExpandedIds,
-      expandedIds,
+      expandedIds
     } = this.props
     const { groups, nonGroups } = activeChildren
     return (
       <Flex alignItems="stretch" height="100%" width="100%">
         <Flex.Item width="30%">
-          <div className={styles.outcomeTree} data-automation='outcomePicker__outcomeTree'>
+          <div
+            className={styles.outcomeTree}
+            data-automation="outcomePicker__outcomeTree"
+          >
             <TreeBrowser
               collections={collections}
               setActiveCollection={setActiveCollection}
@@ -141,7 +156,7 @@ class OutcomeTree extends React.Component {
             data-automation="outcomePicker__outcomeContent"
           >
             <Flex.Item size="0" shouldGrow>
-              { this.renderActiveCollection() }
+              {this.renderActiveCollection()}
               <OutcomeSelectionList
                 setFocusedOutcome={setFocusedOutcome}
                 outcomes={nonGroups}
@@ -154,7 +169,9 @@ class OutcomeTree extends React.Component {
                 setActiveCollection={setActiveCollection}
                 getOutcomeSummary={getOutcomeSummary}
                 toggleExpandedIds={toggleExpandedIds}
-                activeCollectionId={activeCollection ? activeCollection.id : null}
+                activeCollectionId={
+                  activeCollection ? activeCollection.id : null
+                }
               />
             </Flex.Item>
           </Flex>

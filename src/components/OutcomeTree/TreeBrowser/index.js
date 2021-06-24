@@ -1,16 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { View } from '@instructure/ui-layout'
+import { View } from '@instructure/ui-view'
 import { TreeBrowser } from '@instructure/ui-tree-browser'
 
 const OutcomeBrowser = (props) => {
-  if (!props.collections) { return null }
-  const {collections, setActiveCollection, rootOutcomeIds, expandedIds, toggleExpandedIds} = props
+  if (!props.collections) {
+    return null
+  }
+  const {
+    collections,
+    setActiveCollection,
+    rootOutcomeIds,
+    expandedIds,
+    toggleExpandedIds
+  } = props
 
   const handleSelect = (id) => {
     setActiveCollection(id)
-    toggleExpandedIds({id})
+    toggleExpandedIds({ id })
   }
 
   const defaultExpanded = rootOutcomeIds.length === 1 ? rootOutcomeIds : []
@@ -26,7 +34,7 @@ const OutcomeBrowser = (props) => {
   }
 
   return (
-    <View as='div' margin='xx-small'>
+    <View as="div" margin="xx-small">
       <TreeBrowser
         collections={collections}
         rootId={rootOutcomeIds.length > 0 ? 'root' : void 0}

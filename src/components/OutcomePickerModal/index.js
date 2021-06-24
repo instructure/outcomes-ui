@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, CloseButton } from '@instructure/ui-buttons'
-import { Heading, Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
+import { Heading } from '@instructure/ui-heading'
 import { Modal } from '@instructure/ui-modal'
 import t from 'format-message'
 
@@ -30,7 +31,7 @@ export default class OutcomePickerModal extends React.Component {
     setSearchText: PropTypes.func.isRequired,
     screenreaderNotification: PropTypes.func,
     liveRegion: Modal.propTypes.liveRegion,
-    mountNode: Modal.propTypes.mountNode,
+    mountNode: Modal.propTypes.mountNode
   }
 
   static defaultProps = {
@@ -46,14 +47,15 @@ export default class OutcomePickerModal extends React.Component {
     mountNode: null
   }
 
-  handleModalReady () {
+  handleModalReady() {
     if (this.props.onModalOpen) {
       this.props.onModalOpen()
     }
   }
 
-  handleModalClose () {
-    if (this.props.trigger) { // can be null during testing
+  handleModalClose() {
+    if (this.props.trigger) {
+      // can be null during testing
       this.props.trigger.focus()
     }
     if (this.props.onModalClose) {
@@ -61,21 +63,20 @@ export default class OutcomePickerModal extends React.Component {
     }
   }
 
-  handleModalRequestClose () {
+  handleModalRequestClose() {
     this.props.closeOutcomePicker()
   }
 
-  handleModalExited () {
+  handleModalExited() {
     this.props.resetOutcomePicker()
   }
 
-  handleSubmit () {
+  handleSubmit() {
     const { saveOutcomePickerAlignments, onUpdate } = this.props
-    return saveOutcomePickerAlignments(onUpdate)
-      .then(() => this.handleModalRequestClose())
+    return saveOutcomePickerAlignments(onUpdate).then(() => this.handleModalRequestClose())
   }
 
-  submitText () {
+  submitText() {
     switch (this.props.outcomePickerState) {
       case 'loading':
       case 'choosing':
@@ -91,9 +92,9 @@ export default class OutcomePickerModal extends React.Component {
     }
   }
 
-  render () {
-    const disabled = (this.props.outcomePickerState !== 'choosing')
-    const open = (this.props.outcomePickerState !== 'closed')
+  render() {
+    const disabled = this.props.outcomePickerState !== 'choosing'
+    const open = this.props.outcomePickerState !== 'closed'
     const {
       outcomePickerState,
       outcomePicker,
@@ -134,7 +135,9 @@ export default class OutcomePickerModal extends React.Component {
             >
               {t('Cancel')}
             </CloseButton>
-            <Heading><Text size="large">{t('Attached Outcomes')}</Text></Heading>
+            <Heading>
+              <Text size="large">{t('Attached Outcomes')}</Text>
+            </Heading>
           </ModalHeader>
           <ModalBody padding="0" data-automation="outcomePicker__modalBody">
             {
@@ -146,36 +149,39 @@ export default class OutcomePickerModal extends React.Component {
               // OutcomePickerLoader triggers the loadOutcomePicker action,
               // which resets the modal state to 'open'.
               // TODO: remove `open && ` when INSTUI-1437 is fixed
-              open && <OutcomePickerLoader {...{
-                outcomePickerState,
-                outcomePicker,
-                loadOutcomePicker,
-                setFocusedOutcome,
-                scope,
-                artifactTypeName,
-                displayMasteryDescription,
-                displayMasteryPercentText,
-                screenreaderNotification
-              }}
-              />
+              open && (
+                <OutcomePickerLoader
+                  {...{
+                    outcomePickerState,
+                    outcomePicker,
+                    loadOutcomePicker,
+                    setFocusedOutcome,
+                    scope,
+                    artifactTypeName,
+                    displayMasteryDescription,
+                    displayMasteryPercentText,
+                    screenreaderNotification
+                  }}
+                />
+              )
             }
           </ModalBody>
           <ModalFooter>
             <Button
-              margin='xxx-small'
+              margin="xxx-small"
               onClick={() => this.handleModalRequestClose()}
               variant="default"
               disabled={disabled}
-              data-automation='outcomePicker__cancelButton'
+              data-automation="outcomePicker__cancelButton"
             >
               {t('Cancel')}
             </Button>
             <Button
-              margin='xxx-small'
+              margin="xxx-small"
               onClick={() => this.handleSubmit()}
               variant="primary"
               disabled={disabled}
-              data-automation='outcomePicker__submitButton'
+              data-automation="outcomePicker__submitButton"
             >
               {this.submitText()}
             </Button>

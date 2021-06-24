@@ -3,13 +3,14 @@ import 'regenerator-runtime/runtime'
 
 import React from 'react'
 import { render } from 'react-dom'
-import fromPairs from 'lodash.frompairs'
+import { fromPairs } from 'lodash'
 import '@instructure/canvas-theme'
 import '@instructure/canvas-high-contrast-theme'
 import { Alert } from '@instructure/ui-alerts'
-import { Heading } from '@instructure/ui-elements'
-import { Checkbox, Select } from '@instructure/ui-forms'
-import {TabList, TabPanel} from '@instructure/ui-tabs'
+import { Heading } from '@instructure/ui-heading'
+import { Checkbox } from '@instructure/ui-checkbox'
+import { SimpleSelect } from '@instructure/ui-simple-select'
+import { Tabs } from '@instructure/ui-tabs'
 import { ApplyTheme } from '@instructure/ui-themeable'
 
 import {
@@ -37,7 +38,12 @@ const getLive = () => document.getElementById('alert-live-region')
 getLive().setAttribute('role', 'alert')
 
 const screenreaderNotification = (text) => {
-  render(<Alert screenReaderOnly liveRegion={getLive}>{text}</Alert>, alert)
+  render(
+    <Alert screenReaderOnly liveRegion={getLive}>
+      {text}
+    </Alert>,
+    alert
+  )
 }
 const searchString = window.location.search.slice(1)
 const query = fromPairs(searchString.split('&').map((kv) => kv.split('=')))
@@ -68,7 +74,7 @@ const DemoAlignment = (props) => {
   return (
     <div className={styles.item} data-automation="artifact">
       <Heading level="h3">
-        { name } &nbsp;
+        {name} &nbsp;
         <OutcomeCount
           alignmentSetId={alignmentSetId}
           artifactType={artifactType}
@@ -87,57 +93,50 @@ const DemoAlignment = (props) => {
         jwt={jwt}
         emptyText="No outcomes are aligned"
       />
-      {
-        useAlignmentButton ? (
-          <div>
-            <br />
-            <AlignmentButton
-              artifactType={artifactType}
-              artifactTypeName={artifactTypeName}
-              artifactId={artifactId}
-              alignmentSetId={alignmentSetId}
-              contextUuid={contextUuid}
-              host={outcomesHost}
-              jwt={jwt}
-              liveRegion={getLive}
-              screenreaderNotification={screenreaderNotification}
-              readOnly={readOnly}
-            />
-          </div>
-        ) : (
-          <OutcomeAlignments
-            alignmentSetId={alignmentSetId}
-            pickerType={currentPicker}
-            contextUuid={contextUuid}
-            emptySetHeading={emptySetHeading}
-            onUpdate={console.log}
+      {useAlignmentButton ? (
+        <div>
+          <br />
+          <AlignmentButton
             artifactType={artifactType}
-            artifactId={artifactId}
             artifactTypeName={artifactTypeName}
-            displayMasteryDescription={displayMasteryDescription}
-            displayMasteryPercentText={displayMasteryPercentText}
+            artifactId={artifactId}
+            alignmentSetId={alignmentSetId}
+            contextUuid={contextUuid}
             host={outcomesHost}
             jwt={jwt}
-            screenreaderNotification={screenreaderNotification}
             liveRegion={getLive}
-            readOnly={readOnly}
+            screenreaderNotification={screenreaderNotification}
+            readOnly={readOnly === 'true'}
           />
-        )
-      }
+        </div>
+      ) : (
+        <OutcomeAlignments
+          alignmentSetId={alignmentSetId}
+          pickerType={currentPicker}
+          contextUuid={contextUuid}
+          emptySetHeading={emptySetHeading}
+          onUpdate={console.log}
+          artifactType={artifactType}
+          artifactId={artifactId}
+          artifactTypeName={artifactTypeName}
+          displayMasteryDescription={displayMasteryDescription}
+          displayMasteryPercentText={displayMasteryPercentText}
+          host={outcomesHost}
+          jwt={jwt}
+          screenreaderNotification={screenreaderNotification}
+          liveRegion={getLive}
+          readOnly={readOnly === 'true'}
+        />
+      )}
     </div>
   )
 }
 
-const getDefaultContrast = () => {
-  if(process.env.DEFAULT_HIGH_CONTRAST) {
-    return 'canvas-high-contrast'
-  }
-  return 'canvas'
-}
-
 let currentPicker = 'dialog'
-let currentTheme = getDefaultContrast()
-let readOnly = false
+let currentTheme = process?.env?.DEFAULT_HIGH_CONTRAST ? 'canvas-high-contrast' : 'canvas'
+let readOnly = 'false'
+let currentTab = 'alignments'
+
 const reset = () => {
   render(<div />, root)
   rerender()
@@ -153,29 +152,51 @@ const handlePickerChange = (_, { value: picker }) => {
 }
 
 const handleReadOnlyChange = (_, { value }) => {
-  readOnly = (value === 'true')
+  readOnly = value
   reset()
 }
 
 let showRollups = true
-function handleShowRollupsChange () {
+function handleShowRollupsChange() {
   showRollups = !showRollups
   rerender()
 }
 
-function rerender () {
+const handleTabChange = (_, { id }) => {
+  currentTab = id
+  rerender()
+}
+
+function rerender() {
   render(
     <ApplyTheme theme={ApplyTheme.generateTheme(currentTheme)}>
-      <TabList variant="minimal" size="large">
-        <TabPanel title="Alignments">
-          <Select name="picker" label="Picker" layout="inline" onChange={handlePickerChange} value="dialog" data-automation="demoAlignment__pickerSelect">
-            <option key="dialog" value="dialog">Dialog Picker</option>
-            <option key="tray" value="tray">Tray Picker</option>
-          </Select>
-          <Select name="picker" label="Read only" layout="inline" onChange={handleReadOnlyChange} value="false">
-            <option key="true" value="true">true</option>
-            <option key="false" value="false">false</option>
-          </Select>
+      <Tabs onRequestTabChange={handleTabChange}>
+        <Tabs.Panel id="alignments" renderTitle="Alignments" selected={currentTab === 'alignments'}>
+          <SimpleSelect
+            renderLabel="Picker"
+            onChange={handlePickerChange}
+            value={currentPicker}
+            data-automation="demoAlignment__pickerSelect"
+          >
+            <SimpleSelect.Option id="dialog" value="dialog">
+              Dialog Picker
+            </SimpleSelect.Option>
+            <SimpleSelect.Option id="tray" value="tray">
+              Tray Picker
+            </SimpleSelect.Option>
+          </SimpleSelect>
+          <SimpleSelect
+            renderLabel="Read only"
+            onChange={handleReadOnlyChange}
+            value={readOnly}
+          >
+            <SimpleSelect.Option id="true" key="true" value="true">
+              true
+            </SimpleSelect.Option>
+            <SimpleSelect.Option id="false" key="false" value="false">
+              false
+            </SimpleSelect.Option>
+          </SimpleSelect>
           <DemoAlignment
             name="Quiz #99"
             alignmentSetId="d15f9530-81af-4ab5-9da7-7b49ee1aac0d"
@@ -226,10 +247,14 @@ function rerender () {
             jwt={createJwt}
             alignmentWidget={AlignmentButton}
           />
-        </TabPanel>
-        <TabPanel title="Report" textAlign="center">
-          <div style={{backgroundColor: 'lightgrey'}}>
-            <Checkbox label="Show Rollups" checked={showRollups} onChange={handleShowRollupsChange} />
+        </Tabs.Panel>
+        <Tabs.Panel selected={currentTab === 'report'} renderTitle="Report" textAlign="center" id="report">
+          <div style={{ backgroundColor: 'lightgrey' }}>
+            <Checkbox
+              label="Show Rollups"
+              checked={showRollups}
+              onChange={handleShowRollupsChange}
+            />
             <div className={styles.report}>
               <OutcomesPerStudentReport
                 artifactType={artifactType}
@@ -242,15 +267,21 @@ function rerender () {
               />
             </div>
           </div>
-        </TabPanel>
-        <TabPanel title="Theme" textAlign="center">
-          <Select name="theme" label="Theme" layout="inline" onChange={handleThemeChange} value={currentTheme}>
-            {
-              themes.map(themeKey => <option key={themeKey} value={themeKey}>{themeKey}</option>)
-            }
-          </Select>
-        </TabPanel>
-      </TabList>
+        </Tabs.Panel>
+        <Tabs.Panel title="Theme" textAlign="center" id="theme" selected={currentTab === 'theme'}>
+          <SimpleSelect
+            renderLabel="Theme"
+            onChange={handleThemeChange}
+            value={currentTheme}
+          >
+            {themes.map((themeKey) => (
+              <SimpleSelect.Option id={themeKey} key={themeKey} value={themeKey}>
+                {themeKey}
+              </SimpleSelect.Option>
+            ))}
+          </SimpleSelect>
+        </Tabs.Panel>
+      </Tabs>
     </ApplyTheme>,
     root
   )

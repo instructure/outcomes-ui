@@ -1,28 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AccessibleContent } from '@instructure/ui-a11y'
+import { AccessibleContent } from '@instructure/ui-a11y-content'
 import t from 'format-message'
 
-export default function AlignmentCount ({ count }) {
+export default function AlignmentCount({ count }) {
   if (count != null) {
-    const title = t(`{
+    const title = t(
+      `{
       count, plural,
             =0 {No outcomes are aligned}
           one {One outcome is aligned}
         other {# outcomes are aligned}
-    }`, { count })
+    }`,
+      { count }
+    )
 
     return (
       <AccessibleContent alt={title}>
-        <span title={title}>{
-          t(`{
+        <span title={title}>
+          {
+            t(
+              `{
             count, plural,
                   =0 {(0)}
                 one {(1)}
               other {(#)}
-          }`, { count })
-          // eslint-disable-next-line react/jsx-closing-tag-location
-        }</span>
+          }`,
+              { count }
+            )
+            // eslint-disable-next-line react/jsx-closing-tag-location
+          }
+        </span>
       </AccessibleContent>
     )
   }

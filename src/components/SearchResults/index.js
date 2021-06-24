@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Text } from '@instructure/ui-elements'
+import { Text } from '@instructure/ui-text'
 import { Flex } from '@instructure/ui-flex'
-import { View } from '@instructure/ui-layout'
+import { View } from '@instructure/ui-view'
 import { Spinner } from '@instructure/ui-spinner'
 import isEqual from 'lodash/isEqual'
 
@@ -30,14 +30,19 @@ class SearchResults extends React.Component {
 
   static defaultProps = {
     screenreaderNotification: null,
-    searchTotal: null,
+    searchTotal: null
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { isSearchLoading, searchPage, screenreaderNotification } = this.props
     if (screenreaderNotification) {
       if (!isSearchLoading && prevProps.isSearchLoading) {
-        screenreaderNotification(t('Results updated for page {page} of {totalPages}', { page: searchPage, totalPages: this.getPageCount()  }))
+        screenreaderNotification(
+          t('Results updated for page {page} of {totalPages}', {
+            page: searchPage,
+            totalPages: this.getPageCount()
+          })
+        )
         screenreaderNotification(this.getResultCountText())
       }
       if (!isEqual(searchPage, prevProps.searchPage)) {
@@ -46,15 +51,15 @@ class SearchResults extends React.Component {
     }
   }
 
-  renderEntries () {
+  renderEntries() {
     const {
       setFocusedOutcome,
       isOutcomeSelected,
       selectOutcomeIds,
       deselectOutcomeIds,
-      searchEntries,
+      searchEntries
     } = this.props
-    return searchEntries.map(outcome => {
+    return searchEntries.map((outcome) => {
       return (
         <div key={outcome.id} data-automation="searchResults__outcomeResult">
           <OutcomeCheckbox
@@ -69,12 +74,12 @@ class SearchResults extends React.Component {
     })
   }
 
-  getPageCount () {
+  getPageCount() {
     const { searchTotal } = this.props
     return Math.ceil(searchTotal / RESULTS_PER_PAGE)
   }
 
-  renderPagination () {
+  renderPagination() {
     const { searchPage, updateSearchPage } = this.props
     return (
       <Pagination
@@ -85,43 +90,50 @@ class SearchResults extends React.Component {
     )
   }
 
-  getResultCountText () {
+  getResultCountText() {
     const { searchTotal } = this.props
-    return t(`{
+    return t(
+      `{
       count, plural,
       =0 {The search returned no results}
       one {# result}
       other {# results}
-    }`, { count: searchTotal })
+    }`,
+      { count: searchTotal }
+    )
   }
 
-  renderResults () {
+  renderResults() {
     const { searchEntries } = this.props
-    return(
+    return (
       <View>
-        {searchEntries.length > 0 &&
-          <View data-automation='searchResults__resultsList'
+        {searchEntries.length > 0 && (
+          <View
+            data-automation="searchResults__resultsList"
             display="block"
-            padding="small none none none">
+            padding="small none none none"
+          >
             {this.renderEntries()}
           </View>
-        }
+        )}
       </View>
     )
   }
 
-  renderHeader () {
+  renderHeader() {
     const { searchTotal } = this.props
-    return searchTotal !== null && (
-      <View>
-        <Text size="small" data-automation="searchResults__resultsCount">
-          {this.getResultCountText()}
-        </Text>
-      </View>
+    return (
+      searchTotal !== null && (
+        <View>
+          <Text size="small" data-automation="searchResults__resultsCount">
+            {this.getResultCountText()}
+          </Text>
+        </View>
+      )
     )
   }
 
-  renderLoading () {
+  renderLoading() {
     return (
       <Flex justifyItems="center">
         <Flex.Item padding="small">
@@ -131,19 +143,21 @@ class SearchResults extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const { isSearchLoading } = this.props
     return (
       <Flex
-        height="100%" width="100%"
-        padding="small none none none" alignItems="stretch" direction="column">
+        height="100%"
+        width="100%"
+        padding="small none none none"
+        alignItems="stretch"
+        direction="column"
+      >
         <Flex.Item shouldGrow>
           {this.renderHeader()}
           {isSearchLoading ? this.renderLoading() : this.renderResults()}
         </Flex.Item>
-        <Flex.Item>
-          {!isSearchLoading && this.renderPagination()}
-        </Flex.Item>
+        <Flex.Item>{!isSearchLoading && this.renderPagination()}</Flex.Item>
       </Flex>
     )
   }

@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link, Text } from '@instructure/ui-elements'
-import { Checkbox } from '@instructure/ui-forms'
+import { Text } from '@instructure/ui-text'
+import { Link } from '@instructure/ui-link'
+import { Checkbox } from '@instructure/ui-checkbox'
 import { themeable } from '@instructure/ui-themeable'
 import { outcomeShape } from '../../store/shapes'
 import OutcomeDescription from '../OutcomeDescription'
@@ -20,11 +21,11 @@ export default class OutcomeCheckbox extends React.Component {
     deselectOutcomeIds: PropTypes.func.isRequired
   }
 
-  selected () {
+  selected() {
     return this.props.isOutcomeSelected(this.props.outcome.id)
   }
 
-  toggleOutcomeSelection () {
+  toggleOutcomeSelection() {
     if (this.selected()) {
       this.props.deselectOutcomeIds([this.props.outcome.id])
     } else {
@@ -32,7 +33,7 @@ export default class OutcomeCheckbox extends React.Component {
     }
   }
 
-  render () {
+  render() {
     const { outcome } = this.props
     const { id, description, title } = outcome
 
@@ -42,7 +43,7 @@ export default class OutcomeCheckbox extends React.Component {
           value={id}
           checked={this.selected()}
           onChange={() => this.toggleOutcomeSelection()}
-          label={(
+          label={
             <div className={styles.checkboxLabel}>
               <Link
                 onClick={(e) => {
@@ -51,15 +52,16 @@ export default class OutcomeCheckbox extends React.Component {
                 }}
               >
                 <Text size="small">
-                  <span className={styles.linkText} data-automation="outcomeCheckbox__outcomeName">
-                    <span className={styles.innerLinkText}>
-                      {title}
-                    </span>
+                  <span
+                    className={styles.linkText}
+                    data-automation="outcomeCheckbox__outcomeName"
+                  >
+                    <span className={styles.innerLinkText}>{title}</span>
                   </span>
                 </Text>
               </Link>
             </div>
-          )}
+          }
         />
         <div className={styles.checkboxDescription}>
           <OutcomeDescription description={description} />
