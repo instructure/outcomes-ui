@@ -14,7 +14,6 @@ import features from './features/reducers'
 import OutcomePicker from './OutcomePicker/reducers'
 import alignments from './alignments/reducers'
 import report from './report/reducers'
-import StudentMastery from './StudentMastery/reducers'
 import activePicker from './activePicker/reducers'
 
 /**
@@ -77,7 +76,6 @@ function addScopeToStore (store, key, host, jwt, contextUuid, artifactType, arti
       config: config({ host, jwt, contextUuid, artifactType, artifactId }),
       alignments,
       report,
-      StudentMastery,
       OutcomePicker
     }), key)
     store.replaceReducer(createRootReducer())

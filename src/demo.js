@@ -17,7 +17,6 @@ import {
   OutcomeCount,
   OutcomesPerStudentReport,
   OutcomeList,
-  StudentMastery,
   AlignmentButton
 } from './index'
 import styles from './index.css'
@@ -47,8 +46,6 @@ const createJwt = query.jwt || process.env.CREATE_TOKEN
 const createKindergartenJwt = query.jwt || process.env.CREATE_KINDERGARTEN_TOKEN
 const createFirstGradeJwt = query.jwt || process.env.CREATE_FIRST_GRADE_TOKEN
 const reportJwt = query.jwt || process.env.REPORT_TOKEN
-const individualReportUserUuid = query.userUuid || process.env.INDIVIDUAL_REPORT_USER_UUID
-const individualReportJwt = query.jwt || process.env.INDIVIDUAL_REPORT_TOKEN
 const outcomesHost = `http://${query.host || window.location.host}`
 
 const { artifactType = 'quizzes.quiz', artifactId = '99' } = query
@@ -244,28 +241,6 @@ function rerender () {
                 showRollups={showRollups}
               />
             </div>
-          </div>
-        </TabPanel>
-        <TabPanel title="Student Performance" textAlign="center" data-automation="studentPerformance__report">
-          <div className={styles.mastery}>
-            <StudentMastery
-              mastery
-              artifactType={artifactType}
-              artifactId={artifactId}
-              host={outcomesHost}
-              jwt={individualReportJwt}
-              userUuid={individualReportUserUuid}
-            />
-          </div>
-          <div className={styles.mastery}>
-            <StudentMastery
-              mastery={false}
-              artifactType={artifactType}
-              artifactId={artifactId}
-              host={outcomesHost}
-              jwt={individualReportJwt}
-              userUuid={individualReportUserUuid}
-            />
           </div>
         </TabPanel>
         <TabPanel title="Theme" textAlign="center">
