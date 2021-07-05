@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# resultat}\n  other {# resultats}\n}"
     },
-    "description_436c48d7": {
-        "message": "Descripció"
-    },
     "deselect_all_74eed4f7": {
         "message": "Anul·la la selecció de tot"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "No han arribat"
-    },
-    "difference_7496769c": {
-        "message": "Diferència"
     },
     "done_54e3d4b6": {
         "message": "Fet"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Grups i resultats d''àmbit domèstic"
     },
-    "institution_average_d4be375e": {
-        "message": "Mitjana de la institució"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "S''ha eliminat l ''alineació de { label }"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Resultats d''aprenentatge que heu dominat"
     },
     "loading_bde52856": {
         "message": "S''està carregant"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "D''acord"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Oportunitats per aprendre i créixer"
-    },
     "outcome_da397d20": {
         "message": "Resultat"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Resultats seleccionats:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Puntuació de l''estudiant"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Els estudiants han d''acabar l''avaluació abans que els resultats es mostrin aquí. Torneu a comprovar-ho aquí després que alguns estudiants hagin finalitzat l''avaluació."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "L''avaluació no té cap resultat alineat. Aneu a la pestanya Construeix per alinear els resultats."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "No hi ha cap oportunitat disponible."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "No hi ha cap resultat"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Aquí no hi ha cap informe per mostrar"
-    },
-    "title_ee03d132": {
-        "message": "Títol"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Per afegir o crear resultats, aneu a la pàgina de resultats de Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Mostra el resultat"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Encara no heu obtingut cap resultat amb nivell de domini."
     }
 }

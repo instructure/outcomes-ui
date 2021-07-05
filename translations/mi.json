@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Putanga}\n  other {# Ngā putanga}\n}"
     },
-    "description_436c48d7": {
-        "message": "Whakāhuatanga"
-    },
     "deselect_all_74eed4f7": {
         "message": "Whakawātea te katoa"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Kaore i tutaki"
-    },
-    "difference_7496769c": {
-        "message": "Rerekētanga"
     },
     "done_54e3d4b6": {
         "message": "Kua mahia"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Ngā röpu o te whare me ngā putanga"
     },
-    "institution_average_d4be375e": {
-        "message": "Whakanōhanga Toharite"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } Kua tangohia te hāngaitanga"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Ngā Hua Akoranga Kua Tohua e koe"
     },
     "loading_bde52856": {
         "message": "E tukuake ana"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "Ae"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Ngā whai wāhitanga mo te Ako me te Tipuranga"
-    },
     "outcome_da397d20": {
         "message": "Putanga"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Ngā putanga kua tīpakohia"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Kaute a te Akonga"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Me whakaoti e ngā akonga te aromatawai i mua i te whakātu mai o ngā huanga i konei. Whakahoki mai ki konei i muri i te whakaoti o te aromatawai i ētahi o ngā akonga."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Kaore he putanga o te aromatawai e hangai ana ki ia. Haere ki te Hanga ripa ki te whakapā ki ngā putanga"
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Kaore he wāhanga i te wātea."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Kaore ngā putanga."
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Kaore he rīpoata i konei hei whakātu"
-    },
-    "title_ee03d132": {
-        "message": "taitara"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Hei tāpiri, hei waihanga rānei i ngā hua, toro ki te whārangi putanga Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Tiro putanga"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Kaore anō koe i tohu i ngā  hua i tēnei wā."
     }
 }

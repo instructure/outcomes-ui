@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
     },
-    "description_436c48d7": {
-        "message": "Description"
-    },
     "deselect_all_74eed4f7": {
         "message": "Deselect all"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Did not Meet"
-    },
-    "difference_7496769c": {
-        "message": "Difference"
     },
     "done_54e3d4b6": {
         "message": "Done"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Home level groups and outcomes"
     },
-    "institution_average_d4be375e": {
-        "message": "Institution average"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } alignment removed"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Learning outcomes you''ve mastered"
     },
     "loading_bde52856": {
         "message": "Loading"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Opportunities for learning and growth"
-    },
     "outcome_da397d20": {
         "message": "Outcome"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Selected outcomes:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Student''s Score"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Students must finish the assessment before any outcome results will show here. Check back here after some students have completed the assessment."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "The assessment has no outcomes aligned to it. Go to the Build tab to align outcomes."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "There are no opportunities available."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "There are no outcomes"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "There is no report here to show"
-    },
-    "title_ee03d132": {
-        "message": "Title"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "To add or create outcomes, visit the Canvas outcomes page."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "View Outcome"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "You have not mastered any outcomes yet."
     }
 }

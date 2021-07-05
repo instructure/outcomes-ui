@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# ผลลัพธ์}\n  other {# ผลลัพธ์}\n}"
     },
-    "description_436c48d7": {
-        "message": "รายละเอียด"
-    },
     "deselect_all_74eed4f7": {
         "message": "ยกเลิกการเลือกทั้งหมด"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "ไม่ผ่านเกณฑ์"
-    },
-    "difference_7496769c": {
-        "message": "ความแตกต่าง"
     },
     "done_54e3d4b6": {
         "message": "เสร็จสิ้น"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "กลุ่มและผลลัพธ์ระดับโฮม"
     },
-    "institution_average_d4be375e": {
-        "message": "ค่าเฉลี่ยสถาบัน"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } การประสานที่ลบ"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "ผลการเรียนรู้ที่คุณพัฒนาความเชี่ยวชาญได้"
     },
     "loading_bde52856": {
         "message": "กำลังโหลด"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "โอกาสในการเรียนรู้และเติบโต"
-    },
     "outcome_da397d20": {
         "message": "ผลลัพธ์"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "ผลลัพธ์ที่เลือก:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "คะแนนของผู้เรียน"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "ผู้เรียนจะต้องผ่านการประเมินก่อนผลลัพธ์จะปรากฏขึ้นที่นี่ ตรวจสอบอีกครั้งที่นี่หลังจากผู้เรียนบางส่วนผ่านการประเมินแล้ว"
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "การประเมินไม่มีผลลัพธ์ที่ประสานเข้าไว้ด้วยกัน ไปที่แท็บ จัดทำ เพื่อประสานผลลัพธ์"
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "ไม่มีโอกาส"
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "ไม่มีผลลัพธ์"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "ไม่มีรายงานสำหรับแสดงที่นี่"
-    },
-    "title_ee03d132": {
-        "message": "ชื่อ"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "เพิ่มหรือจัดทำผลลัพธ์โดยไปที่หน้าผลลัพธ์ของ Canvas"
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "ดูผลลัพธ์"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "คุณยังไม่ได้พัฒนาระดับความเชี่ยวชาญสำหรับผลลัพธ์ใด ๆ"
     }
 }

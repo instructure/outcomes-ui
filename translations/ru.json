@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Результат}\n  other {# Результаты}\n}"
     },
-    "description_436c48d7": {
-        "message": "Описание"
-    },
     "deselect_all_74eed4f7": {
         "message": "Отменить выбор для всех"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Не соответствует"
-    },
-    "difference_7496769c": {
-        "message": "Разница"
     },
     "done_54e3d4b6": {
         "message": "Готово"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Группы и результаты домашнего уровня"
     },
-    "institution_average_d4be375e": {
-        "message": "Средняя по организации"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } согласование удалено"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Ваши результаты обучения"
     },
     "loading_bde52856": {
         "message": "Загрузка"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Возможности для обучения и роста"
-    },
     "outcome_da397d20": {
         "message": "Результат"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Выбранные результаты:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Оценка студента"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Студенты должны получить оценки до того, как на данной странице появятся какие-либо результаты. После того, как отдельные студенты получат оценку, снова проверьте данную страницу."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Оценка не имеет привязанных к ней результатов. Перейдите к вкладке Скомпоновать для привязки результатов."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Нет доступных возможностей."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Результаты отсутствуют"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Нет отчетов для отображения"
-    },
-    "title_ee03d132": {
-        "message": "Заголовок"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Для добавления или создания результатов откройте страницу результатов Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Просмотреть результат"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Вы не достигли пока что никаких результатов."
     }
 }

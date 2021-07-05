@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# 结果 }\n  other {（共 # 个结果）}\n}"
     },
-    "description_436c48d7": {
-        "message": "说明"
-    },
     "deselect_all_74eed4f7": {
         "message": "取消选择所有"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "未达到"
-    },
-    "difference_7496769c": {
-        "message": "差距"
     },
     "done_54e3d4b6": {
         "message": "完成"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "首页级组和结果"
     },
-    "institution_average_d4be375e": {
-        "message": "机构平均分"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } 已删除调整"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "您已经掌握的学习结果"
     },
     "loading_bde52856": {
         "message": "加载中"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "确定"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "学习和发展机会"
-    },
     "outcome_da397d20": {
         "message": "结果"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "所选结果："
     },
-    "student_s_score_34d8a1ca": {
-        "message": "学生分数"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "学生必须完成评估后，此处才会显示结果。一些学生完成评估后，再返回此处查看。"
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "此评估没有匹配的结果。请转到“生成”选项卡以匹配结果。"
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "没有机会可用。"
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "没有结果"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "此处没有报告可以显示"
-    },
-    "title_ee03d132": {
-        "message": "标题"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "若要添加或创建结果，请访问 Canvas 结果页。"
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "查看结果"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "您尚未掌握任何结果。"
     }
 }

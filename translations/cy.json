@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Deilliant}\n  other {# Deilliant}\n}"
     },
-    "description_436c48d7": {
-        "message": "Disgrifiad"
-    },
     "deselect_all_74eed4f7": {
         "message": "Dad-ddewis y cyfan"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Heb gyrraedd"
-    },
-    "difference_7496769c": {
-        "message": "Gwahaniaeth"
     },
     "done_54e3d4b6": {
         "message": "Wedi gorffen"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Grwpiau a deilliannau ar lefel hafan"
     },
-    "institution_average_d4be375e": {
-        "message": "Cyfartaledd Sefydliad"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } aliniad wedi’i dynnu"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Deilliannau Dysgu rydych wedi''u Meistroli"
     },
     "loading_bde52856": {
         "message": "Wrthi’n llwytho"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "Iawn"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Cyfleoedd Dysgu a Thwf"
-    },
     "outcome_da397d20": {
         "message": "Deilliant"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Deilliannau wedi’u dewis:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Sgôr Myfyriwr"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Rhaid i fyfyrwyr orffen yr aseiniad hwn cyn bydd canlyniadau deilliannau yn dangos yma. Dewch yn ôl yma i weld ar ôl i rai myfyrwyr gwblhau’r asesiad."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Does dim deilliannau wedi’u cysoni â''r asesiad. Ewch i''r tab Adeiladu i gysoni deilliannau."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Dim cyfleoedd ar gael."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Does dim deilliannau"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Does dim adroddiad i’w ddangos yma"
-    },
-    "title_ee03d132": {
-        "message": "Teitl"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "I ychwanegu neu greu deilliannau, ewch i dudalen deilliannau Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Gweld y Deilliant"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Dydych chi ddim wedi meistroli unrhyw ddeilliannau eto."
     }
 }

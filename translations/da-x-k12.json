@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Læringsudbytte}\n  other {# Læringsudbytter}\n}"
     },
-    "description_436c48d7": {
-        "message": "Beskrivelse"
-    },
     "deselect_all_74eed4f7": {
         "message": "Fravælg alle"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Opnåede ikke"
-    },
-    "difference_7496769c": {
-        "message": "Forskel"
     },
     "done_54e3d4b6": {
         "message": "Udført"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Niveaugrupper og læringsudbytter på startsiden"
     },
-    "institution_average_d4be375e": {
-        "message": "Institutionens gennemsnit"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } tilpasning fjernet"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Læringsudbytter, som du behersker"
     },
     "loading_bde52856": {
         "message": "Indlæser"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Muligheder for læring og vækst"
-    },
     "outcome_da397d20": {
         "message": "Læringsudbytte"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Valgte læringsudbytter:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Elevens resultat"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Elever skal afslutte vurderingen, før resultaterne vises her. Kom tilbage, når nogle elever har gennemført vurderingen."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Vurderingen har ingen læringsudbytter tilpasset til den. Gå til fanen Byg for at tilknytte læringsudbytter."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Der er ingen muligheder tilgængelige."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Der er ingen læringsudbytter"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Der er ingen rapport her, der skal vises"
-    },
-    "title_ee03d132": {
-        "message": "Titel"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "For at tilføje eller oprette resultater skal du besøge læringsudbytter siden på Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Vis læringsudbytte"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Du har ikke mestret nogen læringsudbytter endnu."
     }
 }

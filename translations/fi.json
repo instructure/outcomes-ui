@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# tulos}\n  other {# tulosta}\n}"
     },
-    "description_436c48d7": {
-        "message": "Kuvaus"
-    },
     "deselect_all_74eed4f7": {
         "message": "Poista kaikkien valinta"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Ei saavuttanut"
-    },
-    "difference_7496769c": {
-        "message": "Ero"
     },
     "done_54e3d4b6": {
         "message": "Valmis"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Aloitussivun tason ryhmät ja tulokset"
     },
-    "institution_average_d4be375e": {
-        "message": "Laitoksen keskiarvo"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } kohdistus poistettu"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Oppimisen tulokset, jotka olet saavuttanut"
     },
     "loading_bde52856": {
         "message": "Ladataan"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Mahdollisuudet oppimiseen ja kasvamiseen"
-    },
     "outcome_da397d20": {
         "message": "Tulos"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Valitut tulokset:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Opiskelijan pistemäärä"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Opiskelijoiden täytyy tehdä arviointi loppuun ennen kuin mitkään tulokset näkyvät täällä. Palaa takaisin sen jälkeen, kun jotkut opiskelijoista ovat suorittaneet arvioinnin."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Arvioinnilla ei ole siihen kohdistettuja tuloksia. Siirry Koonti-välilehteen kohdistaaksesi tulokset."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Mahdollisuuksia ei ole saatavissa."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Tuloksia ei ole"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Ei ole tässä näytettävää raporttia"
-    },
-    "title_ee03d132": {
-        "message": "Otsikko"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Jos haluat lisätä tai luoda tuloksia, käy Canvas-tulossivulla."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Tarkastele tulosta"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Et ole vielä hallinnut yhtään tulosta."
     }
 }

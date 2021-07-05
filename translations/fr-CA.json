@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Acquis}\n  other {# Acquis}\n}"
     },
-    "description_436c48d7": {
-        "message": "Description"
-    },
     "deselect_all_74eed4f7": {
         "message": "Tout désélectionner"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Non satisfait"
-    },
-    "difference_7496769c": {
-        "message": "Différence"
     },
     "done_54e3d4b6": {
         "message": "Terminé"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Groupes et acquis de niveau d’accueil"
     },
-    "institution_average_d4be375e": {
-        "message": "Moyenne de l’institution"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } alignement supprimé"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Acquis que vous avez maîtrisé"
     },
     "loading_bde52856": {
         "message": "Chargement en cours..."
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "D''accord"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Possibilités d''apprentissage et de croissance"
-    },
     "outcome_da397d20": {
         "message": "Acquis"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Acquis sélectionnés :"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Score de l’étudiant"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Les étudiants doivent terminer l’évaluation avant que tout résultat d’acquis soit affiché ici. Vérifier ici après que quelques étudiants ont complété l’évaluation."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "L’évaluation ne comporte aucun acquis. Allez à l’onglet « Construire » (Build) pour harmoniser les acquis."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Il n''y a aucune opportunité disponible."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Il n''y a pas d’acquis"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Aucun rapport disponible"
-    },
-    "title_ee03d132": {
-        "message": "Titre"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Pour ajouter ou créer des acquis, visitez la page d’acquis de Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Afficher l’acquis"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Vous n''avez pas maîtrisé d’acquis en ce moment."
     }
 }

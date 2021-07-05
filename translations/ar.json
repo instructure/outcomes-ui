@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# نتيجة}\n  other {# نتائج}\n}"
     },
-    "description_436c48d7": {
-        "message": "الوصف"
-    },
     "deselect_all_74eed4f7": {
         "message": "إلغاء تحديد الكل"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "لم يستوفِ"
-    },
-    "difference_7496769c": {
-        "message": "الفرق"
     },
     "done_54e3d4b6": {
         "message": "تم"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "مجموعات ونتائج مستوى الصفحة الرئيسية"
     },
-    "institution_average_d4be375e": {
-        "message": "متوسط المؤسسة"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } تمت إزالة المحاذاة"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "معرفة النتائج التي قمت بإجادتها"
     },
     "loading_bde52856": {
         "message": "يتم الآن التحميل"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "موافق"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "فرص للتعلم والتطور"
-    },
     "outcome_da397d20": {
         "message": "النتيجة"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "النتائج المحددة:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "تقدير الطالب"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "يجب على الطلاب إنهاء التقييم قبل ظهور أي نتائج هنا. تحقق لاحقًا بعد إكمال بعض الطلاب للتقييم."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "لا توجد نواتج محاذية للتقييم. انتقل إلى علامة تبويب البناء لمحاذاة النواتج."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "لا توجد أي فرص متاحة."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "لا توجد نواتج"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "لا يوجد تقرير هنا لعرضه"
-    },
-    "title_ee03d132": {
-        "message": "العنوان"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "لإضافة أو إنشاء ناتج، الرجاء زيارة صفحة نواتج Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "عرض النتيجة"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "لم تقم بإجادة أي نواتج حتى الآن."
     }
 }

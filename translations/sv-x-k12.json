@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# lärandemål}\n  other {# lärandemål}\n}"
     },
-    "description_436c48d7": {
-        "message": "Beskrivning"
-    },
     "deselect_all_74eed4f7": {
         "message": "Avmarkera alla"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Nådde inte upp till"
-    },
-    "difference_7496769c": {
-        "message": "Skillnad"
     },
     "done_54e3d4b6": {
         "message": "Klar"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Startsida för nivågrupper och lärandemål"
     },
-    "institution_average_d4be375e": {
-        "message": "Institutionens genomsnitt"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } justering borttagen"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Lärandemål som du har uppfyllt"
     },
     "loading_bde52856": {
         "message": "Läser in"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Möjligheter till lärande och tillväxt"
-    },
     "outcome_da397d20": {
         "message": "Lärandemål"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Valda lärandemål:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Elevens resultat"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Eleverna måste avsluta bedömningen innan några resultat för lärandemål kommer att visas här. Kolla här igen efter att några elever har slutfört bedömningen."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Bedömningen har inga lärandemål som justerats till den. Gå till fliken Skapa för att justera lärandemål."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Det finns inga möjligheter tillgängliga."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Det finns inga lärandemål"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Det finns ingen rapport att visa här"
-    },
-    "title_ee03d132": {
-        "message": "Titel"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "För att lägga till eller skapa lärandemål, gå till sidan för lärandemål för Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Visa lärandemål"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Du har inte hanterat några lärandemål ännu."
     }
 }

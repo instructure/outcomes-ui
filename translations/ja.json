@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# 結果}\n  other {# 結果}\n}"
     },
-    "description_436c48d7": {
-        "message": "説明"
-    },
     "deselect_all_74eed4f7": {
         "message": "すべての選択を取り消し"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "合致しませんでした"
-    },
-    "difference_7496769c": {
-        "message": "差異"
     },
     "done_54e3d4b6": {
         "message": "完了"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "ホームレベルのグループと結果"
     },
-    "institution_average_d4be375e": {
-        "message": "講義平均"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } 整列が削除されました"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "あなたが習得した学習結果"
     },
     "loading_bde52856": {
         "message": "読み込み中"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "学習と成長の機会"
-    },
     "outcome_da397d20": {
         "message": "結果"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "選択された結果："
     },
-    "student_s_score_34d8a1ca": {
-        "message": "受講生の成績"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "受講者がアセスメントを完了するまで、成績結果はここに表示されません。数名の受講生がアセスメントを完了した時点で、再びここでチェックしてください。"
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "アセスメントには、それに合わせた結果はありません。結果を整列するには、[ビルド]タブに移動します。"
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "使用できる機会がありません。"
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "成績結果はありません"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "表示するレポートはありません"
-    },
-    "title_ee03d132": {
-        "message": "タイトル"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "成績結果を追加または作成するには、Canvas 成績結果ページをご覧ください。"
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "結果を表示"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "まだマスターした結果はありません。"
     }
 }

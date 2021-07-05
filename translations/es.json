@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {#Competencia}\n  other {#Competencias}\n}"
     },
-    "description_436c48d7": {
-        "message": "Descripción"
-    },
     "deselect_all_74eed4f7": {
         "message": "Deseleccionar todo"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "No alcanzó"
-    },
-    "difference_7496769c": {
-        "message": "Diferencia"
     },
     "done_54e3d4b6": {
         "message": "Listo"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Grupos a nivel del hogar y competencias"
     },
-    "institution_average_d4be375e": {
-        "message": "Promedio de la institución"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } alineación eliminada"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Competencias de aprendizaje que ha dominado"
     },
     "loading_bde52856": {
         "message": "Cargando"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "Aceptar"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Oportunidades de aprendizaje y crecimiento"
-    },
     "outcome_da397d20": {
         "message": "Competencia"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Competencias seleccionados:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Puntaje del estudiante"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Los estudiantes deben terminar primero la evaluación para que se muestren los resultados de competencia aquí. Vuelva a intentarlo después de que algunos estudiantes hayan completado la evaluación."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "La evaluación no tiene competencias alineadas. Ingrese a la pestaña Construcción para alinear las competencias."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "No hay oportunidades disponibles."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "No hay competencias"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "No hay ningún reporte aquí para mostrar"
-    },
-    "title_ee03d132": {
-        "message": "Título"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Para agregar o crear competencias, visite la página de competencias de Canvas."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Ver competencia"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Aún no ha dominado ninguna competencia."
     }
 }

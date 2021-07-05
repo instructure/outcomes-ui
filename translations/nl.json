@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# Leerdoel}\n  other {# leerdoelen}\n}"
     },
-    "description_436c48d7": {
-        "message": "Beschrijving"
-    },
     "deselect_all_74eed4f7": {
         "message": "Selectie van alle items opheffen"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "Niet voldaan"
-    },
-    "difference_7496769c": {
-        "message": "Verschil"
     },
     "done_54e3d4b6": {
         "message": "Gereed"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "Groepen en leerdoelen op hoofdniveau"
     },
-    "institution_average_d4be375e": {
-        "message": "Gemiddelde van organisatie"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } afstemming verwijderd"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "Leerdoelen die je gehaald hebt"
     },
     "loading_bde52856": {
         "message": "Bezig met laden..."
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "OK"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "Mogelijkheden om te leren en groeien"
-    },
     "outcome_da397d20": {
         "message": "Leerdoel"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "Geselecteerde leerdoelen:"
     },
-    "student_s_score_34d8a1ca": {
-        "message": "Score van cursist"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Cursisten moeten de beoordeling voltooien voordat hier resultaten worden weergegeven. Kom hier terug nadat enkele cursisten de beoordeling hebben voltooid."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "Aan de beoordeling zijn geen leerdoelen gekoppeld. Ga naar het tabblad Bouwen om leerdoelen te koppelen."
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "Er zijn geen mogelijkheden beschikbaar."
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "Er zijn geen leerdoelen"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "Er zijn hier geen rapporten die kunnen worden weergegeven"
-    },
-    "title_ee03d132": {
-        "message": "Titel"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "Ga naar de Canvas-pagina voor leerdoelen als je leerdoelen wilt toevoegen of maken."
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "Leerdoel weergeven"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "Je hebt nog geen leerdoelen behaald."
     }
 }

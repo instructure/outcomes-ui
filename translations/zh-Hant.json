@@ -74,9 +74,6 @@
     "count_plural_one_outcome_other_outcomes_7112a43f": {
         "message": "{ count, plural,\n    one {# 成果}\n  other {# 成果}\n}"
     },
-    "description_436c48d7": {
-        "message": "說明"
-    },
     "deselect_all_74eed4f7": {
         "message": "取消全選"
     },
@@ -85,9 +82,6 @@
     },
     "didn_t_meet_411b07a2": {
         "message": "未達標"
-    },
-    "difference_7496769c": {
-        "message": "差別"
     },
     "done_54e3d4b6": {
         "message": "已完成"
@@ -101,14 +95,8 @@
     "home_level_groups_and_outcomes_59843468": {
         "message": "家庭級別小組和學習成果"
     },
-    "institution_average_d4be375e": {
-        "message": "機構平均"
-    },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } 移除對齊"
-    },
-    "learning_outcomes_you_ve_mastered_672aaa66": {
-        "message": "了解您已經掌握的學習成果"
     },
     "loading_bde52856": {
         "message": "正在載入"
@@ -155,9 +143,6 @@
     "ok_c47544a2": {
         "message": "確定"
     },
-    "opportunities_for_learning_and_growth_231b48db": {
-        "message": "學習和成長的機會"
-    },
     "outcome_da397d20": {
         "message": "成果"
     },
@@ -188,26 +173,17 @@
     "selected_outcomes_1a8c9b9": {
         "message": "所選學習成果："
     },
-    "student_s_score_34d8a1ca": {
-        "message": "學生分數"
-    },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "學生須先完成評估，才能在此處顯示學習成果結果。請待部分學生已完成評估後，再返回此處查看。"
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "評估沒有與之相符的學習成果。請至配置標籤配對學習成果。"
     },
-    "there_are_no_opportunities_available_3a3b0554": {
-        "message": "沒有可使用的機會。"
-    },
     "there_are_no_outcomes_93d5b174": {
         "message": "沒有學習成果"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "此處沒有可顯示的報告"
-    },
-    "title_ee03d132": {
-        "message": "標題"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
         "message": "要添加或創建學習成果，請前往 Canvas 學習成果內容頁。"
@@ -220,8 +196,5 @@
     },
     "view_outcome_15d9adc1": {
         "message": "檢視成果"
-    },
-    "you_have_not_mastered_any_outcomes_yet_590ce9fe": {
-        "message": "您還沒有掌握任何學習成果。"
     }
 }
