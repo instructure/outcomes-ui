@@ -52,7 +52,7 @@ class OutcomesService {
     if (contextUuid) {
       params += `&${queryString.stringify({
         context_uuid: contextUuid
-      })}`
+      })}&includes[]=friendly_description`
     }
     if (roots) {
       params += `&${queryString.stringify({ roots: roots }, { arrayFormat: 'bracket' })}`
@@ -63,22 +63,26 @@ class OutcomesService {
       .then((json) => (json.outcome_tree || json))
   }
 
-  getOutcome (host, jwt, id) {
-    return this.get(host, jwt, `/api/outcomes/${id}`)
+  getOutcome (host, jwt, id, contextUuid) {
+    const params = `?includes[]=friendly_description&context_uuid=${contextUuid}`
+    return this.get(host, jwt, `/api/outcomes/${id}${params}`)
       .then(checkResponse)
       .then(toJson)
       .then((json) => json)
   }
 
-  getAlignments (host, jwt, alignmentSetId) {
+  getAlignments (host, jwt, alignmentSetId, contextUuid) {
     if (!alignmentSetId) {
       return Promise.resolve([])
     }
 
-    const params = {
-      includes: ['outcomes']
+    let params = 'includes[]=outcomes&includes[]=friendly_description'
+
+    if (contextUuid) {
+      params += `&context_uuid=${contextUuid}`
     }
-    return this.get(host, jwt, `/api/alignment_sets/${alignmentSetId}?${queryString.stringify(params)}`)
+
+    return this.get(host, jwt, `/api/alignment_sets/${alignmentSetId}?${params}`)
       .then(checkResponse)
       .then(toJson)
       .then((json) => (json.alignment_set || json))

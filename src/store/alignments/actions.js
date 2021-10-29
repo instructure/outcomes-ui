@@ -25,13 +25,13 @@ export const viewAlignment = (outcomeId) => {
     if (outcome && outcome.scoring_method) {
       return Promise.resolve()
     }
-    const { host, jwt } = getConfig(getState(), scope)
+    const { host, jwt, contextUuid } = getConfig(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'getOutcome',
-        args: [host, jwt, outcomeId]
+        args: [host, jwt, outcomeId, contextUuid]
       }
     })
       .then((json) => {
@@ -57,7 +57,7 @@ export const loadAlignments = (alignmentSetId, updateCallback) => {
     if (alignmentSetId && getOutcomeAlignmentSetId(getState(), scope) === alignmentSetId) {
       return Promise.resolve()
     }
-    const { host, jwt } = getConfig(getState(), scope)
+    const { host, jwt, contextUuid } = getConfig(getState(), scope)
     return dispatch(clearAlignmentSet())
       .then(() => {
         return dispatch({
@@ -65,7 +65,7 @@ export const loadAlignments = (alignmentSetId, updateCallback) => {
           payload: {
             service: 'outcomes',
             method: 'getAlignments',
-            args: [host, jwt, alignmentSetId]
+            args: [host, jwt, alignmentSetId, contextUuid]
           }
         })
       })

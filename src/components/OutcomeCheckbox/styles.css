@@ -11,6 +11,11 @@
   padding-left: var(--checkboxDescriptionLeftPadding);
 }
 
+.checkboxFriendlyDescription {
+  margin-left: var(--checkboxDescriptionLeftPadding);
+  margin-bottom: 10px;
+}
+
 .linkText {
   display: table;
   table-layout: fixed;

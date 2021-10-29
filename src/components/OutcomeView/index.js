@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
 import { themeable } from '@instructure/ui-themeable'
+import { View } from '@instructure/ui-view'
+import t from 'format-message'
 
 import {
   outcomeResultShape,
@@ -28,6 +30,7 @@ export default class OutcomeView extends React.Component {
   static propTypes = {
     context: contextShape,
     description: PropTypes.string.isRequired,
+    friendlyDescription: PropTypes.string,
     outcomeResult: outcomeResultShape,
     title: PropTypes.string.isRequired,
     scoringMethod: scoringMethodShape,
@@ -45,7 +48,8 @@ export default class OutcomeView extends React.Component {
     scoringTiers: null,
     artifactTypeName: null,
     displayMasteryDescription: false,
-    displayMasteryPercentText: false
+    displayMasteryPercentText: false,
+    friendlyDescription: null
   }
 
   getScoringMethod() {
@@ -79,12 +83,14 @@ export default class OutcomeView extends React.Component {
       title,
       artifactTypeName,
       displayMasteryDescription,
-      displayMasteryPercentText
+      displayMasteryPercentText,
+      friendlyDescription
     } = this.props
 
     const scoringMethod = this.getScoringMethod()
     const scoringTiers = this.getScoringTiers()
     const displayMasteryInformation = this.getDisplayMasteryInformation()
+    const displayMasteryCounts = scoringMethod && outcomeResult && displayMasteryInformation
 
     return (
       <div>
@@ -93,11 +99,32 @@ export default class OutcomeView extends React.Component {
             {title}
           </Text>
         </div>
-        {scoringMethod && outcomeResult && displayMasteryInformation && (
+        {displayMasteryCounts && (
           <MasteryCounts
             outcomeResult={outcomeResult}
             scoringMethod={scoringMethod}
           />
+        )}
+        {friendlyDescription && (
+          <React.Fragment>
+            <View
+              as="div"
+              margin={`${displayMasteryCounts ? 'medium' : 'x-small'} small 0 0`}
+              padding="small small x-small small"
+              background="secondary"
+            >
+              <Text weight="bold">{t('Friendly Description')}</Text>
+            </View>
+            <View
+              as="div"
+              margin="0 small 0 0"
+              padding="0 small small small"
+              background="secondary"
+              data-testid="friendly-description-expanded"
+            >
+              <Text>{friendlyDescription}</Text>
+            </View>
+          </React.Fragment>
         )}
         <div
           className={styles.description}

@@ -12,6 +12,7 @@ export const outcomeShape = PropTypes.shape({
   guid: PropTypes.string,
   label: PropTypes.string,
   title: PropTypes.string.isRequired,
+  friendly_description: PropTypes.string,
   description: PropTypes.string,
   scoring_method: scoringMethodShape,
   group: PropTypes.bool,

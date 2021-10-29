@@ -33,6 +33,20 @@ describe('OutcomeCheckbox', () => {
     expect(link.text()).to.equal('The student will make cupcakes')
   })
 
+  it('renders friendly description', () => {
+    const props = makeProps({
+      outcome: {
+        id: '101',
+        label: 'XYZ',
+        title: 'The student will make cupcakes',
+        description: 'Hello there',
+        friendly_description: 'This is the Friendly Description'
+      }
+    })
+    const wrapper = mount(<OutcomeCheckbox {...props} />)
+    expect(wrapper.text()).to.match(/This is the Friendly Description/)
+  })
+
   it('renders an OutcomeDescription component', () => {
     const props = makeProps()
     const wrapper = mount(<OutcomeCheckbox {...props} />)

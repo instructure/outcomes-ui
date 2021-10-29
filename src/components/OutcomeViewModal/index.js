@@ -21,7 +21,12 @@ const OutcomeViewModal = (props) => {
     displayMasteryPercentText,
     scope
   } = props
-  const { title, description, scoring_method: scoringMethod } = outcome
+  const {
+    title,
+    description,
+    scoring_method: scoringMethod,
+    friendly_description: friendlyDescription
+  } = outcome
 
   const scoringTiers = outcome.scoring_method
     ? outcome.scoring_method.scoring_tiers
@@ -77,6 +82,7 @@ const OutcomeViewModal = (props) => {
                 displayMasteryDescription={displayMasteryDescription}
                 displayMasteryPercentText={displayMasteryPercentText}
                 outcomeResult={outcomeResult}
+                friendlyDescription={friendlyDescription}
               />
             </View>
           )}
@@ -100,7 +106,8 @@ OutcomeViewModal.propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    scoring_method: PropTypes.object
+    scoring_method: PropTypes.object,
+    friendly_description: PropTypes.string
   }).isRequired,
   outcomeResult: PropTypes.object,
   closeAlignment: PropTypes.func.isRequired,

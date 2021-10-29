@@ -35,6 +35,14 @@ const sharedSpecs = (makeProps) => {
     expect(wrapper.find(ScoringTiers)).to.have.length(0)
   })
 
+  it('includes Friendly Description if defined', () => {
+    const props = makeProps({ friendlyDescription: 'This is another description' })
+    const wrapper = mount(<OutcomeView {...props} />)
+    const text = wrapper.text()
+    expect(text).to.match(/Friendly Description/)
+    expect(text).to.match(/This is another description/)
+  })
+
   it('meets a11y standards', () => {
     return checkA11y(<OutcomeView {...makeProps()} />)
   })

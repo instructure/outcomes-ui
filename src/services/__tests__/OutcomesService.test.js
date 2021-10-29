@@ -38,7 +38,7 @@ describe('OutcomesService', () => {
 
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).to.match(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&context_uuid=alphabeta$/)
+        expect(url).to.match(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&context_uuid=alphabeta&includes\[\]=friendly_description$/)
         return true
       }, [])
       return subject.loadOutcomes(host, jwt, 'alphabeta')
@@ -64,10 +64,10 @@ describe('OutcomesService', () => {
   describe('getOutcome', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).to.match(/\/outcomes\/1$/)
+        expect(url).to.match(/\/outcomes\/1\?includes\[\]=friendly_description&context_uuid=alphabeta$/)
         return true
       }, [])
-      return subject.getOutcome(host, jwt, '1')
+      return subject.getOutcome(host, jwt, '1', 'alphabeta')
     })
 
     it('resolves with json on success', () => {
@@ -76,16 +76,16 @@ describe('OutcomesService', () => {
         scoring_method: {
         }
       }
-      mockGet('/api/outcomes/1', outcome)
-      return subject.getOutcome(host, jwt, '1')
+      mockGet('/api/outcomes/1?includes[]=friendly_description&context_uuid=alphabeta', outcome)
+      return subject.getOutcome(host, jwt, '1', 'alphabeta')
         .then((result) => {
           expect(result).to.deep.equal(outcome)
         })
     })
 
     it('rejects on error', () => {
-      mockGet('/api/outcomes/1', 500)
-      return subject.getOutcome(host, jwt, '1')
+      mockGet('/api/outcomes/1?includes[]=friendly_description&context_uuid=alphabeta', 500)
+      return subject.getOutcome(host, jwt, '1', 'alphabeta')
         .catch((err) => {
           expect(err).to.have.property('status', 500)
         })
@@ -95,10 +95,10 @@ describe('OutcomesService', () => {
   describe('getAlignments', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).to.match(/\/alignment_sets\/foo\?includes=outcomes$/)
+        expect(url).to.match(/\/alignment_sets\/foo\?includes\[\]=outcomes&includes\[\]=friendly_description&context_uuid=alphabeta$/)
         return true
       }, [])
-      return subject.getAlignments(host, jwt, 'foo')
+      return subject.getAlignments(host, jwt, 'foo', 'alphabeta')
     })
 
     it('resolves with json on success', () => {
@@ -111,16 +111,16 @@ describe('OutcomesService', () => {
           ]
         }
       }
-      mockGet('/api/alignment_sets/baz?includes=outcomes', alignments)
-      return subject.getAlignments(host, jwt, 'baz')
+      mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&context_uuid=alphabeta', alignments)
+      return subject.getAlignments(host, jwt, 'baz', 'alphabeta')
         .then((result) => {
           expect(result).to.deep.equal(alignments.alignment_set)
         })
     })
 
     it('rejects on error', () => {
-      mockGet('/api/alignment_sets/foo?includes=outcomes', 500)
-      return subject.getAlignments(host, jwt, 'foo')
+      mockGet('/api/alignment_sets/foo?includes[]=outcomes&includes[]=friendly_description&context_uuid=alphabeta', 500)
+      return subject.getAlignments(host, jwt, 'foo', 'alphabeta')
         .catch((err) => {
           expect(err).to.have.property('status', 500)
         })

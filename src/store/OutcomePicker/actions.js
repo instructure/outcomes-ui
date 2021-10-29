@@ -58,7 +58,7 @@ export const setFocusedOutcome = (outcome) => {
       payload: {
         service: 'outcomes',
         method: 'getOutcome',
-        args: [host, jwt, outcome.id]
+        args: [host, jwt, outcome.id, contextUuid]
       }
     })
       .then((json) => {

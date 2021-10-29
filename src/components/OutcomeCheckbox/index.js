@@ -6,6 +6,8 @@ import { Checkbox } from '@instructure/ui-checkbox'
 import { themeable } from '@instructure/ui-themeable'
 import { outcomeShape } from '../../store/shapes'
 import OutcomeDescription from '../OutcomeDescription'
+import { View } from '@instructure/ui-view'
+import t from 'format-message'
 
 import theme from '../theme'
 import styles from './styles.css'
@@ -63,6 +65,27 @@ export default class OutcomeCheckbox extends React.Component {
             </div>
           }
         />
+        {outcome.friendly_description && (
+          <div className={styles.checkboxFriendlyDescription}>
+            <View
+              as="div"
+              margin='x-small small 0 0'
+              padding="x-small x-small 0"
+              background="secondary"
+            >
+              <Text size='x-small' weight="bold">{t('Friendly Description')}</Text>
+            </View>
+            <View
+              as="div"
+              margin="0 small 0 0"
+              padding="0 x-small x-small"
+              background="secondary"
+            >
+              <Text size='x-small'>{outcome.friendly_description}</Text>
+            </View>
+          </div>
+        )}
+
         <div className={styles.checkboxDescription}>
           <OutcomeDescription description={description} />
         </div>
