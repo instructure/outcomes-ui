@@ -112,6 +112,7 @@ export default class OutcomeView extends React.Component {
               margin={`${displayMasteryCounts ? 'medium' : 'x-small'} small 0 0`}
               padding="small small x-small small"
               background="secondary"
+              data-automation="outcomeView__friendly_description_header"
             >
               <Text weight="bold">{t('Friendly Description')}</Text>
             </View>
@@ -120,7 +121,7 @@ export default class OutcomeView extends React.Component {
               margin="0 small 0 0"
               padding="0 small small small"
               background="secondary"
-              data-testid="friendly-description-expanded"
+              data-automation="outcomeView__friendly_description_expanded"
             >
               <Text>{friendlyDescription}</Text>
             </View>

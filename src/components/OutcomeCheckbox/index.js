@@ -72,6 +72,7 @@ export default class OutcomeCheckbox extends React.Component {
               margin='x-small small 0 0'
               padding="x-small x-small 0"
               background="secondary"
+              data-automation="outcomeCheckbox__friendly_description_header"
             >
               <Text size='x-small' weight="bold">{t('Friendly Description')}</Text>
             </View>
@@ -80,6 +81,7 @@ export default class OutcomeCheckbox extends React.Component {
               margin="0 small 0 0"
               padding="0 x-small x-small"
               background="secondary"
+              data-automation="outcomeCheckbox__friendly_description_expanded"
             >
               <Text size='x-small'>{outcome.friendly_description}</Text>
             </View>
