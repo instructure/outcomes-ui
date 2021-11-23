@@ -29,7 +29,7 @@ describe('OutcomesService', () => {
           ]
         }
       }
-      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2', serverResponse)
+      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2&includes[]=friendly_description', serverResponse)
       return subject.loadOutcomes(host, jwt)
         .then((result) => {
           expect(result).to.deep.equal(serverResponse.outcome_tree)
@@ -44,6 +44,14 @@ describe('OutcomesService', () => {
       return subject.loadOutcomes(host, jwt, 'alphabeta')
     })
 
+    it('adds includes friendly description with blank context', () => {
+      fetchMock.getOnce((url, opts) => {
+        expect(url).to.match(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&includes\[\]=friendly_description$/)
+        return true
+      }, [])
+      return subject.loadOutcomes(host, jwt, '')
+    })
+
     it('supports specifying roots', () => {
       fetchMock.getOnce((url, opts) => {
         expect(url).to.match(/roots\[\]=4&roots\[\]=5/)
@@ -53,7 +61,7 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2', 500)
+      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2&includes[]=friendly_description', 500)
       return subject.loadOutcomes(host, jwt)
         .catch((err) => {
           expect(err).to.have.property('status', 500)
@@ -68,6 +76,14 @@ describe('OutcomesService', () => {
         return true
       }, [])
       return subject.getOutcome(host, jwt, '1', 'alphabeta')
+    })
+
+    it('uses correct query with blank context', () => {
+      fetchMock.getOnce((url, opts) => {
+        expect(url).to.match(/\/outcomes\/1\?includes\[\]=friendly_description$/)
+        return true
+      }, [])
+      return subject.getOutcome(host, jwt, '1', '')
     })
 
     it('resolves with json on success', () => {

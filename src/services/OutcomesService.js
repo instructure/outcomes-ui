@@ -52,8 +52,9 @@ class OutcomesService {
     if (contextUuid) {
       params += `&${queryString.stringify({
         context_uuid: contextUuid
-      })}&includes[]=friendly_description`
+      })}`
     }
+    params += '&includes[]=friendly_description'
     if (roots) {
       params += `&${queryString.stringify({ roots: roots }, { arrayFormat: 'bracket' })}`
     }
@@ -64,7 +65,12 @@ class OutcomesService {
   }
 
   getOutcome (host, jwt, id, contextUuid) {
-    const params = `?includes[]=friendly_description&context_uuid=${contextUuid}`
+    let params = '?includes[]=friendly_description'
+    if (contextUuid) {
+      params += `&${queryString.stringify({
+        context_uuid: contextUuid
+      })}`
+    }
     return this.get(host, jwt, `/api/outcomes/${id}${params}`)
       .then(checkResponse)
       .then(toJson)
