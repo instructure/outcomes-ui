@@ -3,7 +3,7 @@
         "message": "Juster nye læringsmål"
     },
     "align_outcomes_c20e3f7f": {
-        "message": "Juster læringsmål"
+        "message": "Knytt læringsmål"
     },
     "aligned_outcomes_d0a0c159": {
         "message": "Innrettede læringsmål"
@@ -45,7 +45,7 @@
         "message": "{ count } Mestring"
     },
     "count_mastery_at_mastery_pts_1ec580e9": {
-        "message": "{ count } Ekspertise på { mastery } p"
+        "message": "{ count } Mestring på { mastery } p"
     },
     "count_of_total_met_mastery_96a8425d": {
         "message": "{ count } av { total } oppnådde mestring"
@@ -87,7 +87,7 @@
         "message": "Ferdig"
     },
     "exceeds_mastery_1f995dce": {
-        "message": "Overgår ekspertise"
+        "message": "Overgår mestring"
     },
     "friendly_description_57f7fdde": {
         "message": "Vennlig beskrivelse"
@@ -117,22 +117,22 @@
         "message": "Mestring"
     },
     "mastery_at_mastery_pts_19907b1c": {
-        "message": "Ekspertise på { mastery } p"
+        "message": "Mestring på { mastery } p"
     },
     "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
-        "message": "Mestring beregnet etter gjennomsnittskarakter vektet etter siste resultater De seneste resultatene teller som { recent_percent, number, percent } av mestringsgrad, gjennomsnittet av alle andre resultater teller som { remain_percent, number, percent } av mestringsgraden. Dersom det er kun ett resultat, vil det enkelte resultatet bli returnert."
+        "message": "Mestring beregnet etter gjennomsnittsvurdering vektet etter siste resultater De seneste resultatene teller som { recent_percent, number, percent } av mestringsgrad, gjennomsnittet av alle andre resultater teller som { remain_percent, number, percent } av mestringsgraden. Dersom det er kun ett resultat, vil det enkelte resultatet bli returnert."
     },
     "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
-        "message": "Mestring beregnet etter høyest poengsum. Mestringsresultat viser den høyeste poengsummen for en karaktersatt vurdering."
+        "message": "Mestring beregnet etter høyest poengsum. Mestringsresultat viser den høyeste poengsummen for en vurdert vurdering."
     },
     "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
-        "message": "Mestring beregnet etter nyligste poengsum. Mestringsresultat viser vurderingen som er karaktersatt sist."
+        "message": "Mestring beregnet etter nyligste poengsum. Mestringsresultat viser vurderingen som er vurdert sist."
     },
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
         "message": "Mestring beregnet etter n antall ganger. Må oppnå mestring minst { n_times, number } ganger.  Poengsummer over mestringsnivå blir jevnet med snittet for å beregne sluttresultatet."
     },
     "near_mastery_f25174a4": {
-        "message": "Nær ekspertise"
+        "message": "Nær mestring"
     },
     "next_page_d2a39853": {
         "message": "Neste side"
