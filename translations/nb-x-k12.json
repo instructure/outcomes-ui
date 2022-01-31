@@ -3,7 +3,7 @@
         "message": "Juster nye mål"
     },
     "align_outcomes_c20e3f7f": {
-        "message": "Juster mål"
+        "message": "Knytt mål"
     },
     "aligned_outcomes_d0a0c159": {
         "message": "Innrettede mål"
@@ -45,7 +45,7 @@
         "message": "{ count } Mestring"
     },
     "count_mastery_at_mastery_pts_1ec580e9": {
-        "message": "{ count } Ekspertise på { mastery } p"
+        "message": "{ count } Mestring på { mastery } p"
     },
     "count_of_total_met_mastery_96a8425d": {
         "message": "{ count } av { total } oppnådde mestring"
@@ -69,10 +69,10 @@
         "message": "{ count, plural,\n    one {1 elev}\n  other {# elever}\n}"
     },
     "count_plural_one_group_other_groups_aeb134dc": {
-        "message": "{ count, plural,\n    one {# Gruppe}\n  other {# Grupper}\n}"
+        "message": "{ count, plural,\n    one {# Gruppe}\n  other {# Grupper }\n}"
     },
     "count_plural_one_outcome_other_outcomes_7112a43f": {
-        "message": "{ count, plural,\n    one {# Mål}\n  other {# Mål}\n}"
+        "message": "{ count, plural,\n    one {#Mål}\n  other {# Mål}\n}"
     },
     "deselect_all_74eed4f7": {
         "message": "Fjern all merking"
@@ -87,7 +87,7 @@
         "message": "Ferdig"
     },
     "exceeds_mastery_1f995dce": {
-        "message": "Overgår ekspertise"
+        "message": "Overgår mestring"
     },
     "friendly_description_57f7fdde": {
         "message": "Vennlig beskrivelse"
@@ -96,7 +96,7 @@
         "message": "Hjem"
     },
     "home_level_groups_and_outcomes_59843468": {
-        "message": "Hjemmegrupper og mål"
+        "message": "Hjemmegrupper og resultater"
     },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } justering fjernet"
@@ -117,22 +117,22 @@
         "message": "Mestring"
     },
     "mastery_at_mastery_pts_19907b1c": {
-        "message": "Ekspertise på { mastery } p"
+        "message": "Mestring på { mastery } p"
     },
     "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
-        "message": "Mestring beregnet etter gjennomsnittsresultat vektet etter siste resultater. De seneste resultatene teller som { recent_percent, number, percent } av mestringsgrad, gjennomsnittet av alle andre resultater teller som { remain_percent, number, percent } av mestringsgraden. Dersom det er kun ett resultat, vil det enkelte resultatet bli returnert."
+        "message": "Mestring beregnet etter gjennomsnittsvurdering vektet etter siste resultater De seneste resultatene teller som { recent_percent, number, percent } av mestringsgrad, gjennomsnittet av alle andre resultater teller som { remain_percent, number, percent } av mestringsgraden. Dersom det er kun ett resultat, vil det enkelte resultatet bli returnert."
     },
     "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
-        "message": "Mestring beregnet etter høyest resultat. Mestringsresultat viser den høyeste resultatet for en vurdert vurdering."
+        "message": "Mestring beregnet etter høyest poengsum. Mestringsresultat viser den høyeste poengsummen for en vurdert vurdering."
     },
     "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
-        "message": "Mestring beregnet etter seneste resultat. Mestringsresultat viser vurderingen som er vurdert sist."
+        "message": "Mestring beregnet etter nyligste poengsum. Mestringsresultat viser vurderingen som er vurdert sist."
     },
     "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
-        "message": "Mestring beregnet etter n antall ganger. Må oppnå mestring minst { n_times, number } ganger.  Resultater over mestringsnivå blir jevnet med snittet for å beregne sluttresultatet."
+        "message": "Mestring beregnet etter n antall ganger. Må oppnå mestring minst { n_times, number } ganger.  Poengsummer over mestringsnivå blir jevnet med snittet for å beregne sluttresultatet."
     },
     "near_mastery_f25174a4": {
-        "message": "Nær ekspertise"
+        "message": "Nær mestring"
     },
     "next_page_d2a39853": {
         "message": "Neste side"
@@ -174,7 +174,7 @@
         "message": "Merk alle"
     },
     "selected_outcomes_1a8c9b9": {
-        "message": "Utvalgte mål:"
+        "message": "Utvalgte resultater:"
     },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
         "message": "Elevene må fullføre vurderingen før resultatene for mål vil vises her. Sjekk her etter at elever har fullført vurderingen."
@@ -192,7 +192,7 @@
         "message": "Hvis du vil legge til eller opprette mål, kan du gå til målsiden i Canvas."
     },
     "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
-        "message": "Variabel på grunn av alle/vilkårlige valg fra gjenstandsbank"
+        "message": "Variabel på grunn av alle/vilkårlig valg fra gjenstandsbank"
     },
     "variable_questions_fd841920": {
         "message": "Variable spørsmål"
