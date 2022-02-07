@@ -1,0 +1,200 @@
+{
+    "align_new_outcomes_2a2d3d48": {
+        "message": "Căn chỉnh kết quả mới"
+    },
+    "align_outcomes_c20e3f7f": {
+        "message": "Căn Chỉnh Kết Quả"
+    },
+    "aligned_outcomes_d0a0c159": {
+        "message": "Kết Quả Đã Căn chỉnh"
+    },
+    "attached_outcomes_d64ce1de": {
+        "message": "Kết Quả Đính Kèm"
+    },
+    "below_mastery_abd1dca5": {
+        "message": "Dưới Thành Thạo"
+    },
+    "browse_and_add_outcomes_by_clicking_here_e39e018e": {
+        "message": "Duyệt xem và thêm kết quả bằng cách nhấp vào đây."
+    },
+    "browse_your_outcomes_using_the_group_folders_5c3589c0": {
+        "message": "Duyệt xem kết quả của bạn bằng cách sử dụng thư mục nhóm."
+    },
+    "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
+        "message": "Bằng cách căn chỉnh theo { artifact_type_name } này, nếu sinh viên đạt trên { mastery_percent, number, percent } thì sẽ đạt mức thành thạo."
+    },
+    "cancel_caeb1e68": {
+        "message": "Hủy"
+    },
+    "clear_search_field_75f595c7": {
+        "message": "Xóa trường tìm kiếm"
+    },
+    "close_d634289d": {
+        "message": "Đóng"
+    },
+    "complete_fd828dea": {
+        "message": "Hoàn thành"
+    },
+    "confirm_alignments_acc105c8": {
+        "message": "Xác Nhận Căn Chỉnh"
+    },
+    "count_didn_t_meet_95e5947b": {
+        "message": "Không Đạt { count }"
+    },
+    "count_mastery_9808a307": {
+        "message": "Thành Thạo { count }"
+    },
+    "count_mastery_at_mastery_pts_1ec580e9": {
+        "message": "Thành Thạo { count } ở { mastery } điểm thành phần"
+    },
+    "count_of_total_met_mastery_96a8425d": {
+        "message": "{ count } / { total } đạt mức thành thạo"
+    },
+    "count_plural_0_0_one_1_other_36823c88": {
+        "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
+    },
+    "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
+        "message": "{ count, plural,\n     =0 {Không có kết quả nào được căn chỉnh}\n    one {Có một kết quả được căn chỉnh}\n  other {# kết quả được căn chỉnh}\n}"
+    },
+    "count_plural_0_the_search_returned_no_results_one__244681c0": {
+        "message": "{ count, plural,\n     =0 {Quá trình tìm kiếm không trả về kết quả nào}\n    one {# kết quả}\n  other {# kết quả}\n}"
+    },
+    "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
+        "message": "{ count, plural,\n    one {1 Kết Quả Được Căn Chỉnh}\n  other {# Kết Quả Được Căn Chỉnh}\n}"
+    },
+    "count_plural_one_1_question_other_questions_b72788ae": {
+        "message": "{ count, plural,\n    one {1 Câu Hỏi}\n  other {# Câu Hỏi}\n}"
+    },
+    "count_plural_one_1_student_other_students_1da58c61": {
+        "message": "{ count, plural,\n    one {1 Sinh Viên}\n  other {# Sinh Viên}\n}"
+    },
+    "count_plural_one_group_other_groups_aeb134dc": {
+        "message": "{ count, plural,\n    one {# Nhóm}\n  other {# Nhóm}\n}"
+    },
+    "count_plural_one_outcome_other_outcomes_7112a43f": {
+        "message": "{ count, plural,\n    one {# Kết Quả}\n  other {# Kết Quả}\n}"
+    },
+    "deselect_all_74eed4f7": {
+        "message": "Bỏ chọn tất cả"
+    },
+    "details_98a31b68": {
+        "message": "Chi Tiết"
+    },
+    "didn_t_meet_411b07a2": {
+        "message": "Không Đạt"
+    },
+    "done_54e3d4b6": {
+        "message": "Đã xong"
+    },
+    "exceeds_mastery_1f995dce": {
+        "message": "Vượt Mức Thành Thạo"
+    },
+    "home_351838cd": {
+        "message": "Cơ Sở"
+    },
+    "home_level_groups_and_outcomes_59843468": {
+        "message": "Nhóm và kết quả cấp cơ sở"
+    },
+    "label_alignment_removed_8060dd68": {
+        "message": "Đã gỡ { label } mục căn chỉnh"
+    },
+    "loading_bde52856": {
+        "message": "Đang tải"
+    },
+    "loading_page_page_d96157d": {
+        "message": "Đang tải trang { page }"
+    },
+    "loading_search_results_3874fe4a": {
+        "message": "Đang tải kết quả tìm kiếm"
+    },
+    "looks_like_you_re_a_little_early_eba07286": {
+        "message": "Có vẻ bạn đến hơi sớm"
+    },
+    "mastery_7ec348b5": {
+        "message": "Thành Thạo"
+    },
+    "mastery_at_mastery_pts_19907b1c": {
+        "message": "Thành Thạo ở { mastery } điểm thành phần"
+    },
+    "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
+        "message": "Mức Thành Thạo được tính toán theo cách tính Trung Bình Ưu Tiên Điểm Số Gần Nhất. Các lần tính gần nhất được tính theo trọng số thành thạo là { recent_percent, number, percent }, trung bình tất cả lần tính kết quả khác được tính theo trọng số là { remain_percent, number, percent }. Nếu chỉ có một kết quả thì điểm duy nhất sẽ được trả về."
+    },
+    "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
+        "message": "Mức thành thạo được tính theo Điểm Cao Nhất. Điểm thành thạo thể hiện mức điểm cao nhất của bài đánh giá đã được chấm điểm."
+    },
+    "mastery_calculated_by_most_recent_score_mastery_sc_475a33cd": {
+        "message": "Mức thành thạo được tính theo Điểm Gần Nhất. Điểm thành thạo thể hiện bài đánh giá đã được chấm điểm gần nhất."
+    },
+    "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
+        "message": "Mức thành thạo được tính theo n Số Lần. Phải đạt mức thành thạo ít nhất { n_times, number } lần.  Điểm trên mức thành thạo sẽ được tính trung bình để tính toán điểm cuối cùng."
+    },
+    "near_mastery_f25174a4": {
+        "message": "Gần Thành Thạo"
+    },
+    "next_page_d2a39853": {
+        "message": "Trang Tiếp"
+    },
+    "no_evidence_75853352": {
+        "message": "Không Có Bằng Chứng"
+    },
+    "no_outcomes_are_currently_selected_f6092d7f": {
+        "message": "Hiện đang không chọn Kết Quả nào"
+    },
+    "ok_c47544a2": {
+        "message": "OK"
+    },
+    "outcome_da397d20": {
+        "message": "Kết Quả"
+    },
+    "outcome_detail_e5a8f7b3": {
+        "message": "Chi Tiết Kết Quả"
+    },
+    "previous_page_928fc112": {
+        "message": "Trang Trước"
+    },
+    "remove_title_f3f4683a": {
+        "message": "Gỡ { title }"
+    },
+    "results_updated_for_page_page_of_totalpages_642a378f": {
+        "message": "Đã cập nhật kết quả cho trang { page } / { totalPages }"
+    },
+    "saving_2521e616": {
+        "message": "Đang lưu"
+    },
+    "search_outcomes_3d546f72": {
+        "message": "Tìm kiếm kết quả"
+    },
+    "search_outcomes_c4220d24": {
+        "message": "Tìm Kiếm Kết Quả"
+    },
+    "select_all_f73344a8": {
+        "message": "Chọn tất cả"
+    },
+    "selected_outcomes_1a8c9b9": {
+        "message": "Kết quả đã chọn:"
+    },
+    "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
+        "message": "Sinh viên phải hoàn thành bài đánh giá trước rồi mới có kết quả được hiển thị ở đây. Hãy quay lại đây kiểm tra sau khi một số sinh viên đã hoàn thành bài đánh giá."
+    },
+    "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
+        "message": "Bài đánh giá không có kết quả nào được căn chỉnh theo. Hãy đến tác vụ Xây Dựng để căn chỉnh kết quả."
+    },
+    "there_are_no_outcomes_93d5b174": {
+        "message": "Không có kết quả nào"
+    },
+    "there_is_no_report_here_to_show_bba5b77c": {
+        "message": "Không có báo cáo nào để hiển thị ở đây"
+    },
+    "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
+        "message": "Để thêm hoặc tạo kết quả, hãy truy cập trang kết quả của Canvas."
+    },
+    "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
+        "message": "Thay đổi do lựa chọn Tất cả/Ngẫu nhiên từ ngân hàng câu hỏi"
+    },
+    "variable_questions_fd841920": {
+        "message": "Câu Hỏi Thay Đổi"
+    },
+    "view_outcome_15d9adc1": {
+        "message": "Xem Kết Quả"
+    }
+}
