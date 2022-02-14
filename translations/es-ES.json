@@ -141,7 +141,7 @@
         "message": "Sin prueba"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
-        "message": "No hay resultados seleccionados actualmente"
+        "message": "No hay competencias seleccionadas actualmente"
     },
     "ok_c47544a2": {
         "message": "Aceptar"
@@ -150,7 +150,7 @@
         "message": "Competencia"
     },
     "outcome_detail_e5a8f7b3": {
-        "message": "Detalles del resultado"
+        "message": "Detalles de la competencia"
     },
     "previous_page_928fc112": {
         "message": "Página anterior"
@@ -165,7 +165,7 @@
         "message": "Guardando"
     },
     "search_outcomes_3d546f72": {
-        "message": "Buscar resultados"
+        "message": "Buscar competencias"
     },
     "search_outcomes_c4220d24": {
         "message": "Buscar competencias"
@@ -174,22 +174,22 @@
         "message": "Seleccionar todo"
     },
     "selected_outcomes_1a8c9b9": {
-        "message": "Resultados seleccionados:"
+        "message": "Competencias seleccionadas:"
     },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
-        "message": "Los alumnos deben terminar primero la evaluación para que se muestren los resultados de logros aquí. Vuelva a intentarlo después de que algunos alumnos hayan completado la evaluación."
+        "message": "Los alumnos deben terminar primero la evaluación para que se muestren las competencias de logros aquí. Vuelva a intentarlo después de que algunos alumnos hayan completado la evaluación."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
-        "message": "La evaluación no tiene resultados alineados. Vaya a la pestaña Crear para alinear los resultados."
+        "message": "La evaluación no tiene competencias alineadas. Vaya a la pestaña Crear para alinear las competencias."
     },
     "there_are_no_outcomes_93d5b174": {
-        "message": "No hay resultados"
+        "message": "No hay competencias"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "No hay ningún informe aquí para mostrar"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
-        "message": "Para añadir o crear resultados, visite la página de resultados de Canvas."
+        "message": "Para añadir o crear competencias, visite la página de competencias de Canvas."
     },
     "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
         "message": "Variable por Todos/Selección aleatoria del banco de ítems"
@@ -198,6 +198,6 @@
         "message": "Preguntas variables"
     },
     "view_outcome_15d9adc1": {
-        "message": "Ver resultado"
+        "message": "Ver competencia"
     }
 }
