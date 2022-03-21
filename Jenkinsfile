@@ -123,18 +123,6 @@ pipeline {
           uploadSource: '/ui_coverage',
           uploadDest: 'outcomes-ui/coverage'
         ])
-        // upload to sonarqube
-        sh '''
-          docker run --rm -v "$(pwd)":/usr/src/app instructure/sonar-cli \
-            -Dsonar.projectKey=outcomes-ui \
-            -Dsonar.host.url=https://sonarqube.core.inseng.net \
-            -Dsonar.working.directory=/tmp \
-            -Dsonar.sources=src \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.projectBaseDir=/usr/src/app \
-            -Dsonar.coverage.exclusions=**/__tests__/*,**/*.test.js \
-            -Dsonar.javascript.lcov.reportPaths='ui_coverage/lcov.info'
-        '''
       }
     }
   }
