@@ -1,24 +1,24 @@
 {
     "align_new_outcomes_2a2d3d48": {
-        "message": "新しい結果の整列"
+        "message": "新しいアウトカムの整列"
     },
     "align_outcomes_c20e3f7f": {
-        "message": "結果の整列"
+        "message": "アウトカムの整列"
     },
     "aligned_outcomes_d0a0c159": {
-        "message": "整列された成果"
+        "message": "整列されたアウトカム"
     },
     "attached_outcomes_d64ce1de": {
-        "message": "添付の結果"
+        "message": "添付のアウトカム"
     },
     "below_mastery_abd1dca5": {
         "message": "熟達スコア未満"
     },
     "browse_and_add_outcomes_by_clicking_here_e39e018e": {
-        "message": "ここをクリックすると、成果を参照して追加します。"
+        "message": "ここをクリックすると、アウトカムを参照して追加します。"
     },
     "browse_your_outcomes_using_the_group_folders_5c3589c0": {
-        "message": "グループフォルダを使用して、あなたの結果を参照できます。"
+        "message": "グループフォルダを使用して、あなたのアウトカムを参照できます。"
     },
     "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
         "message": "この { artifact_type_name } を整列した際に { mastery_percent, number, percent } 以上の受講者の得点が達成された場合は、熟達スコアが達成されたことになります。"
@@ -54,25 +54,25 @@
         "message": "{ count, plural,\n     =0 {(0)}\n    one {(1)}\n  other {(#)}\n}"
     },
     "count_plural_0_no_outcomes_are_aligned_one_one_out_53f5b17e": {
-        "message": "{ count, plural,\n     =0 {整列された結果はありません}\n    one {1つの結果が整列されました}\n  other {# つの結果が整列されました}\n}"
+        "message": "{ count, plural,\n     =0 {整列されたアウトカムはありません}\n    one {1つのアウトカムが整列されました}\n  other {# つのアウトカムが整列されました}\n}"
     },
     "count_plural_0_the_search_returned_no_results_one__244681c0": {
         "message": "{ count, plural,\n     =0 {検索結果が返ってきませんでした}\n    one {#結果}\n  other {#結果}\n}"
     },
     "count_plural_one_1_outcome_aligned_other_outcomes__7e76687b": {
-        "message": "{ count, plural,\n    one {1つの結果が整列されました}\n  other {# つの結果が整列されました}\n}"
+        "message": "{ count, plural,\n    one {1つのアウトカムが整列されました}\n  other {# つのアウトカムが整列されました}\n}"
     },
     "count_plural_one_1_question_other_questions_b72788ae": {
         "message": "{ count, plural,\n    one {1つの質問}\n  other {# 質問}\n}"
     },
     "count_plural_one_1_student_other_students_1da58c61": {
-        "message": "{ count, plural,\n    one {1 人の受講生}\n  other {# 受講生}\n}"
+        "message": "{ count, plural,\n    one {1 人の受講者}\n  other {# 受講者}\n}"
     },
     "count_plural_one_group_other_groups_aeb134dc": {
         "message": "{ count, plural,\n    one {# グループ}\n  other {# グループ}\n}"
     },
     "count_plural_one_outcome_other_outcomes_7112a43f": {
-        "message": "{ count, plural,\n    one {# 結果}\n  other {# 結果}\n}"
+        "message": "{ count, plural,\n    one {# アウトカム}\n  other {# アウトカム}\n}"
     },
     "deselect_all_74eed4f7": {
         "message": "すべての選択を取り消し"
@@ -96,7 +96,7 @@
         "message": "ホーム"
     },
     "home_level_groups_and_outcomes_59843468": {
-        "message": "ホームレベルのグループと結果"
+        "message": "ホームレベルのグループとアウトカム"
     },
     "label_alignment_removed_8060dd68": {
         "message": "{ label } 整列が削除されました"
@@ -120,7 +120,7 @@
         "message": "熟達スコアは{ mastery }ポイント"
     },
     "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
-        "message": "マスタリーは減衰平均によって計算されます。最も直近の計算は、 { recent_percent, number, percent } 熟達スコアの比重、他のすべての成績の平均として計算されます（  { remain_percent, number, percent } の比重として）。結果が1つだけの場合、単一のスコアが返されます。"
+        "message": "マスタリーは減衰平均によって計算されます。最も直近の計算は、 { recent_percent, number, percent } 熟達スコアの比重、他のすべての評定の平均として計算されます（  { remain_percent, number, percent } の比重として）。結果が1つだけの場合、単一のスコアが返されます。"
     },
     "mastery_calculated_by_highest_score_mastery_score__c8e69db3": {
         "message": "熟達スコアは最高得点で計算されます。熟達スコアは採点されたアセスメントの最高得点を反映します。"
@@ -141,16 +141,16 @@
         "message": "エビデンスなし"
     },
     "no_outcomes_are_currently_selected_f6092d7f": {
-        "message": "現在結果は選択されていません"
+        "message": "現在アウトカムは選択されていません"
     },
     "ok_c47544a2": {
         "message": "OK"
     },
     "outcome_da397d20": {
-        "message": "結果"
+        "message": "アウトカム"
     },
     "outcome_detail_e5a8f7b3": {
-        "message": "結果の詳細"
+        "message": "アウトカムの詳細"
     },
     "previous_page_928fc112": {
         "message": "前のページ"
@@ -165,31 +165,31 @@
         "message": "保存"
     },
     "search_outcomes_3d546f72": {
-        "message": "検索結果"
+        "message": "検索アウトカム"
     },
     "search_outcomes_c4220d24": {
-        "message": "検索結果"
+        "message": "検索アウトカム"
     },
     "select_all_f73344a8": {
         "message": "すべてを選択する"
     },
     "selected_outcomes_1a8c9b9": {
-        "message": "選択された結果："
+        "message": "選択されたアウトカム："
     },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
-        "message": "受講者がアセスメントを完了するまで、成績結果はここに表示されません。数名の受講生がアセスメントを完了した時点で、再びここでチェックしてください。"
+        "message": "受講者がアセスメントを完了するまで、評定アウトカムはここに表示されません。数名の受講者がアセスメントを完了した時点で、再びここでチェックしてください。"
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
-        "message": "アセスメントには、それに合わせた結果はありません。結果を整列するには、[ビルド]タブに移動します。"
+        "message": "アセスメントには、それに合わせたアウトカムはありません。アウトカムを整列するには、[ビルド]タブに移動します。"
     },
     "there_are_no_outcomes_93d5b174": {
-        "message": "成績結果はありません"
+        "message": "評定アウトカムはありません"
     },
     "there_is_no_report_here_to_show_bba5b77c": {
         "message": "表示するレポートはありません"
     },
     "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
-        "message": "成績結果を追加または作成するには、Canvas 成績結果ページをご覧ください。"
+        "message": "評定アウトカムを追加または作成するには、Canvas 評定アウトカムページをご覧ください。"
     },
     "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
         "message": "アイテムバンクからの全/ランダム選択による変動"
@@ -198,6 +198,6 @@
         "message": "変動の質問"
     },
     "view_outcome_15d9adc1": {
-        "message": "結果を表示"
+        "message": "アウトカムを表示"
     }
 }

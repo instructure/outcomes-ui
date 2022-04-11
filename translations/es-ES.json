@@ -21,7 +21,7 @@
         "message": "Explore sus competencias usando las carpetas grupales."
     },
     "by_aligning_to_this_artifact_type_name_if_the_stud_8c8931a": {
-        "message": "Al alinearla con este { artifact_type_name } si el alumno obtiene una puntuación superior a { mastery_percent, number, percent }, alcanzará el dominio."
+        "message": "Al alinearla con este { artifact_type_name } si el estudiante obtiene una puntuación superior a { mastery_percent, number, percent }, alcanzará el dominio."
     },
     "cancel_caeb1e68": {
         "message": "Cancelar"
@@ -66,7 +66,7 @@
         "message": "{ count, plural,\n    one {1 pregunta}\n  other {# preguntas}\n}"
     },
     "count_plural_one_1_student_other_students_1da58c61": {
-        "message": "{ count, plural,\n    one {1 alumno}\n  other {# alumnos}\n}"
+        "message": "{ count, plural,\n    one {1 estudiante}\n  other {# estudiantes}\n}"
     },
     "count_plural_one_group_other_groups_aeb134dc": {
         "message": "{ count, plural,\n    one {# grupo}\n  other {# grupos}\n}"
@@ -177,7 +177,7 @@
         "message": "Competencias seleccionadas:"
     },
     "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
-        "message": "Los alumnos deben terminar primero la evaluación para que se muestren las competencias de logros aquí. Vuelva a intentarlo después de que algunos alumnos hayan completado la evaluación."
+        "message": "Los estudiantes deben terminar primero la evaluación para que se muestren las competencias de logros aquí. Vuelva a intentarlo después de que algunos estudiantes hayan completado la evaluación."
     },
     "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
         "message": "La evaluación no tiene competencias alineadas. Vaya a la pestaña Crear para alinear las competencias."
