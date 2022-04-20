@@ -16,6 +16,18 @@ docker-compose run --rm karma yarn --ignore-scripts
 docker-compose run --rm karma yarn test
 ```
 
+If you need to rebuild karma, run the following command instead of the first:
+
+```
+docker-compose build --no-cache
+```
+
+If starting the karma server results in a namespace error, run the second command with the no sandbox and headless flags:
+
+```
+docker-compose run --rm karma yarn test --no-sandbox --headless
+```
+
 Open `karma.outcomes.docker` in your browser and save a source or test file
 to trigger a test (re)run.
 

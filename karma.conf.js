@@ -6,9 +6,9 @@ const noSandbox = process.argv.some((arg) => arg === '--no-sandbox')
 
 let browsers
 if (headless) {
-  browsers = noSandbox ? ['ChromeHeadless_no_sandbox'] : ['ChromeHeadless']
+  browsers = noSandbox ? ['ChromiumHeadless_no_sandbox'] : ['ChromiumHeadless']
 } else {
-  browsers = noSandbox ? ['Chrome_no_sandbox'] : ['Chrome']
+  browsers = noSandbox ? ['Chromium_no_sandbox'] : ['Chromium']
 }
 
 const coverageArgs = { plugins: [], reporters: [], coverageReporter: null }
@@ -101,12 +101,12 @@ module.exports = function (config) {
     // start these browsers
     browsers: browsers,
     customLaunchers: {
-      Chrome_no_sandbox: {
-        base: 'Chrome',
+      Chromium_no_sandbox: {
+        base: 'Chromium',
         flags: ['--no-sandbox']
       },
-      ChromeHeadless_no_sandbox: {
-        base: 'ChromeHeadless',
+      ChromiumHeadless_no_sandbox: {
+        base: 'ChromiumHeadless',
         flags: ['--no-sandbox']
       }
     },
