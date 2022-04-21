@@ -24,14 +24,14 @@ describe('AlignmentButton', () => {
 
   it('renders a button with a11y components', () => {
     const wrapper = shallow(<AlignmentButton {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Button')).to.have.length(1)
+    expect(wrapper.find('Button[data-automation="alignmentButton__button"]')).to.have.length(1)
     expect(wrapper.find('AccessibleContent')).to.have.length(1)
   })
 
   it('does not render an alignment button if canManageOutcomes is false', () => {
     const wrapper = shallow(<AlignmentButton {...makeProps({canManageOutcomes: false})} />,
       {disableLifecycleMethods: true})
-    expect(wrapper.find('Button')).to.have.length(0)
+    expect(wrapper.find('Button[data-automation="alignmentButton__button"]')).to.have.length(0)
   })
 
   it('does not render header if canManageOutcomes is false and no outcomes are aligned', () => {
@@ -42,15 +42,45 @@ describe('AlignmentButton', () => {
     expect(wrapper.find('AlignmentCount')).to.have.length(0)
   })
 
+  it('disables the expansion toggle button if no outcomes are aligned', () => {
+    const wrapper = shallow(<AlignmentButton {...makeProps({alignedOutcomes: []})} />,
+      {disableLifecycleMethods: true})
+    const buttonStyle = wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').props('style')
+    expect(buttonStyle.interaction).to.equal('disabled')
+  })
+
+  it('renders the alignment list collapsed by default', () => {
+    const wrapper = mount(<AlignmentButton {...makeProps()} />)
+    expect(wrapper.find('AlignmentItem')).to.have.length(0)
+  })
+
+  it('expansion toggle click is correctly handled', () => {
+    const wrapper = mount(<AlignmentButton {...makeProps()} />)
+    wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
+    expect(wrapper.find('AlignmentItem')).to.have.length(3)
+    expect(wrapper.find('ScreenReaderContent').at(0).text()).to.eq('Collapse the list of aligned Outcomes')
+    expect(wrapper.find('IconArrowOpenDownLine')).to.have.length(1)
+  })
+
+  it('collapse toggle button click is correctly handled', () => {
+    const wrapper = mount(<AlignmentButton {...makeProps()} />)
+    wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
+    wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
+    expect(wrapper.find('AlignmentItem')).to.have.length(0)
+    expect(wrapper.find('ScreenReaderContent').at(0).text()).to.eq('Expand the list of aligned Outcomes')
+    expect(wrapper.find('IconArrowOpenEndLine')).to.have.length(1)
+  })
+
   it('calls openOutcomePicker when the button is pressed', () => {
     const props = makeProps()
     const wrapper = shallow(<AlignmentButton {...props} />, {disableLifecycleMethods: true})
-    wrapper.find('Button').simulate('click')
+    wrapper.find('Button[data-automation="alignmentButton__button"]').simulate('click')
     expect(props.openOutcomePicker.calledOnce).to.be.true
   })
 
   it('renders AlignmentItems for each aligned outcome', () => {
     const wrapper = mount(<AlignmentButton {...makeProps()} />)
+    wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
     expect(wrapper.find('AlignmentItem')).to.have.length(3)
   })
 
@@ -67,6 +97,7 @@ describe('AlignmentButton', () => {
     it('calls the removeAlignment action with shouldUpdateArtifact equal to true', () => {
       const props = makeProps()
       const wrapper = mount(<AlignmentButton {...props} />)
+      wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
       const first = wrapper.find('AlignmentItem').at(0)
       const remove = first.prop('removeAlignment')
       const outcome = first.prop('outcome')
@@ -76,6 +107,7 @@ describe('AlignmentButton', () => {
 
     it('focuses on the previous alignment when the second alignment deleted', () => {
       const wrapper = mount(<AlignmentButton {...makeProps()} />)
+      wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
       const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
       const focus = sinon.spy(first.instance(), 'focus')
@@ -87,6 +119,7 @@ describe('AlignmentButton', () => {
 
     it('focuses on the next alignment when first alignment deleted', () => {
       const wrapper = mount(<AlignmentButton {...makeProps()} />)
+      wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
       const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
       const remove = first.prop('removeAlignment')
@@ -102,10 +135,10 @@ describe('AlignmentButton', () => {
       const outcomes = { alignedOutcomes: [{ id: '1', label: 'A1', title: 'tA1' }] }
       const wrapper = mount(<AlignmentButton {...makeProps(outcomes)} />)
 
-      const trigger = wrapper.find('button').last()
+      const trigger = wrapper.find('Button[data-automation="alignmentButton__button"]').last()
       const focus = sinon.spy(trigger.instance(), 'focus')
       wrapper.setProps({alignedOutcomes: []}, () => {
-        expect(wrapper.find('button')).to.have.length(1)
+        expect(wrapper.find('Button[data-automation="alignmentButton__button"]')).to.have.length(1)
         expect(focus.calledOnce).to.be.true
         expect(focus.calledWith()).to.be.true
         done()

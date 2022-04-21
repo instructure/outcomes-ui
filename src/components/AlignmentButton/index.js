@@ -2,9 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 import { AccessibleContent } from '@instructure/ui-a11y-content'
-import { Button } from '@instructure/ui-buttons'
+import { Button, IconButton } from '@instructure/ui-buttons'
 import { Text } from '@instructure/ui-text'
-import { IconOutcomesLine, IconPlusLine } from '@instructure/ui-icons'
+import {
+  IconArrowOpenEndLine,
+  IconArrowOpenDownLine,
+  IconOutcomesLine,
+  IconPlusLine
+} from '@instructure/ui-icons'
 import { List } from '@instructure/ui-list'
 import { themeable } from '@instructure/ui-themeable'
 import OutcomePickerModal from '../OutcomePickerModal'
@@ -39,6 +44,11 @@ export default class AlignmentButton extends React.Component {
     canManageOutcomes: true
   }
 
+  constructor(props) {
+    super(props)
+    this.state = { renderCollapsed: true }
+  }
+
   componentDidUpdate(oldProps) {
     const { alignedOutcomes } = this.props
     if (oldProps.alignedOutcomes.length && !alignedOutcomes.length) {
@@ -65,16 +75,49 @@ export default class AlignmentButton extends React.Component {
     }
   }
 
+  toggleAlignmentList = () => {
+    this.setState((prevState) => ({
+      renderCollapsed: !prevState.renderCollapsed
+    }))
+  }
+
   renderHeader = () => {
     const { canManageOutcomes, alignedOutcomes } = this.props
+    const { renderCollapsed } = this.state
+    const enableToggleAction = alignedOutcomes.length > 0
+    if (!enableToggleAction) {
+      this.setState({renderCollapsed: true})
+    }
     if (canManageOutcomes || alignedOutcomes.length) {
       return (
         <div
           className={styles.line}
           data-automation="outcomeLabel__alignedOutcomes"
+          style={{'align-items': 'center'}}
         >
           <Text size="medium">
             <div className={styles.spacing}>
+              <span style={{'padding-right': '0.5em'}}>
+                <IconButton
+                  size="small"
+                  screenReaderLabel={
+                    renderCollapsed
+                      ? t('Expand the list of aligned Outcomes')
+                      : t('Collapse the list of aligned Outcomes')
+                  }
+                  withBackground={false}
+                  withBorder={false}
+                  interaction={enableToggleAction ? 'enabled' : 'disabled' }
+                  onClick={this.toggleAlignmentList}
+                  data-automation="alignmentButton__collapseButton"
+                >
+                  {renderCollapsed ? (
+                    <IconArrowOpenEndLine data-testid="icon-arrow-right" />
+                  ) : (
+                    <IconArrowOpenDownLine data-testid="icon-arrow-down" />
+                  )}
+                </IconButton>
+              </span>
               <IconOutcomesLine />
             </div>
           </Text>
@@ -90,6 +133,10 @@ export default class AlignmentButton extends React.Component {
   }
 
   renderAlignmentList = () => {
+    if (this.state.renderCollapsed) {
+      return
+    }
+
     const { alignedOutcomes, canManageOutcomes } = this.props
     return (
       <List isUnstyled margin="small 0" delimiter="solid">

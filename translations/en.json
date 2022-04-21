@@ -32,6 +32,9 @@
   "close_d634289d": {
     "message": "Close"
   },
+  "collapse_the_list_of_aligned_outcomes_9a163ca1": {
+    "message": "Collapse the list of aligned Outcomes"
+  },
   "complete_fd828dea": {
     "message": "Complete"
   },
@@ -88,6 +91,9 @@
   },
   "exceeds_mastery_1f995dce": {
     "message": "Exceeds Mastery"
+  },
+  "expand_the_list_of_aligned_outcomes_dbe89601": {
+    "message": "Expand the list of aligned Outcomes"
   },
   "friendly_description_57f7fdde": {
     "message": "Friendly Description"
