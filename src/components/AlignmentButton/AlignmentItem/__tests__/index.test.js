@@ -24,8 +24,8 @@ describe('AlignmentItem', () => {
     expect(wrapper.find('IconButton')).to.have.length(1)
   })
 
-  it('does not include a trash icon and delete button when readOnly is true', () => {
-    const wrapper = shallow(<AlignmentItem {...makeProps({readOnly: true})} />,
+  it('does not include a trash icon and delete button when canManageOutcomes is false', () => {
+    const wrapper = shallow(<AlignmentItem {...makeProps({canManageOutcomes: false})} />,
       {disableLifecycleMethods: true})
     expect(wrapper.find('IconTrashLine')).to.have.length(0)
     expect(wrapper.find('IconButton')).to.have.length(0)

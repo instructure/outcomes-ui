@@ -28,14 +28,14 @@ describe('AlignmentButton', () => {
     expect(wrapper.find('AccessibleContent')).to.have.length(1)
   })
 
-  it('does not render an alignment button if readOnly is true', () => {
-    const wrapper = shallow(<AlignmentButton {...makeProps({readOnly: true})} />,
+  it('does not render an alignment button if canManageOutcomes is false', () => {
+    const wrapper = shallow(<AlignmentButton {...makeProps({canManageOutcomes: false})} />,
       {disableLifecycleMethods: true})
     expect(wrapper.find('Button')).to.have.length(0)
   })
 
-  it('does not render header if readOnly is true and no outcomes are aligned', () => {
-    const wrapper = shallow(<AlignmentButton {...makeProps({readOnly: true, alignedOutcomes: []})} />,
+  it('does not render header if canManageOutcomes is false and no outcomes are aligned', () => {
+    const wrapper = shallow(<AlignmentButton {...makeProps({canManageOutcomes: false, alignedOutcomes: []})} />,
       {disableLifecycleMethods: true})
     expect(wrapper.find('Text')).to.have.length(0)
     expect(wrapper.find('IconOutcomesLine')).to.have.length(0)

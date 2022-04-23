@@ -16,11 +16,11 @@ export default class AlignmentItem extends React.Component {
   static propTypes = {
     outcome: outcomeShape.isRequired,
     removeAlignment: PropTypes.func.isRequired,
-    readOnly: PropTypes.bool.isRequired
+    canManageOutcomes: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
-    readOnly: false
+    canManageOutcomes: true
   }
 
   focus() {
@@ -28,8 +28,8 @@ export default class AlignmentItem extends React.Component {
   }
 
   renderDeleteButton() {
-    const { outcome, removeAlignment, readOnly } = this.props
-    if (!readOnly) {
+    const { outcome, removeAlignment, canManageOutcomes } = this.props
+    if (canManageOutcomes) {
       return (
         <span
           className={styles.deleteButton}

@@ -27,7 +27,7 @@ export default class AlignmentButton extends React.Component {
     onUpdate: PropTypes.func,
     screenreaderNotification: PropTypes.func,
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
-    readOnly: PropTypes.bool.isRequired
+    canManageOutcomes: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -36,7 +36,7 @@ export default class AlignmentButton extends React.Component {
     onUpdate: null,
     screenreaderNotification: null,
     liveRegion: null,
-    readOnly: false
+    canManageOutcomes: true
   }
 
   componentDidUpdate(oldProps) {
@@ -66,8 +66,8 @@ export default class AlignmentButton extends React.Component {
   }
 
   renderHeader = () => {
-    const { readOnly, alignedOutcomes } = this.props
-    if (!readOnly || alignedOutcomes.length) {
+    const { canManageOutcomes, alignedOutcomes } = this.props
+    if (canManageOutcomes || alignedOutcomes.length) {
       return (
         <div
           className={styles.line}
@@ -90,7 +90,7 @@ export default class AlignmentButton extends React.Component {
   }
 
   renderAlignmentList = () => {
-    const { alignedOutcomes, readOnly } = this.props
+    const { alignedOutcomes, canManageOutcomes } = this.props
     return (
       <List isUnstyled margin="small 0" delimiter="solid">
         {alignedOutcomes.map((outcome, index) => {
@@ -104,7 +104,7 @@ export default class AlignmentButton extends React.Component {
                   this[`position${index}`] = o
                 }} // eslint-disable-line immutable/no-mutation
                 outcome={outcome}
-                readOnly={readOnly}
+                canManageOutcomes={canManageOutcomes}
               />
             </List.Item>
           )
@@ -133,8 +133,8 @@ export default class AlignmentButton extends React.Component {
   }
 
   renderButton = () => {
-    const { openOutcomePicker, readOnly } = this.props
-    if (!readOnly) {
+    const { openOutcomePicker, canManageOutcomes } = this.props
+    if (canManageOutcomes) {
       return (
         <div className={styles.button}>
           <Button
