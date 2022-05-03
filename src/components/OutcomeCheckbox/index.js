@@ -89,7 +89,7 @@ export default class OutcomeCheckbox extends React.Component {
         )}
 
         <div className={styles.checkboxDescription}>
-          <OutcomeDescription description={description} />
+          <OutcomeDescription description={description} maxLines={2}/>
         </div>
       </div>
     )

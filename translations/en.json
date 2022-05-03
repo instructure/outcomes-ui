@@ -32,6 +32,9 @@
   "close_d634289d": {
     "message": "Close"
   },
+  "collapse_description_for_outcome_title_dd035f6b": {
+    "message": "Collapse description for outcome { title }"
+  },
   "collapse_the_list_of_aligned_outcomes_9a163ca1": {
     "message": "Collapse the list of aligned Outcomes"
   },
@@ -91,6 +94,9 @@
   },
   "exceeds_mastery_1f995dce": {
     "message": "Exceeds Mastery"
+  },
+  "expand_description_for_outcome_title_c1044ebb": {
+    "message": "Expand description for outcome { title }"
   },
   "expand_the_list_of_aligned_outcomes_dbe89601": {
     "message": "Expand the list of aligned Outcomes"
@@ -179,6 +185,9 @@
   },
   "select_all_f73344a8": {
     "message": "Select all"
+  },
+  "select_outcome_title_4fd3f793": {
+    "message": "Select outcome { title }"
   },
   "selected_outcomes_1a8c9b9": {
     "message": "Selected outcomes:"

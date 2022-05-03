@@ -108,25 +108,19 @@ describe('AlignmentButton', () => {
     it('focuses on the previous alignment when the second alignment deleted', () => {
       const wrapper = mount(<AlignmentButton {...makeProps()} />)
       wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
-      const first = wrapper.find('AlignmentItem').at(0)
       const next = wrapper.find('AlignmentItem').at(1)
-      const focus = sinon.spy(first.instance(), 'focus')
       const remove = next.prop('removeAlignment')
       remove()
-      expect(focus.calledOnce).to.be.true
-      expect(focus.calledWith()).to.be.true
+      expect(wrapper.state().focusedItem).to.eq(0)
     })
 
     it('focuses on the next alignment when first alignment deleted', () => {
       const wrapper = mount(<AlignmentButton {...makeProps()} />)
       wrapper.find('IconButton[data-automation="alignmentButton__collapseButton"]').simulate('click')
       const first = wrapper.find('AlignmentItem').at(0)
-      const next = wrapper.find('AlignmentItem').at(1)
       const remove = first.prop('removeAlignment')
-      const focus = sinon.spy(next.instance(), 'focus')
       remove()
-      expect(focus.calledOnce).to.be.true
-      expect(focus.calledWith()).to.be.true
+      expect(wrapper.state().focusedItem).to.eq(1)
     })
   })
 

@@ -19,9 +19,9 @@ describe('OutcomeList', () => {
     }, props)
   }
 
-  it('renders an OutcomeCheckbox', () => {
+  it('renders an AlignmentItem', () => {
     const wrapper = shallow(<OutcomeList {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeCheckbox')).to.have.length(1)
+    expect(wrapper.find('AlignmentItem')).to.have.length(1)
   })
 
   it('renders loading spinner when state is loading', () => {

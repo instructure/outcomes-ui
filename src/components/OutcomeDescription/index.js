@@ -3,34 +3,49 @@ import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
 import { TruncateText } from '@instructure/ui-truncate-text'
 
-export default class OutcomeDescription extends React.Component {
-  static propTypes = {
-    truncate: PropTypes.bool,
-    description: PropTypes.string.isRequired
-  }
+const OutcomeDescription = ({label, description, truncate, maxLines}) => {
 
-  static defaultProps = {
-    truncate: true
-  }
-
-  stripHtmlTags(text) {
+  const stripHtmlTags = (text) => {
     const doc = new DOMParser().parseFromString(text, 'text/html')
     return doc.body.textContent || ''
   }
 
-  render() {
-    const { truncate, description } = this.props
-    const strippedText = this.stripHtmlTags(description)
+  const truncateText = (text, position) => (
+    <TruncateText maxLines={maxLines} position={position}>
+      {text}
+    </TruncateText>
+  )
+
+  const renderText = (text, position) => {
+    const strippedText = stripHtmlTags(text)
+    const renderedText = truncate ? truncateText(strippedText, position) : strippedText
     return (
-      <Text size="x-small">
-        {truncate ? (
-          <TruncateText maxLines={2} position="end">
-            {strippedText}
-          </TruncateText>
-        ) : (
-          strippedText
-        )}
+      <Text>
+        {renderedText}
       </Text>
     )
   }
+
+  return (
+    <React.Fragment>
+      {label && renderText(label, 'middle')}
+      {description && renderText(description, 'end')}
+    </React.Fragment>
+  )
 }
+
+OutcomeDescription.propTypes = {
+  description: PropTypes.string,
+  label: PropTypes.string,
+  truncate: PropTypes.bool,
+  maxLines: PropTypes.number
+}
+
+OutcomeDescription.defaultProps = {
+  description: '',
+  label: '',
+  truncate: true,
+  maxLines: 1
+}
+
+export default OutcomeDescription

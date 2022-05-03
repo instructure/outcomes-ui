@@ -12,7 +12,6 @@ import { Tray } from '@instructure/ui-tray'
 import { Spinner } from '@instructure/ui-spinner'
 
 import OutcomeList from './OutcomeList'
-import OutcomeViewModal from '../OutcomeViewModal'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
 import theme from '../theme'
@@ -95,7 +94,6 @@ export default class OutcomeTray extends React.Component {
   renderList() {
     const {
       outcomes,
-      setFocusedOutcome,
       isOutcomeSelected,
       selectOutcomeIds,
       deselectOutcomeIds,
@@ -109,7 +107,6 @@ export default class OutcomeTray extends React.Component {
       <View display="block" padding="small none none none">
         <OutcomeList
           outcomes={outcomes}
-          setFocusedOutcome={setFocusedOutcome}
           isOutcomeSelected={isOutcomeSelected}
           selectOutcomeIds={selectOutcomeIds}
           deselectOutcomeIds={deselectOutcomeIds}
@@ -119,31 +116,6 @@ export default class OutcomeTray extends React.Component {
           getOutcomesList={getOutcomesList}
         />
       </View>
-    )
-  }
-
-  renderViewModal() {
-    const {
-      focusedOutcome,
-      setFocusedOutcome,
-      artifactTypeName,
-      displayMasteryDescription,
-      displayMasteryPercentText,
-      scope
-    } = this.props
-
-    return (
-      focusedOutcome && (
-        <OutcomeViewModal
-          artifactTypeName={artifactTypeName}
-          displayMasteryDescription={displayMasteryDescription}
-          displayMasteryPercentText={displayMasteryPercentText}
-          outcome={focusedOutcome}
-          scope={scope}
-          closeAlignment={() => setFocusedOutcome(null)}
-          isOpen
-        />
-      )
     )
   }
 
@@ -160,8 +132,7 @@ export default class OutcomeTray extends React.Component {
       searchPage,
       searchTotal,
       selectOutcomeIds,
-      deselectOutcomeIds,
-      setFocusedOutcome
+      deselectOutcomeIds
     } = this.props
 
     return (
@@ -178,7 +149,6 @@ export default class OutcomeTray extends React.Component {
         searchTotal={searchTotal}
         selectOutcomeIds={selectOutcomeIds}
         deselectOutcomeIds={deselectOutcomeIds}
-        setFocusedOutcome={setFocusedOutcome}
       />
     )
   }
@@ -280,7 +250,6 @@ export default class OutcomeTray extends React.Component {
             {this.renderBody()}
           </div>
           {this.renderActions()}
-          {this.renderViewModal()}
         </div>
       </Tray>
     )

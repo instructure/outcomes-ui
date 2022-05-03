@@ -9,6 +9,7 @@ import isEqual from 'lodash/isEqual'
 
 import t from 'format-message'
 import OutcomeCheckbox from '../OutcomeCheckbox'
+import AlignmentItem from '../AlignmentItem'
 import Pagination from '../Pagination'
 
 export const RESULTS_PER_PAGE = 10
@@ -21,16 +22,19 @@ class SearchResults extends React.Component {
     searchPage: PropTypes.number.isRequired,
     searchTotal: PropTypes.number,
     updateSearchPage: PropTypes.func.isRequired,
-    setFocusedOutcome: PropTypes.func.isRequired,
+    setFocusedOutcome: PropTypes.func,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
-    screenreaderNotification: PropTypes.func
+    screenreaderNotification: PropTypes.func,
+    isPicker: PropTypes.bool
   }
 
   static defaultProps = {
+    setFocusedOutcome: () => {},
     screenreaderNotification: null,
-    searchTotal: null
+    searchTotal: null,
+    isPicker: false
   }
 
   componentDidUpdate(prevProps) {
@@ -55,6 +59,7 @@ class SearchResults extends React.Component {
     const {
       setFocusedOutcome,
       isOutcomeSelected,
+      isPicker,
       selectOutcomeIds,
       deselectOutcomeIds,
       searchEntries
@@ -62,13 +67,23 @@ class SearchResults extends React.Component {
     return searchEntries.map((outcome) => {
       return (
         <div key={outcome.id} data-automation="searchResults__outcomeResult">
-          <OutcomeCheckbox
-            outcome={outcome}
-            setFocusedOutcome={setFocusedOutcome}
-            isOutcomeSelected={isOutcomeSelected}
-            selectOutcomeIds={selectOutcomeIds}
-            deselectOutcomeIds={deselectOutcomeIds}
-          />
+          {isPicker ? (
+            <OutcomeCheckbox
+              outcome={outcome}
+              setFocusedOutcome={setFocusedOutcome}
+              isOutcomeSelected={isOutcomeSelected}
+              selectOutcomeIds={selectOutcomeIds}
+              deselectOutcomeIds={deselectOutcomeIds}
+            />
+          ) : (
+            <AlignmentItem
+              outcome={outcome}
+              isOutcomeSelected={isOutcomeSelected}
+              selectOutcomeIds={selectOutcomeIds}
+              deselectOutcomeIds={deselectOutcomeIds}
+              isTray={true}
+            />
+          )}
         </div>
       )
     })

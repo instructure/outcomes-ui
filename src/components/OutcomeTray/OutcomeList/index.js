@@ -3,7 +3,7 @@ import t from 'format-message'
 import PropTypes from 'prop-types'
 import { Spinner } from '@instructure/ui-spinner'
 import { Flex } from '@instructure/ui-flex'
-import OutcomeCheckbox from '../../OutcomeCheckbox'
+import AlignmentItem from '../../AlignmentItem'
 import Pagination from '../../Pagination'
 
 export const RESULTS_PER_PAGE = 10
@@ -11,7 +11,6 @@ export const RESULTS_PER_PAGE = 10
 export default class OutcomeList extends React.Component {
   static propTypes = {
     outcomes: PropTypes.array.isRequired,
-    setFocusedOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
@@ -28,7 +27,6 @@ export default class OutcomeList extends React.Component {
   renderList () {
     const {
       outcomes,
-      setFocusedOutcome,
       isOutcomeSelected,
       selectOutcomeIds,
       deselectOutcomeIds,
@@ -36,12 +34,12 @@ export default class OutcomeList extends React.Component {
     return outcomes.map(outcome => {
       return (
         <div key={outcome.id}>
-          <OutcomeCheckbox
+          <AlignmentItem
             outcome={outcome}
-            setFocusedOutcome={setFocusedOutcome}
             isOutcomeSelected={isOutcomeSelected}
             selectOutcomeIds={selectOutcomeIds}
             deselectOutcomeIds={deselectOutcomeIds}
+            isTray={true}
           />
         </div>
       )

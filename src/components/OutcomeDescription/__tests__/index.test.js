@@ -7,8 +7,7 @@ import checkA11y from '../../../test/checkA11y'
 describe('OutcomeDescription', () => {
   function makeProps (props = {}) {
     return Object.assign({
-      description: 'Hello there',
-      truncate: true,
+      description: 'Hello there'
     }, props)
   }
 
@@ -29,6 +28,12 @@ describe('OutcomeDescription', () => {
     const props = makeProps({description: 'a'.repeat(500) })
     const wrapper = shallow(<OutcomeDescription {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('TruncateText')).to.have.length(1)
+  })
+
+  it('renders outcome label and description', () => {
+    const props = makeProps({label: 'Outcome label'})
+    const wrapper = mount(<OutcomeDescription {...props} />)
+    expect(wrapper.text()).to.match(/Outcome labelHello there/)
   })
 
   it('meets a11y standards', () => {

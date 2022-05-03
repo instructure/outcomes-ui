@@ -1,5 +1,5 @@
 import React from 'react'
-import { text, boolean } from '@storybook/addon-knobs'
+import { text } from '@storybook/addon-knobs'
 import OutcomeDescription from './'
 
 export default {
@@ -8,7 +8,7 @@ export default {
 
 export const standard = () => (
   <OutcomeDescription
-    truncate= { boolean('Truncate', true) }
+    label= { text('Label', 'Example Label') }
     description= { text('Description', 'Example Description') }
   />
 )

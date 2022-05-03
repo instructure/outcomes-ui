@@ -13,7 +13,7 @@ import {
 import { List } from '@instructure/ui-list'
 import { themeable } from '@instructure/ui-themeable'
 import OutcomePickerModal from '../OutcomePickerModal'
-import AlignmentItem from './AlignmentItem'
+import AlignmentItem from '../AlignmentItem'
 import AlignmentCount from '../AlignmentCount'
 import { outcomeShape } from '../../store/shapes'
 
@@ -46,7 +46,10 @@ export default class AlignmentButton extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { renderCollapsed: true }
+    this.state = {
+      renderCollapsed: true,
+      focusedItem: null
+    }
   }
 
   componentDidUpdate(oldProps) {
@@ -64,13 +67,13 @@ export default class AlignmentButton extends React.Component {
     this.props.screenreaderNotification(
       t('{label} alignment removed', { label: removedOutcome.label })
     )
-    const priorListItem = this[`position${index - 1}`]
-    if (priorListItem) {
-      priorListItem.focus()
+    const priorIndex = index - 1
+    if (priorIndex >= 0) {
+      this.setState({focusedItem: priorIndex})
     } else if (alignedOutcomes.length > 0) {
-      const nextListItem = this[`position${index + 1}`]
-      if (nextListItem) {
-        nextListItem.focus()
+      const nextIndex = index + 1
+      if (nextIndex < alignedOutcomes.length) {
+        this.setState({focusedItem: nextIndex})
       }
     }
   }
@@ -140,22 +143,24 @@ export default class AlignmentButton extends React.Component {
     const { alignedOutcomes, canManageOutcomes } = this.props
     return (
       <List isUnstyled margin="small 0" delimiter="solid">
+        { /* We render this empty list item to render a delimiter at the top of the list */}
+        {alignedOutcomes.length > 0 && (<List.Item key='delimiter-0'/>)}
         {alignedOutcomes.map((outcome, index) => {
           return (
-            <List.Item margin="small 0" key={outcome.id}>
+            <List.Item padding="0 small 0 medium" key={outcome.id}>
               <AlignmentItem
                 removeAlignment={() =>
                   this.handleRemoveAlignment(outcome, index)
                 }
-                ref={(o) => {
-                  this[`position${index}`] = o
-                }} // eslint-disable-line immutable/no-mutation
                 outcome={outcome}
                 canManageOutcomes={canManageOutcomes}
+                shouldFocus={index === this.state.focusedItem}
               />
             </List.Item>
           )
         })}
+        { /* We render this empty list item to render a delimiter at the end of the list */}
+        {alignedOutcomes.length > 0 && (<List.Item key='delimiter-1'/>)}
       </List>
     )
   }

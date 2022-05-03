@@ -33,12 +33,12 @@ describe('SearchResults', () => {
     expect(wrapper.find('Spinner')).to.have.length(1)
   })
 
-  it('passes correct params to OutcomeCheckbox components', () => {
+  it('passes correct params to AlignmentItem components', () => {
     const props = makeProps()
     props.isSearchLoading = false
     props.searchEntries = [{ id: '2', label: 'abc', title: '123' }]
     const wrapper = shallow(<SearchResults {...props} />, {disableLifecycleMethods: true})
-    const checkbox = wrapper.find('OutcomeCheckbox')
+    const checkbox = wrapper.find('AlignmentItem')
 
     expect(checkbox).to.have.length(1)
     expect(checkbox.prop('outcome')).to.eql({ id: '2', label: 'abc', title: '123' })

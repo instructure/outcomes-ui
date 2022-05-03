@@ -111,6 +111,7 @@ class OutcomePicker extends React.Component {
         isOutcomeSelected={isOutcomeSelected}
         selectOutcomeIds={selectOutcomeIds}
         deselectOutcomeIds={deselectOutcomeIds}
+        isPicker={true}
       />
     )
   }
