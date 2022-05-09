@@ -7,6 +7,7 @@ import { Text } from '@instructure/ui-text'
 import { IconArrowOpenDownLine, IconArrowOpenEndLine, IconTrashLine } from '@instructure/ui-icons'
 import { IconButton } from '@instructure/ui-buttons'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
+import { Popover } from '@instructure/ui-popover'
 import { TruncateText } from '@instructure/ui-truncate-text'
 import { View } from '@instructure/ui-view'
 import OutcomeDescription from '../OutcomeDescription'
@@ -32,24 +33,26 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
     }
   }
 
-  const renderOutcomeTitle = () => {
-    return truncated ? (
-      <React.Fragment>
-        <ScreenReaderContent>{title}</ScreenReaderContent>
-        <TruncateText position='middle' shouldTruncateWhenInvisible={false}>
-          <Text size='medium' weight='bold'>
-            {title}
-          </Text>
-          {/* The empty span solves an issue with the truncated text overflowing to the next line */}
-          <span />
-        </TruncateText>
-      </React.Fragment>
-    ) : (
-      <Text size='medium' weight='bold' wrap='break-word'>
-        {title}
-      </Text>
-    )
-  }
+  const renderTitleText = (size, weight) => (
+    <Text size={size} weight={weight} wrap='break-word'>
+      {title}
+    </Text>
+  )
+
+  const renderOutcomeTitle = () => (
+    <div style={{padding: isTray ? '0.5rem 0' : '0.4rem 0 0 0.3rem'}} data-automation='alignmentItem__outcomeName'>
+      {truncated ? (
+        <React.Fragment>
+          <ScreenReaderContent>{title}</ScreenReaderContent>
+          <TruncateText position='middle'>
+            {renderTitleText('medium', 'bold')}
+            {/* The empty span solves an issue with the truncated text overflowing to the next line */}
+            <span />
+          </TruncateText>
+        </React.Fragment>
+      ) : renderTitleText('medium', 'bold')}
+    </div>
+  )
 
   const renderDeleteButton = () => (
     <div style={{padding: '0.2rem 0 0'}} data-automation='outcomeAlignmentItem__delete'>
@@ -116,9 +119,18 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
           </div>
         </Flex.Item>
         <Flex.Item alignItems='center' size='50%' shouldGrow>
-          <div style={{padding: isTray ? '0.5rem 0' : '0.4rem 0 0 0.3rem'}} data-automation='alignmentItem__outcomeName'>
-            {renderOutcomeTitle()}
-          </div>
+          {truncated ? (
+            <Popover
+              renderTrigger={renderOutcomeTitle()}
+              color='primary-inverse'
+              placement='top start'
+              offsetY={'-10rem'}
+            >
+              <View as='div' maxWidth='19rem' padding='small'>
+                {renderTitleText('small', 'normal')}
+              </View>
+            </Popover>
+          ) : renderOutcomeTitle()}
         </Flex.Item>
         {(canManageOutcomes && !isTray) && (
           <Flex.Item>

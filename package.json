@@ -46,6 +46,7 @@
     "@instructure/ui-overlays": "^7",
     "@instructure/ui-pagination": "^7",
     "@instructure/ui-pill": "^7",
+    "@instructure/ui-popover": "7",
     "@instructure/ui-progress": "^7",
     "@instructure/ui-spinner": "^7",
     "@instructure/ui-table": "^7",

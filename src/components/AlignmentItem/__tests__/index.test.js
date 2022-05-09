@@ -114,6 +114,22 @@ describe('AlignmentItem', () => {
     expect(props.deselectOutcomeIds.calledWith([1]))
   })
 
+  it('shows the popover when the item is truncated', () => {
+    const widget = shallow(<AlignmentItem {...makeProps()} />)
+    expect(widget.find('Popover')).to.have.length(1)
+    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />)
+    expect(tray.find('Popover')).to.have.length(1)
+  })
+
+  it('does not show the popover when the item is expanded', () => {
+    const widget = shallow(<AlignmentItem {...makeProps()} />)
+    widget.find('IconButton').at(0).simulate('click')
+    expect(widget.find('Popover')).to.have.length(0)
+    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />)
+    tray.find('IconButton').at(0).simulate('click')
+    expect(tray.find('Popover')).to.have.length(0)
+  })
+
   it('meets a11y standards', () => {
     return checkA11y(<AlignmentItem {...makeProps()} />)
   })
