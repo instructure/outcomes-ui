@@ -5,7 +5,7 @@ delete defaultConfig.overrides[0].rules['mocha/no-exclusive-tests']
 
 module.exports = Object.assign({}, defaultConfig, {
   extends: defaultExtends.concat(['plugin:security/recommended']),
-  plugins: defaultConfig.plugins.concat(['security']),
+  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security']),
   rules: Object.assign({}, defaultConfig.rules, {
     /*
     The things these warnings catch really should be fixed. They are probably causing
@@ -23,14 +23,13 @@ module.exports = Object.assign({}, defaultConfig, {
       multiline: true
     }],
     'function-paren-newline': ['error', 'consistent'],
-    'import/no-extraneous-dependencies': ['error', {
-      devDependencies:['*.config.js', '**/test/*', '**/__tests__/*', '**/demo.js', '**/index.stories.js']
-    }],
+    'import/no-extraneous-dependencies': ['error', {devDependencies: true}],
     'jsx-a11y/anchor-is-valid': 0,
     'security/detect-object-injection': 0,
     'notice/notice': 0,
     'no-unused-expressions': 0,
     'mocha/no-exclusive-tests': process.env.NODE_ENV === 'test' ? 'warn' : 'error',
+    'promise/no-nesting': 'off',
 
     // Something in instui is configured incorrectly for this
     'compat/compat': 'off'

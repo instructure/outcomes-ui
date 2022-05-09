@@ -112,7 +112,7 @@ describe('alignments/actions', () => {
 
     it('fires an updateCallback function if provided', () => {
       const alignments = [{id: '1'}, {id: '2'}]
-      const callback = sinon.stub().returns(arguments)
+      const callback = sinon.stub()
       const service = { getAlignments: sinon.stub().returns(Promise.resolve(alignments)) }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.updateAlignments('hexadecimal', alignments, callback))

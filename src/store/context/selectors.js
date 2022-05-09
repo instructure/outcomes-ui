@@ -81,7 +81,7 @@ export const getCollectionData = createSelector(
       return // return null so tree doesnt try to render an empty object
     }
     const collections = {}
-    for (const id of Object.keys(outcomes)) { // eslint-disable-line no-restricted-syntax
+    for (const id of Object.keys(outcomes)) { // eslint-disable-line no-unused-vars
       if (!isCollectionId(outcomes, id)) {
         continue // eslint-disable-line no-continue
       }

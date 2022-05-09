@@ -201,7 +201,7 @@ describe('OutcomePicker/actions', () => {
 
     it('fires an updateCallback function if provided', () => {
       const store = createMockStore(state)
-      const callback = sinon.stub().returns(arguments)
+      const callback = sinon.stub()
       return store.dispatch(actions.saveOutcomePickerAlignments(callback))
         .then(() => {
           expect(callback.calledOnce).to.be.true
