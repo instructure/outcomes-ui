@@ -12,12 +12,15 @@ import { TruncateText } from '@instructure/ui-truncate-text'
 import { View } from '@instructure/ui-view'
 import OutcomeDescription from '../OutcomeDescription'
 import { outcomeShape } from '../../store/shapes'
+import useBoolean from '../../hooks/useBoolean'
 
 const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, shouldFocus, isOutcomeSelected, selectOutcomeIds, deselectOutcomeIds}) => {
   const [truncated, setTruncated] = useState(true)
+  const [titleTruncated, setTitleTruncated] = useState(false)
   const { id, label, title, description } = outcome
   const trashIconRef = useRef()
   const toggleExpandOutcomeDetails = () => setTruncated(prevState => !prevState)
+  const [isShowingTooltip, showTooltip, hideTooltip] = useBoolean(false)
 
   useEffect(() => {
     if (shouldFocus) {
@@ -39,12 +42,17 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
     </Text>
   )
 
+  const handleUpdate = (isTruncated) => {
+    if (titleTruncated !== isTruncated) {
+      setTitleTruncated(isTruncated)
+    }
+  }
+
   const renderOutcomeTitle = () => (
     <div style={{padding: isTray ? '0.5rem 0' : '0.4rem 0 0 0.3rem'}} data-automation='alignmentItem__outcomeName'>
       {truncated ? (
         <React.Fragment>
-          <ScreenReaderContent>{title}</ScreenReaderContent>
-          <TruncateText position='middle'>
+          <TruncateText position='middle' onUpdate={handleUpdate}>
             {renderTitleText('medium', 'bold')}
             {/* The empty span solves an issue with the truncated text overflowing to the next line */}
             <span />
@@ -119,9 +127,12 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
           </div>
         </Flex.Item>
         <Flex.Item alignItems='center' size='50%' shouldGrow>
-          {truncated ? (
+          {truncated && titleTruncated ? (
             <Popover
               renderTrigger={renderOutcomeTitle()}
+              isShowingContent={isShowingTooltip}
+              onShowContent={showTooltip}
+              onHideContent={hideTooltip}
               color='primary-inverse'
               placement='top start'
               offsetY={'-10rem'}

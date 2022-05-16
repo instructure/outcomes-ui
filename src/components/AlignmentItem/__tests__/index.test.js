@@ -114,18 +114,42 @@ describe('AlignmentItem', () => {
     expect(props.deselectOutcomeIds.calledWith([1]))
   })
 
-  it('shows the popover when the item is truncated', () => {
-    const widget = shallow(<AlignmentItem {...makeProps()} />)
+  it('displays the popover when the outcome title is truncated', () => {
+    const widget = shallow(<AlignmentItem {...makeProps()} />, {disableLifecycleMethods: true})
+    let update = widget.find('TruncateText').at(0).prop('onUpdate')
+    update(true)
     expect(widget.find('Popover')).to.have.length(1)
-    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />)
+
+    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />, {disableLifecycleMethods: true})
+    update = tray.find('TruncateText').at(0).prop('onUpdate')
+    update(true)
     expect(tray.find('Popover')).to.have.length(1)
   })
 
-  it('does not show the popover when the item is expanded', () => {
-    const widget = shallow(<AlignmentItem {...makeProps()} />)
+  it('does not display the popover when the outcome title is fully rendered', () => {
+    const widget = shallow(<AlignmentItem {...makeProps()} />, {disableLifecycleMethods: true})
+    let update = widget.find('TruncateText').at(0).prop('onUpdate')
+    update(false)
+    expect(widget.find('Popover')).to.have.length(0)
+
+    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />, {disableLifecycleMethods: true})
+    update = tray.find('TruncateText').at(0).prop('onUpdate')
+    update(false)
+    expect(tray.find('Popover')).to.have.length(0)
+  })
+
+  it('does not display the popover when the item is expanded', () => {
+    const widget = shallow(<AlignmentItem {...makeProps()} />, {disableLifecycleMethods: true})
+    let update = widget.find('TruncateText').at(0).prop('onUpdate')
+    update(true)
+    expect(widget.find('Popover')).to.have.length(1)
     widget.find('IconButton').at(0).simulate('click')
     expect(widget.find('Popover')).to.have.length(0)
-    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />)
+
+    const tray = shallow(<AlignmentItem {...makeProps({isTray: true})} />, {disableLifecycleMethods: true})
+    update = tray.find('TruncateText').at(0).prop('onUpdate')
+    update(true)
+    expect(tray.find('Popover')).to.have.length(1)
     tray.find('IconButton').at(0).simulate('click')
     expect(tray.find('Popover')).to.have.length(0)
   })
