@@ -21,7 +21,7 @@ import theme from '../theme'
 import styles from './styles.css'
 
 @themeable(theme, styles)
-export default class AlignmentButton extends React.Component {
+export default class AlignmentWidget extends React.Component {
   static propTypes = {
     alignedOutcomes: PropTypes.arrayOf(outcomeShape).isRequired,
     pickerProps: PropTypes.object,
@@ -112,7 +112,7 @@ export default class AlignmentButton extends React.Component {
                   withBorder={false}
                   interaction={enableToggleAction ? 'enabled' : 'disabled' }
                   onClick={this.toggleAlignmentList}
-                  data-automation="alignmentButton__collapseButton"
+                  data-automation="alignmentWidget__collapseButton"
                 >
                   {renderCollapsed ? (
                     <IconArrowOpenEndLine data-testid="icon-arrow-right" />
@@ -195,7 +195,7 @@ export default class AlignmentButton extends React.Component {
             }} // eslint-disable-line immutable/no-mutation
             icon={IconPlusLine}
             onClick={openOutcomePicker}
-            data-automation="alignmentButton__button"
+            data-automation="alignmentWidget__button"
           >
             <AccessibleContent alt={t('Align Outcomes')}>
               {t('Outcome')}

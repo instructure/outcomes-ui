@@ -2,9 +2,9 @@ import { expect } from 'chai'
 import React from 'react'
 import { mount } from 'enzyme'
 import createMockStore from '../../test/createMockStore'
-import AlignmentButton from '../AlignmentButton'
+import AlignmentWidget from '../AlignmentWidget'
 
-describe('AlignmentButton', () => {
+describe('AlignmentWidget', () => {
   function makeProps (props = {}) {
     const store = createMockStore()
     return Object.assign({
@@ -19,24 +19,24 @@ describe('AlignmentButton', () => {
 
   it('renders', () => {
     const wrapper = mount(
-      <div id="app"><AlignmentButton {...makeProps()} /></div>
+      <div id="app"><AlignmentWidget {...makeProps()} /></div>
     )
-    expect(wrapper.find('AlignmentButton')).to.have.length(1)
+    expect(wrapper.find('AlignmentWidget')).to.have.length(1)
   })
 
   it('sets the scope', () => {
     const props = makeProps()
     const wrapper = mount(
-      <div id="app"><AlignmentButton {...props} /></div>
+      <div id="app"><AlignmentWidget {...props} /></div>
     )
-    expect(wrapper.find('AlignmentButton').prop('scope')).to.equal('foo:::1')
+    expect(wrapper.find('AlignmentWidget').prop('scope')).to.equal('foo:::1')
   })
 
   it('uses proper fallbacks if store is not passed in props', () => {
     const props = makeProps({store: void 0})
     const wrapper = mount(
-      <div id="app"><AlignmentButton {...props} /></div>
+      <div id="app"><AlignmentWidget {...props} /></div>
     )
-    expect(wrapper.find('AlignmentButton').prop('scope')).to.equal('foo:::1')
+    expect(wrapper.find('AlignmentWidget').prop('scope')).to.equal('foo:::1')
   })
 })

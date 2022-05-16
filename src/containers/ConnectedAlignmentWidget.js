@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as alignmentActions from '../store/alignments/actions'
 import { getAlignedOutcomes } from '../store/alignments/selectors'
 import * as outcomePickerActions from '../store/OutcomePicker/actions'
-import AlignmentButton from '../components/AlignmentButton'
+import AlignmentWidget from '../components/AlignmentWidget'
 import WithArtifact from '../components/WithArtifact'
 import ConnectedOutcomeTray from './ConnectedOutcomeTray'
 
@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const ConnectedAlignmentButton = compose(
+const ConnectedAlignmentWidget = compose(
   connect(mapStateToProps, mapDispatchToProps),
   WithArtifact
-)(AlignmentButton)
+)(AlignmentWidget)
 
-export default ConnectedAlignmentButton
+export default ConnectedAlignmentWidget

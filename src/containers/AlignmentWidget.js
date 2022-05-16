@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import ConnectedAlignmentButton from './ConnectedAlignmentButton'
+import ConnectedAlignmentWidget from './ConnectedAlignmentWidget'
 import OutcomeSDKComponent from './OutcomeSDKComponent'
 
 
-export default OutcomeSDKComponent(ConnectedAlignmentButton, {
+export default OutcomeSDKComponent(ConnectedAlignmentWidget, {
   artifactType: PropTypes.string,
   artifactId: PropTypes.string,
   screenreaderNotification: PropTypes.func

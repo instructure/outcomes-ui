@@ -1,10 +1,10 @@
 import React from 'react'
 import { object } from '@storybook/addon-knobs'
-import AlignmentButton from './'
+import AlignmentWidget from '.'
 import { defaultOutcomes } from '../../../.storybook/constants'
 
 export default {
-  title: 'AlignmentButton'
+  title: 'AlignmentWidget'
 }
 
 const defaultProps = {
@@ -15,14 +15,14 @@ const defaultProps = {
 }
 
 export const alignedOutcomes = () => (
-  <AlignmentButton
+  <AlignmentWidget
     alignedOutcomes={ object('Outcomes', defaultOutcomes()) }
     {...defaultProps}
   />
 )
 
 export const noAlignedOutcomes = () => (
-  <AlignmentButton
+  <AlignmentWidget
     alignedOutcomes={ [] }
     {...defaultProps}
   />

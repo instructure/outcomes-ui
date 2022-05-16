@@ -4,9 +4,9 @@ import { Provider } from 'react-redux'
 import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
 import createMockStore from '../../test/createMockStore'
-import ConnectedAlignmentButton from '../ConnectedAlignmentButton'
+import ConnectedAlignmentWidget from '../ConnectedAlignmentWidget'
 
-describe('ConnectedAlignmentButton', () => {
+describe('ConnectedAlignmentWidget', () => {
   it('renders', () => {
     const store = createMockStore(fromJS({
       OutcomePicker: {
@@ -16,11 +16,11 @@ describe('ConnectedAlignmentButton', () => {
     }))
     const wrapper = mount(
       <Provider store={store}>
-        <ConnectedAlignmentButton
+        <ConnectedAlignmentWidget
           tray={<div />}
         />
       </Provider>
     )
-    expect(wrapper.find('AlignmentButton')).to.have.length(1)
+    expect(wrapper.find('AlignmentWidget')).to.have.length(1)
   })
 })

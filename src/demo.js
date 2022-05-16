@@ -18,7 +18,7 @@ import {
   OutcomeCount,
   OutcomesPerStudentReport,
   OutcomeList,
-  AlignmentButton
+  AlignmentWidget
 } from './index'
 import styles from './index.css'
 
@@ -69,7 +69,7 @@ const DemoAlignment = (props) => {
     displayMasteryDescription,
     displayMasteryPercentText,
     jwt,
-    useAlignmentButton
+    useAlignmentWidget
   } = props
   return (
     <div className={styles.item} data-automation="artifact">
@@ -93,10 +93,10 @@ const DemoAlignment = (props) => {
         jwt={jwt}
         emptyText="No outcomes are aligned"
       />
-      {useAlignmentButton ? (
+      {useAlignmentWidget ? (
         <div>
           <br />
-          <AlignmentButton
+          <AlignmentWidget
             artifactType={artifactType}
             artifactTypeName={artifactTypeName}
             artifactId={artifactId}
@@ -238,14 +238,14 @@ function rerender() {
           />
           <DemoAlignment
             alignmentSetId=""
-            useAlignmentButton={true}
+            useAlignmentWidget={true}
             name="Quiz #103"
             artifactType="quizzes.quiz"
             artifactId="103"
             contextUuid="dummy_uuid"
             emptySetHeading="Align Institution outcomes to this quiz."
             jwt={createJwt}
-            alignmentWidget={AlignmentButton}
+            alignmentWidget={AlignmentWidget}
           />
         </Tabs.Panel>
         <Tabs.Panel selected={currentTab === 'report'} renderTitle="Report" textAlign="center" id="report">
