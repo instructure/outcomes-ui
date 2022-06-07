@@ -16,10 +16,18 @@ export const defaultOutcomes = () => {
     outcomes.push(
       {
         id: i,
-        label: `Lbl-0${i}`,
-        title: `Grade ${i}`,
+        label: `Grade ${i}`,
+        title: `Title-0${i}`,
         summary: `Summary of Grade ${i}`,
-        description: `Description of Grade ${i}`
+        description: `Description of Grade ${i}`,
+        friendly_description: `Friendly Description of Grade ${i}`,
+        scoring_method: {
+          algorithm: 'highest',
+          algorithm_data: {},
+          mastery_percent: 0.6,
+          points_possible: 5,
+          scoring_tiers: scoringTiersWithResults
+        }
       }
     )
   }
@@ -216,9 +224,10 @@ export const outcomeViewWithResults = {
   id: '15',
   guid: '12345678-1234-1234-12345678901234',
   group: false,
-  label: 'Lbl-000',
-  title: 'Grade 7 English Language Arts',
+  label: 'Grade 7 English Language Arts',
+  title: 'Lbl-000',
   description: 'Description of Grade 7 English Language Arts',
+  friendly_description: 'Friendly Description of Grade 7 English Language Arts',
   scoring_method: {
     algorithm: 'highest',
     algorithm_data: {},

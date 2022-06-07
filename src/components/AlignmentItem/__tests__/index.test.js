@@ -4,11 +4,12 @@ import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 import AlignmentItem from '../index'
 import checkA11y from '../../../test/checkA11y'
+import { OUTCOME_1 } from '../../../test/mockOutcomesData'
 
 describe('AlignmentItem', () => {
   function makeProps (props = {}) {
     return Object.assign({
-      outcome: { id: '1', label: 'A1', title: 'tA1', description: 'dA1' },
+      outcome: OUTCOME_1,
       removeAlignment: sinon.spy(),
       canManageOutcomes: true,
       isTray: false,
@@ -22,6 +23,12 @@ describe('AlignmentItem', () => {
   it('renders title', () => {
     const wrapper = shallow(<AlignmentItem {...makeProps()} />)
     expect(wrapper.find('Text')).to.have.length(1)
+  })
+
+  it('renders the friendly name if user cannot manage outcomes', () => {
+    const wrapper = mount(<AlignmentItem {...makeProps({canManageOutcomes: false})} />)
+    const friendlyName = wrapper.find('Text').at(0)
+    expect(friendlyName.text()).to.match(/A1/)
   })
 
   it('includes an OutcomeDescription', () => {
@@ -152,6 +159,13 @@ describe('AlignmentItem', () => {
     expect(tray.find('Popover')).to.have.length(1)
     tray.find('IconButton').at(0).simulate('click')
     expect(tray.find('Popover')).to.have.length(0)
+  })
+
+  it('expands the outcome details when the item is expanded', () => {
+    const wrapper = shallow(<AlignmentItem {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('OutcomeDescription').at(0).prop('truncated')).to.be.true
+    wrapper.find('IconButton').at(0).simulate('click')
+    expect(wrapper.find('OutcomeDescription').at(0).prop('truncated')).to.be.false
   })
 
   it('meets a11y standards', () => {

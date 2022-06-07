@@ -471,7 +471,7 @@ describe('OutcomesService', () => {
   describe('listOutcomes', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        const exp_url = /\/outcomes\/list\?artifact_id=103&artifact_type=quizzes\.quiz&context_uuid=def&page=999&per_page=10$/
+        const exp_url = /\/outcomes\/list\?artifact_id=103&artifact_type=quizzes\.quiz&context_uuid=def&includes=scoring_method&page=999&per_page=10$/
         expect(url).to.match(exp_url)
         return true
       }, [])
@@ -486,7 +486,7 @@ describe('OutcomesService', () => {
       const headers = {
         total: 101
       }
-      const url = '/api/outcomes/list?context_uuid=def&page=999&per_page=10'
+      const url = '/api/outcomes/list?context_uuid=def&includes=scoring_method&page=999&per_page=10'
       mockGet(url, { body, headers })
       return subject.listOutcomes(host, jwt, 999, 'def')
         .then((result) => {
@@ -495,7 +495,7 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&page=999&per_page=10'
+      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&includes=scoring_method&page=999&per_page=10'
       mockGet(url, 500)
       return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz')
         .catch((err) => {
@@ -511,7 +511,7 @@ describe('OutcomesService', () => {
       const headers = {
         total: 101
       }
-      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&page=999&per_page=10'
+      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&includes=scoring_method&page=999&per_page=10'
       mockGet(url, { body, headers })
       return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz')
         .then((result) => {

@@ -4,15 +4,12 @@ import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 import AlignmentWidget from '../index'
 import checkA11y from '../../../test/checkA11y'
+import { OUTCOME_1, OUTCOME_2, OUTCOME_3 } from '../../../test/mockOutcomesData'
 
 describe('AlignmentWidget', () => {
   function makeProps (props = {}) {
     return Object.assign({
-      alignedOutcomes: [
-        { id: '1', label: 'A1', title: 'tA1' },
-        { id: '2', label: 'B2', title: 'tB2' },
-        { id: '3', label: 'C3', title: 'tC3' }
-      ],
+      alignedOutcomes: [OUTCOME_1, OUTCOME_2, OUTCOME_3],
       tray: () => <div className="outcomeTray" />, // eslint-disable-line react/display-name
       scope: 'scopeForTest',
       openOutcomePicker: sinon.spy(),

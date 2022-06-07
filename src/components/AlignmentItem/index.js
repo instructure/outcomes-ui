@@ -17,7 +17,8 @@ import useBoolean from '../../hooks/useBoolean'
 const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, shouldFocus, isOutcomeSelected, selectOutcomeIds, deselectOutcomeIds}) => {
   const [truncated, setTruncated] = useState(true)
   const [titleTruncated, setTitleTruncated] = useState(false)
-  const { id, label, title, description } = outcome
+  const { id, label, title, description, friendly_description, scoring_method } = outcome
+  const { algorithm, algorithm_data, mastery_percent, points_possible, scoring_tiers } = scoring_method
   const trashIconRef = useRef()
   const toggleExpandOutcomeDetails = () => setTruncated(prevState => !prevState)
   const [isShowingTooltip, showTooltip, hideTooltip] = useBoolean(false)
@@ -38,7 +39,7 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
 
   const renderTitleText = (size, weight) => (
     <Text size={size} weight={weight} wrap='break-word'>
-      {title}
+      {(!canManageOutcomes && label) ? label : title}
     </Text>
   )
 
@@ -81,6 +82,7 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
     <View
       as='div'
       padding='x-small 0'
+      data-automation='outcomeAlignment__item'
     >
       <Flex as='div' alignItems='start'>
         <Flex.Item as='div' size={isTray ? '4.5rem' : '2rem'}>
@@ -102,7 +104,7 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
                   </div>
                 </Flex.Item>
               )}
-              <Flex.Item as='div'>
+              <Flex.Item as='div' data-automation='alignmentItem-expand-description'>
                 <IconButton
                   size='small'
                   screenReaderLabel={
@@ -153,7 +155,19 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
         <Flex.Item size={isTray ? '4.5rem' : '2.3rem'} />
         <Flex.Item size='80%'>
           <View as='div' padding='0 0 x-small'>
-            <OutcomeDescription label={label} description={description} />
+            <OutcomeDescription
+              label={label}
+              description={description}
+              friendlyDescription={friendly_description}
+              calculationMethod={algorithm}
+              calculationInt={algorithm_data}
+              masteryPercent={mastery_percent}
+              pointsPossible={points_possible}
+              ratings={scoring_tiers}
+              truncated={truncated}
+              isTray={isTray}
+              canManageOutcomes={canManageOutcomes}
+            />
           </View>
         </Flex.Item>
       </Flex>

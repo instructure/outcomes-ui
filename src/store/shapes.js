@@ -4,7 +4,8 @@ export const scoringMethodShape = PropTypes.shape({
   algorithm: PropTypes.isRequired,
   algorithm_data: PropTypes.object,
   mastery_percent: PropTypes.number,
-  points_possible: PropTypes.number
+  points_possible: PropTypes.number,
+  scoring_tiers: PropTypes.arrayOf(scoringTierShape)
 })
 
 export const outcomeShape = PropTypes.shape({
@@ -62,3 +63,13 @@ export const contextShape = PropTypes.shape({
   outcome_calculation_method: outcomeCalculationMethodShape,
   outcome_proficiency: outcomeProficiencyShape
 })
+
+export const nMasteryDataShape = PropTypes.shape({
+  n_mastery_count: PropTypes.number.isRequired
+})
+
+export const decayingAverageDataShape = PropTypes.shape({
+  decaying_average_percent: PropTypes.number.isRequired
+})
+
+export const algorithmDataShape = PropTypes.oneOf([nMasteryDataShape, decayingAverageDataShape])

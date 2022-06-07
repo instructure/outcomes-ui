@@ -4,13 +4,12 @@ import sinon from 'sinon'
 import { shallow } from 'enzyme'
 import checkA11y from '../../../../test/checkA11y'
 import OutcomeList from '../index'
+import { OUTCOME_1 } from '../../../../test/mockOutcomesData'
 
 describe('OutcomeList', () => {
   function makeProps (props = {}) {
     return Object.assign({
-      outcomes: [
-        {id: '1', label: 'foo', title: 'bar' }
-      ],
+      outcomes: [OUTCOME_1],
       setFocusedOutcome: sinon.spy(),
       isOutcomeSelected: sinon.spy(),
       selectOutcomeIds: sinon.spy(),

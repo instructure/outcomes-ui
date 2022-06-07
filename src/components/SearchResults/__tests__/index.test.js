@@ -5,6 +5,7 @@ import sinon from 'sinon'
 
 import SearchResults from '../index'
 import checkA11y from '../../../test/checkA11y'
+import { OUTCOME_1, OUTCOME_2 } from '../../../test/mockOutcomesData'
 
 describe('SearchResults', () => {
   function makeProps (props = {}) {
@@ -71,7 +72,7 @@ describe('SearchResults', () => {
   })
 
   describe('pagination', () => {
-    const searchEntries = [{ id: '1' }, { id: '2' }]
+    const searchEntries = [OUTCOME_1, OUTCOME_2]
 
     it('does not include pagination for 0 results', () => {
       const props = makeProps({ searchEntries, searchTotal: 0, isSearchLoading: false })

@@ -75,3 +75,21 @@ export const SET_INDIVIDUAL_RESULTS_STATE = 'SET_INDIVIDUAL_RESULTS_STATE'
 export const getFeatureFlags = () => {
   return []
 }
+
+/*
+ * calculation method
+ */
+
+export const HIGHEST = 'highest'
+export const LATEST = 'latest'
+export const N_MASTERY = 'n_mastery'
+export const DECAYING_AVERAGE = 'decaying_average'
+export const AVERAGE = 'average'
+
+export const CALCULATION_METHODS = {
+  [HIGHEST]: 'Highest Score',
+  [LATEST]: 'Most Recent Score',
+  [N_MASTERY]: 'Achieve Mastery {n} times',
+  [DECAYING_AVERAGE]: 'Decaying Average - {percent}%/{complement}%',
+  [AVERAGE]: 'Average'
+}

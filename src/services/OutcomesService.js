@@ -198,7 +198,7 @@ class OutcomesService {
   }
 
   listOutcomes (host, jwt, page, contextUuid = null, artifactId = null, artifactType = null) {
-    const params = { per_page: 10, page }
+    const params = { per_page: 10, page, includes: 'scoring_method' }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
     }

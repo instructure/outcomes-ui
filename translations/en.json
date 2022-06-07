@@ -80,6 +80,9 @@
   "count_plural_one_outcome_other_outcomes_7112a43f": {
     "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
   },
+  "description_for_mastery_level_position_description_f8377eab": {
+    "message": "Description for mastery level { position }: { description }"
+  },
   "deselect_all_74eed4f7": {
     "message": "Deselect all"
   },
@@ -128,6 +131,9 @@
   "mastery_7ec348b5": {
     "message": "Mastery"
   },
+  "mastery_at_e804b49": {
+    "message": "Mastery at:"
+  },
   "mastery_at_mastery_pts_19907b1c": {
     "message": "Mastery at { mastery } pts"
   },
@@ -142,6 +148,9 @@
   },
   "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
     "message": "Mastery calculated by n Number of Times. Must achieve mastery at least { n_times, number } times.  Scores above mastery will be averaged to calculate final score."
+  },
+  "masterypoints_points_fe9f1ebf": {
+    "message": "{ masteryPoints } points"
   },
   "near_mastery_f25174a4": {
     "message": "Near Mastery"
@@ -164,8 +173,29 @@
   "outcome_detail_e5a8f7b3": {
     "message": "Outcome Detail"
   },
+  "points_bb475533": {
+    "message": "Points"
+  },
+  "points_bceb5005": {
+    "message": "points"
+  },
+  "points_for_mastery_level_position_points_d111b62d": {
+    "message": "Points for mastery level { position }: { points }"
+  },
+  "points_points_63e59cce": {
+    "message": "{ points } points"
+  },
   "previous_page_928fc112": {
     "message": "Previous Page"
+  },
+  "proficiency_calculation_daa4fd57": {
+    "message": "Proficiency Calculation:"
+  },
+  "proficiency_rating_6346119f": {
+    "message": "Proficiency Rating"
+  },
+  "ratings_table_a702279": {
+    "message": "Ratings table"
   },
   "remove_title_f3f4683a": {
     "message": "Remove { title }",
