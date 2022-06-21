@@ -32,7 +32,8 @@ export default class AlignmentWidget extends React.Component {
     onUpdate: PropTypes.func,
     screenreaderNotification: PropTypes.func,
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
-    canManageOutcomes: PropTypes.bool.isRequired
+    canManageOutcomes: PropTypes.bool.isRequired,
+    showAlert: PropTypes.func
   }
 
   static defaultProps = {
@@ -41,7 +42,8 @@ export default class AlignmentWidget extends React.Component {
     onUpdate: null,
     screenreaderNotification: null,
     liveRegion: null,
-    canManageOutcomes: true
+    canManageOutcomes: true,
+    showAlert: () => {}
   }
 
   constructor(props) {
@@ -171,7 +173,8 @@ export default class AlignmentWidget extends React.Component {
       scope,
       tray: OutcomeTray,
       liveRegion,
-      screenreaderNotification
+      screenreaderNotification,
+      showAlert
     } = this.props
     return (
       <OutcomeTray
@@ -179,6 +182,7 @@ export default class AlignmentWidget extends React.Component {
         liveRegion={liveRegion}
         scope={scope}
         shouldModifyArtifact
+        showAlert={showAlert}
         {...pickerProps}
       />
     )

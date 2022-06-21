@@ -57,7 +57,8 @@ export default class OutcomeTray extends React.Component {
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
     shouldModifyArtifact: PropTypes.bool,
-    scope: PropTypes.string.isRequired
+    scope: PropTypes.string.isRequired,
+    showAlert: PropTypes.func
   }
 
   static defaultProps = {
@@ -73,7 +74,8 @@ export default class OutcomeTray extends React.Component {
     displayMasteryPercentText: false,
     shouldModifyArtifact: false,
     searchTotal: null,
-    listTotal: null
+    listTotal: null,
+    showAlert: () => {}
   }
 
   componentDidUpdate(prevProps) {
@@ -175,7 +177,10 @@ export default class OutcomeTray extends React.Component {
       shouldModifyArtifact
     } = this.props
     return saveOutcomePickerAlignments(onUpdate, shouldModifyArtifact).then(
-      () => closeOutcomePicker()
+      () => {
+        this.props.showAlert(t('Outcome alignments have been successfully updated.'))
+        closeOutcomePicker()
+      }
     )
   }
 

@@ -37,7 +37,8 @@ describe('OutcomeTray', () => {
       resetOutcomePicker: sinon.spy(),
       closeOutcomePicker: sinon.spy(),
       setInitialSelectedOutcomes: sinon.spy(),
-      shouldModifyArtifact: false
+      shouldModifyArtifact: false,
+      showAlert: sinon.spy()
     }, props)
   }
 
@@ -119,6 +120,16 @@ describe('OutcomeTray', () => {
     wrapper.find('Button').last().prop('onClick')()
     expect(props.saveOutcomePickerAlignments).to.be.called
     expect(props.saveOutcomePickerAlignments).to.be.calledWith(props.onUpdate, false)
+  })
+
+  it('calls showAlert when confirm alignment button is clicked', () => {
+    const props = makeProps({
+      saveOutcomePickerAlignments: sinon.stub().resolves(),
+      showAlert: sinon.stub().resolves()
+    })
+    wrapper = mount(<OutcomeTray {...props} />)
+    wrapper.find('Button').last().prop('onClick')()
+    expect(props.saveOutcomePickerAlignments).to.be.called
   })
 
   it('syncs selected and aligned outcomes on open', () => {

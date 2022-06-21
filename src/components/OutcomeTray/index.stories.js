@@ -24,7 +24,8 @@ const defaultProps = {
   getOutcomesList: () => {},
   updateSearchPage: () => {},
   closeOutcomePicker: () => {},
-  resetOutcomePicker: () => {}
+  resetOutcomePicker: () => {},
+  showAlert: () => {}
 }
 
 export const paginatedNoSearch = () => (
