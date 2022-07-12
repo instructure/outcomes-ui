@@ -198,7 +198,7 @@ class OutcomesService {
   }
 
   listOutcomes (host, jwt, page, contextUuid = null, artifactId = null, artifactType = null) {
-    const params = { per_page: 10, page, includes: 'scoring_method' }
+    const params = { per_page: 10, page, includes: ['scoring_method', 'friendly_description'] }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
     }
@@ -209,7 +209,7 @@ class OutcomesService {
       params['artifact_type'] = artifactType
     }
     let total = 0
-    return this.get(host, jwt, `/api/outcomes/list?${queryString.stringify(params)}`)
+    return this.get(host, jwt, `/api/outcomes/list?${queryString.stringify(params, { arrayFormat: 'bracket' })}`)
       .then(checkResponse)
       .then((response) => {
         total = getTotal(response)
@@ -220,12 +220,12 @@ class OutcomesService {
   }
 
   getSearchResults (host, jwt, text, page, contextUuid = '') {
-    const params = { text, page }
+    const params = { text, page, includes: ['scoring_method', 'friendly_description'] }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
     }
     let total = 0
-    return this.get(host, jwt, `/api/outcomes/search?${queryString.stringify(params)}`)
+    return this.get(host, jwt, `/api/outcomes/search?${queryString.stringify(params, { arrayFormat: 'bracket' })}`)
       .then(checkResponse)
       .then((response) => {
         total = getTotal(response)
