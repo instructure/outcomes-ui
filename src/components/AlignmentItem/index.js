@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import t from 'format-message'
 import { Checkbox } from '@instructure/ui-checkbox'
 import { Flex } from '@instructure/ui-flex'
+import { Heading } from '@instructure/ui-heading'
 import { Text } from '@instructure/ui-text'
 import { IconArrowOpenDownLine, IconArrowOpenEndLine, IconTrashLine } from '@instructure/ui-icons'
 import { IconButton } from '@instructure/ui-buttons'
@@ -22,6 +23,7 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
   const trashIconRef = useRef()
   const toggleExpandOutcomeDetails = () => setTruncated(prevState => !prevState)
   const [isShowingTooltip, showTooltip, hideTooltip] = useBoolean(false)
+  const displayTitle = (!canManageOutcomes && label) ? label : title
 
   useEffect(() => {
     if (shouldFocus) {
@@ -37,12 +39,6 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
     }
   }
 
-  const renderTitleText = (size, weight) => (
-    <Text size={size} weight={weight} wrap='break-word'>
-      {(!canManageOutcomes && label) ? label : title}
-    </Text>
-  )
-
   const handleUpdate = (isTruncated) => {
     if (titleTruncated !== isTruncated) {
       setTitleTruncated(isTruncated)
@@ -53,13 +49,19 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
     <div style={{padding: isTray ? '0.5rem 0' : '0.4rem 0 0 0.3rem'}} data-automation='alignmentItem__outcomeName'>
       {truncated ? (
         <React.Fragment>
-          <TruncateText position='middle' onUpdate={handleUpdate}>
-            {renderTitleText('medium', 'bold')}
-            {/* The empty span solves an issue with the truncated text overflowing to the next line */}
-            <span />
-          </TruncateText>
+          <Heading level='h4' as='h2' theme={{lineHeight: '1.5rem'}}>
+            <TruncateText position='middle' onUpdate={handleUpdate}>
+              {displayTitle}
+              {/* The empty span solves an issue with the truncated text overflowing to the next line */}
+              <span />
+            </TruncateText>
+          </Heading>
         </React.Fragment>
-      ) : renderTitleText('medium', 'bold')}
+      ) : (
+        <Heading level='h4' as='h2' theme={{lineHeight: '1.5rem'}}>
+          {displayTitle}
+        </Heading>
+      )}
     </div>
   )
 
@@ -140,7 +142,9 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
               offsetY={'-10rem'}
             >
               <View as='div' maxWidth='19rem' padding='small'>
-                {renderTitleText('small', 'normal')}
+                <Text size='small' weight='normal' wrap='break-word'>
+                  {displayTitle}
+                </Text>
               </View>
             </Popover>
           ) : renderOutcomeTitle()}

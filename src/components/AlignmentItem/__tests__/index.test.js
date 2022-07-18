@@ -22,7 +22,7 @@ describe('AlignmentItem', () => {
 
   it('renders title', () => {
     const wrapper = shallow(<AlignmentItem {...makeProps()} />)
-    expect(wrapper.find('Text')).to.have.length(1)
+    expect(wrapper.find('Heading')).to.have.length(1)
   })
 
   it('renders the friendly name if user cannot manage outcomes', () => {
