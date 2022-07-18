@@ -73,15 +73,11 @@ const Ratings = ({ratings, masteryPercent, pointsPossible, isTray}) => {
           <Table.Head>
             <Table.Row theme={{borderColor: 'white'}}>
               <Table.ColHeader id='rating' theme={{padding: '0.5rem 0rem'}}>
-                <div aria-hidden='true' className='header'>
-                  {t('Proficiency Rating')}
-                </div>
+                {t('Proficiency Rating')}
               </Table.ColHeader>
               {!isTray && (
                 <Table.ColHeader id='points' textAlign='end' theme={{padding: '0.5rem 0rem'}}>
-                  <div aria-hidden='true' className='header'>
-                    {t('Points')}
-                  </div>
+                  {t('Points')}
                 </Table.ColHeader>
               )}
             </Table.Row>
