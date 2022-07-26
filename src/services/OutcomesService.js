@@ -95,7 +95,7 @@ class OutcomesService {
   }
 
   getArtifact (host, jwt, artifactType, artifactId) {
-    const params = { artifact_type: artifactType, artifact_id: artifactId }
+    const params = { artifact_type: artifactType, artifact_id: artifactId, includes: 'friendly_description' }
     return this.get(host, jwt, `/api/artifact?${queryString.stringify(params)}`)
       .then(checkResponse)
       .then(toJson)
