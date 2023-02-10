@@ -74,6 +74,7 @@
     "query-string": "^4.3.4",
     "re-reselect": "^3.4.0",
     "react-redux": "^5",
+    "react-csv": "^2.2.2",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.0",
     "redux-immutable": "^3.0.9",
