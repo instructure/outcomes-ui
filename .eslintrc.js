@@ -4,8 +4,8 @@ var defaultExtends = Array.isArray(defaultConfig.extends) ? defaultConfig.extend
 delete defaultConfig.overrides[0].rules['mocha/no-exclusive-tests']
 
 module.exports = Object.assign({}, defaultConfig, {
-  extends: defaultExtends.concat(['plugin:security/recommended']),
-  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security']),
+  extends: defaultExtends.concat(['plugin:security/recommended', 'plugin:react-redux/recommended']),
+  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security', 'react-redux']),
   rules: Object.assign({}, defaultConfig.rules, {
     /*
     The things these warnings catch really should be fixed. They are probably causing

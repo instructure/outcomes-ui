@@ -63,6 +63,7 @@
     "@testing-library/react-hooks": "^8.0.0",
     "classnames": "^2.2.5",
     "core-js": "^3.2.1",
+    "eslint-plugin-react-redux": "^4.0.0",
     "format-message": "^6.2.1",
     "ignore-styles": "^5.0.1",
     "immutable": "^3.8.1",
