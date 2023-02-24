@@ -93,7 +93,7 @@ const failedService = { getOutcomeRollups: sinon.stub().rejects({ error: 'OHNO' 
 describe('report/actions', () => {
   describe('loadRollups', () => {
     it('calls outcome service to load rollups and individual results', () => {
-      const state = { scopeForTest: { report: { users } } }
+      const state = { scopeForTest: { report: { page: { number: 0 }, users: { '0': users } } } }
       const store = createMockStore(Map(fromJS(state)), service)
       return store.dispatch(actions.loadRollups('quiz', 101))
         .then(() => {
@@ -152,12 +152,17 @@ describe('report/actions', () => {
 
   describe('loadPage', () => {
     it('changes the page, then loads users / score data', () => {
-      const store = createMockStore(Map(), service)
+      const state = {
+        scopeForTest: {
+          report: { page: { number: 1, loading: false }, users: {} }
+        }
+      }
+      const store = createMockStore(fromJS(state), service)
 
       return store.dispatch(actions.loadPage('quiz', 101, 2)).then(() => {
         expect(store.getActions()).to.deep.include.members([
           wrapAction(actions.setPage({ number: 2, loading: true }), 'scopeForTest'),
-          wrapAction(actions.setUsers(users), 'scopeForTest'),
+          wrapAction(actions.setUsers({2: users}), 'scopeForTest'),
           wrapAction(actions.setRollups(rollups), 'scopeForTest'),
           wrapAction(actions.setPage({ number: 2, loading: false }), 'scopeForTest')
         ])
@@ -168,7 +173,7 @@ describe('report/actions', () => {
     it('will reload the current page', () => {
       const state = {
         scopeForTest: {
-          report: { page: { number: 10, loading: false } }
+          report: { page: { number: 10, loading: false }, users: { } }
         }
       }
       const store = createMockStore(fromJS(state), service)
@@ -176,7 +181,7 @@ describe('report/actions', () => {
       return store.dispatch(actions.loadPage('quiz', 101, 10)).then(() => {
         expect(store.getActions()).to.deep.include.members([
           wrapAction(actions.setPage({ number: 10, loading: true }), 'scopeForTest'),
-          wrapAction(actions.setUsers(users), 'scopeForTest'),
+          wrapAction(actions.setUsers({ 10: users }), 'scopeForTest'),
           wrapAction(actions.setRollups(rollups), 'scopeForTest'),
           wrapAction(actions.setPage({ number: 10, loading: false }), 'scopeForTest')
         ])
@@ -199,11 +204,16 @@ describe('report/actions', () => {
     })
 
     it('dispatches setUsers / setPageData on outcome service success', () => {
+      const state = {
+        scopeForTest: {
+          report: { page: { number: 1 }, users: { } }
+        }
+      }
       const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
-      const store = createMockStore(Map(), service)
+      const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadPage('quiz', 101, 2))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setUsers(getUsersResponse.users))
+          expect(store.getActions()).to.deep.include(scopedActions.setUsers({2: getUsersResponse.users}))
           expect(store.getActions()).to.deep.include(scopedActions.setPageData({ perPage: 50, total: 2 }))
           return null
         })

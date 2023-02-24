@@ -25,7 +25,7 @@ function mapStateToProps (state, ownProps) {
     pageCount: getPageCount(state, scope),
     currentPage: getPageNumber(state, scope),
     rollups: getRollups(state, scope),
-    users: getUsers(state, scope),
+    users: getUsers(state, scope, getPageNumber(state, scope)),
     getReportOutcome: getReportOutcome.bind(null, state, scope),
     hasAnyOutcomes: hasAnyOutcomes(state, scope),
     getScore: getScore.bind(null, state, scope),

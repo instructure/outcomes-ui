@@ -94,7 +94,7 @@ describe('reports/reducers', () => {
 
   describe('users', () => {
     it('is updated by setUsers', () => {
-      const newUsers = [{ uuid: '200' }, { uuid: '300' }]
+      const newUsers = {0: [{ uuid: '200' }, { uuid: '300' }]}
       const newState = reducer(state, setUsers(newUsers))
       expect(newState.get('users').toJS()).to.deep.equal(newUsers)
     })

@@ -8,6 +8,8 @@ services:
       GERRIT_PROJECT: "${GERRIT_PROJECT}"
       GERRIT_HOST: "${GERRIT_HOST}"
       GERRIT_BRANCH: "${GERRIT_BRANCH}"
+      GERRIT_PATCHSET_REVISION: "${GERRIT_PATCHSET_REVISION}"
+      GERRIT_CHANGE_ID: "${GERRIT_CHANGE_ID}"
     volumes:
       - '.git:/app/.git'
       - 'tmp:/tmp'

@@ -28,10 +28,9 @@ describe('report/selectors', () => {
             }
           }
         },
-        users: [
-          { uuid: '100' },
-          { uuid: '200' }
-        ],
+        users: {
+          2: [{ uuid: '100' }, { uuid: '200' }]
+        },
         openReportAlignmentId: 12,
         outcomes: {
           123: {
@@ -106,7 +105,8 @@ describe('report/selectors', () => {
 
   describe('getUsers', () => {
     it('retrieves the correct users', () => {
-      expect(getUsers(state, 'scopeForTest')).to.deep.equal([{ uuid: '100' }, { uuid: '200' }])
+      const pageNumber = getPageNumber(state, 'scopeForTest')
+      expect(getUsers(state, 'scopeForTest', pageNumber)).to.deep.equal([{ uuid: '100' }, { uuid: '200' }])
     })
 
     it('returns an empty array if no users are present', () => {

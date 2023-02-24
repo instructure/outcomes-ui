@@ -6,7 +6,7 @@ import { setPage, setPageData, setUsers, setReportOutcomes, setRollups, setResul
 
 const users = handleActions({
   [setUsers]: (state, action) => fromJS(action.payload)
-}, List())
+}, Map())
 
 const page = handleActions({
   [setPage]: (state, action) => fromJS(action.payload)

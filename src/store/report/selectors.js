@@ -1,4 +1,5 @@
 import { Map } from 'immutable'
+import { ALL_USERS } from '../../constants'
 
 function restrict (state, scope) {
   return state.getIn([scope, 'report']) || Map()
@@ -27,9 +28,8 @@ export function getPageLoading (state, scope) {
   return state && restrict(state, scope).getIn(['page', 'loading'], false)
 }
 
-export function getUsers (state, scope) {
-  const users = state && restrict(state, scope).get('users')
-  return users ? users.toJS() : []
+export function getUsers (state, scope, pageNumber) {
+  return pageNumber == ALL_USERS ? getAllUsers(state, scope) : getUsersForPage(state, scope, pageNumber)
 }
 
 export function getRollups (state, scope) {
@@ -53,4 +53,16 @@ export function getReportOutcome (state, scope, outcomeId) {
 
 export function hasAnyOutcomes (state, scope) {
   return state && restrict(state, scope).getIn(['outcomes']).size > 0
+}
+
+// Helpers
+
+const getAllUsers = (state, scope) => {
+  const allUsers = state && restrict(state, scope).get('users')
+  return allUsers ? allUsers.toJS() : {}
+}
+
+const getUsersForPage = (state, scope, pageNumber) => {
+  const users = pageNumber != undefined && state && restrict(state, scope).getIn(['users', pageNumber.toString()])
+  return users ? users.toJS() : []
 }

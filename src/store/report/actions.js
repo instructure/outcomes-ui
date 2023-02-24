@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions'
 import { CALL_SERVICE } from '@instructure/redux-service-middleware'
-import { getUsers, getPageLoading } from './selectors'
+import { getUsers, getPageLoading, getPageNumber } from './selectors'
 import {
   SET_REPORT_PAGE,
   SET_REPORT_PAGE_DATA,
@@ -10,7 +10,8 @@ import {
   SET_REPORT_USERS,
   VIEW_REPORT_ALIGNMENT,
   CLOSE_REPORT_ALIGNMENT,
-  SET_REPORT_LOADING
+  SET_REPORT_LOADING,
+  ALL_USERS
 } from '../../constants'
 import { getConfig } from '../config/selectors'
 
@@ -62,7 +63,9 @@ export const loadPage = (artifactType, artifactId, pageNumber, loadUsersOverride
       return usersPromiseChain
         .then(({users, perPage, total}) => {
           const pageData = { perPage, total }
-          dispatch(setUsers(users))
+          const seenUsers = getUsers(getState(), scope, ALL_USERS)
+          const allUsers = {[pageNumber]: users, ...seenUsers}
+          dispatch(setUsers(allUsers))
           return dispatch(setPageData(pageData))
         })
         .then(() => dispatch(loadRollups(artifactType, artifactId)))
@@ -80,7 +83,8 @@ export const loadPage = (artifactType, artifactId, pageNumber, loadUsersOverride
 export const loadRollups = (artifactType, artifactId) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt } = getConfig(getState(), scope)
-    const userList = getUsers(getState(), scope).map((user) => user.uuid)
+    const pageNumber = getPageNumber(getState(), scope)
+    const userList = getUsers(getState(), scope, pageNumber).map((user) => user.uuid)
 
     const jsonPromise = dispatch({
       type: CALL_SERVICE,
