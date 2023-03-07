@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions'
 import { CALL_SERVICE } from '@instructure/redux-service-middleware'
-import { getUsers, getPageLoading, getPageNumber } from './selectors'
+import { getUsers, getPageLoading, getPageNumber, getResults } from './selectors'
 import {
   SET_REPORT_PAGE,
   SET_REPORT_PAGE_DATA,
@@ -123,7 +123,8 @@ export const loadRollups = (artifactType, artifactId) => {
       const resultPromises = json.map((el) => {
         return getOutcomeResults(el.outcome.id) // eslint-disable-line promise/no-nesting
           .then((results) => {
-            dispatch(setResults({ outcomeId: el.outcome.id, results }))
+            const seenResults = getResults(getState(), scope, el.outcome.id)
+            dispatch(setResults({ outcomeId: el.outcome.id, results, seenResults }))
             return results
           })
       })

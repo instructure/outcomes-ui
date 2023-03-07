@@ -115,9 +115,9 @@ describe('report/actions', () => {
 
           const resultActions = store.getActions().slice(-2)
           resultActions.forEach((act) => {
-            const { outcomeId } = act.payload
+            const { outcomeId, seenResults } = act.payload
             const results = fakeResults[outcomeId]
-            expect(act).to.deep.equal(scopedActions.setResults({ outcomeId, results }))
+            expect(act).to.deep.equal(scopedActions.setResults({ outcomeId, results, seenResults }))
           })
 
           return null

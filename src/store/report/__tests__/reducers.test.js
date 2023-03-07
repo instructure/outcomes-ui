@@ -65,7 +65,8 @@ describe('reports/reducers', () => {
       const result = { user_uuid, points: 95.0, points_possible: 100 }
       const newResults = {
         outcomeId: '1955',
-        results: [result]
+        results: [result],
+        seenResults: new Map()
       }
 
       const newState = reducer(state, setResults(newResults))
@@ -76,6 +77,24 @@ describe('reports/reducers', () => {
           percentScore: result.percent_score,
           points: result.points,
           pointsPossible: result.points_possible
+        })
+    })
+
+    it('retains seenResults when updated', () => {
+      const seenResult = { userId: 'old_user', points: 90.0, pointsPossible: 100 }
+      const result = { user_uuid, points: 95.0, points_possible: 100 }
+      const newResults = {
+        outcomeId: '1955',
+        results: [result],
+        seenResults: new Map([[seenResult.userId, seenResult]])
+      }
+
+      const newState = reducer(state, setResults(newResults))
+      expect(newState.getIn(['results', '1955', seenResult.userId]))
+        .to.deep.equal({
+          userId: seenResult.userId,
+          points: seenResult.points,
+          pointsPossible: seenResult.pointsPossible
         })
     })
   })

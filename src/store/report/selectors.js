@@ -42,6 +42,11 @@ export function getScore (state, scope, outcomeId, userId) {
   return score ? score.toJS() : null
 }
 
+export function getResults (state, scope, outcomeId) {
+  const results = state && restrict(state, scope).getIn(['results', outcomeId])
+  return results ? results : Map()
+}
+
 export function isOpen (state, scope, outcomeId) {
   return restrict(state, scope).get('openReportAlignmentId') === outcomeId
 }

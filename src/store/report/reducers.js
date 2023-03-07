@@ -30,7 +30,7 @@ const loading = handleActions({
 
 const results = handleActions({
   [setResults]: (state, action) => {
-    const { outcomeId, results } = action.payload
+    const { outcomeId, results, seenResults } = action.payload
     const resultMap = results.map(({
       user_uuid: userId,
       percent_score: percentScore,
@@ -42,7 +42,9 @@ const results = handleActions({
       })
       return [userId.toString(), ungulated]
     })
-    return state.set(outcomeId, Map(resultMap))
+    const fetchedResults = Map(resultMap)
+    const allResults = Map([...fetchedResults, ...seenResults])
+    return state.set(outcomeId, allResults)
   }
 }, Map())
 

@@ -36,6 +36,7 @@ function mapStateToProps (state, ownProps) {
 
 function mapDispatchToProps (dispatch, ownProps) {
   const { scope } = ownProps
+  // eslint-disable react-redux/mapDispatchToProps-returns-object
   return bindScopedActionCreators({
     loadPage,
     viewReportAlignment,
