@@ -5,6 +5,7 @@ import { shallow } from 'enzyme'
 import OutcomesPerStudent from '../index'
 import checkA11y from '../../../test/checkA11y'
 import styles from '../styles.css'
+import { REPORT_DOWNLOAD_FF } from '../../../constants'
 
 chai.use(require('sinon-chai'))
 
@@ -63,7 +64,8 @@ describe('OutcomesPerStudent/index', () => {
           uuid: 5,
           full_name: 'Sir Darryl Roundtree'
         }
-      ]
+      ],
+      features: []
     }, props)
   }
 
@@ -113,6 +115,42 @@ describe('OutcomesPerStudent/index', () => {
       {disableLifecycleMethods: true}
     )
     expect(wrapper.find('Billboard').prop('heading')).to.equal('There is no report here to show')
+  })
+
+  describe('ExportCSVButton', () => {
+    it('renders if the FF is enabled, the page is loaded, and there are users and outcomes', () => {
+      const wrapper = shallow(
+        <OutcomesPerStudent {...makeProps({features: [REPORT_DOWNLOAD_FF]})} />,
+        {disableLifecycleMethods: true}
+      )
+      expect(wrapper.find('ExportCSVButton')).to.have.length(1)
+    })
+
+    describe('does not render if', () => {
+      it('the FF is disabled', () => {
+        const wrapper = shallow(
+          <OutcomesPerStudent {...makeProps({})} />,
+          {disableLifecycleMethods: true}
+        )
+        expect(wrapper.find('ExportCSVButton')).to.have.length(0)
+      })
+
+      it('there are no students', () => {
+        const wrapper = shallow(
+          <OutcomesPerStudent {...makeProps({users: []})} />,
+          {disableLifecycleMethods: true}
+        )
+        expect(wrapper.find('ExportCSVButton')).to.have.length(0)
+      })
+
+      it('there are no outcomes', () => {
+        const wrapper = shallow(
+          <OutcomesPerStudent {...makeProps({hasAnyOutcomes: false})} />,
+          {disableLifecycleMethods: true}
+        )
+        expect(wrapper.find('ExportCSVButton')).to.have.length(0)
+      })
+    })
   })
 
   it('meets a11y standards', () => {

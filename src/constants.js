@@ -90,8 +90,10 @@ export const SET_INDIVIDUAL_RESULTS_STATE = 'SET_INDIVIDUAL_RESULTS_STATE'
  * add feature flags here as strings
  * this being a function allows it to be stubbed in tests
 */
+
+export const REPORT_DOWNLOAD_FF = 'report_download'
 export const getFeatureFlags = () => {
-  return []
+  return [REPORT_DOWNLOAD_FF]
 }
 
 /*

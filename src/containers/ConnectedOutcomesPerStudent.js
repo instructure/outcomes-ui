@@ -3,11 +3,13 @@ import { bindActionCreators as bindScopedActionCreators } from 'multireducer'
 import OutcomesPerStudent from '../components/OutcomesPerStudent'
 import {
   loadPage,
+  loadRemainingPages,
   viewReportAlignment,
   closeReportAlignment
 } from '../store/report/actions'
 import { setError } from '../store/context/actions'
 import {
+  formatCSVData,
   getLoading,
   getPageCount,
   getPageNumber,
@@ -15,9 +17,11 @@ import {
   getReportOutcome,
   getRollups,
   getScore,
+  getLoadingRemainingPages,
   isOpen,
   hasAnyOutcomes
 } from '../store/report/selectors'
+import { getFeatures } from '../store/features/selectors'
 
 function mapStateToProps (state, ownProps) {
   const { scope } = ownProps
@@ -27,10 +31,13 @@ function mapStateToProps (state, ownProps) {
     rollups: getRollups(state, scope),
     users: getUsers(state, scope, getPageNumber(state, scope)),
     getReportOutcome: getReportOutcome.bind(null, state, scope),
+    csvFetchingStatus: getLoadingRemainingPages(state, scope),
+    formatCSVData: formatCSVData.bind(null, state, scope),
     hasAnyOutcomes: hasAnyOutcomes(state, scope),
     getScore: getScore.bind(null, state, scope),
     isOpen: isOpen.bind(null, state, scope),
-    loading: getLoading(state, scope)
+    loading: getLoading(state, scope),
+    features: getFeatures(state)
   }
 }
 
@@ -39,6 +46,7 @@ function mapDispatchToProps (dispatch, ownProps) {
   const { scope } = ownProps
   return bindScopedActionCreators({
     loadPage,
+    loadRemainingPages,
     viewReportAlignment,
     closeReportAlignment,
     setError

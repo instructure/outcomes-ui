@@ -14,11 +14,13 @@ import shortid from 'shortid'
 import t from 'format-message'
 import { themeable } from '@instructure/ui-themeable'
 import _ from 'lodash'
+import ExportCSVButton from './ExportCSVButton'
 import Header from './Header'
 import HeaderDetails from './HeaderDetails'
 import Score from './Score'
 import Early from '../../icons/Early.svg'
 import NoReport from '../../icons/NoReport.svg'
+import { REPORT_DOWNLOAD_FF } from '../../constants'
 
 import theme from '../theme'
 import styles from './styles.css'
@@ -172,6 +174,9 @@ class OutcomesPerStudentReport extends React.Component {
     artifactId: PropTypes.string.isRequired,
     rollups: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    loadRemainingPages: PropTypes.func.isRequired,
+    csvFetchingStatus: PropTypes.string.isRequired,
+    formatCSVData: PropTypes.func.isRequired,
     loadPage: PropTypes.func.isRequired,
     loadUsersOverride: PropTypes.func,
     setError: PropTypes.func.isRequired,
@@ -182,6 +187,7 @@ class OutcomesPerStudentReport extends React.Component {
     viewReportAlignment: PropTypes.func.isRequired,
     isOpen: PropTypes.func.isRequired,
     closeReportAlignment: PropTypes.func.isRequired,
+    features: PropTypes.array.isRequired,
     scope: PropTypes.string.isRequired
   }
 
@@ -298,6 +304,31 @@ class OutcomesPerStudentReport extends React.Component {
     )
   }
 
+  renderExportButton = (hasAnyStudents) => {
+    const {
+      hasAnyOutcomes,
+      loading,
+      loadUsersOverride,
+      loadRemainingPages,
+      csvFetchingStatus,
+      formatCSVData,
+      artifactType,
+      artifactId,
+      features
+    } = this.props
+    const reportDownloadEnabled = features.includes(REPORT_DOWNLOAD_FF)
+    const fetchCSVData = () => loadRemainingPages(artifactType, artifactId, loadUsersOverride)
+    if (reportDownloadEnabled && !loading && hasAnyOutcomes && hasAnyStudents) {
+      return (
+        <ExportCSVButton
+          fetchCSVData={fetchCSVData}
+          formatCSVData={formatCSVData}
+          fetchingStatus={csvFetchingStatus}
+          artifactId={artifactId} />
+      )
+    }
+  }
+
   render() {
     const { users, hasAnyOutcomes, loading } = this.props
     const hasAnyStudents = users && users.length > 0
@@ -312,7 +343,12 @@ class OutcomesPerStudentReport extends React.Component {
         return this.renderReportTable()
       }
     }
-    return <div className={styles.background}>{renderReportContent()}</div>
+    return (
+      <div className={styles.background}>
+        {this.renderExportButton(hasAnyStudents)}
+        {renderReportContent()}
+      </div>
+    )
   }
 }
 
