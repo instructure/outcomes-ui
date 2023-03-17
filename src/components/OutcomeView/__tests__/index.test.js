@@ -43,6 +43,13 @@ const sharedSpecs = (makeProps) => {
     expect(text).to.match(/This is another description/)
   })
 
+  it('ensures Friendly Description does not show', () => {
+    const wrapper = mount(<OutcomeView {...makeProps()}/>)
+
+    expect(wrapper.find('[data-automation="outcomeView__friendly_description_header"]').length).to.equal(0)
+    expect(wrapper.find('[data-automation="outcomeView__friendly_description_expanded"]').length).to.equal(0)
+  })
+
   it('meets a11y standards', () => {
     return checkA11y(<OutcomeView {...makeProps()} />)
   })

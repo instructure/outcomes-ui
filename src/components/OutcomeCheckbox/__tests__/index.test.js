@@ -47,6 +47,12 @@ describe('OutcomeCheckbox', () => {
     expect(wrapper.text()).to.match(/This is the Friendly Description/)
   })
 
+  it('does not render friendly description', () => {
+    const wrapper = mount(<OutcomeCheckbox {...makeProps()} />)
+    expect(wrapper.find('[data-automation="outcomeCheckbox__friendly_description_header"]').length).to.equal(0)
+    expect(wrapper.find('[data-automation="outcomeCheckbox__friendly_description_expanded"]').length).to.equal(0)
+  })
+
   it('renders an OutcomeDescription component', () => {
     const props = makeProps()
     const wrapper = mount(<OutcomeCheckbox {...props} />)
