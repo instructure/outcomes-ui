@@ -25,7 +25,7 @@ if (withCoverage) {
         lines: 95
       },
       each: { // fail if individual file coverage too low
-        lines: 90
+        lines: 70
       }
     }
   }

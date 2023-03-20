@@ -104,6 +104,9 @@
   "expand_the_list_of_aligned_outcomes_dbe89601": {
     "message": "Expand the list of aligned Outcomes"
   },
+  "export_csv_62f9db35": {
+    "message": "Export CSV"
+  },
   "friendly_description_57f7fdde": {
     "message": "Friendly Description"
   },
@@ -115,6 +118,24 @@
   },
   "label_alignment_removed_8060dd68": {
     "message": "{ label } alignment removed"
+  },
+  "learning_outcome_id_4fcc6822": {
+    "message": "Learning Outcome ID"
+  },
+  "learning_outcome_mastered_2557b8b4": {
+    "message": "Learning Outcome Mastered"
+  },
+  "learning_outcome_mastery_percent_4645d2e1": {
+    "message": "Learning Outcome Mastery Percent"
+  },
+  "learning_outcome_name_b37f24f8": {
+    "message": "Learning Outcome Name"
+  },
+  "learning_outcome_result_points_cdfcf941": {
+    "message": "Learning Outcome Result Points"
+  },
+  "learning_outcome_result_points_possible_6403e343": {
+    "message": "Learning Outcome Result Points Possible"
   },
   "loading_bde52856": {
     "message": "Loading"
@@ -163,6 +184,12 @@
   },
   "no_outcomes_are_currently_selected_f6092d7f": {
     "message": "No Outcomes are currently selected"
+  },
+  "number_of_aligned_questions_4a4402a6": {
+    "message": "Number of Aligned Questions"
+  },
+  "number_of_attempts_b0994c2f": {
+    "message": "Number of Attempts"
   },
   "ok_c47544a2": {
     "message": "OK"
@@ -224,6 +251,12 @@
   },
   "selected_outcomes_1a8c9b9": {
     "message": "Selected outcomes:"
+  },
+  "student_name_c45b2a7": {
+    "message": "Student Name"
+  },
+  "student_uuid_15bede8d": {
+    "message": "Student UUID"
   },
   "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
     "message": "Students must finish the assessment before any outcome results will show here. Check back here after some students have completed the assessment."

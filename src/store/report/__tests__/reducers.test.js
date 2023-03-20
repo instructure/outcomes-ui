@@ -62,7 +62,7 @@ describe('reports/reducers', () => {
 
   describe('results', () => {
     it('is updated by setResults', () => {
-      const result = { user_uuid, points: 95.0, points_possible: 100 }
+      const result = { user_uuid, points: 95.0, points_possible: 100, attempt: 1 }
       const newResults = {
         outcomeId: '1955',
         results: [result],
@@ -76,7 +76,8 @@ describe('reports/reducers', () => {
           userId: user_uuid,
           percentScore: result.percent_score,
           points: result.points,
-          pointsPossible: result.points_possible
+          pointsPossible: result.points_possible,
+          attempt: result.attempt
         })
     })
 

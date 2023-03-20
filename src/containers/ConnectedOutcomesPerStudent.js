@@ -34,9 +34,9 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
+/* eslint-disable react-redux/mapDispatchToProps-returns-object */
 function mapDispatchToProps (dispatch, ownProps) {
   const { scope } = ownProps
-  // eslint-disable react-redux/mapDispatchToProps-returns-object
   return bindScopedActionCreators({
     loadPage,
     viewReportAlignment,
@@ -44,6 +44,7 @@ function mapDispatchToProps (dispatch, ownProps) {
     setError
   }, dispatch, scope)
 }
+/* eslint-enable react-redux/mapDispatchToProps-returns-object */
 
 const ConnectedOutcomesPerStudent = connect(
   mapStateToProps,

@@ -43,9 +43,26 @@ export const SET_REPORT_ROLLUPS = 'SET_REPORT_ROLLUPS'
 export const SET_REPORT_RESULTS = 'SET_REPORT_RESULTS'
 export const SET_REPORT_USERS = 'SET_REPORT_USERS'
 export const SET_REPORT_LOADING = 'SET_REPORT_LOADING'
+export const SET_REMAINING_PAGES_LOADING = 'SET_REMAINING_PAGES_LOADING'
 export const VIEW_REPORT_ALIGNMENT = 'VIEW_REPORT_ALIGNMENT'
 export const CLOSE_REPORT_ALIGNMENT = 'CLOSE_REPORT_ALIGNMENT'
 export const ALL_USERS = 'ALL_USERS'
+export const NOT_FETCHING = 'NOT_FETCHING'
+export const IN_PROGRESS = 'FETCHING_IN_PROGRESS'
+export const ERROR = 'FETCHING_ERROR'
+export const COMPLETED = 'FETCHING_COMPLETED'
+
+// CSV Report Headers
+export const STUDENT_NAME = 'student_name'
+export const STUDENT_UUID = 'student_uuid'
+export const ATTEMPT_COUNT = 'attempt_count'
+export const ALIGNED_QUESTIONS_COUNT = 'aligned_questions_count'
+export const LOR_POINTS = 'lor_points'
+export const LOR_POINTS_POSSIBLE = 'lor_points_possible'
+export const LO_NAME = 'lo_name'
+export const LO_ID = 'lo_id'
+export const LO_MASTERY_PERCENT = 'lo_mastery_percent'
+export const LO_MASTERED = 'lo_mastered'
 
 /*
  * search

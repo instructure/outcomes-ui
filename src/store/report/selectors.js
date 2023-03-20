@@ -1,5 +1,6 @@
 import { Map } from 'immutable'
 import { ALL_USERS } from '../../constants'
+import { formatDataIntoRow } from '../../util/outcomesReportUtils'
 
 function restrict (state, scope) {
   return state.getIn([scope, 'report']) || Map()
@@ -20,6 +21,10 @@ export function getLoading (state, scope) {
   return state && restrict(state, scope).get('loading')
 }
 
+export function getLoadingRemainingPages (state, scope) {
+  return state && restrict(state, scope).get('loadingRemainingPages')
+}
+
 export function getPageNumber (state, scope) {
   return state && restrict(state, scope).getIn(['page', 'number'])
 }
@@ -30,6 +35,12 @@ export function getPageLoading (state, scope) {
 
 export function getUsers (state, scope, pageNumber) {
   return pageNumber == ALL_USERS ? getAllUsers(state, scope) : getUsersForPage(state, scope, pageNumber)
+}
+
+export function getHighestPageSeen (state, scope) {
+  const seenPages = state && restrict(state, scope).get('users')
+  const pagesList = seenPages && [...seenPages.keys()].map((pageNumber) => parseInt(pageNumber))
+  return pagesList ? Math.max(...pagesList) : 0
 }
 
 export function getRollups (state, scope) {
@@ -58,6 +69,23 @@ export function getReportOutcome (state, scope, outcomeId) {
 
 export function hasAnyOutcomes (state, scope) {
   return state && restrict(state, scope).getIn(['outcomes']).size > 0
+}
+
+export function formatCSVData (state, scope) {
+  const rows = []
+  const users = Object.values(getAllUsers(state, scope)).flat()
+  const rollups = getRollups(state, scope)
+  users.forEach((user) => {
+    rollups.forEach((rollup) => {
+      const outcome = getReportOutcome(state, scope, rollup.outcomeId)
+      const result = getScore(state, scope, rollup.outcomeId, user.uuid)
+      if (result) {
+        const row = formatDataIntoRow(user, outcome, rollup, result)
+        rows.push(row)
+      }
+    })
+  })
+  return rows
 }
 
 // Helpers

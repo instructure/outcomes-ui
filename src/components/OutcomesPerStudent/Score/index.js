@@ -8,6 +8,7 @@ import { themeable } from '@instructure/ui-themeable'
 
 import theme from '../../theme'
 import styles from './styles.css'
+import { hasMastery } from '../../../util/outcomesReportUtils'
 
 @themeable(theme, styles)
 export default class Score extends React.Component {
@@ -23,8 +24,7 @@ export default class Score extends React.Component {
 
   render() {
     const { score, outcome } = this.props
-    const mastery =
-      score && score.percentScore >= outcome.scoring_method.mastery_percent
+    const mastery = hasMastery(score, outcome)
 
     const outerStyle = classNames({
       [styles.score]: true,

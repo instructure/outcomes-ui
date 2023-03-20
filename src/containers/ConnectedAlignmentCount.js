@@ -13,11 +13,12 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
+/* eslint-disable react-redux/mapDispatchToProps-returns-object */
 function mapDispatchToProps (dispatch, ownProps) {
   const { scope } = ownProps
-  // eslint-disable react-redux/mapDispatchToProps-returns-object
   return bindScopedActionCreators({loadAlignments}, dispatch, scope)
 }
+/* eslint-enable react-redux/mapDispatchToProps-returns-object */
 
 const ConnectedAlignmentCount = compose(
   connect(mapStateToProps, mapDispatchToProps),

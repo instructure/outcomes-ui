@@ -1,8 +1,9 @@
 import { List, Map, fromJS } from 'immutable'
 import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux-immutable'
+import { NOT_FETCHING } from '../../constants'
 
-import { setPage, setPageData, setUsers, setReportOutcomes, setRollups, setResults, setLoading } from './actions'
+import { setPage, setPageData, setUsers, setReportOutcomes, setRollups, setResults, setLoading, setLoadingRemainingPages } from './actions'
 
 const users = handleActions({
   [setUsers]: (state, action) => fromJS(action.payload)
@@ -28,6 +29,10 @@ const loading = handleActions({
   [setLoading]: (state, action) => fromJS(action.payload)
 }, false)
 
+const loadingRemainingPages = handleActions({
+  [setLoadingRemainingPages]: (state, action) => fromJS(action.payload)
+}, NOT_FETCHING)
+
 const results = handleActions({
   [setResults]: (state, action) => {
     const { outcomeId, results, seenResults } = action.payload
@@ -35,10 +40,11 @@ const results = handleActions({
       user_uuid: userId,
       percent_score: percentScore,
       points,
-      points_possible: pointsPossible
+      points_possible: pointsPossible,
+      attempt
     }) => {
       const ungulated = fromJS({
-        userId, percentScore, points, pointsPossible
+        userId, percentScore, points, pointsPossible, attempt: attempt ?? 1
       })
       return [userId.toString(), ungulated]
     })
@@ -61,5 +67,6 @@ export default combineReducers({
   results,
   rollups,
   openReportAlignmentId,
-  loading
+  loading,
+  loadingRemainingPages
 })
