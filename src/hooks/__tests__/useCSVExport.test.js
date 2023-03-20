@@ -5,11 +5,16 @@ import useCSVExport, {
   NOT_EXPORTING,
   FETCHING_DATA,
   FORMATTING_CSV,
-  CSV_COMPLETE
+  CSV_COMPLETE,
+  alertTypes
 } from '../useCSVExport'
 import { NOT_FETCHING, COMPLETED, IN_PROGRESS, ERROR } from '../../constants'
+import * as Alerts from '../../components/FlashAlert'
 
 describe('useCSVExport', () => {
+  let showFlashAlert
+  beforeEach(() => { showFlashAlert = sinon.spy(Alerts, 'showFlashAlert') })
+  afterEach(() => { showFlashAlert.restore() })
   const makeProps = (props) => {
     return {
       fetchCSVData: sinon.spy(),
@@ -41,7 +46,7 @@ describe('useCSVExport', () => {
       expect(props.formatCSVData).to.not.have.been.called
     })
 
-    it('when called sets the exportState to formatting_data and calls formatCSVData if we have already completed a fetch', () => {
+    it('when called sets the exportState to formatting_csv and calls formatCSVData if we have already completed a fetch', () => {
       const formattedData = [[{row1: 'row1'}]]
       const formatCSVDataMock = sinon.stub().returns(formattedData)
       const props = makeProps({fetchingStatus: COMPLETED, formatCSVData: formatCSVDataMock})
@@ -52,16 +57,35 @@ describe('useCSVExport', () => {
       expect(props.formatCSVData).to.have.been.called
     })
 
-    it('sets the exportState to not_fetching if fetchCSVData throws an error', () => {
-      const fetchCSVDataError = sinon.stub().rejects()
-      const props = makeProps({fetchCSVData: fetchCSVDataError})
-      const newProps = makeProps({fetchingStatus: ERROR})
-      const hook = renderHook(() => useCSVExport({...props}))
-      hook.result.current.beginExport()
-      hook.rerender(newProps)
-      hook.waitForNextUpdate(() => {
-        expect(hook.result.current.exportState).to.equal(NOT_FETCHING)
-      })
+    it('calls showFlashAlert with the starting message', () => {
+      const props = makeProps({})
+      const {result} = renderHook(() => useCSVExport({...props}))
+      result.current.beginExport()
+      expect(showFlashAlert).to.have.been.calledWith(alertTypes.starting)
+    })
+  })
+
+  it('sets the exportState to not_fetching if fetchCSVData throws an error', () => {
+    const fetchCSVDataError = sinon.stub().rejects()
+    const props = makeProps({fetchCSVData: fetchCSVDataError})
+    const newProps = makeProps({fetchingStatus: ERROR})
+    const hook = renderHook(() => useCSVExport({...props}))
+    hook.result.current.beginExport()
+    hook.rerender(newProps)
+    hook.waitForNextUpdate(() => {
+      expect(hook.result.current.exportState).to.equal(NOT_FETCHING)
+    })
+  })
+
+  it('calls showFlashAlert with the error message', () => {
+    const fetchCSVDataError = sinon.stub().rejects()
+    const props = makeProps({fetchCSVData: fetchCSVDataError})
+    const newProps = makeProps({fetchingStatus: ERROR})
+    const hook = renderHook(() => useCSVExport({...props}))
+    hook.result.current.beginExport()
+    hook.rerender(newProps)
+    hook.waitForNextUpdate(() => {
+      expect(showFlashAlert).to.have.been.calledWith(alertTypes.error)
     })
   })
 
@@ -104,7 +128,7 @@ describe('useCSVExport', () => {
     })
   })
 
-  it('sets the exportState to csv_complete when the data is formatted', () => {
+  it('sets the exportState to csv_complete when the data is formatted and shows the success alert', () => {
     const formattedData = [[{row1: 'row1'}]]
     const formatCSVDataMock = sinon.stub().returns(formattedData)
     const props = makeProps({formatCSVData: formatCSVDataMock})
@@ -115,6 +139,7 @@ describe('useCSVExport', () => {
     hook.waitForNextUpdate(() => {
       expect(hook.result.current.formattedData).to.deep.equal(formattedData)
       expect(hook.result.current.exportState).to.equal(CSV_COMPLETE)
+      expect(showFlashAlert).to.have.been.calledWith(alertTypes.success)
     })
   })
 

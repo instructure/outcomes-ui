@@ -8,6 +8,9 @@
   "aligned_outcomes_d0a0c159": {
     "message": "Aligned Outcomes"
   },
+  "an_error_occurred_making_a_network_request_d1bda348": {
+    "message": "An error occurred making a network request"
+  },
   "attached_outcomes_d64ce1de": {
     "message": "Attached Outcomes"
   },
@@ -79,6 +82,12 @@
   },
   "count_plural_one_outcome_other_outcomes_7112a43f": {
     "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
+  },
+  "csv_export_has_completed_f7a0b07a": {
+    "message": "CSV export has completed"
+  },
+  "csv_export_has_started_this_may_take_a_few_minutes_d8043a7c": {
+    "message": "CSV export has started. This may take a few minutes."
   },
   "description_for_mastery_level_position_description_f8377eab": {
     "message": "Description for mastery level { position }: { description }"
@@ -269,6 +278,9 @@
   },
   "there_is_no_report_here_to_show_bba5b77c": {
     "message": "There is no report here to show"
+  },
+  "there_was_an_error_in_fetching_the_data_please_try_dd66ba13": {
+    "message": "There was an error in fetching the data. Please try again."
   },
   "to_add_or_create_outcomes_visit_the_canvas_outcome_675b98ac": {
     "message": "To add or create outcomes, visit the Canvas outcomes page."

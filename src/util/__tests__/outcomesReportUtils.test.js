@@ -3,7 +3,8 @@ import {
   formatDataIntoRow,
   hasMastery,
   fileName,
-  getDate
+  getDate,
+  formatPercentage
 } from '../outcomesReportUtils'
 import {
   STUDENT_NAME,
@@ -118,6 +119,17 @@ describe('outcomesReportUtils', () => {
     // https://stackoverflow.com/questions/22061723/regex-date-validation-for-yyyy-mm-dd
     it('returns the date in yyyy-mm-dd format', () => {
       expect(getDate().match(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)).not.to.empty
+    })
+  })
+
+  describe('formatPercentage', () => {
+    it('formats two numbers into a percentage', () => {
+      expect(formatPercentage(50, 100)).to.eq(50)
+      expect(formatPercentage(5, 10)).to.eq(50)
+    })
+
+    it('formats two numbers into a percentage and rounds', () => {
+      expect(formatPercentage(1, 3)).to.eq(33)
     })
   })
 })

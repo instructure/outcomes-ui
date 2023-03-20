@@ -44,6 +44,8 @@ export const getDate = () => {
   return new Date(now.getTime() - (offset*60*1000)).toISOString().split('T')[0]
 }
 
+export const formatPercentage = (value, maxValue) => Math.round((value / maxValue) * 100)
+
 // Note: Once OS has Item Bank alignments, this will need to be updated
 const getAlignedQuestionsCount = (rollup) => {
   return rollup.usesBank ? t('Variable Questions') : rollup.childArtifactCount

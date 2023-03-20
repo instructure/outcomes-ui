@@ -324,7 +324,8 @@ class OutcomesPerStudentReport extends React.Component {
           fetchCSVData={fetchCSVData}
           formatCSVData={formatCSVData}
           fetchingStatus={csvFetchingStatus}
-          artifactId={artifactId} />
+          artifactId={artifactId}
+        />
       )
     }
   }
