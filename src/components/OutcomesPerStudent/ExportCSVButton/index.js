@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import { Button } from '@instructure/ui-buttons'
 import { CSVLink } from 'react-csv'
 import { Flex } from '@instructure/ui-flex'
+import { ProgressBar } from '@instructure/ui-progress'
+import { Text } from '@instructure/ui-text'
+import { Transition } from '@instructure/ui-motion'
 import t from 'format-message'
+import useBoolean from '../../../hooks/useBoolean'
 import useCSVExport, {
   NOT_EXPORTING,
   CSV_COMPLETE
@@ -20,7 +24,7 @@ import {
   LO_MASTERY_PERCENT,
   LO_MASTERED
 } from '../../../constants'
-import { fileName } from '../../../util/outcomesReportUtils'
+import { fileName, formatPercentage } from '../../../util/outcomesReportUtils'
 
 export const headers = [
   { label: t('Student Name'), key: STUDENT_NAME },
@@ -43,12 +47,22 @@ const ExportCSVButton = ({
 }) => {
   const csvElementRef = useRef(null)
   const exportCSV = () => csvElementRef.current?.click()
-
+  const [isShowingProgressBar, showProgressBar, hideProgressBar] = useBoolean(false)
   const {
     beginExport,
+    cancelExport,
     exportState,
+    progressValue,
     formattedData
-  } = useCSVExport({fetchCSVData, fetchingStatus, formatCSVData})
+  } = useCSVExport({
+    fetchCSVData,
+    fetchingStatus,
+    formatCSVData,
+    showProgressBar,
+    hideProgressBar
+  })
+
+  const canStartExport = exportState === NOT_EXPORTING
 
   useEffect(() => {
     if (exportState === CSV_COMPLETE) {
@@ -56,21 +70,35 @@ const ExportCSVButton = ({
     }
   }, [exportState])
 
-  const handleButtonInteraction = () => {
-    const canStartExport = exportState === NOT_EXPORTING || exportState === CSV_COMPLETE
-    return canStartExport ? 'enabled' : 'disabled'
-  }
-
   return (
-    <Flex as='div' width='100%' justifyItems='end'>
+    <Flex as='div' width='100%' alignItems='center' justifyItems='space-between'>
+      <div style={{flex: 1, textAlign: 'start'}}>
+        <Transition
+          in={isShowingProgressBar}
+          type='fade'
+          unmountOnExit
+        >
+          <Text weight='bold' size='small' color='primary'>
+            {t('Exporting')}
+          </Text>
+          <ProgressBar
+            screenReaderLabel={t('Export CSV Percent Complete')}
+            renderValue={({valueNow, valueMax}) => t('{percentDone}%', {percentDone: formatPercentage(valueNow, valueMax)})}
+            formatScreenReaderValue={({valueNow, valueMax}) => t('{percentDone} percent', {percentDone: formatPercentage(valueNow, valueMax)})}
+            valueNow={progressValue}
+            data-automation='outcomesPerStudent_exportCSVProgressBar'
+            margin='0 0 xx-small'
+          />
+        </Transition>
+      </div>
       <Button
         margin='medium 0 medium 0'
-        color='primary'
-        onClick={beginExport}
-        interaction={handleButtonInteraction()}
+        color={canStartExport ? 'primary' : 'secondary'}
+        onClick={canStartExport ? beginExport : cancelExport}
+        interaction={canStartExport ? 'enabled' : progressValue < 100 ? 'enabled' : 'disabled'}
         data-automation='outcomesPerStudent_exportCSVButton'
       >
-        {t('Export CSV')}
+        {canStartExport ? t('Export CSV') : t('Cancel Export')}
       </Button>
       <span aria-hidden={true}>
         <CSVLink

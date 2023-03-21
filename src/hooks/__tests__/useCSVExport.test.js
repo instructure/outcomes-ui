@@ -12,14 +12,26 @@ import { NOT_FETCHING, COMPLETED, IN_PROGRESS, ERROR } from '../../constants'
 import * as Alerts from '../../components/FlashAlert'
 
 describe('useCSVExport', () => {
+  let clock
   let showFlashAlert
-  beforeEach(() => { showFlashAlert = sinon.spy(Alerts, 'showFlashAlert') })
-  afterEach(() => { showFlashAlert.restore() })
+
+  beforeEach(() => {
+    clock = sinon.useFakeTimers()
+    showFlashAlert = sinon.spy(Alerts, 'showFlashAlert')
+  })
+
+  afterEach(() => {
+    clock.restore()
+    showFlashAlert.restore()
+  })
+
   const makeProps = (props) => {
     return {
       fetchCSVData: sinon.spy(),
       fetchingStatus: NOT_FETCHING,
       formatCSVData: sinon.spy(),
+      showProgressBar: sinon.spy(),
+      hideProgressBar: sinon.spy(),
       ...props
     }
   }
@@ -58,11 +70,27 @@ describe('useCSVExport', () => {
     })
 
     it('calls showFlashAlert with the starting message', () => {
-      const props = makeProps({})
-      const {result} = renderHook(() => useCSVExport({...props}))
+      const {result} = renderHook(() => useCSVExport({...makeProps({})}))
       result.current.beginExport()
       expect(showFlashAlert).to.have.been.calledWith(alertTypes.starting)
     })
+
+    it('calls showProgressBar', () => {
+      const props = makeProps({})
+      const {result} = renderHook(() => useCSVExport({...props}))
+      result.current.beginExport()
+      expect(props.showProgressBar).to.have.been.calledOnce
+    })
+  })
+
+  it('cancelExport sets the exportState to not_exporting and calls hideProgressBar and shows the cancelled alert', () => {
+    const props = makeProps({})
+    const {result} = renderHook(() => useCSVExport({...props}))
+    result.current.beginExport()
+    result.current.cancelExport()
+    expect(result.current.exportState).to.equal(NOT_EXPORTING)
+    expect(props.hideProgressBar).to.have.been.calledOnce
+    expect(showFlashAlert).to.have.been.calledWith(alertTypes.cancelled)
   })
 
   it('sets the exportState to not_fetching if fetchCSVData throws an error', () => {
@@ -140,6 +168,21 @@ describe('useCSVExport', () => {
       expect(hook.result.current.formattedData).to.deep.equal(formattedData)
       expect(hook.result.current.exportState).to.equal(CSV_COMPLETE)
       expect(showFlashAlert).to.have.been.calledWith(alertTypes.success)
+    })
+  })
+
+  it('hides the progress bar and sets exportState to not_exporting once we have exported', () => {
+    const formattedData = [[{row1: 'row1'}]]
+    const formatCSVDataMock = sinon.stub().returns(formattedData)
+    const props = makeProps({formatCSVData: formatCSVDataMock})
+    const newProps = makeProps({fetchingStatus: COMPLETED})
+    const hook = renderHook(() => useCSVExport({...props}))
+    hook.result.current.beginExport()
+    hook.rerender(newProps)
+    hook.waitForNextUpdate(() => {
+      clock.tick(2000)
+      expect(newProps.hideProgressBar).to.have.been.calledOnce
+      expect(hook.result.exportState).to.equal(NOT_EXPORTING)
     })
   })
 

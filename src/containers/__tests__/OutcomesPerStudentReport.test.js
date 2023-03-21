@@ -19,7 +19,8 @@ describe('OutcomesPerStudentReport', () => {
       artifactType: '',
       artifactId: '',
       host: '',
-      jwt: ''
+      jwt: '',
+      showAlert: () => {}
     }
   }
 

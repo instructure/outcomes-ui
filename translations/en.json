@@ -29,6 +29,9 @@
   "cancel_caeb1e68": {
     "message": "Cancel"
   },
+  "cancel_export_36ddef6d": {
+    "message": "Cancel Export"
+  },
   "clear_search_field_75f595c7": {
     "message": "Clear search field"
   },
@@ -115,6 +118,12 @@
   },
   "export_csv_62f9db35": {
     "message": "Export CSV"
+  },
+  "export_csv_percent_complete_11594e37": {
+    "message": "Export CSV Percent Complete"
+  },
+  "exporting_b1eab154": {
+    "message": "Exporting"
   },
   "friendly_description_57f7fdde": {
     "message": "Friendly Description"
@@ -212,6 +221,12 @@
   "outcome_detail_e5a8f7b3": {
     "message": "Outcome Detail"
   },
+  "percentdone_ba5606b6": {
+    "message": "{ percentDone }%"
+  },
+  "percentdone_percent_d557b442": {
+    "message": "{ percentDone } percent"
+  },
   "points_bb475533": {
     "message": "Points"
   },
@@ -293,5 +308,8 @@
   },
   "view_outcome_15d9adc1": {
     "message": "View Outcome"
+  },
+  "your_csv_export_has_been_cancelled_ee73928c": {
+    "message": "Your CSV export has been cancelled"
   }
 }

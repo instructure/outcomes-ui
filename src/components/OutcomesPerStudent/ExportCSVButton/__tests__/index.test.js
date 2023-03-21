@@ -7,6 +7,16 @@ import checkA11y from '../../../../test/checkA11y'
 import { NOT_FETCHING } from '../../../../constants'
 
 describe('OutcomesPerStudent/ExportCSVButton', () => {
+  let clock
+
+  beforeEach(() => {
+    clock = sinon.useFakeTimers()
+  })
+
+  afterEach(() => {
+    clock.restore()
+  })
+
   const makeProps = (props) => {
     return {
       fetchCSVData: sinon.spy(),
@@ -45,12 +55,24 @@ describe('OutcomesPerStudent/ExportCSVButton', () => {
     expect(props.fetchCSVData).to.have.been.called
   })
 
-  it('starting export disables the export CSV button', () => {
+  it('starting export changes the export CSV button to cancel export', () => {
     const props = makeProps({})
     const wrapper = mount(<ExportCSVButton {...props} />)
     const button = wrapper.find('Flex Button')
     button.simulate('click')
-    expect(wrapper.find('Flex Button').prop('interaction')).to.equal('disabled')
+    expect(wrapper.text()).not.to.match(/Export CSV/)
+    expect(wrapper.text()).to.match(/Cancel Export/)
+    expect(wrapper.find('Flex Button').prop('interaction')).to.equal('enabled')
+    expect(wrapper.find('Flex Button').prop('color')).to.equal('secondary')
+  })
+
+  it('starting export displays the ProgressBar', () => {
+    const props = makeProps({})
+    const wrapper = mount(<ExportCSVButton {...props} />)
+    const button = wrapper.find('Flex Button')
+    button.simulate('click')
+    expect(wrapper.text()).to.match(/Exporting/)
+    expect(wrapper.find('ProgressBar')).to.exist
   })
 
   it('correct headers are passed into CSVLink', () => {
