@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from '@instructure/ui-buttons'
 import { CSVLink } from 'react-csv'
@@ -43,11 +43,13 @@ const ExportCSVButton = ({
   fetchCSVData,
   formatCSVData,
   fetchingStatus,
-  artifactId
+  artifactId,
+  focusedElement
 }) => {
   const csvElementRef = useRef(null)
   const exportCSV = () => csvElementRef.current?.click()
   const [isShowingProgressBar, showProgressBar, hideProgressBar] = useBoolean(false)
+  const [csvButtonRef, setCsvButtonRef] = useState(useRef(null))
   const {
     beginExport,
     cancelExport,
@@ -67,6 +69,11 @@ const ExportCSVButton = ({
   useEffect(() => {
     if (exportState === CSV_COMPLETE) {
       exportCSV()
+      setTimeout(() => {
+        if (focusedElement === csvButtonRef) {
+          csvButtonRef.focus()
+        }
+      }, 3000)
     }
   }, [exportState])
 
@@ -97,6 +104,7 @@ const ExportCSVButton = ({
         onClick={canStartExport ? beginExport : cancelExport}
         interaction={canStartExport ? 'enabled' : progressValue < 100 ? 'enabled' : 'disabled'}
         data-automation='outcomesPerStudent_exportCSVButton'
+        buttonRef={(ref) => setCsvButtonRef(ref)}
       >
         {canStartExport ? t('Export CSV') : t('Cancel Export')}
       </Button>
@@ -118,7 +126,12 @@ ExportCSVButton.propTypes = {
   fetchCSVData: PropTypes.func.isRequired,
   formatCSVData: PropTypes.func.isRequired,
   fetchingStatus: PropTypes.string.isRequired,
-  artifactId: PropTypes.string.isRequired
+  artifactId: PropTypes.string.isRequired,
+  focusedElement: PropTypes.element,
+}
+
+ExportCSVButton.defaultProps = {
+  focusedElement: null
 }
 
 export default ExportCSVButton

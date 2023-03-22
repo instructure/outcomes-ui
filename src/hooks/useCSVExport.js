@@ -44,7 +44,7 @@ const useCSVExport = ({fetchCSVData, fetchingStatus, formatCSVData, showProgress
       setTimeout(() => {
         hideProgressBar()
         setExportState(NOT_EXPORTING)
-      }, 2000)
+      }, 3000)
     }
   }, [exportState, formattedData, progressValue])
 

@@ -304,7 +304,7 @@ class OutcomesPerStudentReport extends React.Component {
     )
   }
 
-  renderExportButton = (hasAnyStudents) => {
+  renderExportButton = (hasAnyStudents, focusedElement) => {
     const {
       hasAnyOutcomes,
       loading,
@@ -325,6 +325,7 @@ class OutcomesPerStudentReport extends React.Component {
           formatCSVData={formatCSVData}
           fetchingStatus={csvFetchingStatus}
           artifactId={artifactId}
+          focusedElement={focusedElement}
         />
       )
     }
@@ -333,6 +334,7 @@ class OutcomesPerStudentReport extends React.Component {
   render() {
     const { users, hasAnyOutcomes, loading } = this.props
     const hasAnyStudents = users && users.length > 0
+    const focusedElement = document.activeElement
     const renderReportContent = () => {
       if (loading) {
         return renderLoading()
@@ -346,7 +348,7 @@ class OutcomesPerStudentReport extends React.Component {
     }
     return (
       <div className={styles.background}>
-        {this.renderExportButton(hasAnyStudents)}
+        {this.renderExportButton(hasAnyStudents, focusedElement)}
         {renderReportContent()}
       </div>
     )
