@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { fromJS } from 'immutable'
+import { IN_PROGRESS, NOT_FETCHING } from '../../../constants'
 
 import {
   setPage,
@@ -7,6 +8,10 @@ import {
   setRollups,
   setResults,
   setUsers,
+  setReportOutcomes,
+  setLoading,
+  setLoadingRemainingPages,
+  clearReportData,
   viewReportAlignment,
   closeReportAlignment
 } from '../actions'
@@ -16,9 +21,18 @@ describe('reports/reducers', () => {
   // eslint-disable-next-line camelcase
   const user_uuid = '560fddd9-9b16-4e3a-969c-2f095e7afc78'
   const state = fromJS({
-    rollups: {
+    outcomes: {
       100: { id: 100, label: 'blue', title: 'green' }
     },
+    rollups: [
+      {
+        outcomeId: '100',
+        averageScore: 0.8,
+        count: 1,
+        masteryCount: 1,
+        childArtifactCount: 0,
+      },
+    ],
     results: {
       1955: {
         [user_uuid]: {
@@ -42,6 +56,11 @@ describe('reports/reducers', () => {
       const newState = reducer(state, setPage(newPage))
       expect(newState.get('page').toJS()).to.deep.equal(newPage)
     })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('page').toJS()).to.deep.equal({number: void 0})
+    })
   })
 
   describe('pageData', () => {
@@ -50,13 +69,60 @@ describe('reports/reducers', () => {
       const newState = reducer(state, setPageData(newPageData))
       expect(newState.get('pageData').toJS()).to.deep.equal(newPageData)
     })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('pageData').toJS()).to.deep.equal(new Map())
+    })
+  })
+
+  describe('loading', () => {
+    it('is updated by setLoading', () => {
+      const newState = reducer(state, setLoading(true))
+      expect(newState.get('loading')).to.be.true
+    })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('loading')).to.be.false
+    })
+  })
+
+  describe('loadingRemainingPages', () => {
+    it('is updated by setLoadingRemainingPages', () => {
+      const newState = reducer(state, setLoadingRemainingPages(IN_PROGRESS))
+      expect(newState.get('loadingRemainingPages')).to.eq(IN_PROGRESS)
+    })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('loadingRemainingPages')).to.eq(NOT_FETCHING)
+    })
+  })
+
+  describe('outcomes', () => {
+    it('is updated by setReportOutcomes', () => {
+      const newOutcome = { 200: { id: 200, label: 'yellow', title: 'red' } }
+      const newState = reducer(state, setReportOutcomes(newOutcome))
+      expect(newState.get('outcomes').toJS()).to.deep.equal(newOutcome)
+    })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('outcomes').toJS()).to.deep.equal(new Map())
+    })
   })
 
   describe('rollups', () => {
     it('is updated by setRollups', () => {
-      const newRollup = { id: 200, label: 'yellow', title: 'red' }
+      const newRollup = { outcomeId: 200, averageScore: 0.9, count: 1, masteryCount: 1, childArtifactCount: 0 }
       const newState = reducer(state, setRollups([newRollup]))
       expect(newState.get('rollups').toJS()).to.deep.equal([newRollup])
+    })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('rollups').toJS()).to.deep.equal([])
     })
   })
 
@@ -98,6 +164,11 @@ describe('reports/reducers', () => {
           pointsPossible: seenResult.pointsPossible
         })
     })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('results').toJS()).to.deep.equal(new Map())
+    })
   })
 
   describe('openReportAlignmentId', () => {
@@ -117,6 +188,11 @@ describe('reports/reducers', () => {
       const newUsers = {0: [{ uuid: '200' }, { uuid: '300' }]}
       const newState = reducer(state, setUsers(newUsers))
       expect(newState.get('users').toJS()).to.deep.equal(newUsers)
+    })
+
+    it('is cleared by clearReportData', () => {
+      const newState = reducer(state, clearReportData())
+      expect(newState.get('users').toJS()).to.deep.equal(new Map())
     })
   })
 })

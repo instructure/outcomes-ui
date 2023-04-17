@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import OutcomesPerStudent from '../index'
 import checkA11y from '../../../test/checkA11y'
 import styles from '../styles.css'
@@ -13,6 +13,7 @@ describe('OutcomesPerStudent/index', () => {
   function makeProps (props = {}) {
     return Object.assign({
       loadPage: sinon.stub().returns(Promise.resolve()),
+      clearReportStore: sinon.spy(),
       getReportOutcome: sinon.stub().returns({ id: 1, label: 'Foo.PRQ.2', title: 'Learn stuff' }),
       getScore: sinon.spy(),
       setError: sinon.spy(),
@@ -151,6 +152,16 @@ describe('OutcomesPerStudent/index', () => {
         expect(wrapper.find('ExportCSVButton')).to.have.length(0)
       })
     })
+  })
+
+  it('calls clearReportStore when about to unmount', () => {
+    const props = makeProps()
+    const wrapper = mount(
+      <OutcomesPerStudent {...props} />
+    )
+    expect(props.clearReportStore).to.not.have.been.called
+    wrapper.unmount()
+    expect(props.clearReportStore).to.have.been.calledOnce
   })
 
   it('meets a11y standards', () => {

@@ -188,6 +188,7 @@ class OutcomesPerStudentReport extends React.Component {
     isOpen: PropTypes.func.isRequired,
     closeReportAlignment: PropTypes.func.isRequired,
     features: PropTypes.array.isRequired,
+    clearReportStore: PropTypes.func.isRequired,
     scope: PropTypes.string.isRequired
   }
 
@@ -201,6 +202,10 @@ class OutcomesPerStudentReport extends React.Component {
     const { artifactType, artifactId, loadPage, setError, loadUsersOverride } =
       this.props
     loadPage(artifactType, artifactId, 1, loadUsersOverride).catch((e) => setError(e))
+  }
+
+  componentWillUnmount() {
+    this.props.clearReportStore()
   }
 
   renderReportTable() {

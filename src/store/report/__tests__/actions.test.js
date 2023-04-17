@@ -4,7 +4,16 @@ import { wrapAction } from 'multireducer'
 import sinon from 'sinon'
 
 import * as actions from '../actions'
-import { SET_ERROR, VIEW_REPORT_ALIGNMENT, CLOSE_REPORT_ALIGNMENT, NOT_FETCHING, IN_PROGRESS, COMPLETED, ERROR } from '../../../constants'
+import {
+  SET_ERROR,
+  VIEW_REPORT_ALIGNMENT,
+  CLOSE_REPORT_ALIGNMENT,
+  CLEAR_REPORT_DATA,
+  NOT_FETCHING,
+  IN_PROGRESS,
+  COMPLETED,
+  ERROR
+} from '../../../constants'
 import { setError } from '../../context/actions'
 import createMockStore, { scopeActions } from '../../../test/createMockStore'
 
@@ -390,6 +399,15 @@ describe('report/actions', () => {
           })
           expect(completeAction).to.deep.equal(scopedActions.setLoadingRemainingPages(COMPLETED))
         })
+    })
+  })
+
+  describe('clearReportStore', () => {
+    it('clears the report store', () => {
+      const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users, 2: getUsersResponse.users }, rollups: rollups } } }
+      const store = createMockStore(Map(fromJS(state)), service)
+      store.dispatch(actions.clearReportStore(state, 'scopeForTest'))
+      expect(store.getActions().slice(-1)[0].type).to.eq(CLEAR_REPORT_DATA)
     })
   })
 

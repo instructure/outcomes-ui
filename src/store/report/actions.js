@@ -17,14 +17,15 @@ import {
   SET_REPORT_ROLLUPS,
   SET_REPORT_RESULTS,
   SET_REPORT_USERS,
-  VIEW_REPORT_ALIGNMENT,
-  CLOSE_REPORT_ALIGNMENT,
   SET_REPORT_LOADING,
   SET_REMAINING_PAGES_LOADING,
+  CLEAR_REPORT_DATA,
+  VIEW_REPORT_ALIGNMENT,
+  CLOSE_REPORT_ALIGNMENT,
   ALL_USERS,
   ERROR,
   IN_PROGRESS,
-  COMPLETED
+  COMPLETED,
 } from '../../constants'
 import { getConfig } from '../config/selectors'
 import { setError } from '../context/actions'
@@ -35,13 +36,16 @@ import { setError } from '../context/actions'
 export const setReportOutcomes = createAction(SET_REPORT_OUTCOMES)
 export const setRollups = createAction(SET_REPORT_ROLLUPS)
 export const setResults = createAction(SET_REPORT_RESULTS)
-export const viewReportAlignment = createAction(VIEW_REPORT_ALIGNMENT)
-export const closeReportAlignment = createAction(CLOSE_REPORT_ALIGNMENT)
 export const setUsers = createAction(SET_REPORT_USERS)
 export const setPageData = createAction(SET_REPORT_PAGE_DATA)
 export const setPage = createAction(SET_REPORT_PAGE)
 export const setLoading = createAction(SET_REPORT_LOADING)
 export const setLoadingRemainingPages = createAction(SET_REMAINING_PAGES_LOADING)
+
+export const clearReportData = createAction(CLEAR_REPORT_DATA)
+
+export const viewReportAlignment = createAction(VIEW_REPORT_ALIGNMENT)
+export const closeReportAlignment = createAction(CLOSE_REPORT_ALIGNMENT)
 
 // Function calls to Outcome Service
 export const loadUsers = (artifactType, artifactId, pageNumber) => {
@@ -93,7 +97,7 @@ export const loadPage = (artifactType, artifactId, pageNumber, loadUsersOverride
     const loading = getPageLoading(getState(), scope)
     if (!loading) {
       if (hasSeenPage) {
-        dispatch(setPage({ number: pageNumber, loading: false }))
+        return Promise.resolve(dispatch(setPage({ number: pageNumber, loading: false })))
       } else {
         dispatch(setLoading(true))
         dispatch(setPage({ number: pageNumber, loading: true }))
@@ -226,6 +230,12 @@ export const loadRemainingResults = (artifactType, artifactId, startPage, endPag
         dispatch(setError(e))
         dispatch(setLoadingRemainingPages(ERROR))
       })
+  }
+}
+
+export const clearReportStore = () => {
+  return (dispatch, _getState, _arg, _scope) => {
+    dispatch(clearReportData())
   }
 }
 

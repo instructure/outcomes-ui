@@ -3,34 +3,51 @@ import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux-immutable'
 import { NOT_FETCHING } from '../../constants'
 
-import { setPage, setPageData, setUsers, setReportOutcomes, setRollups, setResults, setLoading, setLoadingRemainingPages } from './actions'
+import {
+  setPage,
+  setPageData,
+  setUsers,
+  setReportOutcomes,
+  setRollups,
+  setResults,
+  setLoading,
+  setLoadingRemainingPages,
+  clearReportData
+} from './actions'
 
 const users = handleActions({
-  [setUsers]: (state, action) => fromJS(action.payload)
+  [setUsers]: (_state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => Map()
 }, Map())
 
 const page = handleActions({
-  [setPage]: (state, action) => fromJS(action.payload)
+  [setPage]: (state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => fromJS({ number: void 0 })
 }, fromJS({ number: void 0 }))
 
 const pageData = handleActions({
-  [setPageData]: (state, action) => fromJS(action.payload)
+  [setPageData]: (state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => Map()
 }, Map())
 
 const outcomes = handleActions({
-  [setReportOutcomes]: (state, action) => fromJS(action.payload)
+  [setReportOutcomes]: (state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => Map()
 }, Map())
 
 const rollups = handleActions({
-  [setRollups]: (state, action) => fromJS(action.payload)
+  [setRollups]: (state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => List()
 }, List())
 
 const loading = handleActions({
-  [setLoading]: (state, action) => fromJS(action.payload)
+  [setLoading]: (state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => false
 }, false)
 
 const loadingRemainingPages = handleActions({
-  [setLoadingRemainingPages]: (state, action) => fromJS(action.payload)
+  [setLoadingRemainingPages]: (state, action) => fromJS(action.payload),
+  [clearReportData]: (_state, _action) => NOT_FETCHING
 }, NOT_FETCHING)
 
 const results = handleActions({
@@ -51,7 +68,8 @@ const results = handleActions({
     const fetchedResults = Map(resultMap)
     const allResults = Map([...fetchedResults, ...seenResults])
     return state.set(outcomeId, allResults)
-  }
+  },
+  [clearReportData]: (_state, _action) => Map()
 }, Map())
 
 const openReportAlignmentId = handleActions({

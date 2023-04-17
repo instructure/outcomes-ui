@@ -5,7 +5,8 @@ import {
   loadPage,
   loadRemainingPages,
   viewReportAlignment,
-  closeReportAlignment
+  closeReportAlignment,
+  clearReportStore
 } from '../store/report/actions'
 import { setError } from '../store/context/actions'
 import {
@@ -49,7 +50,8 @@ function mapDispatchToProps (dispatch, ownProps) {
     loadRemainingPages,
     viewReportAlignment,
     closeReportAlignment,
-    setError
+    setError,
+    clearReportStore
   }, dispatch, scope)
 }
 /* eslint-enable react-redux/mapDispatchToProps-returns-object */
