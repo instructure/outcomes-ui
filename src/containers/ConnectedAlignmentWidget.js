@@ -7,6 +7,7 @@ import * as outcomePickerActions from '../store/OutcomePicker/actions'
 import AlignmentWidget from '../components/AlignmentWidget'
 import WithArtifact from '../components/WithArtifact'
 import ConnectedOutcomeTray from './ConnectedOutcomeTray'
+import { getFeatures } from '../store/features/selectors'
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     tray: ConnectedOutcomeTray,
     alignedOutcomes: getAlignedOutcomes(state, scope),
+    features: getFeatures(state),
   }
 }
 

@@ -25,6 +25,7 @@ import {
 } from '../store/OutcomeTray/selectors'
 import OutcomeTray from '../components/OutcomeTray'
 import { isOpen } from '../store/activePicker/selectors'
+import { getFeatures } from '../store/features/selectors'
 
 function mapStateToProps (state, ownProps) {
   const { scope } = ownProps
@@ -41,7 +42,8 @@ function mapStateToProps (state, ownProps) {
     outcomes: getOutcomeList(state, scope),
     listPage: getListPage(state, scope),
     listTotal: getListTotal(state, scope),
-    focusedOutcome: getFocusedOutcome(state, scope)
+    focusedOutcome: getFocusedOutcome(state, scope),
+    features: getFeatures(state),
   }
 }
 

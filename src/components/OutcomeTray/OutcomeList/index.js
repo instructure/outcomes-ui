@@ -18,10 +18,12 @@ export default class OutcomeList extends React.Component {
     isLoading: PropTypes.bool.isRequired,
     listPage: PropTypes.number.isRequired,
     listTotal: PropTypes.number,
+    features: PropTypes.array
   }
 
   static defaultProps = {
     listTotal: null,
+    features: []
   }
 
   renderList () {
@@ -30,6 +32,7 @@ export default class OutcomeList extends React.Component {
       isOutcomeSelected,
       selectOutcomeIds,
       deselectOutcomeIds,
+      features
     } = this.props
     return outcomes.map(outcome => {
       return (
@@ -40,6 +43,7 @@ export default class OutcomeList extends React.Component {
             selectOutcomeIds={selectOutcomeIds}
             deselectOutcomeIds={deselectOutcomeIds}
             isTray={true}
+            features={features}
           />
         </div>
       )

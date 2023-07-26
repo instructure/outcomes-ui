@@ -15,7 +15,7 @@ import OutcomeDescription from '../OutcomeDescription'
 import { outcomeShape } from '../../store/shapes'
 import useBoolean from '../../hooks/useBoolean'
 
-const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, shouldFocus, isOutcomeSelected, selectOutcomeIds, deselectOutcomeIds}) => {
+const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, shouldFocus, isOutcomeSelected, selectOutcomeIds, deselectOutcomeIds, features}) => {
   const [truncated, setTruncated] = useState(true)
   const [titleTruncated, setTitleTruncated] = useState(false)
   const { id, label, title, description, friendly_description, scoring_method } = outcome
@@ -171,6 +171,7 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
               truncated={truncated}
               isTray={isTray}
               canManageOutcomes={canManageOutcomes}
+              features={features}
             />
           </View>
         </Flex.Item>
@@ -187,7 +188,8 @@ AlignmentItem.propTypes = {
   shouldFocus: PropTypes.bool,
   isOutcomeSelected: PropTypes.func,
   selectOutcomeIds: PropTypes.func,
-  deselectOutcomeIds: PropTypes.func
+  deselectOutcomeIds: PropTypes.func,
+  features: PropTypes.array
 }
 
 AlignmentItem.defaultProps = {
@@ -197,7 +199,8 @@ AlignmentItem.defaultProps = {
   shouldFocus: false,
   isOutcomeSelected: () => {},
   selectOutcomeIds: () => {},
-  deselectOutcomeIds: () => {}
+  deselectOutcomeIds: () => {},
+  features: []
 }
 
 export default AlignmentItem

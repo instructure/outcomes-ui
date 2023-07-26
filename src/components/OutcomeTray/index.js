@@ -58,7 +58,8 @@ export default class OutcomeTray extends React.Component {
     displayMasteryPercentText: PropTypes.bool,
     shouldModifyArtifact: PropTypes.bool,
     scope: PropTypes.string.isRequired,
-    showAlert: PropTypes.func
+    showAlert: PropTypes.func,
+    features: PropTypes.array
   }
 
   static defaultProps = {
@@ -75,7 +76,8 @@ export default class OutcomeTray extends React.Component {
     shouldModifyArtifact: false,
     searchTotal: null,
     listTotal: null,
-    showAlert: () => {}
+    showAlert: () => {},
+    features: []
   }
 
   componentDidUpdate(prevProps) {
@@ -102,7 +104,8 @@ export default class OutcomeTray extends React.Component {
       isFetching,
       listPage,
       listTotal,
-      getOutcomesList
+      getOutcomesList,
+      features
     } = this.props
 
     return (
@@ -116,6 +119,7 @@ export default class OutcomeTray extends React.Component {
           listPage={listPage}
           listTotal={listTotal}
           getOutcomesList={getOutcomesList}
+          features={features}
         />
       </View>
     )

@@ -33,7 +33,8 @@ export default class AlignmentWidget extends React.Component {
     screenreaderNotification: PropTypes.func,
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
     canManageOutcomes: PropTypes.bool.isRequired,
-    showAlert: PropTypes.func
+    showAlert: PropTypes.func,
+    features: PropTypes.array
   }
 
   static defaultProps = {
@@ -43,7 +44,8 @@ export default class AlignmentWidget extends React.Component {
     screenreaderNotification: null,
     liveRegion: null,
     canManageOutcomes: true,
-    showAlert: () => {}
+    showAlert: () => {},
+    features: []
   }
 
   constructor(props) {
@@ -142,7 +144,7 @@ export default class AlignmentWidget extends React.Component {
       return
     }
 
-    const { alignedOutcomes, canManageOutcomes } = this.props
+    const { alignedOutcomes, canManageOutcomes, features } = this.props
     return (
       <List isUnstyled margin="small 0" delimiter="solid">
         { /* We render this empty list item to render a delimiter at the top of the list */}
@@ -157,6 +159,7 @@ export default class AlignmentWidget extends React.Component {
                 outcome={outcome}
                 canManageOutcomes={canManageOutcomes}
                 shouldFocus={index === this.state.focusedItem}
+                features={features}
               />
             </List.Item>
           )
@@ -174,7 +177,8 @@ export default class AlignmentWidget extends React.Component {
       tray: OutcomeTray,
       liveRegion,
       screenreaderNotification,
-      showAlert
+      showAlert,
+      features
     } = this.props
     return (
       <OutcomeTray
@@ -183,6 +187,7 @@ export default class AlignmentWidget extends React.Component {
         scope={scope}
         shouldModifyArtifact
         showAlert={showAlert}
+        features={features}
         {...pickerProps}
       />
     )

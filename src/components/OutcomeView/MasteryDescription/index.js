@@ -5,24 +5,64 @@ import { Spinner } from '@instructure/ui-spinner'
 import t from 'format-message'
 import { themeable } from '@instructure/ui-themeable'
 import { scoringMethodShape } from '../../../store/shapes'
+import { NEW_DECAYING_AVERAGE_FF } from '../../../constants'
 
 import theme from '../../theme'
 import styles from './styles.css'
 
-const scoringText = (scoringMethod) => {
+const renderUserFacingMethod = (scoringMethod, newDecayingAvgFFEnabled) => {
+  const legacyDecayingAverage = t(
+    'Mastery calculated by Decaying Average. Most recent counts as ' +
+      '{recent_percent, number, percent} of mastery weight, average of all ' +
+      'other results count as {remain_percent, number, percent} of weight. ' +
+      'If there is only one result, the single score will be returned.',
+    {
+      recent_percent: scoringMethod.algorithm_data.decaying_average_percent,
+      remain_percent:
+        1.0 - scoringMethod.algorithm_data.decaying_average_percent
+    }
+  )
+
+  if (newDecayingAvgFFEnabled) {
+    switch (scoringMethod.algorithm) {
+      case 'decaying_average':
+        return t(
+          'Mastery calculated by Weighted Average. Most recent counts as ' +
+            '{recent_percent, number, percent} of mastery weight, average of all ' +
+            'other results count as {remain_percent, number, percent} of weight. ' +
+            'If there is only one result, the single score will be returned.',
+          {
+            recent_percent: scoringMethod.algorithm_data.decaying_average_percent,
+            remain_percent:
+              1.0 - scoringMethod.algorithm_data.decaying_average_percent
+          }
+        )
+      case 'standard_decaying_average':
+        return t(
+          'Mastery calculated by Decaying Average. Between two assessments, ' +
+            'the most recent assessment gets {recent_percent, number, percent} weight, ' +
+            'and the first gets {remain_percent, number, percent}. For each additional assessment, ' +
+            'the sum of the previous score calculations decay by an ' +
+            'additional {remain_percent, number, percent}. ' +
+            'If there is only one result, the single score will be returned.',
+          {
+            recent_percent: scoringMethod.algorithm_data.standard_decaying_average_percent,
+            remain_percent:
+              1.0 - scoringMethod.algorithm_data.standard_decaying_average_percent
+          }
+        )
+    }
+  } else {
+    return legacyDecayingAverage
+  }
+}
+
+const scoringText = (scoringMethod, newDecayingAvgFFEnabled) => {
   switch (scoringMethod.algorithm) {
     case 'decaying_average':
-      return t(
-        'Mastery calculated by Decaying Average. Most recent counts as ' +
-          '{recent_percent, number, percent} of mastery weight, average of all ' +
-          'other results count as {remain_percent, number, percent} of weight. ' +
-          'If there is only one result, the single score will be returned.',
-        {
-          recent_percent: scoringMethod.algorithm_data.decaying_average_percent,
-          remain_percent:
-            1.0 - scoringMethod.algorithm_data.decaying_average_percent
-        }
-      )
+      return renderUserFacingMethod(scoringMethod, newDecayingAvgFFEnabled)
+    case 'standard_decaying_average':
+      return renderUserFacingMethod(scoringMethod, newDecayingAvgFFEnabled)
     case 'n_mastery':
       return t(
         'Mastery calculated by n Number of Times. Must achieve mastery at ' +
@@ -39,6 +79,10 @@ const scoringText = (scoringMethod) => {
     case 'latest':
       return t(
         'Mastery calculated by Most Recent Score. Mastery score reflects the most recent graded assessment.'
+      )
+    case 'average':
+      return t(
+        'Mastery reflects Average Score. Calculated by dividing the sum of all item scores by the number of scores.'
       )
     default:
       return ''
@@ -62,17 +106,20 @@ export default class MasteryDescription extends React.Component {
   static propTypes = {
     artifactTypeName: PropTypes.string,
     displayMasteryPercentText: PropTypes.bool.isRequired,
-    scoringMethod: scoringMethodShape
+    scoringMethod: scoringMethodShape,
+    features: PropTypes.array
   }
 
   static defaultProps = {
     artifactTypeName: null,
-    scoringMethod: null
+    scoringMethod: null,
+    features: []
   }
 
   render() {
-    const { artifactTypeName, displayMasteryPercentText, scoringMethod } =
+    const { artifactTypeName, displayMasteryPercentText, scoringMethod, features } =
       this.props
+    const newDecayingAvgFFEnabled = features.includes(NEW_DECAYING_AVERAGE_FF)
     if (!scoringMethod) {
       return <Spinner renderTitle={t('Loading')} />
     }
@@ -82,7 +129,7 @@ export default class MasteryDescription extends React.Component {
         data-automation="outcomeView__scoreMethodDescription"
       >
         <div>
-          <Text size="small">{scoringText(scoringMethod)}</Text>
+          <Text size="small">{scoringText(scoringMethod, newDecayingAvgFFEnabled)}</Text>
         </div>
         {displayMasteryPercentText && artifactTypeName && (
           <div className={styles.scoreMasteryText}>

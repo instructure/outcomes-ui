@@ -93,8 +93,9 @@ export const SET_INDIVIDUAL_RESULTS_STATE = 'SET_INDIVIDUAL_RESULTS_STATE'
 */
 
 export const REPORT_DOWNLOAD_FF = 'report_download'
+export const NEW_DECAYING_AVERAGE_FF = 'outcomes_new_decaying_average_calculation'
 export const getFeatureFlags = () => {
-  return [REPORT_DOWNLOAD_FF]
+  return [REPORT_DOWNLOAD_FF, NEW_DECAYING_AVERAGE_FF]
 }
 
 /*
@@ -105,6 +106,8 @@ export const HIGHEST = 'highest'
 export const LATEST = 'latest'
 export const N_MASTERY = 'n_mastery'
 export const DECAYING_AVERAGE = 'decaying_average'
+export const STANDARD_DECAYING_AVERAGE = 'standard_decaying_average'
+export const WEIGHTED_AVERAGE = 'weighted_average'
 export const AVERAGE = 'average'
 
 export const CALCULATION_METHODS = {
@@ -112,5 +115,7 @@ export const CALCULATION_METHODS = {
   [LATEST]: 'Most Recent Score',
   [N_MASTERY]: 'Achieve Mastery {n} times',
   [DECAYING_AVERAGE]: 'Decaying Average - {percent}%/{complement}%',
+  [WEIGHTED_AVERAGE]: 'Weighted Average - {percent}%/{complement}%',
+  [STANDARD_DECAYING_AVERAGE]: 'Decaying Average - {percent}%/{complement}%',
   [AVERAGE]: 'Average'
 }

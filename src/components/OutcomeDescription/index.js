@@ -9,7 +9,10 @@ import {
   N_MASTERY,
   DECAYING_AVERAGE,
   AVERAGE,
-  CALCULATION_METHODS
+  CALCULATION_METHODS,
+  WEIGHTED_AVERAGE,
+  STANDARD_DECAYING_AVERAGE,
+  NEW_DECAYING_AVERAGE_FF
 } from '../../constants'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
@@ -29,9 +32,11 @@ const OutcomeDescription = ({
   ratings,
   truncated,
   isTray,
-  canManageOutcomes
+  canManageOutcomes,
+  features
 }) => {
 
+  const newDecayingAvgFFEnabled = features.includes(NEW_DECAYING_AVERAGE_FF)
   const descriptionDisplay = (!canManageOutcomes && friendlyDescription) ? friendlyDescription : description
 
   const stripHtmlTags = (text) => {
@@ -55,6 +60,27 @@ const OutcomeDescription = ({
     )
   }
 
+  const renderUserFacingMethod = (calculationMethod) => {
+    let displayMethod = DECAYING_AVERAGE
+    let percent = calculationInt.decaying_average_percent
+    if (newDecayingAvgFFEnabled) {
+      switch (calculationMethod) {
+        case DECAYING_AVERAGE: {
+          displayMethod = WEIGHTED_AVERAGE
+          percent = calculationInt.decaying_average_percent
+          break
+        }
+        case STANDARD_DECAYING_AVERAGE: {
+          displayMethod = STANDARD_DECAYING_AVERAGE
+          percent = calculationInt.standard_decaying_average_percent
+          break
+        }
+      }
+    }
+    let complement = 100 - percent
+    return t(CALCULATION_METHODS[displayMethod], {percent, complement})
+  }
+
   const formatCalculationMethodText = () => {
     let method = ''
     switch (calculationMethod) {
@@ -75,10 +101,10 @@ const OutcomeDescription = ({
         method = t(CALCULATION_METHODS[AVERAGE])
         break
       }
-      case DECAYING_AVERAGE: {
-        const percent = calculationInt.decaying_average_percent
-        const complement = 100 - percent
-        method = t(CALCULATION_METHODS[DECAYING_AVERAGE], {percent, complement})
+      case DECAYING_AVERAGE:
+      case STANDARD_DECAYING_AVERAGE: {
+        method = renderUserFacingMethod(calculationMethod)
+        break
       }
     }
     return method
@@ -174,7 +200,8 @@ OutcomeDescription.propTypes = {
   ratings: PropTypes.arrayOf(scoringTierShape),
   truncated: PropTypes.bool,
   isTray: PropTypes.bool,
-  canManageOutcomes: PropTypes.bool
+  canManageOutcomes: PropTypes.bool,
+  features: PropTypes.array
 }
 
 OutcomeDescription.defaultProps = {
@@ -190,7 +217,8 @@ OutcomeDescription.defaultProps = {
   pointsPossible: null,
   ratings: [],
   truncated: true,
-  canManageOutcomes: true
+  canManageOutcomes: true,
+  features: []
 }
 
 export default OutcomeDescription

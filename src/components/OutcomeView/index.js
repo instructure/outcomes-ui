@@ -37,7 +37,8 @@ export default class OutcomeView extends React.Component {
     scoringTiers: PropTypes.arrayOf(scoringTierShape),
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
-    displayMasteryPercentText: PropTypes.bool
+    displayMasteryPercentText: PropTypes.bool,
+    features: PropTypes.array
   }
 
   // eslint-disable-next-line no-undef
@@ -49,7 +50,8 @@ export default class OutcomeView extends React.Component {
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
-    friendlyDescription: null
+    friendlyDescription: null,
+    features: []
   }
 
   getScoringMethod() {
@@ -84,7 +86,8 @@ export default class OutcomeView extends React.Component {
       artifactTypeName,
       displayMasteryDescription,
       displayMasteryPercentText,
-      friendlyDescription
+      friendlyDescription,
+      features
     } = this.props
 
     const scoringMethod = this.getScoringMethod()
@@ -154,6 +157,7 @@ export default class OutcomeView extends React.Component {
             artifactTypeName={artifactTypeName}
             displayMasteryPercentText={displayMasteryPercentText}
             scoringMethod={scoringMethod}
+            features={features}
           />
         )}
       </div>
