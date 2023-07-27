@@ -176,6 +176,9 @@
   "mastery_at_mastery_pts_19907b1c": {
     "message": "Mastery at { mastery } pts"
   },
+  "mastery_calculated_by_decaying_average_between_two_e6432b92": {
+    "message": "Mastery calculated by Decaying Average. Between two assessments, the most recent assessment gets { recent_percent, number, percent } weight, and the first gets { remain_percent, number, percent }. For each additional assessment, the sum of the previous score calculations decay by an additional { remain_percent, number, percent }. If there is only one result, the single score will be returned."
+  },
   "mastery_calculated_by_decaying_average_most_recent_a2a57ec2": {
     "message": "Mastery calculated by Decaying Average. Most recent counts as { recent_percent, number, percent } of mastery weight, average of all other results count as { remain_percent, number, percent } of weight. If there is only one result, the single score will be returned."
   },
@@ -187,6 +190,12 @@
   },
   "mastery_calculated_by_n_number_of_times_must_achie_52171692": {
     "message": "Mastery calculated by n Number of Times. Must achieve mastery at least { n_times, number } times.  Scores above mastery will be averaged to calculate final score."
+  },
+  "mastery_calculated_by_weighted_average_most_recent_4712a9d7": {
+    "message": "Mastery calculated by Weighted Average. Most recent counts as { recent_percent, number, percent } of mastery weight, average of all other results count as { remain_percent, number, percent } of weight. If there is only one result, the single score will be returned."
+  },
+  "mastery_reflects_average_score_calculated_by_divid_dfd04582": {
+    "message": "Mastery reflects Average Score. Calculated by dividing the sum of all item scores by the number of scores."
   },
   "masterypoints_points_fe9f1ebf": {
     "message": "{ masteryPoints } points"
