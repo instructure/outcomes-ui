@@ -1,21 +1,22 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
 import { IconStarSolid } from '@instructure/ui-icons'
 import t from 'format-message'
-import classNames from 'classnames'
-import { themeable } from '@instructure/ui-themeable'
-
-import theme from '../../theme'
-import styles from './styles.css'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../../theme'
+import generateStyle from './styles'
 import { hasMastery } from '../../../util/outcomesReportUtils'
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class Score extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     score: PropTypes.object,
-    outcome: PropTypes.object.isRequired
+    outcome: PropTypes.object.isRequired,
+    // eslint-disable-next-line react/require-default-props
+    styles: PropTypes.object,
   }
 
   static defaultProps = {
@@ -26,14 +27,14 @@ export default class Score extends React.Component {
     const { score, outcome } = this.props
     const mastery = hasMastery(score, outcome)
 
-    const outerStyle = classNames({
-      [styles.score]: true,
-      [styles.mastery]: mastery
-    })
+    const outerStyle = {
+      ...this.props.styles.score,
+      ...(mastery ? this.props.styles.mastery : {}),
+    }
     return (
       score && (
-        <div className={outerStyle}>
-          <span className={styles.masteryStar}>
+        <div css={outerStyle} data-automation="outcomesPerStudent__score">
+          <span css={this.props.styles.masteryStar}>
             {
               mastery && (
                 <IconStarSolid data-automation="outcomesPerStudent__masteryStar" />
@@ -41,7 +42,7 @@ export default class Score extends React.Component {
               // eslint-disable-next-line react/jsx-closing-tag-location
             }
           </span>
-          <div className={styles.scoreText}>
+          <div css={this.props.styles.scoreText}>
             <Text size="small" data-automation="outcomesPerStudent__scoreText">
               {score.points}/{score.pointsPossible}
             </Text>
@@ -49,7 +50,7 @@ export default class Score extends React.Component {
               {mastery ? t('Mastery') : t("Didn't Meet")}
             </Text>
           </div>
-          <span className={styles.scoreSpacer} />
+          <span css={this.props.styles.scoreSpacer} />
         </div>
       )
     )

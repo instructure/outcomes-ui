@@ -21,7 +21,7 @@ describe('AlignmentWidget', () => {
     const wrapper = mount(
       <div id="app"><AlignmentWidget {...makeProps()} /></div>
     )
-    expect(wrapper.find('AlignmentWidget')).to.have.length(1)
+    expect(wrapper.find(AlignmentWidget)).to.have.length(1)
   })
 
   it('sets the scope', () => {
@@ -29,7 +29,8 @@ describe('AlignmentWidget', () => {
     const wrapper = mount(
       <div id="app"><AlignmentWidget {...props} /></div>
     )
-    expect(wrapper.find('AlignmentWidget').prop('scope')).to.equal('foo:::1')
+    // Enzyme finds two AlignmentWidget components because of the instui decorator on the component
+    expect(wrapper.find('AlignmentWidget').at(0).prop('scope')).to.equal('foo:::1')
   })
 
   it('uses proper fallbacks if store is not passed in props', () => {
@@ -37,6 +38,7 @@ describe('AlignmentWidget', () => {
     const wrapper = mount(
       <div id="app"><AlignmentWidget {...props} /></div>
     )
-    expect(wrapper.find('AlignmentWidget').prop('scope')).to.equal('foo:::1')
+    // Enzyme finds two Link components because of the instui decorator on the component
+    expect(wrapper.find('AlignmentWidget').at(0).prop('scope')).to.equal('foo:::1')
   })
 })

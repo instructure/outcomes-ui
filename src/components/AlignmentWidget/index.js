@@ -1,3 +1,4 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
@@ -11,16 +12,16 @@ import {
   IconPlusLine
 } from '@instructure/ui-icons'
 import { List } from '@instructure/ui-list'
-import { themeable } from '@instructure/ui-themeable'
+import { withStyle, jsx } from '@instructure/emotion'
 import OutcomePickerModal from '../OutcomePickerModal'
 import AlignmentItem from '../AlignmentItem'
 import AlignmentCount from '../AlignmentCount'
-import { outcomeShape } from '../../store/shapes'
+import { outcomeShape, stylesShape } from '../../store/shapes'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
 
-import theme from '../theme'
-import styles from './styles.css'
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class AlignmentWidget extends React.Component {
   static propTypes = {
     alignedOutcomes: PropTypes.arrayOf(outcomeShape).isRequired,
@@ -34,7 +35,8 @@ export default class AlignmentWidget extends React.Component {
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
     canManageOutcomes: PropTypes.bool.isRequired,
     showAlert: PropTypes.func,
-    features: PropTypes.array
+    features: PropTypes.array,
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -65,6 +67,13 @@ export default class AlignmentWidget extends React.Component {
     }
   }
 
+  componentDidMount() {
+    const { alignedOutcomes } = this.props
+    if (alignedOutcomes.length === 0) {
+      this.setState({ renderCollapsed: true })
+    }
+  }
+
   handleRemoveAlignment(removedOutcome, index) {
     const { removeAlignment, onUpdate, alignedOutcomes } = this.props
     removeAlignment(removedOutcome.id, onUpdate, true)
@@ -73,11 +82,11 @@ export default class AlignmentWidget extends React.Component {
     )
     const priorIndex = index - 1
     if (priorIndex >= 0) {
-      this.setState({focusedItem: priorIndex})
+      this.setState({ focusedItem: priorIndex })
     } else if (alignedOutcomes.length > 0) {
       const nextIndex = index + 1
       if (nextIndex < alignedOutcomes.length) {
-        this.setState({focusedItem: nextIndex})
+        this.setState({ focusedItem: nextIndex })
       }
     }
   }
@@ -92,19 +101,16 @@ export default class AlignmentWidget extends React.Component {
     const { canManageOutcomes, alignedOutcomes } = this.props
     const { renderCollapsed } = this.state
     const enableToggleAction = alignedOutcomes.length > 0
-    if (!enableToggleAction) {
-      this.setState({renderCollapsed: true})
-    }
     if (canManageOutcomes || alignedOutcomes.length) {
       return (
         <div
-          className={styles.line}
+          css={this.props.styles.line}
           data-automation="outcomeLabel__alignedOutcomes"
-          style={{'align-items': 'center'}}
+          style={{ alignItems: 'center' }}
         >
           <Text size="medium">
-            <div className={styles.spacing}>
-              <span style={{'padding-right': '0.5em'}}>
+            <div css={this.props.styles.spacing}>
+              <span style={{ paddingRight: '0.5em' }}>
                 <IconButton
                   size="small"
                   screenReaderLabel={
@@ -114,7 +120,7 @@ export default class AlignmentWidget extends React.Component {
                   }
                   withBackground={false}
                   withBorder={false}
-                  interaction={enableToggleAction ? 'enabled' : 'disabled' }
+                  interaction={enableToggleAction ? 'enabled' : 'disabled'}
                   onClick={this.toggleAlignmentList}
                   data-automation="alignmentWidget__collapseButton"
                 >
@@ -129,7 +135,7 @@ export default class AlignmentWidget extends React.Component {
             </div>
           </Text>
           <Text size="medium">
-            <div className={styles.spacing}>
+            <div css={this.props.styles.spacing}>
               {t('Aligned Outcomes')} &nbsp;
               <AlignmentCount count={alignedOutcomes.length} />
             </div>
@@ -143,12 +149,11 @@ export default class AlignmentWidget extends React.Component {
     if (this.state.renderCollapsed) {
       return
     }
-
     const { alignedOutcomes, canManageOutcomes, features } = this.props
     return (
-      <List isUnstyled margin="small 0" delimiter="solid">
-        { /* We render this empty list item to render a delimiter at the top of the list */}
-        {alignedOutcomes.length > 0 && (<List.Item key='delimiter-0'/>)}
+      <List isUnstyled margin='small 0'>
+        {/* We render this empty list item to render a delimiter at the top of the list */}
+        {alignedOutcomes.length > 0 && <List.Item key="delimiter-0" />}
         {alignedOutcomes.map((outcome, index) => {
           return (
             <List.Item padding="0 small 0 medium" key={outcome.id}>
@@ -164,8 +169,8 @@ export default class AlignmentWidget extends React.Component {
             </List.Item>
           )
         })}
-        { /* We render this empty list item to render a delimiter at the end of the list */}
-        {alignedOutcomes.length > 0 && (<List.Item key='delimiter-1'/>)}
+        {/* We render this empty list item to render a delimiter at the end of the list */}
+        {alignedOutcomes.length > 0 && <List.Item key="delimiter-1" />}
       </List>
     )
   }
@@ -197,16 +202,16 @@ export default class AlignmentWidget extends React.Component {
     const { openOutcomePicker, canManageOutcomes } = this.props
     if (canManageOutcomes) {
       return (
-        <div className={styles.button}>
+        <div css={this.props.styles.button}>
           <Button
             ref={(d) => {
               this.align = d
             }} // eslint-disable-line immutable/no-mutation
-            icon={IconPlusLine}
+            renderIcon={IconPlusLine}
             onClick={openOutcomePicker}
             data-automation="alignmentWidget__button"
           >
-            <AccessibleContent alt={t('Align Outcomes')}>
+            <AccessibleContent alt={t('Align Outcomes')} data-automation="alignmentWidget__AccessibleContent" >
               {t('Outcome')}
             </AccessibleContent>
           </Button>
@@ -217,12 +222,12 @@ export default class AlignmentWidget extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         {this.renderHeader()}
         {this.renderAlignmentList()}
         {this.renderButton()}
         {this.renderTray()}
-      </React.Fragment>
+      </div>
     )
   }
 }

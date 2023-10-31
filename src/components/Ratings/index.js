@@ -5,13 +5,16 @@ import { Flex } from '@instructure/ui-flex'
 import { Table } from '@instructure/ui-table'
 import { Text } from '@instructure/ui-text'
 import { View } from '@instructure/ui-view'
-import { ScreenReaderContent, PresentationContent } from '@instructure/ui-a11y-content'
+import {
+  ScreenReaderContent,
+  PresentationContent
+} from '@instructure/ui-a11y-content'
 import { scoringTierShape } from '../../store/shapes'
 
-const Ratings = ({ratings, masteryPercent, pointsPossible, isTray}) => {
-
+const Ratings = ({ ratings, masteryPercent, pointsPossible, isTray }) => {
   // This will ensure that the points is calculated to at most 2 decimal points
-  const percentToPoints = percent => Math.round((percent * pointsPossible) * 100) / 100
+  const percentToPoints = (percent) =>
+    Math.round(percent * pointsPossible * 100) / 100
 
   const renderRatingDescription = (description, position) => (
     <Text>
@@ -37,9 +40,9 @@ const Ratings = ({ratings, masteryPercent, pointsPossible, isTray}) => {
         </ScreenReaderContent>
 
         <PresentationContent>
-          {isTray ? t('{points} points', {points}) : points}
+          {isTray ? t('{points} points', { points }) : points}
 
-          {!isTray && (<div style={{display: 'none'}}>{t('points')}</div>)}
+          {!isTray && <div style={{ display: 'none' }}>{t('points')}</div>}
         </PresentationContent>
       </View>
     </View>
@@ -49,54 +52,65 @@ const Ratings = ({ratings, masteryPercent, pointsPossible, isTray}) => {
     const masteryPoints = percentToPoints(masteryPercent)
     return (
       <Flex
-        wrap='wrap'
+        wrap="wrap"
         direction={isTray ? 'column' : 'row'}
         padding={isTray ? 'none small small none' : 'x-small small small none'}
       >
-        <Flex.Item as='div' padding='none xx-small none none'>
-          <Text weight='bold'>{t('Mastery at:')}</Text>
+        <Flex.Item as="div" padding="none xx-small none none">
+          <Text weight="bold">{t('Mastery at:')}</Text>
         </Flex.Item>
         <Flex.Item padding={isTray ? 'small none none' : 'none'}>
-          <Text color='primary'>{t('{masteryPoints} points', {masteryPoints})}</Text>
+          <Text color="primary">
+            {t('{masteryPoints} points', { masteryPoints })}
+          </Text>
         </Flex.Item>
       </Flex>
     )
   }
 
   return (
-    <Flex
-      width='100%'
-      direction='column'
-    >
-      <Flex width={isTray ? '100%' : '65%'} padding='x-small 0'>
-        <Table caption={t('Ratings table')} layout='fixed'>
+    <Flex width="100%" direction="column">
+      <Flex width={isTray ? '100%' : '65%'} padding="x-small 0">
+        <Table caption={t('Ratings table')} layout="fixed">
           <Table.Head>
-            <Table.Row theme={{borderColor: 'white'}}>
-              <Table.ColHeader id='rating' theme={{padding: '0.5rem 0rem'}}>
+            <Table.Row themeOverride={{ borderColor: 'white' }}>
+              <Table.ColHeader
+                id="rating"
+                themeOverride={{ padding: '0.5rem 0rem' }}
+              >
                 {t('Proficiency Rating')}
               </Table.ColHeader>
               {!isTray && (
-                <Table.ColHeader id='points' textAlign='end' theme={{padding: '0.5rem 0rem'}}>
+                <Table.ColHeader
+                  id="points"
+                  textAlign="end"
+                  themeOverride={{ padding: '0.5rem 0rem' }}
+                >
                   {t('Points')}
                 </Table.ColHeader>
               )}
             </Table.Row>
           </Table.Head>
-          {ratings?.map(({description, percent}, index) => (
+          {ratings?.map(({ description, percent }, index) => (
             <Table.Body key={index}>
-              <Table.Row theme={{borderColor: 'white'}}>
-                <Table.Cell theme={{padding: '0.5rem 0rem'}}>
+              <Table.Row themeOverride={{ borderColor: 'white' }}>
+                <Table.Cell themeOverride={{ padding: '0.5rem 0rem' }}>
                   {renderRatingDescription(description, index + 1)}
                 </Table.Cell>
                 {!isTray && (
-                  <Table.Cell textAlign='end' theme={{padding: '0rem 2.25rem'}}>
+                  <Table.Cell
+                    textAlign="end"
+                    themeOverride={{ padding: '0rem 2.25rem' }}
+                  >
                     {renderRatingsPoints(percentToPoints(percent), index + 1)}
                   </Table.Cell>
                 )}
               </Table.Row>
               {isTray && (
-                <Table.Row theme={{borderColor: 'white', padding: '0rem 0rem'}}>
-                  <Table.Cell theme={{padding: '0.5rem 0rem'}}>
+                <Table.Row
+                  themeOverride={{ borderColor: 'white', padding: '0rem 0rem' }}
+                >
+                  <Table.Cell themeOverride={{ padding: '0.5rem 0rem' }}>
                     {renderRatingsPoints(percentToPoints(percent), index + 1)}
                   </Table.Cell>
                 </Table.Row>

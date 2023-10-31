@@ -73,3 +73,5 @@ export const decayingAverageDataShape = PropTypes.shape({
 })
 
 export const algorithmDataShape = PropTypes.oneOf([nMasteryDataShape, decayingAverageDataShape])
+
+export const stylesShape = PropTypes.object

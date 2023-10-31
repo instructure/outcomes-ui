@@ -4,8 +4,14 @@ import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import OutcomesPerStudent from '../index'
 import checkA11y from '../../../test/checkA11y'
-import styles from '../styles.css'
+import styles from '../styles.js'
 import { REPORT_DOWNLOAD_FF } from '../../../constants'
+import Header from '../Header'
+import Score from '../Score'
+import {  PaginationButton } from '@instructure/ui-pagination'
+import { Billboard } from '@instructure/ui-billboard'
+import ExportCSVButton from '../ExportCSVButton'
+import { findElementsWithStyle } from '../../../util/__tests__/findElementsWithStyle'
 
 chai.use(require('sinon-chai'))
 
@@ -71,14 +77,14 @@ describe('OutcomesPerStudent/index', () => {
   }
 
   it('renders a header for each outcome', () => {
-    const wrapper = shallow(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Header')).to.have.length(3)
+    const wrapper = mount(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Header)).to.have.length(3)
   })
 
   it('generates the correct viewReportAlignment method for each header', () => {
     const props = makeProps()
-    const wrapper = shallow(<OutcomesPerStudent {...props} />, {disableLifecycleMethods: true})
-    const header = wrapper.find('Header').last()
+    const wrapper = mount(<OutcomesPerStudent {...props} />, {disableLifecycleMethods: true})
+    const header = wrapper.find(Header).last()
     const viewReportAlignment = header.prop('viewReportAlignment')
     viewReportAlignment()
 
@@ -87,44 +93,46 @@ describe('OutcomesPerStudent/index', () => {
   })
 
   it('renders a row for each student', () => {
-    const wrapper = shallow(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(`.${styles.studentRow}`)).to.have.length(5)
+    const wrapper = mount(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
+    // expect(wrapper.find(`.${styles.studentRow}`)).to.have.length(5)
+    expect(findElementsWithStyle(wrapper, styles().studentRow)).to.have.length(5)
+
   })
 
   it('renders a score for each student score', () => {
-    const wrapper = shallow(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Score')).to.have.length(15)
+    const wrapper = mount(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Score)).to.have.length(15)
   })
 
   it('renders pagination', () => {
-    const wrapper = shallow(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('PaginationButton')).to.have.length(5)
+    const wrapper = mount(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(PaginationButton)).to.have.length(5)
   })
 
   it('renders the billboard message if no results yet exist', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <OutcomesPerStudent {...makeProps({users: [], hasAnyOutcomes: true})} />,
       {disableLifecycleMethods: true}
     )
-    expect(wrapper.find('Billboard')).to.have.length(1)
-    expect(wrapper.find('Billboard').prop('heading')).to.equal('Looks like you\'re a little early')
+    expect(wrapper.find(Billboard)).to.have.length(1)
+    expect(wrapper.find(Billboard).prop('heading')).to.equal('Looks like you\'re a little early')
   })
 
   it('renders the billboard message if no outcomes are aligned', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <OutcomesPerStudent {...makeProps({users: [], hasAnyOutcomes: false})} />,
       {disableLifecycleMethods: true}
     )
-    expect(wrapper.find('Billboard').prop('heading')).to.equal('There is no report here to show')
+    expect(wrapper.find(Billboard).prop('heading')).to.equal('There is no report here to show')
   })
 
   describe('ExportCSVButton', () => {
     it('renders if the FF is enabled, the page is loaded, and there are users and outcomes', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <OutcomesPerStudent {...makeProps({features: [REPORT_DOWNLOAD_FF]})} />,
         {disableLifecycleMethods: true}
       )
-      expect(wrapper.find('ExportCSVButton')).to.have.length(1)
+      expect(wrapper.find(ExportCSVButton)).to.have.length(1)
     })
 
     describe('does not render if', () => {

@@ -40,12 +40,13 @@ describe('TreeBrowser', () => {
 
   it('renders a TreeBrowser component', () => {
     const wrapper = mount(<TreeBrowser {...makeProps()} />)
-    expect(wrapper.find('TreeBrowser')).to.have.length(1)
+    expect(wrapper.find(TreeBrowser)).to.have.length(1)
   })
 
   it('does not require a set of rootOutcomeIds', () => {
     const wrapper = mount(<TreeBrowser {...makeProps()} />)
-    expect(wrapper.find('TreeButton')).to.have.length(3)
+    // Enzyme finds extra TreeButton components because of the instui decorator on the component
+    expect(wrapper.find('TreeButton')).to.have.length(6)
   })
 
   it('does not render a Home directory if only existing root is a collection', () => {
@@ -57,7 +58,8 @@ describe('TreeBrowser', () => {
         })}
       />
     )
-    expect(wrapper.find('TreeButton')).to.have.length(2)
+    // Enzyme finds extra TreeButton components because of the instui decorator on the component
+    expect(wrapper.find('TreeButton')).to.have.length(4)
     expect(wrapper.find('TreeButton').at(0).text()).to.include('Collectiony Collectionface')
   })
 
@@ -71,7 +73,8 @@ describe('TreeBrowser', () => {
         })}
       />
     )
-    expect(wrapper.find('TreeButton')).to.have.length(1)
+    // Enzyme finds extra TreeButton components because of the instui decorator on the component
+    expect(wrapper.find('TreeButton')).to.have.length(2)
     expect(wrapper.find('TreeButton').at(0).text()).to.include('Home')
   })
 
@@ -85,7 +88,8 @@ describe('TreeBrowser', () => {
         })}
       />
     )
-    expect(wrapper.find('TreeButton')).to.have.length(2)
+    // Enzyme finds extra TreeButton components because of the instui decorator on the component
+    expect(wrapper.find('TreeButton')).to.have.length(4)
   })
 
   it('passes children of root collections', () => {
@@ -98,7 +102,8 @@ describe('TreeBrowser', () => {
       })}
       />
     )
-    expect(wrapper.find('TreeButton')).to.have.length(3)
+    // Enzyme finds extra TreeButton components because of the instui decorator on the component
+    expect(wrapper.find('TreeButton')).to.have.length(6)
   })
 
   it('can expand non-root collections', () => {
@@ -134,7 +139,8 @@ describe('TreeBrowser', () => {
       })}
       />
     )
-    expect(wrapper.find('TreeButton')).to.have.length(4)
+    // Enzyme finds extra TreeButton components because of the instui decorator on the component
+    expect(wrapper.find('TreeButton')).to.have.length(8)
   })
 
   it('does not render if collections are undefined', () => {

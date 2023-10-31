@@ -6,6 +6,7 @@ import OutcomeViewModal from '../index'
 import { Provider } from 'react-redux'
 import createMockStore from '../../../test/createMockStore'
 import { fromJS } from 'immutable'
+import OutcomeView from '../../OutcomeView'
 
 describe('OutcomeViewModal', () => {
   function makeProps (props = {}) {
@@ -83,6 +84,6 @@ describe('OutcomeViewModal', () => {
         <OutcomeViewModal {...props} />
       </Provider>
     )
-    expect(wrapper.find('OutcomeView')).to.have.length(1)
+    expect(wrapper.find(OutcomeView)).to.have.length(1)
   })
 })

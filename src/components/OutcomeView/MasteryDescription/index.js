@@ -1,14 +1,15 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
 import { Spinner } from '@instructure/ui-spinner'
 import t from 'format-message'
-import { themeable } from '@instructure/ui-themeable'
-import { scoringMethodShape } from '../../../store/shapes'
+import { scoringMethodShape, stylesShape } from '../../../store/shapes'
 import { NEW_DECAYING_AVERAGE_FF } from '../../../constants'
+import { withStyle, jsx } from '@instructure/emotion'
 
-import theme from '../../theme'
-import styles from './styles.css'
+import generateComponentTheme from '../../theme'
+import generateStyle from './styles'
 
 const renderUserFacingMethod = (scoringMethod, newDecayingAvgFFEnabled) => {
   const legacyDecayingAverage = t(
@@ -100,14 +101,15 @@ const masteryText = (masteryPercent, artifactTypeName) => {
   )
 }
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class MasteryDescription extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     artifactTypeName: PropTypes.string,
     displayMasteryPercentText: PropTypes.bool.isRequired,
     scoringMethod: scoringMethodShape,
-    features: PropTypes.array
+    features: PropTypes.array,
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -125,14 +127,14 @@ export default class MasteryDescription extends React.Component {
     }
     return (
       <div
-        className={styles.scoreMastery}
+        css={this.props.styles.scoreMastery}
         data-automation="outcomeView__scoreMethodDescription"
       >
         <div>
           <Text size="small">{scoringText(scoringMethod, newDecayingAvgFFEnabled)}</Text>
         </div>
         {displayMasteryPercentText && artifactTypeName && (
-          <div className={styles.scoreMasteryText}>
+          <div css={this.props.styles.scoreMasteryText}>
             <Text size="small">
               {masteryText(scoringMethod.mastery_percent, artifactTypeName)}
             </Text>

@@ -36,7 +36,7 @@ describe('ConnectedOutcomeView', () => {
         />
       </Provider>
     )
-
-    expect(wrapper.find('OutcomeView')).to.have.length(1)
+    // Enzyme finds two OutcomeView components because of the instui decorator on the component
+    expect(wrapper.find('OutcomeView')).to.have.length(2)
   })
 })

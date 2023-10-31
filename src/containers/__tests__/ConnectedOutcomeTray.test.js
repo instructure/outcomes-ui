@@ -30,6 +30,7 @@ describe('ConnectedOutcomeTray', () => {
         />
       </Provider>
     )
-    expect(wrapper.find('OutcomeTray')).to.have.length(1)
+    // Enzyme finds two OutcomeTray components because of the instui decorator on the component
+    expect(wrapper.find('OutcomeTray')).to.have.length(2)
   })
 })

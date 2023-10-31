@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import { mount, shallow } from 'enzyme'
 import OutcomeSelectionList from '../index'
 import checkA11y from '../../../test/checkA11y'
+import OutcomeCheckbox from '../../OutcomeCheckbox'
 
 describe('OutcomeSelectionList', () => {
   function selectedIds (ids) {
@@ -15,12 +16,14 @@ describe('OutcomeSelectionList', () => {
     return isOutcomeSelected
   }
 
+  const outcomes = [
+    { id: '1', label: 'ABC', title: 'Title1' },
+    { id: '2', label: 'DEF', title: 'Title2' },
+    { id: '3', label: 'GHI', title: 'Title3' },
+  ]
+
   function makeProps (props = {}) {
-    const outcomes = [
-      { id: '1', label: 'ABC', title: 'Title1' },
-      { id: '2', label: 'DEF', title: 'Title2' },
-      { id: '3', label: 'GHI', title: 'Title3' },
-    ]
+    // const outcomes = outcomes
     return Object.assign({
       outcomes,
       setFocusedOutcome: sinon.spy(),
@@ -39,13 +42,13 @@ describe('OutcomeSelectionList', () => {
   })
 
   it('renders a checkbox for each outcome', () => {
-    const wrapper = shallow(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeCheckbox')).to.have.length(3)
+    const wrapper = mount(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(OutcomeCheckbox)).to.have.length(outcomes.length)
   })
 
   it('passes the right args to each checkbox', () => {
-    const wrapper = shallow(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeCheckbox').first().prop('outcome')).to.deep.equal({
+    const wrapper = mount(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(OutcomeCheckbox).first().prop('outcome')).to.deep.equal({
       id: '1',
       label: 'ABC',
       title: 'Title1'
@@ -53,29 +56,33 @@ describe('OutcomeSelectionList', () => {
   })
 
   it('renders a select all checkbox', () => {
-    const wrapper = shallow(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox[value="selectAll"]')).to.have.length(1)
+    const wrapper = mount(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
+    // Enzyme finds extra Checkbox components because of the instui decorator on the component
+    expect(wrapper.find('Checkbox[value="selectAll"]')).to.have.length(3)
   })
 
   it('renders select all as unchecked when no outcomes selected', () => {
-    const wrapper = shallow(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox[value="selectAll"]').prop('checked')).to.be.false
+    const wrapper = mount(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
+    // Enzyme finds extra Checkbox components because of the instui decorator on the component
+    expect(wrapper.find('Checkbox[value="selectAll"]').at(0).prop('checked')).to.be.false
   })
 
   it('renders select all as unchecked when not all outcomes selected', () => {
     const props = makeProps({
       isOutcomeSelected: selectedIds(['1', '3'])
     })
-    const wrapper = shallow(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox[value="selectAll"]').prop('checked')).to.be.false
+    const wrapper = mount(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
+    // Enzyme finds extra Checkbox components because of the instui decorator on the component
+    expect(wrapper.find('Checkbox[value="selectAll"]').at(0).prop('checked')).to.be.false
   })
 
   it('renders select all as checked when all outcomes selected', () => {
     const props = makeProps({
       isOutcomeSelected: selectedIds(['1', '2', '3'])
     })
-    const wrapper = shallow(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox[value="selectAll"]').prop('checked')).to.be.true
+    const wrapper = mount(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
+    // Enzyme finds extra Checkbox components because of the instui decorator on the component
+    expect(wrapper.find('Checkbox[value="selectAll"]').at(0).prop('checked')).to.be.true
   })
 
   it('renders select all checkbox as "Select all" when not all outcomes selected', () => {
@@ -98,9 +105,10 @@ describe('OutcomeSelectionList', () => {
     const props = makeProps({
       isOutcomeSelected: selectedIds(['1', '3'])
     })
-    const wrapper = shallow(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
-
-    wrapper.find('Checkbox[value="selectAll"]').simulate('change')
+    const wrapper = mount(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
+    // Enzyme finds extra Checkbox components because of the instui decorator on the component
+    const change = wrapper.find('Checkbox[value="selectAll"]').at(0).prop('onChange')
+    change()
     expect(props.selectOutcomeIds.calledWith(['1', '2', '3']))
   })
 
@@ -108,9 +116,10 @@ describe('OutcomeSelectionList', () => {
     const props = makeProps({
       isOutcomeSelected: selectedIds(['1', '2', '3'])
     })
-    const wrapper = shallow(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<OutcomeSelectionList {...props} />, {disableLifecycleMethods: true})
 
-    wrapper.find('Checkbox[value="selectAll"]').simulate('change')
+    const change = wrapper.find('Checkbox[value="selectAll"]').at(0).prop('onChange')
+    change()
     expect(props.deselectOutcomeIds.calledWith(['1', '2', '3']))
   })
 

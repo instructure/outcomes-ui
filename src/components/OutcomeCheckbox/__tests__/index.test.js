@@ -1,9 +1,11 @@
 import { expect } from 'chai'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import OutcomeCheckbox from '../index'
 import checkA11y from '../../../test/checkA11y'
+import { Checkbox } from '@instructure/ui-checkbox'
+import { Link } from '@instructure/ui-link'
 
 describe('OutcomeCheckbox', () => {
   function makeProps (props = {}) {
@@ -22,14 +24,14 @@ describe('OutcomeCheckbox', () => {
   }
 
   it('renders a checkbox', () => {
-    const wrapper = shallow(<OutcomeCheckbox {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox')).to.have.length(1)
+    const wrapper = mount(<OutcomeCheckbox {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Checkbox)).to.have.length(1)
   })
 
   it('renders outcome title in link', () => {
     const props = makeProps()
     const wrapper = mount(<OutcomeCheckbox {...props} />)
-    const link = wrapper.find('Link')
+    const link = wrapper.find(Link)
     expect(link.text()).to.equal('The student will make cupcakes')
   })
 
@@ -62,7 +64,7 @@ describe('OutcomeCheckbox', () => {
   it('will focus an outcome when the title is clicked', () => {
     const props = makeProps()
     const wrapper = mount(<OutcomeCheckbox {...props} />)
-    const click = wrapper.find('Link').prop('onClick')
+    const click = wrapper.find(Link).prop('onClick')
     const preventDefault = sinon.stub()
     click({preventDefault})
 
@@ -74,24 +76,25 @@ describe('OutcomeCheckbox', () => {
     const isOutcomeSelected = sinon.stub().withArgs(101).returns(false)
     const props = makeProps({ isOutcomeSelected })
 
-    const wrapper = shallow(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox').prop('checked')).to.equal(false)
+    const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Checkbox).prop('checked')).to.equal(false)
   })
 
   it('does not select the checkbox when not isOutcomeSelected', () => {
     const isOutcomeSelected = sinon.stub().withArgs(101).returns(true)
     const props = makeProps({ isOutcomeSelected })
 
-    const wrapper = shallow(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Checkbox').prop('checked')).to.equal(true)
+    const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Checkbox).prop('checked')).to.equal(true)
   })
 
   it('calls selectOutcomeIds when unselected and user clicks', () => {
     const isOutcomeSelected = sinon.stub().withArgs(101).returns(false)
     const props = makeProps({ isOutcomeSelected })
 
-    const wrapper = shallow(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
-    wrapper.find('Checkbox').simulate('change')
+    const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
+    const change = wrapper.find(Checkbox).prop('onChange')
+    change()
     expect(props.selectOutcomeIds.calledWith([101]))
   })
 
@@ -99,8 +102,9 @@ describe('OutcomeCheckbox', () => {
     const isOutcomeSelected = sinon.stub().withArgs(101).returns(true)
     const props = makeProps({ isOutcomeSelected })
 
-    const wrapper = shallow(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
-    wrapper.find('Checkbox').simulate('change')
+    const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
+    const change = wrapper.find(Checkbox).prop('onChange')
+    change()
     expect(props.deselectOutcomeIds.calledWith([101]))
   })
 

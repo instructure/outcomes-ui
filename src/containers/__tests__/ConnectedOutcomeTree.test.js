@@ -23,6 +23,7 @@ describe('ConnectedOutcomeTree', () => {
         <ConnectedOutcomeTree contextUuid="course_100" scope="scopeForTest" />
       </Provider>
     )
-    expect(wrapper.find('OutcomeTree')).to.have.length(1)
+    // Enzyme finds two OutcomeTree components because of the instui decorator on the component
+    expect(wrapper.find('OutcomeTree')).to.have.length(2)
   })
 })

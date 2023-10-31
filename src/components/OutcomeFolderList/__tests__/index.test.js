@@ -1,9 +1,10 @@
 import { expect } from 'chai'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import OutcomeFolderList from '../index'
 import checkA11y from '../../../test/checkA11y'
+import OutcomeFolder from '../../OutcomeFolder'
 
 describe('OutcomeFolderList', () => {
   const outcomes = [
@@ -25,14 +26,14 @@ describe('OutcomeFolderList', () => {
   })
 
   it('renders a folder for each outcome', () => {
-    const wrapper = shallow(<OutcomeFolderList {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeFolder')).to.have.length(3)
+    const wrapper = mount(<OutcomeFolderList {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(OutcomeFolder)).to.have.length(3)
   })
 
   it('passes the right args to each checkbox', () => {
     const props = makeProps()
-    const wrapper = shallow(<OutcomeFolderList {...props} />, {disableLifecycleMethods: true})
-    const folder = wrapper.find('OutcomeFolder').first()
+    const wrapper = mount(<OutcomeFolderList {...props} />, {disableLifecycleMethods: true})
+    const folder = wrapper.find(OutcomeFolder).first()
     expect(folder.prop('outcome')).to.deep.equal({
       id: '1',
       label: 'ABC',

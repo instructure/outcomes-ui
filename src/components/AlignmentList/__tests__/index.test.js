@@ -4,9 +4,11 @@ import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import AlignmentList from '../index'
 import checkA11y from '../../../test/checkA11y'
+import { Billboard } from '@instructure/ui-billboard'
+import Alignment from '../../Alignment'
+import { IconPlusLine } from '@instructure/ui-icons'
 
 describe('AlignmentList', () => {
-  const triggerButtonSelector = 'Button[variant="circle-primary"]'
 
   function makeProps (props = {}) {
     return Object.assign({
@@ -28,6 +30,7 @@ describe('AlignmentList', () => {
       addModal: () => null,
       outcomePicker: () => null,
       readOnly: false,
+      onModalClose: () => null,
     }, props)
   }
 
@@ -35,8 +38,8 @@ describe('AlignmentList', () => {
     const props = makeProps({ alignedOutcomes: [] })
 
     it('shows billboard when no alignments present', () => {
-      const wrapper = shallow(<AlignmentList {...props} />, {disableLifecycleMethods: true})
-      expect(wrapper.find('Billboard')).to.have.length(1)
+      const wrapper = mount(<AlignmentList {...props} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(Billboard)).to.have.length(1)
     })
 
     it('does not show the billboard when readOnly is true', () => {
@@ -46,18 +49,22 @@ describe('AlignmentList', () => {
     })
 
     it('includes the right heading', () => {
-      const wrapper = shallow(<AlignmentList {...props} />, {disableLifecycleMethods: true})
-      expect(wrapper.find('Billboard').prop('heading')).to.equal('Foo')
+      const wrapper = mount(<AlignmentList {...props} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(Billboard).prop('heading')).to.equal('Foo')
     })
 
     it('launches modal when billboard clicked', () => {
-      const wrapper = shallow(<AlignmentList {...props} />, {disableLifecycleMethods: true})
-      wrapper.find('Billboard').simulate('click')
+      const wrapper = mount(<AlignmentList {...props} />, {disableLifecycleMethods: true})
+      wrapper.find(Billboard)
+      const billboard = wrapper.find(Billboard)
+      billboard.find('button').simulate('click')
       expect(props.openOutcomePicker.calledOnce).to.be.true
     })
 
     it('focuses the billboard button when focus called', (done) => {
-      const wrapper = mount(<AlignmentList {...props} />)
+      let wrapper = mount(<AlignmentList {...props} />)
+      // Enzyme finds two AlignmentList components because of the instui decorator on the component
+      wrapper = wrapper.find('AlignmentList').at(1)
       setTimeout(() => {
         const trigger = wrapper.find('button').last()
         const focus = sinon.spy(trigger.instance(), 'focus')
@@ -77,18 +84,18 @@ describe('AlignmentList', () => {
 
   describe('alignments present', () => {
     it('shows list', () => {
-      const wrapper = shallow(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
+      const wrapper = mount(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
       expect(wrapper.find('ul')).to.have.length(1)
     })
 
     it('adds one alignment row per alignment', () => {
-      const wrapper = shallow(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
-      expect(wrapper.find('Alignment')).to.have.length(3)
+      const wrapper = mount(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(Alignment)).to.have.length(3)
     })
 
     it('gives correct outcome to alignment rows', () => {
-      const wrapper = shallow(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
-      expect(wrapper.find('Alignment').last().prop('outcome')).to.have.property('label', 'C3')
+      const wrapper = mount(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(Alignment).last().prop('outcome')).to.have.property('label', 'C3')
     })
 
     it('gives correct callbacks to alignment rows', () => {
@@ -109,24 +116,26 @@ describe('AlignmentList', () => {
     })
 
     it('renders a trigger button when readOnly is false', () => {
-      const wrapper = shallow(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
-      expect(wrapper.find(triggerButtonSelector)).to.have.length(1)
+      const wrapper = mount(<AlignmentList {...makeProps()} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(IconPlusLine)).to.have.length(1)
     })
 
     it('does not render a trigger button when readOnly is true', () => {
-      const wrapper = shallow(<AlignmentList {...makeProps({ readOnly: true })} />, {disableLifecycleMethods: true})
-      expect(wrapper.find(triggerButtonSelector)).to.have.length(0)
+      const wrapper = mount(<AlignmentList {...makeProps({ readOnly: true })} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(IconPlusLine)).to.have.length(0)
     })
 
     it('launches modal when trigger button clicked', () => {
       const props = makeProps()
-      const wrapper = shallow(<AlignmentList {...props} />, {disableLifecycleMethods: true})
-      wrapper.find(triggerButtonSelector).simulate('click')
+      const wrapper = mount(<AlignmentList {...props} />, {disableLifecycleMethods: true})
+      wrapper.find(IconPlusLine).simulate('click')
       expect(props.openOutcomePicker.calledOnce).to.be.true
     })
 
     it('focuses the add button when modal dismissed', (done) => {
-      const wrapper = mount(<AlignmentList {...makeProps()} />)
+      let wrapper = mount(<AlignmentList {...makeProps()} />)
+      // Enzyme finds two AlignmentList components because of the instui decorator on the component
+      wrapper = wrapper.find('AlignmentList').at(1)
       setTimeout(() => {
         const trigger = wrapper.find('button').last()
         const focus = sinon.spy(trigger.instance(), 'focus')
@@ -143,7 +152,7 @@ describe('AlignmentList', () => {
       const props = makeProps()
       const wrapper = mount(<AlignmentList {...props} />)
       const first = wrapper.find('Alignment').at(0)
-      const { label } = first.instance().props.outcome
+      const { label } = first.prop('outcome')
       const remove = first.prop('removeAlignment')
       remove()
       setTimeout(() => {
@@ -171,9 +180,9 @@ describe('AlignmentList', () => {
     it('focuses on the next alignment when first alignment deleted', (done) => {
       const wrapper = mount(<AlignmentList {...makeProps()} />)
       setTimeout(() => {
-        const first = wrapper.find('Alignment').at(0)
-        const next = wrapper.find('Alignment').at(1)
-        const focus = sinon.spy(next.instance(), 'focus')
+        // Enzyme finds extra Alignment components because of the instui decorator on the component
+        const first = wrapper.find('Alignment').at(1)
+        const focus = sinon.spy( wrapper.find('Alignment').at(3).instance(), 'focus')
         const remove = first.prop('removeAlignment')
         remove()
         setTimeout(() => {

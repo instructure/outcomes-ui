@@ -1,7 +1,7 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
-import { themeable } from '@instructure/ui-themeable'
 import { View } from '@instructure/ui-view'
 import t from 'format-message'
 
@@ -9,22 +9,23 @@ import {
   outcomeResultShape,
   scoringMethodShape,
   scoringTierShape,
-  contextShape
+  contextShape,
+  stylesShape
 } from '../../store/shapes'
 import ScoringTiers from './ScoringTiers'
 import MasteryCounts from './MasteryCounts'
 import MasteryDescription from './MasteryDescription'
 import { sanitizeHtml } from '../../lib/sanitize'
-
-import theme from '../theme'
-import styles from './styles.css'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
 import {
   contextConfiguredWithProficiencies,
   getScoringMethodFromContext,
   getScoringTiersFromContext
 } from '../../util/proficienciesUtils'
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class OutcomeView extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -38,7 +39,8 @@ export default class OutcomeView extends React.Component {
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
-    features: PropTypes.array
+    features: PropTypes.array,
+    styles: stylesShape,
   }
 
   // eslint-disable-next-line no-undef
@@ -56,7 +58,6 @@ export default class OutcomeView extends React.Component {
 
   getScoringMethod() {
     const { scoringMethod, context } = this.props
-
     return contextConfiguredWithProficiencies(context)
       ? getScoringMethodFromContext(context)
       : scoringMethod
@@ -93,11 +94,12 @@ export default class OutcomeView extends React.Component {
     const scoringMethod = this.getScoringMethod()
     const scoringTiers = this.getScoringTiers()
     const displayMasteryInformation = this.getDisplayMasteryInformation()
-    const displayMasteryCounts = scoringMethod && outcomeResult && displayMasteryInformation
+    const displayMasteryCounts =
+      scoringMethod && outcomeResult && displayMasteryInformation
 
     return (
       <div>
-        <div className={styles.title} data-automation="outcomeView__title">
+        <div css={this.props.styles.title} data-automation="outcomeView__title">
           <Text size="x-large" transform="uppercase">
             {title}
           </Text>
@@ -112,7 +114,9 @@ export default class OutcomeView extends React.Component {
           <React.Fragment>
             <View
               as="div"
-              margin={`${displayMasteryCounts ? 'medium' : 'x-small'} small 0 0`}
+              margin={`${
+                displayMasteryCounts ? 'medium' : 'x-small'
+              } small 0 0`}
               padding="small small x-small small"
               background="secondary"
               data-automation="outcomeView__friendly_description_header"
@@ -131,7 +135,7 @@ export default class OutcomeView extends React.Component {
           </React.Fragment>
         )}
         <div
-          className={styles.description}
+          css={this.props.styles.description}
           data-automation="outcomeView__description"
         >
           <Text size="medium" wrap="break-word">
@@ -143,7 +147,6 @@ export default class OutcomeView extends React.Component {
             />
           </Text>
         </div>
-
         {scoringTiers && scoringMethod && displayMasteryInformation && (
           <ScoringTiers
             outcomeResult={outcomeResult}
@@ -151,7 +154,6 @@ export default class OutcomeView extends React.Component {
             scoringMethod={scoringMethod}
           />
         )}
-
         {displayMasteryDescription && displayMasteryInformation && (
           <MasteryDescription
             artifactTypeName={artifactTypeName}

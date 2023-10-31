@@ -5,7 +5,10 @@ import { IconEmptyLine, IconStarSolid } from '@instructure/ui-icons'
 import ScoringTiers from '../index'
 import checkA11y from '../../../../test/checkA11y'
 
-import styles from '../styles.css'
+import styles from '../styles'
+// import { find } from 'lodash'
+import { findElementsWithStyle } from '../../../../util/__tests__/findElementsWithStyle'
+import generateComponentTheme from '../../../theme'
 
 describe('OutcomeView ScoringTiers', () => {
   const scoringMethod = {
@@ -25,33 +28,35 @@ describe('OutcomeView ScoringTiers', () => {
     outcomeId: 'foo'
   }
 
+  const scoringTiers = [
+    { id: 1, description: 'Cri 1', percent: 1.0 },
+    { id: 2, description: 'Cri 2', percent: 0.6 },
+    { id: 3, description: 'Cri 3', percent: 0.22222222 }
+  ]
+
   function makeProps (props = {}) {
     return Object.assign({
       scoringMethod,
-      scoringTiers: [
-        { id: 1, description: 'Cri 1', percent: 1.0 },
-        { id: 2, description: 'Cri 2', percent: 0.6 },
-        { id: 3, description: 'Cri 3', percent: 0.22222222 }
-      ]
+      scoringTiers,
     }, props)
   }
 
   it('displays scoring tiers', () => {
     const wrapper = mount(<ScoringTiers {...makeProps()} />)
-    expect(wrapper.find(`.${styles.rating}`)).to.have.length(3)
+    expect(findElementsWithStyle(wrapper, styles(generateComponentTheme).rating)).to.have.length(scoringTiers.length)
   })
 
-  const nextScore = (pillWrapper) => {
-    const gapNode = pillWrapper.closest(`.${styles.gap}`).instance()
+  const nextScore = (pillWrapper, wrapper) => {
+    const gapNode = pillWrapper.closest('.outcomeViewGap').instance()
     const tierNode = gapNode.nextSibling
-    const score = tierNode ? tierNode.getElementsByClassName(styles.score)[0].innerText : null
+    const score = tierNode ? tierNode.getElementsByClassName('outcomeViewScore')[0].innerText : null
     return score
   }
 
   it('shows mastery between correct tiers', () => {
     const wrapper = mount(<ScoringTiers {...makeProps()} />)
     const mastery = wrapper.find(IconStarSolid)
-    const score = nextScore(mastery)
+    const score = nextScore(mastery, wrapper)
     expect(score).to.equal('1.11')
   })
 
@@ -76,15 +81,17 @@ describe('OutcomeView ScoringTiers', () => {
       }
     })
     const wrapper = mount(<ScoringTiers {...props} />)
-    const gap = wrapper.find(IconStarSolid).closest(`.${styles.gap}`)
-    expect(gap.childAt(0).hasClass(styles.mastery)).to.be.true
-    expect(gap.childAt(1).hasClass(styles.average)).to.be.true
+    const gap = wrapper.find(IconStarSolid).closest('.outcomeViewGap')
+    expect(gap.childAt(0).find('span').at(0).hasClass('outcomeViewMastery')).to.be.true
+    expect(gap.childAt(1).find('span').at(0).hasClass('outcomeViewAverage')).to.be.true
+
   })
 
   it('rounds mastery points', () => {
     const props = makeProps()
     const wrapper = mount(<ScoringTiers {...props} />)
-    const score = wrapper.find(`.${styles.rating}`).last().find(`.${styles.score}`)
+    const rating = findElementsWithStyle(wrapper, styles(generateComponentTheme).rating).last()
+    const score =  findElementsWithStyle(rating, styles(generateComponentTheme).score)
     expect(score.text()).to.equal('1.11')
   })
 
@@ -95,7 +102,7 @@ describe('OutcomeView ScoringTiers', () => {
       ]
     })
     const wrapper = mount(<ScoringTiers {...props} />)
-    const txt = wrapper.find(`.${styles.masteryCount}`).find('Text')
+    const txt = findElementsWithStyle(wrapper, styles(generateComponentTheme).masteryCount).find('Text')
     expect(txt.first().text()).to.match(/Students/)
   })
 

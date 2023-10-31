@@ -34,23 +34,27 @@ describe('OutcomesPerStudent/ExportCSVButton', () => {
 
   it('export CSV button is enabled by default', () => {
     const wrapper = mount(<ExportCSVButton {...makeProps({})} />)
-    expect(wrapper.find('Flex Button').prop('interaction')).to.equal('enabled')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find('Flex Button').at(0).prop('interaction')).to.equal('enabled')
   })
 
   it('export CSV button color is primary', () => {
     const wrapper = mount(<ExportCSVButton {...makeProps({})} />)
-    expect(wrapper.find('Flex Button').prop('color')).to.equal('primary')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find('Flex Button').at(0).prop('color')).to.equal('primary')
   })
 
   it('export CSV button has onClick', () => {
     const wrapper = mount(<ExportCSVButton {...makeProps({})} />)
-    expect(wrapper.find('Flex Button').prop('onClick')).to.be.not.undefined
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find('Flex Button').at(0).prop('onClick')).to.be.not.undefined
   })
 
   it('click export CSV calls fetchCSVData', () => {
     const props = makeProps({})
     const wrapper = mount(<ExportCSVButton {...props} />)
-    const button = wrapper.find('Flex Button')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    const button = wrapper.find('Flex Button').at(0)
     button.simulate('click')
     expect(props.fetchCSVData).to.have.been.called
   })
@@ -58,18 +62,20 @@ describe('OutcomesPerStudent/ExportCSVButton', () => {
   it('starting export changes the export CSV button to cancel export', () => {
     const props = makeProps({})
     const wrapper = mount(<ExportCSVButton {...props} />)
-    const button = wrapper.find('Flex Button')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    const button = wrapper.find('Flex Button').at(0)
     button.simulate('click')
     expect(wrapper.text()).not.to.match(/Export CSV/)
     expect(wrapper.text()).to.match(/Cancel Export/)
-    expect(wrapper.find('Flex Button').prop('interaction')).to.equal('enabled')
-    expect(wrapper.find('Flex Button').prop('color')).to.equal('secondary')
+    expect(wrapper.find('Flex Button').at(0).prop('interaction')).to.equal('enabled')
+    expect(wrapper.find('Flex Button').at(0).prop('color')).to.equal('secondary')
   })
 
   it('starting export displays the ProgressBar', () => {
     const props = makeProps({})
     const wrapper = mount(<ExportCSVButton {...props} />)
-    const button = wrapper.find('Flex Button')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    const button = wrapper.find('Flex Button').at(0)
     button.simulate('click')
     expect(wrapper.text()).to.match(/Exporting/)
     expect(wrapper.find('ProgressBar')).to.exist

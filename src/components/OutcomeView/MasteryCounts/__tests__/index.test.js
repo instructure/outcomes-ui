@@ -3,6 +3,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import MasteryCounts from '../index'
 import checkA11y from '../../../../test/checkA11y'
+import { ProgressBar } from '@instructure/ui-progress'
 
 describe('OutcomeView MasteryCounts', () => {
   const scoringMethod = {
@@ -26,7 +27,7 @@ describe('OutcomeView MasteryCounts', () => {
 
   it('includes a progress bar', () => {
     const wrapper = mount(<MasteryCounts {...makeProps()} />)
-    expect(wrapper.find('ProgressBar')).to.have.length(1)
+    expect(wrapper.find(ProgressBar)).to.have.length(1)
   })
 
   it('meets a11y standards', () => {

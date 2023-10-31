@@ -26,7 +26,8 @@ describe('ConnectedAlignmentLabels', () => {
         />
       </Provider>
     )
-    expect(wrapper.find('OutcomeLabels')).to.have.length(1)
+    // Enzyme finds two OutcomeLabels components because of the instui decorator on the component
+    expect(wrapper.find('OutcomeLabels')).to.have.length(2)
     expect(wrapper.text()).to.match(/baz,woz/)
   })
 })

@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
-const url = require('url')
+
 const { resolve } = require('path')
 
 const webpackDevServerUrl = `http://${process.env.UI_HOST}`
@@ -36,7 +36,8 @@ Object.assign(exports, {
   },
   resolve: {
     extensions: ['.js', '.scss', '.json', '.svg'],
-    modules: [resolve(__dirname), 'node_modules']
+    modules: [resolve(__dirname), 'node_modules'],
+    fallback: { 'process/browser': require.resolve('process/browser') }
   },
   output: {
     chunkFilename: '[name].[hash].js',
@@ -82,7 +83,7 @@ Object.assign(exports, {
     new webpack.DefinePlugin(ALLOWED_ENV),
   ]),
   resolveLoader: {
-    alias: require('@instructure/ui-webpack-config/config/resolveLoader/alias')
+    modules: ['node_modules']
   }
 })
 
@@ -112,16 +113,26 @@ if (isProduction) {
     mode: 'development',
     devtool: 'cheap-source-map',
     devServer: {
+      port: 8080,
+      static: {
+        directory: 'src/'
+      },
       compress: true,
-      contentBase: webpackDevServerUrl,
-      disableHostCheck: true,
       headers: { 'Access-Control-Allow-Origin': '*' },
-      historyApiFallback: { index: webpackDevServerUrl },
-      host: '0.0.0.0',
+      historyApiFallback: true,
       hot: true,
-      inline: true,
-      public: url.parse(webpackDevServerUrl).hostname,
-      publicPath: webpackDevServerUrl
+      server: 'http',
+      watchFiles: {
+        paths: ['src/'],
+        options: {
+          usePolling: true,
+          aggregateTimeout: 300,
+          poll: 500
+        },
+      },
+      allowedHosts: ['ui', 'api', '.docker', '.local.inseng.net', '.test'],
+      webSocketServer: false,
+      host: '0.0.0.0'
     },
     output: Object.assign(exports.output, {
       publicPath: webpackDevServerUrl

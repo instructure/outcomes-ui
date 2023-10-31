@@ -6,6 +6,7 @@ import OutcomePicker from '../index'
 import OutcomeViewModal from '../../OutcomeViewModal'
 import OutcomeTree from '../../OutcomeTree'
 import checkA11y from '../../../test/checkA11y'
+import { TextInput } from '@instructure/ui-text-input'
 
 describe('OutcomePicker', () => {
   function makeProps (props = {}) {
@@ -96,7 +97,7 @@ describe('OutcomePicker', () => {
   it('correctly calls updateSearchText when search text is changed', () => {
     const props = makeProps()
     const wrapper = mount(<OutcomePicker {...props} />)
-    const onChange = wrapper.find('TextInput').prop('onChange')
+    const onChange = wrapper.find(TextInput).prop('onChange')
     onChange('', 'abc')
     expect(props.updateSearchText).to.be.called.once
     expect(props.updateSearchText).to.be.calledWith('abc')

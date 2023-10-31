@@ -5,7 +5,11 @@ import { Checkbox } from '@instructure/ui-checkbox'
 import { Flex } from '@instructure/ui-flex'
 import { Heading } from '@instructure/ui-heading'
 import { Text } from '@instructure/ui-text'
-import { IconArrowOpenDownLine, IconArrowOpenEndLine, IconTrashLine } from '@instructure/ui-icons'
+import {
+  IconArrowOpenDownLine,
+  IconArrowOpenEndLine,
+  IconTrashLine
+} from '@instructure/ui-icons'
 import { IconButton } from '@instructure/ui-buttons'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 import { Popover } from '@instructure/ui-popover'
@@ -15,15 +19,39 @@ import OutcomeDescription from '../OutcomeDescription'
 import { outcomeShape } from '../../store/shapes'
 import useBoolean from '../../hooks/useBoolean'
 
-const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, shouldFocus, isOutcomeSelected, selectOutcomeIds, deselectOutcomeIds, features}) => {
+const AlignmentItem = ({
+  outcome,
+  removeAlignment,
+  canManageOutcomes,
+  isTray,
+  shouldFocus,
+  isOutcomeSelected,
+  selectOutcomeIds,
+  deselectOutcomeIds,
+  features
+}) => {
   const [truncated, setTruncated] = useState(true)
   const [titleTruncated, setTitleTruncated] = useState(false)
-  const { id, label, title, description, friendly_description, scoring_method } = outcome
-  const { algorithm, algorithm_data, mastery_percent, points_possible, scoring_tiers } = scoring_method
+  const {
+    id,
+    label,
+    title,
+    description,
+    friendly_description,
+    scoring_method
+  } = outcome
+  const {
+    algorithm,
+    algorithm_data,
+    mastery_percent,
+    points_possible,
+    scoring_tiers
+  } = scoring_method
   const trashIconRef = useRef()
-  const toggleExpandOutcomeDetails = () => setTruncated(prevState => !prevState)
+  const toggleExpandOutcomeDetails = () =>
+    setTruncated((prevState) => !prevState)
   const [isShowingTooltip, showTooltip, hideTooltip] = useBoolean(false)
-  const displayTitle = (!canManageOutcomes && label) ? label : title
+  const displayTitle = !canManageOutcomes && label ? label : title
 
   useEffect(() => {
     if (shouldFocus) {
@@ -46,11 +74,14 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
   }
 
   const renderOutcomeTitle = () => (
-    <div style={{padding: isTray ? '0.5rem 0' : '0.4rem 0 0 0.3rem'}} data-automation='alignmentItem__outcomeName'>
+    <div
+      style={{ padding: isTray ? '0.5rem 0' : '0.4rem 0 0 0.3rem' }}
+      data-automation="alignmentItem__outcomeName"
+    >
       {truncated ? (
         <React.Fragment>
-          <Heading level='h4' as='h2' theme={{lineHeight: '1.5rem'}}>
-            <TruncateText position='middle' onUpdate={handleUpdate}>
+          <Heading level="h4" as="h2" theme={{ lineHeight: '1.5rem' }}>
+            <TruncateText position="middle" onUpdate={handleUpdate}>
               {displayTitle}
               {/* The empty span solves an issue with the truncated text overflowing to the next line */}
               <span />
@@ -58,7 +89,7 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
           </Heading>
         </React.Fragment>
       ) : (
-        <Heading level='h4' as='h2' theme={{lineHeight: '1.5rem'}}>
+        <Heading level="h4" as="h2" theme={{ lineHeight: '1.5rem' }}>
           {displayTitle}
         </Heading>
       )}
@@ -66,59 +97,69 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
   )
 
   const renderDeleteButton = () => (
-    <div style={{padding: '0.2rem 0 0'}} data-automation='outcomeAlignmentItem__delete'>
+    <div
+      style={{ padding: '0.2rem 0 0' }}
+      data-automation="outcomeAlignmentItem__delete"
+    >
       <IconButton
-        size='small'
+        size="small"
         withBackground={false}
         withBorder={false}
-        screenReaderLabel={t('Remove {title}', {title})}
+        screenReaderLabel={t('Remove {title}', { title })}
         onClick={removeAlignment}
         ref={trashIconRef}
       >
-        <div style={{fontSize: '1rem'}}><IconTrashLine /></div>
+        <div style={{ fontSize: '1rem' }}>
+          <IconTrashLine />
+        </div>
       </IconButton>
     </div>
   )
 
   return (
-    <View
-      as='div'
-      padding='x-small 0'
-      data-automation='outcomeAlignment__item'
-    >
-      <Flex as='div' alignItems='start'>
-        <Flex.Item as='div' size={isTray ? '4.5rem' : '2rem'}>
-          <div style={{padding: '0.3125rem 0'}}>
-            <Flex alignItems='center'>
+    <View as="div" padding="x-small 0" data-automation="outcomeAlignment__item">
+      <Flex as="div" alignItems="start">
+        <Flex.Item as="div" size={isTray ? '4.5rem' : '2rem'}>
+          <div style={{ padding: '0.3125rem 0' }}>
+            <Flex alignItems="center">
               {isTray && (
-                <Flex.Item as='div' padding='0 0 0 xx-small'>
-                  <div className='OutcomeSelector'>
+                <Flex.Item as="div" padding="0 0 0 xx-small">
+                  <div className="OutcomeSelector">
                     <Checkbox
                       label={
                         <ScreenReaderContent>
-                          {t('Select outcome {title}', {title})}
+                          {t('Select outcome {title}', { title })}
                         </ScreenReaderContent>
                       }
-                      value='medium'
+                      value="medium"
                       checked={isOutcomeSelected(id)}
                       onChange={toggleOutcomeSelection}
                     />
                   </div>
                 </Flex.Item>
               )}
-              <Flex.Item as='div' data-automation='alignmentItem-expand-description'>
+              <Flex.Item
+                as="div"
+                data-automation="alignmentItem-expand-description"
+              >
                 <IconButton
-                  size='small'
+                  size="small"
                   screenReaderLabel={
                     truncated
-                      ? t('Expand description for outcome {title}', {title})
-                      : t('Collapse description for outcome {title}', {title})
+                      ? t('Expand description for outcome {title}', { title })
+                      : t('Collapse description for outcome {title}', { title })
                   }
                   withBackground={false}
                   withBorder={false}
                   onClick={toggleExpandOutcomeDetails}
                 >
-                  <div style={{display: 'flex', alignSelf: 'center', fontSize: '0.875rem'}}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignSelf: 'center',
+                      fontSize: '0.875rem'
+                    }}
+                  >
                     {truncated ? (
                       <IconArrowOpenEndLine />
                     ) : (
@@ -130,35 +171,35 @@ const AlignmentItem = ({outcome, removeAlignment, canManageOutcomes, isTray, sho
             </Flex>
           </div>
         </Flex.Item>
-        <Flex.Item alignItems='center' size='50%' shouldGrow>
+        <Flex.Item alignItems="center" size="50%" shouldGrow>
           {truncated && titleTruncated ? (
             <Popover
               renderTrigger={renderOutcomeTitle()}
               isShowingContent={isShowingTooltip}
               onShowContent={showTooltip}
               onHideContent={hideTooltip}
-              color='primary-inverse'
-              placement='top start'
+              color="primary-inverse"
+              placement="top start"
               offsetY={'-10rem'}
             >
-              <View as='div' maxWidth='19rem' padding='small'>
-                <Text size='small' weight='normal' wrap='break-word'>
+              <View as="div" maxWidth="19rem" padding="small">
+                <Text size="small" weight="normal" wrap="break-word">
                   {displayTitle}
                 </Text>
               </View>
             </Popover>
-          ) : renderOutcomeTitle()}
+          ) : (
+            renderOutcomeTitle()
+          )}
         </Flex.Item>
-        {(canManageOutcomes && !isTray) && (
-          <Flex.Item>
-            {renderDeleteButton()}
-          </Flex.Item>
+        {canManageOutcomes && !isTray && (
+          <Flex.Item>{renderDeleteButton()}</Flex.Item>
         )}
       </Flex>
-      <Flex as='div' alignItems='start'>
+      <Flex as="div" alignItems="start">
         <Flex.Item size={isTray ? '4.5rem' : '2.3rem'} />
-        <Flex.Item size='80%'>
-          <View as='div' padding='0 0 x-small'>
+        <Flex.Item size="80%">
+          <View as="div" padding="0 0 x-small">
             <OutcomeDescription
               label={label}
               description={description}

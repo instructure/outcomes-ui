@@ -1,12 +1,13 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { themeable } from '@instructure/ui-themeable'
 import OutcomeFolder from '../OutcomeFolder'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
+import { stylesShape } from '../../store/shapes'
 
-import theme from '../theme'
-import styles from './styles.css'
-
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class OutcomeFolderList extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -14,7 +15,8 @@ export default class OutcomeFolderList extends React.Component {
     setActiveCollection: PropTypes.func.isRequired,
     outcomes: PropTypes.array.isRequired,
     toggleExpandedIds: PropTypes.func.isRequired,
-    activeCollectionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    activeCollectionId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -33,7 +35,7 @@ export default class OutcomeFolderList extends React.Component {
       return <div />
     }
     return (
-      <div className={styles.picker}>
+      <div css={this.props.styles.picker}>
         {
           outcomes.map((outcome) => (
             <OutcomeFolder

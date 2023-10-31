@@ -1,9 +1,9 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import t from 'format-message'
-
-import themeable from '@instructure/ui-themeable'
+import { withStyle, jsx } from '@instructure/emotion'
 import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
@@ -13,11 +13,13 @@ import OutcomeSelectionList from '../OutcomeSelectionList'
 import OutcomeFolderList from '../OutcomeFolderList'
 import TreeBrowser from './TreeBrowser'
 import AlignOutcomes from '../../icons/AlignOutcomes.svg'
-import theme from '../theme'
-import styles from './styles.css'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
 import { sanitizeHtml } from '../../lib/sanitize'
+import { stylesShape } from '../../store/shapes'
 
-@themeable(theme, styles)
+
+@withStyle(generateStyle, generateComponentTheme)
 class OutcomeTree extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -40,7 +42,8 @@ class OutcomeTree extends React.Component {
       header: PropTypes.string,
       summary: PropTypes.string,
       description: PropTypes.string
-    })
+    }),
+    styles: stylesShape
   }
 
   static defaultProps = {
@@ -81,7 +84,7 @@ class OutcomeTree extends React.Component {
   renderActiveCollection() {
     const { activeCollection } = this.props
     return activeCollection && activeCollection.id ? (
-      <div className={styles.selectedOutcomeCollection}>
+      <div css={this.props.styles.selectedOutcomeCollection}>
         <div>
           <Heading level="h3" as="h2" margin="0 0 x-small">
             {activeCollection.header}
@@ -92,7 +95,8 @@ class OutcomeTree extends React.Component {
         </div>
         <Text size="x-small">
           <div
-            className={styles.outcomeDescription}
+            css={this.props.styles.outcomeDescription}
+            className='outcomeTreeOutcomeDescription'
             dangerouslySetInnerHTML={{
               // eslint-disable-line react/no-danger
               __html: sanitizeHtml(activeCollection.description)
@@ -133,7 +137,7 @@ class OutcomeTree extends React.Component {
       <Flex alignItems="stretch" height="100%" width="100%">
         <Flex.Item width="30%">
           <div
-            className={styles.outcomeTree}
+            css={this.props.styles.outcomeTree}
             data-automation="outcomePicker__outcomeTree"
           >
             <TreeBrowser
@@ -151,7 +155,7 @@ class OutcomeTree extends React.Component {
             width="100%"
             direction="column"
             alignItems="stretch"
-            className={styles.outcomeContent}
+            css={this.props.styles.outcomeContent}
             elementRef={(rhs) => this.setRHS(rhs)}
             data-automation="outcomePicker__outcomeContent"
           >

@@ -1,17 +1,19 @@
+/** @jsx jsx */
 import t from 'format-message'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@instructure/ui-buttons'
+import { IconButton } from '@instructure/ui-buttons'
 import { Text } from '@instructure/ui-text'
 import { Link } from '@instructure/ui-link'
 import { IconTrashLine, IconOutcomesLine } from '@instructure/ui-icons'
 import { View } from '@instructure/ui-view'
-import { themeable } from '@instructure/ui-themeable'
+import { withStyle, jsx } from '@instructure/emotion'
 import OutcomeViewModal from '../OutcomeViewModal'
-import theme from '../theme'
-import styles from './styles.css'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
+import { stylesShape } from '../../store/shapes'
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class Alignment extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -27,7 +29,9 @@ export default class Alignment extends React.Component {
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
-    scope: PropTypes.string.isRequired
+    scope: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -42,6 +46,7 @@ export default class Alignment extends React.Component {
 
   render() {
     const {
+      index,
       outcome,
       removeAlignment,
       viewAlignment,
@@ -63,16 +68,20 @@ export default class Alignment extends React.Component {
         title: outcome.title
       }
     )
+    let itemStyle = [this.props.styles.item]
+    if (index !== 0){
+      itemStyle.push(this.props.styles.itemSeparator)
+    }
     return (
-      <li className={styles.item} data-automation="outcomeAlignment__item">
-        <span className={styles.outcome}>
+      <li css={itemStyle} data-automation="outcomeAlignment__item">
+        <span css={this.props.styles.outcome}>
           <Text size="large">
             <IconOutcomesLine />
           </Text>
         </span>
-        <span className={styles.link}>
-          <span className={styles.linkText}>
-            <span className={styles.innerLinkText}>
+        <span css={this.props.styles.link}>
+          <span css={this.props.styles.linkText}>
+            <span css={this.props.innerLinkText}>
               <View as="div" margin="xx-small">
                 <Link
                   onClick={viewAlignment}
@@ -87,10 +96,15 @@ export default class Alignment extends React.Component {
           </span>
         </span>
         {!readOnly && (
-          <span className={styles.delete} data-automation="alignment-delete">
-            <Button variant="icon" onClick={removeAlignment}>
+          <span css={this.props.styles.delete} data-automation="alignment-delete">
+            <IconButton
+              screenReaderLabel=""
+              onClick={removeAlignment}
+              withBorder={false}
+              withBackground={false}
+            >
               <IconTrashLine title={removeMessage} />
-            </Button>
+            </IconButton>
           </span>
         )}
         <OutcomeViewModal

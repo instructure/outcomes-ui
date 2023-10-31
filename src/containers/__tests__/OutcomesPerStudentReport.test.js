@@ -2,7 +2,8 @@ import { expect } from 'chai'
 import React from 'react'
 import { mount } from 'enzyme'
 import OutcomesPerStudentReport from '../OutcomesPerStudentReport'
-import styles from '../../components/OutcomesPerStudent/styles.css'
+import styles from '../../components/OutcomesPerStudent/styles.js'
+import { findElementsWithStyle } from '../../util/__tests__/findElementsWithStyle'
 
 describe('OutcomesPerStudentReport', () => {
   function makeProps () {
@@ -28,6 +29,6 @@ describe('OutcomesPerStudentReport', () => {
     const wrapper = mount(
       <div id="app"><OutcomesPerStudentReport {...makeProps()} /></div>
     )
-    expect(wrapper.find(`.${styles.background}`)).to.have.length(1)
+    expect(findElementsWithStyle(wrapper, styles().background)).to.have.length(1)
   })
 })

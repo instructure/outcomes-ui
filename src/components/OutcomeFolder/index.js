@@ -1,14 +1,15 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
 import { Link } from '@instructure/ui-link'
 import { IconFolderSolid } from '@instructure/ui-icons'
-import { themeable } from '@instructure/ui-themeable'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
+import { stylesShape } from '../../store/shapes'
 
-import theme from '../theme'
-import styles from './styles.css'
-
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class OutcomeFolder extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -20,7 +21,8 @@ export default class OutcomeFolder extends React.Component {
     activeCollectionId: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ])
+    ]),
+    styles: stylesShape,
   }
 
   // eslint-disable-next-line no-undef
@@ -62,7 +64,7 @@ export default class OutcomeFolder extends React.Component {
     const { getOutcomeSummary } = this.props
     if (getOutcomeSummary(outcome.id)) {
       return (
-        <div className={styles.folderSummary}>
+        <div css={this.props.styles.folderSummary}>
           <Text size="x-small">{getOutcomeSummary(outcome.id)}</Text>
         </div>
       )
@@ -72,16 +74,16 @@ export default class OutcomeFolder extends React.Component {
   render() {
     const { outcome } = this.props
     return (
-      <div className={styles.folder}>
-        <div className={styles.folderIcon}>
+      <div css={this.props.styles.folder}>
+        <div css={this.props.styles.folderIcon}>
           <IconFolderSolid />
         </div>
-        <div className={styles.folderDetails}>
+        <div css={this.props.styles.folderDetails}>
           <div data-automation="outcomeFolder__folderTitle">
             {this.renderTitle(outcome)}
           </div>
           {this.renderSummary(outcome)}
-          <div className={styles.folderDescription}>
+          <div css={this.props.styles.folderDescription}>
             <Text size="x-small">{outcome.label}</Text>
           </div>
         </div>

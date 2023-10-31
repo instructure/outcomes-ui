@@ -32,6 +32,20 @@ module.exports = Object.assign({}, defaultConfig, {
     'promise/no-nesting': 'off',
 
     // Something in instui is configured incorrectly for this
-    'compat/compat': 'off'
+    'compat/compat': 'off',
+    'react/no-unknown-property': [
+      'error',
+      {
+        'ignore': ['css']
+      }
+    ],
+    'max-len': ['error', {
+      code: 120,
+      ignoreTrailingComments: true,
+      ignoreStrings: true,
+      ignoreTemplateLiterals: true,
+      ignoreRegExpLiterals: true,
+      ignoreComments: true
+    }],
   })
 })

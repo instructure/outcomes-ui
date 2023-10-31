@@ -1,4 +1,4 @@
-export default function generator ({breakpoints, spacing, colors}) {
+const generateComponentTheme = ({breakpoints, spacing, colors}) => {
   return {
     reportBorder: '1px solid lightgray',
     masteryColor: colors.shamrock,
@@ -10,3 +10,4 @@ export default function generator ({breakpoints, spacing, colors}) {
     checkboxDescriptionLeftPadding: '2.25rem' // checkboxLabelLeftPadding + CheckboxFacade/facadeSizeMedium + CheckboxFacade/marginRight
   }
 }
+export default generateComponentTheme

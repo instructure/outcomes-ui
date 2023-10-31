@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import React from 'react'
-import { render, shallow } from 'enzyme'
+import { render, mount } from 'enzyme'
 import { IconOutcomesLine } from '@instructure/ui-icons'
 import OutcomeLabels from '../index'
 import checkA11y from '../../../test/checkA11y'
@@ -19,7 +19,7 @@ describe('OutcomeLabels', () => {
   }
 
   it('renders an icon', () => {
-    const wrapper = shallow(<OutcomeLabels {...makeProps()} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<OutcomeLabels {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find(IconOutcomesLine)).to.have.length(1)
   })
 

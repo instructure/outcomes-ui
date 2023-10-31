@@ -279,7 +279,10 @@ describe('report/actions', () => {
     it('starts loading remaining pages if we are not already loading them', () => {
       const state = {
         scopeForTest: {
-          report: { page: { number: 1, loading: false }, users: { 1: users }, pageData: { total: 6, perPage: 2}, rollups: rollups }
+          report: {
+            page: { number: 1, loading: false }, users: { 1: users },
+            pageData: { total: 6, perPage: 2}, rollups: rollups
+          }
         }
       }
       const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
@@ -293,7 +296,12 @@ describe('report/actions', () => {
     it('does not load remaining pages if we are already loading them', () => {
       const state = {
         scopeForTest: {
-          report: { loadingRemainingPages: IN_PROGRESS, page: { number: 1, loading: false }, users: { 1: users }, pageData: { total: 6, perPage: 2}, rollups: rollups }
+          report: {
+            loadingRemainingPages: IN_PROGRESS,
+            page: { number: 1, loading: false },
+            users: { 1: users },
+            pageData: { total: 6, perPage: 2}, rollups: rollups
+          }
         }
       }
       const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
@@ -307,7 +315,13 @@ describe('report/actions', () => {
     it('loads the remaining pages from the current page if there was an error while fetching last time', () => {
       const state = {
         scopeForTest: {
-          report: { loadingRemainingPages: ERROR, page: { number: 1, loading: false }, users: { 1: users, 2: users }, pageData: { total: 6, perPage: 2}, rollups: rollups }
+          report: {
+            loadingRemainingPages: ERROR,
+            page: { number: 1, loading: false },
+            users: { 1: users, 2: users },
+            pageData: { total: 6, perPage: 2},
+            rollups: rollups
+          }
         }
       }
       const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
@@ -321,7 +335,13 @@ describe('report/actions', () => {
     it('sets loadRemainingPages as fetching_error if an error is thrown while fetching users', () => {
       const state = {
         scopeForTest: {
-          report: { loadingRemainingPages: NOT_FETCHING, page: { number: 1, loading: false }, users: { 1: users }, pageData: { total: 6, perPage: 2}, rollups: rollups }
+          report: {
+            loadingRemainingPages:NOT_FETCHING,
+            page: { number: 1, loading: false },
+            users: { 1: users },
+            pageData: { total: 6, perPage: 2},
+            rollups: rollups
+          }
         }
       }
       const service = { getUsers: sinon.stub().returns(Promise.reject({message: 'error!'})) }
@@ -336,7 +356,13 @@ describe('report/actions', () => {
     it('sets loadRemainingPages as fetching_error if an error is thrown while fetching results', () => {
       const state = {
         scopeForTest: {
-          report: { loadingRemainingPages: NOT_FETCHING, page: { number: 1, loading: false }, users: { 1: users }, pageData: { total: 6, perPage: 2}, rollups: rollups }
+          report: {
+            loadingRemainingPages: NOT_FETCHING,
+            page: { number: 1, loading: false },
+            users: { 1: users },
+            pageData: { total: 6, perPage: 2},
+            rollups: rollups
+          }
         }
       }
       const service = {
@@ -372,7 +398,13 @@ describe('report/actions', () => {
     it('sets loadRemainingPages as fetching_error if an error is thrown while fetching', () => {
       const state = {
         scopeForTest: {
-          report: { loadingRemainingPages: IN_PROGRESS, page: { number: 1, loading: false }, users: { 1: users }, pageData: { total: 6, perPage: 2}, rollups: rollups }
+          report: {
+            loadingRemainingPages: IN_PROGRESS,
+            page: { number: 1, loading: false },
+            users: { 1: users },
+            pageData: { total: 6, perPage: 2},
+            rollups: rollups
+          }
         }
       }
       const service = { getUsers: sinon.stub().returns(Promise.reject({message: 'error!'})) }
@@ -404,7 +436,16 @@ describe('report/actions', () => {
 
   describe('clearReportStore', () => {
     it('clears the report store', () => {
-      const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users, 2: getUsersResponse.users }, rollups: rollups } } }
+      const state = {
+        scopeForTest: {
+          report:
+          {
+            page: { number: 0 },
+            users: { 1: users, 2: getUsersResponse.users },
+            rollups: rollups
+          }
+        }
+      }
       const store = createMockStore(Map(fromJS(state)), service)
       store.dispatch(actions.clearReportStore(state, 'scopeForTest'))
       expect(store.getActions().slice(-1)[0].type).to.eq(CLEAR_REPORT_DATA)
@@ -413,12 +454,29 @@ describe('report/actions', () => {
 
   describe('getUserList', () => {
     it('returns a list of user uuids from page 1', () => {
-      const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users, 2: getUsersResponse.users }, rollups: rollups } } }
+      const state = {
+        scopeForTest:
+        {
+          report: {
+            page: { number: 0 },
+            users: { 1: users, 2: getUsersResponse.users },
+            rollups: rollups
+          }
+        }
+      }
       expect(actions.getUserList(fromJS(state), 'scopeForTest', 1)).to.deep.eq(users.map((user) => user.uuid))
     })
 
     it('returns a list of user uuids from page 2', () => {
-      const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users, 2: getUsersResponse.users }, rollups: rollups } } }
+      const state = {
+        scopeForTest: {
+          report: {
+            page: { number: 0 },
+            users: { 1: users, 2: getUsersResponse.users },
+            rollups: rollups
+          }
+        }
+      }
       expect(actions.getUserList(fromJS(state), 'scopeForTest', 2)).to.deep.eq(getUsersResponse.users.map((user) => user.uuid))
     })
   })
@@ -428,7 +486,15 @@ describe('report/actions', () => {
       const users1 = users.map((user) => user.uuid)
       const users2 = getUsersResponse.users.map((user) => user.uuid)
       const allUsers = [users1, users2]
-      const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users, 2: getUsersResponse.users }, rollups: rollups } } }
+      const state = {
+        scopeForTest: {
+          report: {
+            page: { number: 0 },
+            users: { 1: users, 2: getUsersResponse.users },
+            rollups: rollups
+          }
+        }
+      }
       expect(actions.getPaginatedUserList(fromJS(state), 'scopeForTest', 1, 2)).to.deep.eq(allUsers)
     })
 
@@ -436,7 +502,15 @@ describe('report/actions', () => {
       const users2 = getUsersResponse.users.map((user) => user.uuid)
       const users3 = users.map((user) => user.uuid)
       const allUsers = [users2, users3]
-      const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users, 2: getUsersResponse.users, 3: users }, rollups: rollups } } }
+      const state = {
+        scopeForTest: {
+          report: {
+            page: { number: 0 },
+            users: { 1: users, 2: getUsersResponse.users, 3: users },
+            rollups: rollups
+          }
+        }
+      }
       expect(actions.getPaginatedUserList(fromJS(state), 'scopeForTest', 2, 3)).to.deep.eq(allUsers)
     })
   })

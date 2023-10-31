@@ -1,18 +1,18 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from '@instructure/ui-text'
 import { Link } from '@instructure/ui-link'
 import { Checkbox } from '@instructure/ui-checkbox'
-import { themeable } from '@instructure/ui-themeable'
-import { outcomeShape } from '../../store/shapes'
+import { outcomeShape, stylesShape } from '../../store/shapes'
 import OutcomeDescription from '../OutcomeDescription'
 import { View } from '@instructure/ui-view'
 import t from 'format-message'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
 
-import theme from '../theme'
-import styles from './styles.css'
-
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class OutcomeCheckbox extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -20,7 +20,8 @@ export default class OutcomeCheckbox extends React.Component {
     setFocusedOutcome: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
-    deselectOutcomeIds: PropTypes.func.isRequired
+    deselectOutcomeIds: PropTypes.func.isRequired,
+    styles: stylesShape,
   }
 
   selected() {
@@ -38,15 +39,14 @@ export default class OutcomeCheckbox extends React.Component {
   render() {
     const { outcome } = this.props
     const { id, description, title } = outcome
-
     return (
-      <div className={`OutcomeSelector ${styles.checkbox}`}>
+      <div css={this.props.styles.checkbox} className='OutcomeSelector'>
         <Checkbox
           value={id}
           checked={this.selected()}
           onChange={() => this.toggleOutcomeSelection()}
           label={
-            <div className={styles.checkboxLabel}>
+            <div css={this.props.styles.checkboxLabel}>
               <Link
                 onClick={(e) => {
                   e.preventDefault()
@@ -55,10 +55,10 @@ export default class OutcomeCheckbox extends React.Component {
               >
                 <Text size="small">
                   <span
-                    className={styles.linkText}
+                    css={this.props.styles.linkText}
                     data-automation="outcomeCheckbox__outcomeName"
                   >
-                    <span className={styles.innerLinkText}>{title}</span>
+                    <span css={this.props.styles.innerLinkText}>{title}</span>
                   </span>
                 </Text>
               </Link>
@@ -66,15 +66,17 @@ export default class OutcomeCheckbox extends React.Component {
           }
         />
         {outcome.friendly_description && (
-          <div className={styles.checkboxFriendlyDescription}>
+          <div css={this.props.styles.checkboxFriendlyDescription}>
             <View
               as="div"
-              margin='x-small small 0 0'
+              margin="x-small small 0 0"
               padding="x-small x-small 0"
               background="secondary"
               data-automation="outcomeCheckbox__friendly_description_header"
             >
-              <Text size='x-small' weight="bold">{t('Friendly Description')}</Text>
+              <Text size="x-small" weight="bold">
+                {t('Friendly Description')}
+              </Text>
             </View>
             <View
               as="div"
@@ -83,13 +85,12 @@ export default class OutcomeCheckbox extends React.Component {
               background="secondary"
               data-automation="outcomeCheckbox__friendly_description_expanded"
             >
-              <Text size='x-small'>{outcome.friendly_description}</Text>
+              <Text size="x-small">{outcome.friendly_description}</Text>
             </View>
           </div>
         )}
-
-        <div className={styles.checkboxDescription}>
-          <OutcomeDescription description={description} maxLines={2}/>
+        <div css={this.props.styles.checkboxDescription}>
+          <OutcomeDescription description={description} maxLines={2} />
         </div>
       </div>
     )

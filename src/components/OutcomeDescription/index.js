@@ -35,9 +35,11 @@ const OutcomeDescription = ({
   canManageOutcomes,
   features
 }) => {
-
   const newDecayingAvgFFEnabled = features.includes(NEW_DECAYING_AVERAGE_FF)
-  const descriptionDisplay = (!canManageOutcomes && friendlyDescription) ? friendlyDescription : description
+  const descriptionDisplay =
+    !canManageOutcomes && friendlyDescription
+      ? friendlyDescription
+      : description
 
   const stripHtmlTags = (text) => {
     const doc = new DOMParser().parseFromString(text, 'text/html')
@@ -52,12 +54,11 @@ const OutcomeDescription = ({
 
   const renderText = (text, position) => {
     const strippedText = stripHtmlTags(text)
-    const renderedText = (truncated && shouldTruncateText) ? truncateText(strippedText, position) : strippedText
-    return (
-      <Text>
-        {renderedText}
-      </Text>
-    )
+    const renderedText =
+      truncated && shouldTruncateText
+        ? truncateText(strippedText, position)
+        : strippedText
+    return <Text>{renderedText}</Text>
   }
 
   const renderUserFacingMethod = (calculationMethod) => {
@@ -78,7 +79,7 @@ const OutcomeDescription = ({
       }
     }
     let complement = 100 - percent
-    return t(CALCULATION_METHODS[displayMethod], {percent, complement})
+    return t(CALCULATION_METHODS[displayMethod], { percent, complement })
   }
 
   const formatCalculationMethodText = () => {
@@ -94,7 +95,7 @@ const OutcomeDescription = ({
       }
       case N_MASTERY: {
         const n = calculationInt.n_mastery_count
-        method = t(CALCULATION_METHODS[N_MASTERY], {n})
+        method = t(CALCULATION_METHODS[N_MASTERY], { n })
         break
       }
       case AVERAGE: {
@@ -110,34 +111,34 @@ const OutcomeDescription = ({
     return method
   }
 
-  const renderFriendlyDescription = () => (
-    friendlyDescription &&
-      <>
+  const renderFriendlyDescription = () =>
+    friendlyDescription && (
+      <div>
         <View
-          as='div'
-          margin='x-small small 0 0'
-          padding='small small x-small small'
-          background='secondary'
-          data-automation='outcomeDescription__friendly_description_header'
+          as="div"
+          margin="x-small small 0 0"
+          padding="small small x-small small"
+          background="secondary"
+          data-automation="outcomeDescription__friendly_description_header"
         >
-          <Text weight='bold'>{t('Friendly Description')}</Text>
+          <Text weight="bold">{t('Friendly Description')}</Text>
         </View>
         <View
-          as='div'
-          margin='0 small x-small 0'
-          padding='0 small small small'
-          background='secondary'
-          data-automation='outcomeDescription__friendly_description_expanded'
+          as="div"
+          margin="0 small x-small 0"
+          padding="0 small small small"
+          background="secondary"
+          data-automation="outcomeDescription__friendly_description_expanded"
         >
-          <Text wrap='break-word'>{friendlyDescription}</Text>
+          <Text wrap="break-word">{friendlyDescription}</Text>
         </View>
-      </>
-  )
+      </div>
+    )
 
   const renderRatingsAndCalculation = () => (
     <View>
       {ratings.length > 0 && (
-        <View as='div' margin='small none'>
+        <View as="div" margin="small none">
           <Ratings
             ratings={ratings}
             masteryPercent={masteryPercent}
@@ -146,21 +147,15 @@ const OutcomeDescription = ({
           />
         </View>
       )}
-      {(calculationMethod && calculationInt) && (
-        <Flex
-          wrap='wrap'
-          padding='none small small none'
-        >
-          <Flex.Item
-            as='div'
-            padding='none xx-small none none'
-          >
-            <View as='div'>
-              <Text weight='bold'>{t('Proficiency Calculation:')}</Text>
+      {calculationMethod && calculationInt && (
+        <Flex wrap="wrap" padding="none small small none">
+          <Flex.Item as="div" padding="none xx-small none none">
+            <View as="div">
+              <Text weight="bold">{t('Proficiency Calculation:')}</Text>
             </View>
           </Flex.Item>
           <Flex.Item>
-            <Text color='primary' weight='normal'>
+            <Text color="primary" weight="normal">
               {formatCalculationMethodText()}
             </Text>
           </Flex.Item>
@@ -170,20 +165,24 @@ const OutcomeDescription = ({
   )
 
   return (
-    <>
-      {(label && canManageOutcomes) && (
-        <View as='div' margin='0 0 xx-small'>
+    <div>
+      {label && canManageOutcomes && (
+        <View as="div" margin="0 0 xx-small">
           {renderText(label, 'middle')}
         </View>
       )}
-      {(!truncated && canManageOutcomes) && renderFriendlyDescription()}
+      {!truncated && canManageOutcomes && renderFriendlyDescription()}
       {description && (
-        <View as='div' margin={canManageOutcomes ? 'xx-small 0' : '0'} data-automation='outcomeDescription__description'>
+        <View
+          as="div"
+          margin={canManageOutcomes ? 'xx-small 0' : '0'}
+          data-automation="outcomeDescription__description"
+        >
           {renderText(descriptionDisplay, 'end')}
         </View>
       )}
       {!truncated && renderRatingsAndCalculation()}
-    </>
+    </div>
   )
 }
 

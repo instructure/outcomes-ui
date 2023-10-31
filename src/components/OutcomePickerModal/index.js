@@ -28,7 +28,6 @@ export default class OutcomePickerModal extends React.Component {
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
-    setSearchText: PropTypes.func.isRequired,
     screenreaderNotification: PropTypes.func,
     liveRegion: Modal.propTypes.liveRegion,
     mountNode: Modal.propTypes.mountNode
@@ -131,10 +130,8 @@ export default class OutcomePickerModal extends React.Component {
               offset="medium"
               onClick={() => this.handleModalRequestClose()}
               placement="end"
-              variant="icon"
-            >
-              {t('Cancel')}
-            </CloseButton>
+              screenReaderLabel={t('Cancel')}
+            />
             <Heading>
               <Text size="large">{t('Attached Outcomes')}</Text>
             </Heading>
@@ -170,7 +167,6 @@ export default class OutcomePickerModal extends React.Component {
             <Button
               margin="xxx-small"
               onClick={() => this.handleModalRequestClose()}
-              variant="default"
               disabled={disabled}
               data-automation="outcomePicker__cancelButton"
             >
@@ -179,7 +175,7 @@ export default class OutcomePickerModal extends React.Component {
             <Button
               margin="xxx-small"
               onClick={() => this.handleSubmit()}
-              variant="primary"
+              color="primary"
               disabled={disabled}
               data-automation="outcomePicker__submitButton"
             >

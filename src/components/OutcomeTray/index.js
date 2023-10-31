@@ -1,3 +1,4 @@
+/** @jsx jsx */
 import React from 'react'
 import t from 'format-message'
 import PropTypes from 'prop-types'
@@ -6,21 +7,20 @@ import { Button, CloseButton } from '@instructure/ui-buttons'
 import { Heading } from '@instructure/ui-heading'
 import { Flex } from '@instructure/ui-flex'
 import { Modal } from '@instructure/ui-modal'
-import { themeable } from '@instructure/ui-themeable'
 import { View } from '@instructure/ui-view'
 import { Tray } from '@instructure/ui-tray'
 import { Spinner } from '@instructure/ui-spinner'
-
+import { withStyle, jsx } from '@instructure/emotion'
 import OutcomeList from './OutcomeList'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
-import theme from '../theme'
-import styles from './styles.css'
-import { outcomeShape } from '../../store/shapes'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
+import { outcomeShape, stylesShape } from '../../store/shapes'
 
 const { Footer: ModalFooter } = Modal
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class OutcomeTray extends React.Component {
   static propTypes = {
     searchText: PropTypes.string.isRequired,
@@ -59,7 +59,8 @@ export default class OutcomeTray extends React.Component {
     shouldModifyArtifact: PropTypes.bool,
     scope: PropTypes.string.isRequired,
     showAlert: PropTypes.func,
-    features: PropTypes.array
+    features: PropTypes.array,
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -182,7 +183,9 @@ export default class OutcomeTray extends React.Component {
     } = this.props
     return saveOutcomePickerAlignments(onUpdate, shouldModifyArtifact).then(
       () => {
-        this.props.showAlert(t('Outcome alignments have been successfully updated.'))
+        this.props.showAlert(
+          t('Outcome alignments have been successfully updated.')
+        )
         closeOutcomePicker()
       }
     )
@@ -192,18 +195,14 @@ export default class OutcomeTray extends React.Component {
     const { closeOutcomePicker } = this.props
 
     return (
-      <div className={styles.footerContainer}>
+      <div css={this.props.styles.footerContainer}>
         <ModalFooter>
-          <Button
-            margin="xxx-small"
-            variant="default"
-            onClick={closeOutcomePicker}
-          >
+          <Button margin="xxx-small" onClick={closeOutcomePicker}>
             {t('Cancel')}
           </Button>
           <Button
             margin="xxx-small"
-            variant="primary"
+            color="primary"
             onClick={() => this.handleSubmit()}
           >
             {t('Confirm Alignments')}
@@ -237,8 +236,8 @@ export default class OutcomeTray extends React.Component {
         label={t('Align Outcomes')}
         {...trayProps}
       >
-        <div className={styles.outcomeTray}>
-          <div className={styles.trayContainer}>
+        <div css={this.props.styles.outcomeTray}>
+          <div css={this.props.styles.trayContainer}>
             <Flex margin="none none small none">
               <Flex.Item shouldGrow shouldShrink>
                 <Heading level="h3" margin="0 0 x-small">
@@ -246,9 +245,10 @@ export default class OutcomeTray extends React.Component {
                 </Heading>
               </Flex.Item>
               <Flex.Item>
-                <CloseButton onClick={closeOutcomePicker}>
-                  {t('Cancel')}
-                </CloseButton>
+                <CloseButton
+                  onClick={closeOutcomePicker}
+                  screenReaderLabel={t('Cancel')}
+                />
               </Flex.Item>
             </Flex>
             <SearchInput

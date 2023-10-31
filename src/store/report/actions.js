@@ -243,7 +243,9 @@ export const clearReportStore = () => {
 const getUsersPromise = (dispatch, artifactType, artifactId, pageNumber, loadUsersOverride) => {
   // if the override function is provided, we assume the upstream application has handled dispatching and is
   // returning a promise to us
-  return loadUsersOverride ? loadUsersOverride(artifactType, artifactId, pageNumber) : dispatch(loadUsers(artifactType, artifactId, pageNumber))
+  return loadUsersOverride ?
+    loadUsersOverride(artifactType, artifactId, pageNumber) :
+    dispatch(loadUsers(artifactType, artifactId, pageNumber))
 }
 
 export const getUserList = (state, scope, page) => {

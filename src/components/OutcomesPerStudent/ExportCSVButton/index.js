@@ -48,7 +48,8 @@ const ExportCSVButton = ({
 }) => {
   const csvElementRef = useRef(null)
   const exportCSV = () => csvElementRef.current?.click()
-  const [isShowingProgressBar, showProgressBar, hideProgressBar] = useBoolean(false)
+  const [isShowingProgressBar, showProgressBar, hideProgressBar] =
+    useBoolean(false)
   const [csvButtonRef, setCsvButtonRef] = useState(useRef(null))
   const {
     beginExport,
@@ -78,33 +79,48 @@ const ExportCSVButton = ({
   }, [exportState])
 
   return (
-    <Flex as='div' width='100%' alignItems='center' justifyItems='space-between'>
-      <div style={{flex: 1, textAlign: 'start'}}>
-        <Transition
-          in={isShowingProgressBar}
-          type='fade'
-          unmountOnExit
-        >
-          <Text weight='bold' size='small' color='primary'>
+    <Flex
+      as="div"
+      width="100%"
+      alignItems="center"
+      justifyItems="space-between"
+    >
+      <div style={{ flex: 1, textAlign: 'start' }}>
+        <Transition in={isShowingProgressBar} type="fade" unmountOnExit>
+          <Text weight="bold" size="small" color="primary">
             {t('Exporting')}
           </Text>
           <ProgressBar
             screenReaderLabel={t('Export CSV Percent Complete')}
-            renderValue={({valueNow, valueMax}) => t('{percentDone}%', {percentDone: formatPercentage(valueNow, valueMax)})}
-            formatScreenReaderValue={({valueNow, valueMax}) => t('{percentDone} percent', {percentDone: formatPercentage(valueNow, valueMax)})}
+            renderValue={({ valueNow, valueMax }) =>
+              t('{percentDone}%', {
+                percentDone: formatPercentage(valueNow, valueMax)
+              })
+            }
+            formatScreenReaderValue={({ valueNow, valueMax }) =>
+              t('{percentDone} percent', {
+                percentDone: formatPercentage(valueNow, valueMax)
+              })
+            }
             valueNow={progressValue}
-            data-automation='outcomesPerStudent_exportCSVProgressBar'
-            margin='0 0 xx-small'
+            data-automation="outcomesPerStudent_exportCSVProgressBar"
+            margin="0 0 xx-small"
           />
         </Transition>
       </div>
       <Button
-        margin='medium 0 medium 0'
+        margin="medium 0 medium 0"
         color={canStartExport ? 'primary' : 'secondary'}
         onClick={canStartExport ? beginExport : cancelExport}
-        interaction={canStartExport ? 'enabled' : progressValue < 100 ? 'enabled' : 'disabled'}
-        data-automation='outcomesPerStudent_exportCSVButton'
-        buttonRef={(ref) => setCsvButtonRef(ref)}
+        interaction={
+          canStartExport
+            ? 'enabled'
+            : progressValue < 100
+              ? 'enabled'
+              : 'disabled'
+        }
+        data-automation="outcomesPerStudent_exportCSVButton"
+        elementRef={(ref) => setCsvButtonRef(ref)}
       >
         {canStartExport ? t('Export CSV') : t('Cancel Export')}
       </Button>
@@ -127,7 +143,7 @@ ExportCSVButton.propTypes = {
   formatCSVData: PropTypes.func.isRequired,
   fetchingStatus: PropTypes.string.isRequired,
   artifactId: PropTypes.string.isRequired,
-  focusedElement: PropTypes.element,
+  focusedElement: PropTypes.element
 }
 
 ExportCSVButton.defaultProps = {

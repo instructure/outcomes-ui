@@ -1,21 +1,22 @@
+/** @jsx jsx */
 import React from 'react'
-import { themeable } from '@instructure/ui-themeable'
 import { Text } from '@instructure/ui-text'
 import { ProgressBar } from '@instructure/ui-progress'
 import t from 'format-message'
-
-import { outcomeResultShape, scoringMethodShape } from '../../../store/shapes'
+import { withStyle, jsx } from '@instructure/emotion'
+import { outcomeResultShape, scoringMethodShape, stylesShape } from '../../../store/shapes'
 import convertToPoints from '../convertToPoints'
 
-import theme from '../../theme'
-import styles from './styles.css'
+import generateComponentTheme from '../../theme'
+import generateStyle from './styles'
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class MasteryCounts extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     outcomeResult: outcomeResultShape.isRequired,
-    scoringMethod: scoringMethodShape.isRequired
+    scoringMethod: scoringMethodShape.isRequired,
+    styles: stylesShape,
   }
 
   render() {
@@ -28,14 +29,14 @@ export default class MasteryCounts extends React.Component {
 
     return (
       <div>
-        <div className={styles.masteryScoreSection}>
-          <div className={styles.masteryScoreBoxAboveMastery}>
+        <div css={this.props.styles.masteryScoreSection}>
+          <div css={this.props.styles.masteryScoreBoxAboveMastery}>
             <Text size="x-large">{outcomeResult.masteryCount}</Text>
             <Text size="small">
               {t('Mastery at {mastery} pts', { mastery: masteryPoints })}
             </Text>
           </div>
-          <div className={styles.masteryScoreBoxBelowMastery}>
+          <div css={this.props.styles.masteryScoreBoxBelowMastery}>
             <Text size="x-large">
               {outcomeResult.count - outcomeResult.masteryCount}
             </Text>
@@ -43,7 +44,7 @@ export default class MasteryCounts extends React.Component {
           </div>
         </div>
         <div
-          className={styles.masteryBarGraph}
+          css={this.props.styles.masteryBarGraph}
           data-automation="outcomeView__masteryBarGraph"
         >
           <ProgressBar
@@ -57,10 +58,10 @@ export default class MasteryCounts extends React.Component {
             valueNow={outcomeResult.masteryCount}
           />
           <div
-            className={styles.masteryBarDetails}
+            css={this.props.styles.masteryBarDetails}
             data-automation="outcomeView__masteryBarDetails"
           >
-            <div className={styles.masteryCountText}>
+            <div css={this.props.styles.masteryCountText}>
               <Text size="small" data-automation="outcomeView__masteryCount">
                 {t('{count} Mastery at {mastery} pts', {
                   count: outcomeResult.masteryCount,

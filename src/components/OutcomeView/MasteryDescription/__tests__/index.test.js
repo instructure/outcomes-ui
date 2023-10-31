@@ -3,8 +3,9 @@ import React from 'react'
 import { mount } from 'enzyme'
 import MasteryDescription from '../index'
 import checkA11y from '../../../../test/checkA11y'
-
-import styles from '../styles.css'
+import { Spinner } from '@instructure/ui-spinner'
+import styles from '../styles'
+import { findElementsWithStyle } from '../../../../util/__tests__/findElementsWithStyle'
 
 describe('MasteryDescription', () => {
   const scoringMethod = {
@@ -29,7 +30,7 @@ describe('MasteryDescription', () => {
       scoringMethod: null
     })
     const wrapper = mount(<MasteryDescription {...props} />, {attachTo: document.body})
-    expect(wrapper.find('Spinner')).to.have.length(1)
+    expect(wrapper.find(Spinner)).to.have.length(1)
   })
 
   it('does not render mastery percent text if displayMasteryPercentText is false', () => {
@@ -52,7 +53,7 @@ describe('MasteryDescription', () => {
 
   it('renders mastery percent text', () => {
     const wrapper = mount(<MasteryDescription {...makeProps()} />)
-    const scoreMastery = wrapper.find(`.${styles.scoreMasteryText}`)
+    const scoreMastery = findElementsWithStyle(wrapper, styles().scoreMasteryText)
     expect(scoreMastery.length).to.equal(1)
   })
 
@@ -61,7 +62,7 @@ describe('MasteryDescription', () => {
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'decaying_average'}
     })
     const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = wrapper.find(`.${styles.scoreMastery}`).find('Text')
+    const txt = findElementsWithStyle(wrapper, styles().scoreMastery)
     expect(txt.first().text()).to.match(/Decaying Average/)
   })
 
@@ -70,7 +71,7 @@ describe('MasteryDescription', () => {
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'n_mastery'}
     })
     const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = wrapper.find(`.${styles.scoreMastery}`).find('Text')
+    const txt = findElementsWithStyle(wrapper, styles().scoreMastery).find('Text')
     expect(txt.first().text()).to.match(/n Number of Times/)
   })
 
@@ -79,7 +80,7 @@ describe('MasteryDescription', () => {
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'highest'}
     })
     const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = wrapper.find(`.${styles.scoreMastery}`).find('Text')
+    const txt = findElementsWithStyle(wrapper, styles().scoreMastery).find('Text')
     expect(txt.first().text()).to.match(/Highest Score/)
   })
 
@@ -88,7 +89,7 @@ describe('MasteryDescription', () => {
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'latest'}
     })
     const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = wrapper.find(`.${styles.scoreMastery}`).find('Text')
+    const txt = findElementsWithStyle(wrapper, styles().scoreMastery).find('Text')
     expect(txt.first().text()).to.match(/Most Recent Score/)
   })
 

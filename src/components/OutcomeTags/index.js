@@ -1,21 +1,23 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { AccessibleContent } from '@instructure/ui-a11y-content'
 import { Text } from '@instructure/ui-text'
 import { Tag } from '@instructure/ui-tag'
 import { IconOutcomesLine } from '@instructure/ui-icons'
-import { themeable } from '@instructure/ui-themeable'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
+import { stylesShape } from '../../store/shapes'
 
-import theme from '../theme'
-import styles from './styles.css'
-
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class OutcomeTags extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     emptyText: PropTypes.string.isRequired,
     outcomes: PropTypes.array.isRequired,
-    deselectOutcomeIds: PropTypes.func
+    deselectOutcomeIds: PropTypes.func,
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -49,7 +51,7 @@ export default class OutcomeTags extends React.Component {
     return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       <div
-        className={styles.text}
+        css={this.props.styles.text}
         ref={(ref) => (this.emptyResults = ref)}
         tabIndex="-1"
       >
@@ -64,7 +66,7 @@ export default class OutcomeTags extends React.Component {
 
     return sortedOutcomes.map((o, index) => {
       return (
-        <div className={styles.text} key={o.id}>
+        <div css={this.props.styles.text} key={o.id}>
           <Tag
             key={o.id}
             elementRef={(ref) => this.setRef(o.id, ref)}
@@ -96,13 +98,13 @@ export default class OutcomeTags extends React.Component {
   render() {
     return (
       <div
-        className={styles.line}
+        css={this.props.styles.line}
         data-automation="outcomeTag__alignedOutcomes"
       >
         <Text size="medium">
           <IconOutcomesLine />
         </Text>
-        <div className={styles.tags}>
+        <div css={this.props.styles.tags}>
           {this.props.outcomes.length ? this.renderTags() : this.renderEmpty()}
         </div>
       </div>

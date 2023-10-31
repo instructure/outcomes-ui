@@ -1,13 +1,14 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { themeable } from '@instructure/ui-themeable'
 import { Text } from '@instructure/ui-text'
 import { ProgressBar } from '@instructure/ui-progress'
 import { Tooltip } from '@instructure/ui-tooltip'
 import t from 'format-message'
-
-import theme from '../../theme'
-import styles from './styles.css'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../../theme'
+import generateStyle from './styles'
+import { stylesShape } from '../../../store/shapes'
 
 const numQuestionsText = (count, usesBank) => {
   if (count === null || count === void 0) {
@@ -16,8 +17,8 @@ const numQuestionsText = (count, usesBank) => {
   if (usesBank) {
     return (
       <Tooltip
-        tip={t('Variable due to All/Random selection from item bank')}
-        variant="inverse"
+        renderTip={t('Variable due to All/Random selection from item bank')}
+        color="primary"
       >
         {t('Variable Questions')}
       </Tooltip>
@@ -33,12 +34,13 @@ const numQuestionsText = (count, usesBank) => {
   )
 }
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class HeaderDetails extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     outcomeResult: PropTypes.object.isRequired,
-    showRollups: PropTypes.bool.isRequired
+    showRollups: PropTypes.bool.isRequired,
+    styles: stylesShape,
   }
 
   render() {
@@ -46,7 +48,7 @@ export default class HeaderDetails extends React.Component {
     return (
       <div>
         <span
-          className={styles.numQuestions}
+          css={this.props.styles.numQuestions}
           data-automation="outcomesPerStudent__numQuestions"
         >
           <Text size="small">
@@ -75,7 +77,7 @@ export default class HeaderDetails extends React.Component {
           valueNow={outcomeResult.masteryCount}
         />
         <div
-          className={styles.masteryBarDetails}
+          css={this.props.styles.masteryBarDetails}
           data-automation="outcomesPerStudent__masteryBarDetails"
         >
           <Text

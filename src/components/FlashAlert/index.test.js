@@ -4,6 +4,8 @@ import sinon from 'sinon'
 import { expect } from 'chai'
 import { mount } from 'enzyme'
 import FlashAlert, {showFlashAlert, showFlashError, showFlashSuccess, defaultTimeout} from '../FlashAlert'
+import {Transition} from '@instructure/ui-motion'
+import {Alert} from '@instructure/ui-alerts'
 
 describe('FlashAlert', () => {
   let renderSpy
@@ -43,21 +45,21 @@ describe('FlashAlert', () => {
 
   it('renders Transition component', () => {
     const screen = mount(<FlashAlert {...makeProps({})} />)
-    const transition = screen.find('Transition').first()
+    const transition = screen.find(Transition).first()
     expect(transition).to.exist
     expect(transition.prop('transitionOnMount')).to.be.true
     expect(transition.prop('in')).to.be.true
     expect(transition.prop('type')).to.eq('fade')
     clock.tick(defaultTimeout)
     screen.update()
-    const transition2 = screen.find('Transition').at(1)
+    const transition2 = screen.find(Transition).at(1)
     expect(transition2.prop('in')).to.be.false
   })
 
   it('renders Alert component', () => {
     const props = makeProps({})
     const screen = mount(<FlashAlert {...props} />)
-    const alert = screen.find('Alert')
+    const alert = screen.find(Alert)
     expect(alert).to.exist
     expect(alert.prop('variant')).to.eq(props.variant)
     expect(alert.prop('renderCloseButtonLabel')).to.eq('Close')

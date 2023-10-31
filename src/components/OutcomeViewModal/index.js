@@ -50,11 +50,9 @@ const OutcomeViewModal = (props) => {
           offset="medium"
           onClick={() => props.closeAlignment()}
           placement="end"
-          variant="icon"
           data-automation="outcomeView__closeButton"
-        >
-          {t('Close')}
-        </CloseButton>
+          screenReaderLabel={t('Close')}
+        />
         <Heading>
           <Text size="large" data-automation="outcomeView__header">
             {header || t('View Outcome')}
@@ -91,7 +89,7 @@ const OutcomeViewModal = (props) => {
       <ModalFooter>
         <Button
           onClick={() => props.closeAlignment()}
-          variant="primary"
+          color="primary"
           data-automation="outcomeView__submitButton"
         >
           {t('OK')}

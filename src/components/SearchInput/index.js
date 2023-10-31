@@ -1,23 +1,25 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 
-import { themeable } from '@instructure/ui-themeable'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 import { IconButton } from '@instructure/ui-buttons'
 import { IconEndSolid, IconSearchLine } from '@instructure/ui-icons'
 import { TextInput } from '@instructure/ui-text-input'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
+import { stylesShape } from '../../store/shapes'
 
-import theme from '../theme'
-import styles from './styles.css'
-
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 export default class SearchInput extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     onClear: PropTypes.func.isRequired,
-    searchText: PropTypes.string.isRequired
+    searchText: PropTypes.string.isRequired,
+    styles: stylesShape,
   }
 
   renderClearSearchButton() {
@@ -38,12 +40,11 @@ export default class SearchInput extends React.Component {
 
   render() {
     const { onChange, searchText } = this.props
-
     return (
-      <span className={styles.search}>
+      <span css={this.props.styles.search}>
         <TextInput
           type="search"
-          label={
+          renderLabel={
             <ScreenReaderContent>{t('Search outcomes')}</ScreenReaderContent>
           }
           placeholder={t('Search Outcomes')}

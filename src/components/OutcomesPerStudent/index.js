@@ -1,3 +1,4 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Billboard } from '@instructure/ui-billboard'
@@ -12,7 +13,6 @@ import {
 } from '@instructure/ui-a11y-content'
 import shortid from 'shortid'
 import t from 'format-message'
-import { themeable } from '@instructure/ui-themeable'
 import _ from 'lodash'
 import ExportCSVButton from './ExportCSVButton'
 import Header from './Header'
@@ -21,9 +21,9 @@ import Score from './Score'
 import Early from '../../icons/Early.svg'
 import NoReport from '../../icons/NoReport.svg'
 import { REPORT_DOWNLOAD_FF } from '../../constants'
-
-import theme from '../theme'
-import styles from './styles.css'
+import { withStyle, jsx } from '@instructure/emotion'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
 
 const renderBillboard = (args, _foo) => {
   const boardProps = Object.assign(
@@ -37,9 +37,9 @@ const renderBillboard = (args, _foo) => {
   return <Billboard {...boardProps} />
 }
 
-const renderLoading = () => {
+const renderLoading = (styles) => {
   return (
-    <div className={styles.loadingSpinner}>
+    <div css={styles.loadingSpinner}>
       <Spinner renderTitle={t('Loading')} />
     </div>
   )
@@ -70,7 +70,7 @@ const noStudents = () => {
   }
 }
 
-const renderCorner = (count) => {
+const renderCorner = (count, styles) => {
   const text = t(
     `{
     count, plural,
@@ -82,7 +82,7 @@ const renderCorner = (count) => {
 
   return (
     <div
-      className={styles.corner}
+      css={styles.corner}
       role="columnheader"
       data-automation="outcomesPerStudent__corner"
     >
@@ -92,13 +92,13 @@ const renderCorner = (count) => {
   )
 }
 
-const renderStudentName = (student) => {
+const renderStudentName = (student, styles) => {
   const studentNameId = shortid.generate()
   const studentNameElement = (
-    <div className={styles.studentName} id={studentNameId} role="rowheader">
+    <div css={styles.studentName} id={studentNameId} role="rowheader">
       <PresentationContent>
         <span
-          className={styles.avatar}
+          css={styles.avatar}
           data-automation="outcomesPerStudent__avatar"
         >
           <Avatar
@@ -108,7 +108,7 @@ const renderStudentName = (student) => {
           />
         </span>
       </PresentationContent>
-      <span className={styles.name} data-automation="outcomesPerStudent__name">
+      <span css={styles.name} data-automation="outcomesPerStudent__name">
         <Text size="small">{student.full_name}</Text>
       </span>
     </div>
@@ -165,7 +165,7 @@ renderPagination.defaultProps = {
   loadUsersOverride: void 0
 }
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 class OutcomesPerStudentReport extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
@@ -189,7 +189,8 @@ class OutcomesPerStudentReport extends React.Component {
     closeReportAlignment: PropTypes.func.isRequired,
     features: PropTypes.array.isRequired,
     clearReportStore: PropTypes.func.isRequired,
-    scope: PropTypes.string.isRequired
+    scope: PropTypes.string.isRequired,
+    styles: PropTypes.object,
   }
 
   // eslint-disable-next-line no-undef
@@ -223,16 +224,16 @@ class OutcomesPerStudentReport extends React.Component {
     } = this.props
     return (
       <div
-        className={styles.reportWrapper}
+        css={this.props.styles.reportWrapper}
         data-automation="outcomesPerStudent__reportWrapper"
       >
-        <div className={styles.table} role="grid">
+        <div css={this.props.styles.table} role="grid">
           <div
-            className={styles.headerRow}
+            css={this.props.styles.headerRow}
             role="row"
             data-automation="outcomesPerStudent__headerRow"
           >
-            {renderCorner(rollups.length)}
+            {renderCorner(rollups.length, this.props.styles)}
             {rollups.map((rollup, i) => {
               headerIds[i] = shortid.generate() // eslint-disable-line immutable/no-mutation
               return (
@@ -241,7 +242,7 @@ class OutcomesPerStudentReport extends React.Component {
                   id={headerIds[i]}
                   key={headerIds[i]}
                   role="columnheader"
-                  className={styles.headerCell}
+                  css={this.props.styles.headerCell}
                   data-automation="outcomesPerStudent__headerCell"
                 >
                   <Header
@@ -278,11 +279,11 @@ class OutcomesPerStudentReport extends React.Component {
             })}
           </div>
           {users.map((student) => {
-            const { studentNameElement } = renderStudentName(student)
+            const { studentNameElement } = renderStudentName(student, this.props.styles)
             return (
               <div
                 key={student.uuid}
-                className={styles.studentRow}
+                css={this.props.styles.studentRow}
                 role="row"
                 data-automation="outcomesPerStudent__studentRow"
               >
@@ -290,7 +291,7 @@ class OutcomesPerStudentReport extends React.Component {
                 {rollups.map((rollup, i) => (
                   <div
                     key={rollup.outcomeId}
-                    className={styles.scoreCell}
+                    css={this.props.styles.scoreCell}
                     role="gridcell"
                     data-automation="outcomesPerStudent__scoreCell"
                   >
@@ -342,7 +343,7 @@ class OutcomesPerStudentReport extends React.Component {
     const focusedElement = document.activeElement
     const renderReportContent = () => {
       if (loading) {
-        return renderLoading()
+        return renderLoading(this.props.styles)
       } else if (!hasAnyOutcomes) {
         return renderBillboard(noOutcomes())
       } else if (!hasAnyStudents) {
@@ -352,7 +353,7 @@ class OutcomesPerStudentReport extends React.Component {
       }
     }
     return (
-      <div className={styles.background}>
+      <div css={this.props.styles.background}>
         {this.renderExportButton(hasAnyStudents, focusedElement)}
         {renderReportContent()}
       </div>

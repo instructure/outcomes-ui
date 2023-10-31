@@ -25,7 +25,7 @@ const sharedSpecs = (makeProps) => {
     const props = makeProps({
       outcomeResult: { count: 100, masteryCount: 50 }
     })
-    const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find(MasteryCounts)).to.have.length(1)
   })
 
@@ -104,7 +104,7 @@ describe('OutcomeView', () => {
     const props = makeProps({
       displayMasteryDescription: true
     })
-    const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
     const scoreMastery = wrapper.find(MasteryDescription)
     expect(scoreMastery.length).to.equal(1)
   })
@@ -119,7 +119,7 @@ describe('OutcomeView', () => {
   })
 
   it('displays scoring tiers if scoring method and tiers defined', () => {
-    const wrapper = shallow(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find(ScoringTiers)).to.have.length(1)
   })
 
@@ -171,7 +171,7 @@ describe('OutcomeView', () => {
         const props = makeProps({
           outcomeResult: { count: 100, masteryCount: 50 }
         })
-        const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
         expect(wrapper.find(ScoringTiers)).to.have.length(1)
       })
 
@@ -180,7 +180,7 @@ describe('OutcomeView', () => {
           outcomeResult: { count: 100, masteryCount: 50 },
           scoringTiers: defaultProps.scoringTiers
         })
-        const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
         expect(wrapper.find(ScoringTiers).prop('scoringTiers')).to.deep.equal(defaultProps.scoringTiers)
       })
 
@@ -189,7 +189,7 @@ describe('OutcomeView', () => {
           displayMasteryDescription: true,
           outcomeResult: { count: 100, masteryCount: 50 }
         })
-        const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
         const scoreMastery = wrapper.find(MasteryDescription)
         expect(scoreMastery.length).to.equal(1)
       })

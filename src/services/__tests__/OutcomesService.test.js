@@ -211,8 +211,10 @@ describe('OutcomesService', () => {
         status: 201,
         body: { ...response }
       })
-      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.contextUuid, payload.outcomeIds)
-        .then(result => expect(result).to.deep.equal(response.alignment_set))
+      return subject.upsertArtifact(
+        host, jwt, payload.artifactType, payload.artifactId,
+        payload.contextUuid, payload.outcomeIds
+      ).then(result => expect(result).to.deep.equal(response.alignment_set))
     })
 
 
@@ -233,8 +235,9 @@ describe('OutcomesService', () => {
         status: 201,
         body: {} // a delete (caused by having no outcomeIds) returns nothing
       })
-      return subject.upsertArtifact(host, jwt, payload.artifactType, payload.artifactId, payload.contextUuid, payload.outcomeIds)
-        .then(result => expect(result).to.deep.equal({guid: null}))
+      return subject.upsertArtifact(
+        host, jwt, payload.artifactType, payload.artifactId, payload.contextUuid, payload.outcomeIds
+      ).then(result => expect(result).to.deep.equal({guid: null}))
     })
   })
 

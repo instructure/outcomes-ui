@@ -36,18 +36,18 @@ describe('OutcomesPerStudent/Score', () => {
       }
     }
     const wrapper = mount(<Score {...noPoints} />)
-    expect(wrapper.children()).to.have.length(0)
+    expect(wrapper.find('div[data-automation="outcomesPerStudent__score"]')).to.have.length(0)
   })
 
   it('includes a star if percentScore is greater than mastery', () => {
-    const wrapper = shallow(<Score {...makeProps()} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<Score {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find(IconStarSolid)).to.have.length(1)
   })
 
   it('includes a star if percentScore is equal to mastery', () => {
     const props = makeProps()
     props.score.percentScore = 0.4 // eslint-disable-line immutable/no-mutation
-    const wrapper = shallow(<Score {...makeProps()} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<Score {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find(IconStarSolid)).to.have.length(1)
   })
 

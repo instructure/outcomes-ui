@@ -21,6 +21,7 @@ describe('ConnectedAlignmentWidget', () => {
         />
       </Provider>
     )
-    expect(wrapper.find('AlignmentWidget')).to.have.length(1)
+    // Enzyme finds two AlignmentWidget components because of the instui decorator on the component
+    expect(wrapper.find('AlignmentWidget')).to.have.length(2)
   })
 })

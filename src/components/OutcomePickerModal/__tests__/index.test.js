@@ -4,10 +4,11 @@ import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import checkA11y from '../../../test/checkA11y'
 import OutcomePickerModal from '../index'
+import { Modal } from '@instructure/ui-modal'
 
 describe('OutcomePickerModal', () => {
-  const primaryButtonSelector = 'Button[variant="primary"]'
-  const cancelButtonSelector = 'Button[variant="default"]'
+  const primaryButtonSelector = 'Button[data-automation="outcomePicker__submitButton"]'
+  const cancelButtonSelector = 'Button[data-automation="outcomePicker__cancelButton"]'
 
   function makeProps (props = {}) {
     return Object.assign({
@@ -79,26 +80,29 @@ describe('OutcomePickerModal', () => {
 
   it('shows "Confirm Alignments" when picker in choosing state and an outcome is selected', () => {
     const props = makeProps({ outcomePickerState: 'choosing', anyOutcomeSelected: true })
-    const wrapper = shallow(<OutcomePickerModal {...props} />)
-    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('Confirm Alignments')
+    const wrapper = mount(<OutcomePickerModal {...props} />)
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find(primaryButtonSelector).at(0).childAt(0).text()).to.equal('Confirm Alignments')
   })
 
   it('shows "Done" when picker in choosing state and no outcome is selected', () => {
     const props = makeProps({ outcomePickerState: 'choosing', anyOutcomeSelected: false })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('Done')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find(primaryButtonSelector).at(0).childAt(0).text()).to.equal('Done')
   })
 
   it('shows "OK" when picker in complete state', () => {
     const props = makeProps({ outcomePickerState: 'complete' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('OK')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find(primaryButtonSelector).at(0).childAt(0).text()).to.equal('OK')
   })
 
   it('has Done and Cancel buttons disabled when picker in loading state', () => {
     const props = makeProps({ outcomePickerState: 'loading' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('Done')
+    expect(wrapper.find(primaryButtonSelector).at(0).childAt(0).text()).to.equal('Done')
     wrapper.find('ModalFooter Button').forEach((btn) => {
       expect(btn.prop('disabled')).to.equal(true)
     })
@@ -107,7 +111,8 @@ describe('OutcomePickerModal', () => {
   it('has OK and Cancel buttons disabled when picker in saving state', () => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    expect(wrapper.find(primaryButtonSelector).childAt(0).text()).to.equal('OK')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    expect(wrapper.find(primaryButtonSelector).at(0).childAt(0).text()).to.equal('OK')
     wrapper.find('ModalFooter Button').forEach((btn) => {
       expect(btn.prop('disabled')).to.equal(true)
     })
@@ -116,7 +121,8 @@ describe('OutcomePickerModal', () => {
   it('saves outcome alignments when Confirm Alignments is pressed', () => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    wrapper.find(primaryButtonSelector).simulate('click')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    wrapper.find(primaryButtonSelector).at(0).simulate('click')
     expect(props.saveOutcomePickerAlignments.calledOnce).to.be.true
     expect(props.saveOutcomePickerAlignments.calledWith(props.onUpdate)).to.be.true
   })
@@ -124,7 +130,7 @@ describe('OutcomePickerModal', () => {
   it('closes modal when Confirm Alignments is complete', (done) => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    wrapper.find(primaryButtonSelector).simulate('click')
+    wrapper.find(primaryButtonSelector).at(0).simulate('click')
     setTimeout(() => {
       expect(props.closeOutcomePicker.called).to.be.true
       done()
@@ -134,7 +140,7 @@ describe('OutcomePickerModal', () => {
   it('triggers onModalClose on modal close', (done) => {
     const props = makeProps({ outcomePickerState: 'closed' })
     const wrapper = mount(<OutcomePickerModal {...props} />)
-    wrapper.find('Modal').prop('onClose')()
+    wrapper.find(Modal).prop('onClose')()
     setTimeout(() => {
       expect(props.onModalClose.calledOnce).to.be.true
       done()
@@ -144,14 +150,15 @@ describe('OutcomePickerModal', () => {
   it('does not save outcome alignments when Cancel is pressed', () => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    wrapper.find(cancelButtonSelector).simulate('click')
+    // Enzyme finds two Button components because of the instui decorator on the component
+    wrapper.find(cancelButtonSelector).at(0).simulate('click')
     expect(props.saveOutcomePickerAlignments.called).to.be.false
   })
 
   it('triggers closeOutcomePicker on closeButton click', () => {
     const props = makeProps({ outcomePickerState: 'saving' })
     const wrapper = shallow(<OutcomePickerModal {...props} />)
-    wrapper.find(cancelButtonSelector).simulate('click')
+    wrapper.find(cancelButtonSelector).at(0).simulate('click')
     expect(props.closeOutcomePicker.called).to.be.true
   })
 

@@ -1,18 +1,15 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-
 import React from 'react'
 import { render } from 'react-dom'
 import { fromPairs } from 'lodash'
-import '@instructure/canvas-theme'
-import '@instructure/canvas-high-contrast-theme'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading } from '@instructure/ui-heading'
 import { Checkbox } from '@instructure/ui-checkbox'
 import { SimpleSelect } from '@instructure/ui-simple-select'
 import { Tabs } from '@instructure/ui-tabs'
-import { ApplyTheme } from '@instructure/ui-themeable'
-
+import { canvas, canvasHighContrast } from '@instructure/ui-themes'
+import { InstUISettingsProvider } from '@instructure/emotion'
 import {
   OutcomeAlignments,
   OutcomeCount,
@@ -20,23 +17,17 @@ import {
   OutcomeList,
   AlignmentWidget
 } from './index'
-import styles from './index.css'
 
-const themes = ['canvas', 'canvas-high-contrast']
+const themes = {'canvas': canvas, 'canvas-high-contrast': canvasHighContrast}
 
 const root = document.createElement('div')
 root.setAttribute('id', 'app')
-root.classList.add(styles.root)
 document.body.appendChild(root)
-
 const alert = document.createElement('div')
 alert.setAttribute('id', 'alert')
 document.body.appendChild(alert)
-
 const getLive = () => document.getElementById('alert-live-region')
-
 getLive().setAttribute('role', 'alert')
-
 const screenreaderNotification = (text) => {
   render(
     <Alert screenReaderOnly liveRegion={getLive}>
@@ -47,15 +38,12 @@ const screenreaderNotification = (text) => {
 }
 const searchString = window.location.search.slice(1)
 const query = fromPairs(searchString.split('&').map((kv) => kv.split('=')))
-
 const createJwt = query.jwt || process.env.CREATE_TOKEN
 const createKindergartenJwt = query.jwt || process.env.CREATE_KINDERGARTEN_TOKEN
 const createFirstGradeJwt = query.jwt || process.env.CREATE_FIRST_GRADE_TOKEN
 const reportJwt = query.jwt || process.env.REPORT_TOKEN
 const outcomesHost = `http://${query.host || window.location.host}`
-
 const { artifactType = 'quizzes.quiz', artifactId = '99' } = query
-
 const DemoAlignment = (props) => {
   /* eslint-disable no-console, react/prop-types */
   const {
@@ -72,7 +60,7 @@ const DemoAlignment = (props) => {
     useAlignmentWidget
   } = props
   return (
-    <div className={styles.item} data-automation="artifact">
+    <div  data-automation="artifact">
       <Heading level="h3">
         {name} &nbsp;
         <OutcomeCount
@@ -106,7 +94,7 @@ const DemoAlignment = (props) => {
             jwt={jwt}
             liveRegion={getLive}
             screenreaderNotification={screenreaderNotification}
-            readOnly={readOnly === 'true'}
+            canManageOutcomes={readOnly === 'false'}
           />
         </div>
       ) : (
@@ -131,12 +119,10 @@ const DemoAlignment = (props) => {
     </div>
   )
 }
-
 let currentPicker = 'dialog'
 let currentTheme = process?.env?.DEFAULT_HIGH_CONTRAST ? 'canvas-high-contrast' : 'canvas'
 let readOnly = 'false'
 let currentTab = 'alignments'
-
 const reset = () => {
   render(<div />, root)
   rerender()
@@ -145,33 +131,28 @@ const handleThemeChange = (_, { value: theme }) => {
   currentTheme = theme
   reset()
 }
-
 const handlePickerChange = (_, { value: picker }) => {
   currentPicker = picker
   reset()
 }
-
 const handleReadOnlyChange = (_, { value }) => {
   readOnly = value
   reset()
 }
-
 let showRollups = true
 function handleShowRollupsChange() {
   showRollups = !showRollups
   rerender()
 }
-
 const handleTabChange = (_, { id }) => {
   currentTab = id
   rerender()
 }
-
 function rerender() {
   render(
-    <ApplyTheme theme={ApplyTheme.generateTheme(currentTheme)}>
+    <InstUISettingsProvider theme={themes[currentTheme]}>
       <Tabs onRequestTabChange={handleTabChange}>
-        <Tabs.Panel id="alignments" renderTitle="Alignments" selected={currentTab === 'alignments'}>
+        <Tabs.Panel id="alignments" renderTitle="Alignments" isSelected={currentTab === 'alignments'}>
           <SimpleSelect
             renderLabel="Picker"
             onChange={handlePickerChange}
@@ -248,14 +229,14 @@ function rerender() {
             alignmentWidget={AlignmentWidget}
           />
         </Tabs.Panel>
-        <Tabs.Panel selected={currentTab === 'report'} renderTitle="Report" textAlign="center" id="report">
-          <div style={{ backgroundColor: 'lightgrey' }}>
+        <Tabs.Panel isSelected={currentTab === 'report'} renderTitle="Report" textAlign="center" id="report">
+          <div>
             <Checkbox
               label="Show Rollups"
               checked={showRollups}
               onChange={handleShowRollupsChange}
             />
-            <div className={styles.report}>
+            <div>
               <OutcomesPerStudentReport
                 artifactType={artifactType}
                 artifactId={artifactId}
@@ -268,13 +249,13 @@ function rerender() {
             </div>
           </div>
         </Tabs.Panel>
-        <Tabs.Panel title="Theme" textAlign="center" id="theme" selected={currentTab === 'theme'}>
+        <Tabs.Panel renderTitle="Theme" textAlign="center" id="theme" isSelected={currentTab === 'theme'}>
           <SimpleSelect
             renderLabel="Theme"
             onChange={handleThemeChange}
             value={currentTheme}
           >
-            {themes.map((themeKey) => (
+            {Object.keys(themes).map((themeKey) => (
               <SimpleSelect.Option id={themeKey} key={themeKey} value={themeKey}>
                 {themeKey}
               </SimpleSelect.Option>
@@ -282,9 +263,8 @@ function rerender() {
           </SimpleSelect>
         </Tabs.Panel>
       </Tabs>
-    </ApplyTheme>,
+    </InstUISettingsProvider>,
     root
   )
 }
-
 rerender()

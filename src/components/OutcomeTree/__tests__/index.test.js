@@ -3,8 +3,15 @@ import React from 'react'
 import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import OutcomeTree from '../index'
-import styles from '../styles.css'
+import styles from '../styles'
 import checkA11y from '../../../test/checkA11y'
+import OutcomeBrowser from '../TreeBrowser'
+import OutcomeSelectionList from '../../OutcomeSelectionList'
+import OutcomeFolderList from '../../OutcomeFolderList'
+import { Text } from '@instructure/ui-text'
+import { Heading } from '@instructure/ui-heading'
+import { Billboard } from '@instructure/ui-billboard'
+import { findElementsWithStyle } from '../../../util/__tests__/findElementsWithStyle'
 
 describe('OutcomeTree', () => {
   const outcomeData = { label: 'FOO', title: 'bar' }
@@ -45,34 +52,34 @@ describe('OutcomeTree', () => {
 
   it('passes the correct params to OutcomeBrowser', () => {
     const props = makeProps()
-    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeBrowser')).to.have.length(1)
-    expect(wrapper.find('OutcomeBrowser').prop('collections')).to.deep.equal(props.collections)
-    expect(wrapper.find('OutcomeBrowser').prop('rootOutcomeIds')).to.deep.equal(props.rootOutcomeIds)
-    expect(wrapper.find('OutcomeBrowser').prop('expandedIds')).to.deep.equal(props.expandedIds)
+    const wrapper = mount(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(OutcomeBrowser)).to.have.length(1)
+    expect(wrapper.find(OutcomeBrowser).prop('collections')).to.deep.equal(props.collections)
+    expect(wrapper.find(OutcomeBrowser).prop('rootOutcomeIds')).to.deep.equal(props.rootOutcomeIds)
+    expect(wrapper.find(OutcomeBrowser).prop('expandedIds')).to.deep.equal(props.expandedIds)
   })
 
   it('wraps the browser with the proper CSS styling', () => {
-    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(`.${styles.outcomeTree}`).exists()).to.equal(true)
+    const wrapper = mount(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(findElementsWithStyle(wrapper, styles().outcomeTree).exists()).to.equal(true)
   })
 
   it('passes correct params to OutcomeSelectionList component', () => {
-    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeSelectionList').prop('outcomes')).to.deep.equal(nonGroups)
+    const wrapper = mount(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(OutcomeSelectionList).prop('outcomes')).to.deep.equal(nonGroups)
   })
 
   it('passes correct params to OutcomeFolderList component', () => {
     const props = makeProps()
-    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('OutcomeFolderList').prop('outcomes')).to.deep.equal(groups)
-    expect(wrapper.find('OutcomeFolderList').prop('activeCollectionId')).to.deep.equal(props.activeCollection.id)
+    const wrapper = mount(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(OutcomeFolderList).prop('outcomes')).to.deep.equal(groups)
+    expect(wrapper.find(OutcomeFolderList).prop('activeCollectionId')).to.deep.equal(props.activeCollection.id)
   })
 
   it('passes correct params to the Text components', () => {
-    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
-    const texts = wrapper.find('Text')
-    const header = wrapper.find('Heading')
+    const wrapper = mount(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    const texts = wrapper.find(Text)
+    const header = wrapper.find(Heading)
     expect(texts.at(0).render().text()).to.equal('1 outcome')
     expect(texts.at(1).render().text()).to.equal('This is the description')
     expect(header.at(0).render().text()).to.equal('Outcome group')
@@ -86,23 +93,23 @@ describe('OutcomeTree', () => {
   })
 
   it('sets the CSS styling when there is a description', () => {
-    const wrapper = shallow(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(`.${styles.outcomeDescription}`).exists()).to.equal(true)
+    const wrapper = mount(<OutcomeTree {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('.outcomeTreeOutcomeDescription').exists()).to.equal(true)
   })
 
   it('shows the proper billboard when there are no active collection details', () => {
     const props = makeProps({activeCollection: {}})
-    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Billboard')).to.have.length(1)
-    expect(wrapper.find('Billboard').prop('heading')).to.equal('Align Outcomes')
+    const wrapper = mount(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Billboard)).to.have.length(1)
+    expect(wrapper.find(Billboard).prop('heading')).to.equal('Align Outcomes')
   })
 
   it('shows the proper billboard when there is no active collection id', () => {
     const props = makeProps()
     delete props.activeCollection.id
-    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Billboard')).to.have.length(1)
-    expect(wrapper.find('Billboard').prop('heading')).to.equal('Align Outcomes')
+    const wrapper = mount(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Billboard)).to.have.length(1)
+    expect(wrapper.find(Billboard).prop('heading')).to.equal('Align Outcomes')
   })
 
   it('does not set the CSS description styling when there are no active collection details', () => {
@@ -113,8 +120,8 @@ describe('OutcomeTree', () => {
 
   it('sets the CSS content styling', () => {
     const props = makeProps({activeCollection: {}})
-    const wrapper = shallow(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(`.${styles.outcomeContent}`).exists()).to.equal(true)
+    const wrapper = mount(<OutcomeTree {...props} />, {disableLifecycleMethods: true})
+    expect(findElementsWithStyle(wrapper, styles().outcomeContent).exists()).to.equal(true)
   })
 
   it('handles missing activeCollection props', () => {

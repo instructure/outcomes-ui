@@ -20,7 +20,8 @@ describe('OutcomeList', () => {
     const wrapper = mount(
       <div id="app"><OutcomeList {...makeProps()} /></div>
     )
-    expect(wrapper.find('OutcomeLabels')).to.have.length(1)
+    // Enzyme finds two OutcomeLabels components because of the instui decorator on the component
+    expect(wrapper.find('OutcomeLabels')).to.have.length(2)
   })
 
   it('sets the scope', () => {
@@ -28,6 +29,7 @@ describe('OutcomeList', () => {
     const wrapper = mount(
       <div id="app"><OutcomeList {...props} /></div>
     )
-    expect(wrapper.find('OutcomeLabels').prop('scope')).to.equal('foo:::1')
+    // Enzyme finds two Link components because of the instui decorator on the component
+    expect(wrapper.find('OutcomeLabels').at(0).prop('scope')).to.equal('foo:::1')
   })
 })

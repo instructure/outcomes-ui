@@ -1,30 +1,33 @@
+/** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import { Billboard } from '@instructure/ui-billboard'
-import { Button } from '@instructure/ui-buttons'
+import { IconButton } from '@instructure/ui-buttons'
 import { IconPlusLine } from '@instructure/ui-icons'
+import { withStyle, jsx } from '@instructure/emotion'
 import t from 'format-message'
-import { themeable } from '@instructure/ui-themeable'
 import Alignment from '../Alignment'
-
-import theme from '../theme'
-import styles from './styles.css'
+import generateComponentTheme from '../theme'
+import generateStyle from './styles'
 import Clipboard from '../../icons/Clipboard.svg'
 import OutcomePickerModal from '../OutcomePickerModal'
+import { stylesShape } from '../../store/shapes'
 
-@themeable(theme, styles)
+@withStyle(generateStyle, generateComponentTheme)
 class AlignmentList extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
     addModal: PropTypes.func.isRequired,
     pickerType: PropTypes.string,
     pickerProps: PropTypes.object,
-    alignedOutcomes: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
-    })).isRequired,
+    alignedOutcomes: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
+      })
+    ).isRequired,
     emptySetHeading: PropTypes.string.isRequired,
     readOnly: PropTypes.bool,
     removeAlignment: PropTypes.func.isRequired,
@@ -41,7 +44,8 @@ class AlignmentList extends React.Component {
     displayMasteryPercentText: PropTypes.bool,
     screenreaderNotification: PropTypes.func,
     liveRegion: OutcomePickerModal.propTypes.liveRegion,
-    mountNode: OutcomePickerModal.propTypes.mountNode
+    mountNode: OutcomePickerModal.propTypes.mountNode,
+    styles: stylesShape,
   }
 
   static defaultProps = {
@@ -63,18 +67,22 @@ class AlignmentList extends React.Component {
     this.props.openOutcomePicker()
   }
 
-  handleRemoveAlignment (outcome, index) {
-    const {removeAlignment, alignedOutcomes, onUpdate} = this.props
+  handleRemoveAlignment(outcome, index) {
+    const { removeAlignment, alignedOutcomes, onUpdate } = this.props
     const priorListItem = this[`position${index - 1}`]
     removeAlignment(outcome.id, onUpdate)
-    this.props.screenreaderNotification(t('{label} alignment removed', {label: outcome.label}))
+    this.props.screenreaderNotification(
+      t('{label} alignment removed', { label: outcome.label })
+    )
     if (priorListItem) {
       priorListItem.focus()
     } else if (alignedOutcomes.length > 0) {
       // TBD - need to do something better here if first item is
       // removed, just doing this for now so there's consistent behavior
       const nextListItem = this[`position${index + 1}`]
-      if (nextListItem) { nextListItem.focus() }
+      if (nextListItem) {
+        nextListItem.focus()
+      }
     }
   }
 
@@ -84,29 +92,32 @@ class AlignmentList extends React.Component {
     return r.type === 'button' ? r : r.children[0]
   }
 
-  componentDidUpdate (oldProps) {
+  componentDidUpdate(oldProps) {
     const { alignedOutcomes } = this.props
     if (oldProps.alignedOutcomes.length && !alignedOutcomes.length) {
       this.triggerButton().focus()
     }
   }
 
-  renderAddOutcomeButton () {
+  renderAddOutcomeButton() {
     return (
-      <li className={styles.addOutcome}>
-        <Button
-          ref={(d) => { this.triggerRoot = d }} // eslint-disable-line immutable/no-mutation
-          variant="circle-primary"
+      <li css={this.props.styles.addOutcome}>
+        <IconButton
+          elementRef={d => (this.triggerRoot = d)} // eslint-disable-line immutable/no-mutation
+          shape='circle'
+          color='primary'
           size="small"
           onClick={() => this.handleModalOpen()}
+          screenReaderLabel=""
+          css={this.props.styles.addOutcomeButton}
         >
           <IconPlusLine title={t('Align new outcomes')} />
-        </Button>
+        </IconButton>
       </li>
     )
   }
 
-  renderList () {
+  renderList() {
     const {
       alignedOutcomes,
       viewAlignment,
@@ -116,15 +127,17 @@ class AlignmentList extends React.Component {
       displayMasteryDescription,
       displayMasteryPercentText,
       readOnly,
-      scope,
+      scope
     } = this.props
     return (
       <div>
-        <ul className={styles.list}>
+        <ul css={this.props.styles.list}>
           {alignedOutcomes.map((outcome, index) => (
             <Alignment
               key={outcome.id}
-              ref={(o) => { this[`position${index}`] = o }} // eslint-disable-line immutable/no-mutation
+              ref={(o) => {
+                this[`position${index}`] = o
+              }} // eslint-disable-line immutable/no-mutation
               removeAlignment={() => this.handleRemoveAlignment(outcome, index)}
               viewAlignment={() => viewAlignment(outcome.id)}
               closeAlignment={closeAlignment}
@@ -135,6 +148,7 @@ class AlignmentList extends React.Component {
               displayMasteryPercentText={displayMasteryPercentText}
               readOnly={readOnly}
               scope={scope}
+              index={index}
             />
           ))}
           {!readOnly && this.renderAddOutcomeButton()}
@@ -143,22 +157,25 @@ class AlignmentList extends React.Component {
     )
   }
 
-  renderEmpty () {
-    return !this.props.readOnly &&
-      <Billboard
-        ref={(d) => { this.triggerRoot = d }} // eslint-disable-line immutable/no-mutation
-        heading={this.props.emptySetHeading}
-        message={t('Browse and add outcomes by clicking here.')}
-        headingAs="h3"
-        headingLevel="h3"
-        size="small"
-        hero={<Clipboard />}
-        type="button"
-        onClick={this.handleModalOpen}
-      />
+  renderEmpty() {
+    return (
+      !this.props.readOnly && (
+        <Billboard
+          elementRef={d => (this.triggerRoot = d)} // eslint-disable-line immutable/no-mutation
+          heading={this.props.emptySetHeading}
+          message={t('Browse and add outcomes by clicking here.')}
+          headingAs="h3"
+          headingLevel="h3"
+          size="small"
+          hero={<Clipboard />}
+          type="button"
+          onClick={this.handleModalOpen}
+        />
+      )
+    )
   }
 
-  renderBody () {
+  renderBody() {
     const { alignedOutcomes } = this.props
     if (alignedOutcomes && alignedOutcomes.length > 0) {
       return this.renderList()
@@ -167,7 +184,7 @@ class AlignmentList extends React.Component {
     }
   }
 
-  renderModal () {
+  renderModal() {
     const {
       addModal: OutcomePickerModal,
       pickerProps,
@@ -201,17 +218,17 @@ class AlignmentList extends React.Component {
     )
   }
 
-  focus () {
+  focus() {
     if (this.triggerRoot) {
       this.triggerButton().focus()
     }
   }
 
-  render () {
+  render() {
     return (
-      <div>
-        { this.renderBody() }
-        { this.renderModal() }
+      <div data-testid='alignment-list'>
+        {this.renderBody()}
+        {this.renderModal()}
       </div>
     )
   }

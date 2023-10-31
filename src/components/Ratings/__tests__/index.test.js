@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import Ratings from '../index'
 import checkA11y from '../../../test/checkA11y'
 import { ratings } from '../../../test/mockOutcomesData'
+import { Text } from '@instructure/ui-text'
 
 describe('Ratings', () => {
   function makeProps (props = {}) {
@@ -19,8 +20,16 @@ describe('Ratings', () => {
 
   it('displays the mastery points correctly', () => {
     const wrapper = mount(<Ratings {...makeProps({masteryPercent: 0.6, pointsPossible: 5})} />)
-    expect(wrapper.find('Text')).to.have.length(5)
-    const text = wrapper.find('Text').at(4)
+    // Text components render description in this way:
+    // 0: Exceeds Expectations
+    // 1: Meets Expectations
+    // 2: Does Not Meet Expectations
+    // 3: Mastery at:
+    // 4: 3 points
+    const text_component_count = 5
+    const mastery_points_position = 4
+    expect(wrapper.find(Text)).to.have.length(text_component_count)
+    const text = wrapper.find(Text).at(mastery_points_position)
     expect(text.text()).to.match(/3 points/)
   })
 

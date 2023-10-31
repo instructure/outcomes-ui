@@ -3,8 +3,12 @@ import React from 'react'
 import sinon from 'sinon'
 import { shallow, mount } from 'enzyme'
 import HeaderDetails from '../index'
-import styles from '../styles.css'
+import styles from '../styles'
 import checkA11y from '../../../../test/checkA11y'
+import { ProgressBar } from '@instructure/ui-progress'
+import { Tooltip } from '@instructure/ui-tooltip'
+import { findElementsWithStyle } from '../../../../util/__tests__/findElementsWithStyle'
+import { Text } from '@instructure/ui-text'
 
 describe('OutcomesPerStudent/HeaderDetails', () => {
   function makeProps (props) {
@@ -27,8 +31,8 @@ describe('OutcomesPerStudent/HeaderDetails', () => {
   }
 
   it('includes a progress bar', () => {
-    const wrapper = shallow(<HeaderDetails {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('ProgressBar')).to.have.length(1)
+    const wrapper = mount(<HeaderDetails {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(ProgressBar)).to.have.length(1)
   })
 
   it('hides the progress bar when rollups are hidden', () => {
@@ -37,8 +41,9 @@ describe('OutcomesPerStudent/HeaderDetails', () => {
   })
 
   it('includes the rollup summary', () => {
-    const wrapper = shallow(<HeaderDetails {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(`.${styles.masteryBarDetails}`).find('Text')).to.have.length(2)
+    const wrapper = mount(<HeaderDetails {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(findElementsWithStyle(wrapper, styles().masteryBarDetails).find(Text)).to.have.length(2)
+
   })
 
   it('hides the rollup summary when rollups are hidden', () => {
@@ -59,8 +64,8 @@ describe('OutcomesPerStudent/HeaderDetails', () => {
         usesBank: true
       }
     }
-    const wrapper = shallow(<HeaderDetails {...makeProps(withUsesBank)} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Tooltip')).to.have.length(1)
+    const wrapper = mount(<HeaderDetails {...makeProps(withUsesBank)} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Tooltip)).to.have.length(1)
   })
 
   it('does not include tooltip', () => {

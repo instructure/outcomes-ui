@@ -1,10 +1,16 @@
 import { expect } from 'chai'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import Header from '../index'
-import styles from '../styles.css'
+import styles from '../styles'
 import checkA11y from '../../../../test/checkA11y'
+import HeaderDetails from '../../HeaderDetails'
+import { Tooltip } from '@instructure/ui-tooltip'
+import { TruncateText } from '@instructure/ui-truncate-text'
+import { AccessibleContent } from '@instructure/ui-a11y-content'
+import { findElementsWithStyle } from '../../../../util/__tests__/findElementsWithStyle'
+import { Link } from '@instructure/ui-link'
 
 describe('OutcomesPerStudent/Header', () => {
   function makeProps (props) {
@@ -26,8 +32,8 @@ describe('OutcomesPerStudent/Header', () => {
   }
 
   it('includes a details object', () => {
-    const wrapper = shallow(<Header {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('HeaderDetails')).to.have.length(1)
+    const wrapper = mount(<Header {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(HeaderDetails)).to.have.length(1)
   })
 
   it('renders outcome link with title', () => {
@@ -38,30 +44,24 @@ describe('OutcomesPerStudent/Header', () => {
 
   it('calls viewReportAlignment when the link is clicked', () => {
     const props = makeProps()
-    const wrapper = shallow(<Header {...props} />, {disableLifecycleMethods: true})
-    const link = wrapper.find(`.${styles.header}`).find('Link')
+    const wrapper = mount(<Header {...props} />, {disableLifecycleMethods: true})
+    const link = findElementsWithStyle(wrapper, styles().header).find(Link)
     link.simulate('click')
 
     expect(props.viewReportAlignment.calledOnce).to.be.true
   })
 
-  it('conditionally renders tooltip based on state.showTooltip', () => {
-    const wrapper = shallow(<Header {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Tooltip')).to.have.length(0)
-    wrapper.setState({showTooltip: true})
-    expect(wrapper.find('Tooltip')).to.have.length(1)
-  })
-
-  it('includes a TruncateText element that can update state', () => {
+  it('conditionally renders tooltip when TruncateText is updated', () => {
     const wrapper = mount(<Header {...makeProps()} />)
-    expect(wrapper.find('TruncateText')).to.have.length(1)
-    wrapper.find('TruncateText').props().onUpdate(true)
-    expect(wrapper.state().showTooltip).to.equal(true)
+    expect(wrapper.find(Tooltip)).to.have.length(0)
+    wrapper.find(TruncateText).props().onUpdate(true)
+    wrapper.update()
+    expect(wrapper.find(Tooltip)).to.have.length(1)
   })
 
   it('includes a AccessibleContent element', () => {
-    const wrapper = shallow(<Header {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('AccessibleContent')).to.have.length(1)
+    const wrapper = mount(<Header {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(AccessibleContent)).to.have.length(1)
   })
 
   it('meets a11y standards', () => {

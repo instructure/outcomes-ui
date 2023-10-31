@@ -1,9 +1,14 @@
 import { expect } from 'chai'
 import React from 'react'
 import sinon from 'sinon'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import checkA11y from '../../../test/checkA11y'
 import OutcomeTray from '../index'
+import { Tray } from '@instructure/ui-tray'
+import { Button, CloseButton } from '@instructure/ui-buttons'
+import OutcomeList from '../OutcomeList'
+import SearchResults from '../../SearchResults'
+import { TextInput } from '@instructure/ui-text-input'
 
 describe('OutcomeTray', () => {
   function makeProps (props = {}) {
@@ -51,24 +56,24 @@ describe('OutcomeTray', () => {
   })
 
   it('renders a tray', () => {
-    wrapper = shallow(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Tray')).to.have.length(1)
+    wrapper = mount(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Tray)).to.have.length(1)
   })
 
   it('renders cancel and alignment button', () => {
-    wrapper = shallow(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Button')).to.have.length(2)
+    wrapper = mount(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Button)).to.have.length(2)
   })
 
   it('renders tray closed by when state is closed', () => {
     const props = makeProps({ isOpen: false })
-    wrapper = shallow(<OutcomeTray {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Tray').prop('open')).to.be.false
+    wrapper = mount(<OutcomeTray {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Tray).prop('open')).to.be.false
   })
 
   it('renders tray open when state not closed', () => {
-    wrapper = shallow(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Tray').prop('open')).to.be.true
+    wrapper = mount(<OutcomeTray {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(Tray).prop('open')).to.be.true
   })
 
   it('meets a11y standards', () => {
@@ -84,21 +89,21 @@ describe('OutcomeTray', () => {
   it('closes when close button is clicked', () => {
     const props = makeProps()
     wrapper = mount(<OutcomeTray {...props} />)
-    wrapper.find('CloseButton').prop('onClick')()
+    wrapper.find(CloseButton).prop('onClick')()
     expect(props.closeOutcomePicker).to.be.calledOnce
   })
 
   it('shows only search results when searchText is present', () => {
     const props = makeProps({searchText: 'foo'})
-    wrapper = shallow(<OutcomeTray {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('SearchResults')).to.have.length(1)
-    expect(wrapper.find('OutcomeList')).to.have.length(0)
+    wrapper = mount(<OutcomeTray {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find(SearchResults)).to.have.length(1)
+    expect(wrapper.find(OutcomeList)).to.have.length(0)
   })
 
   it('updates search text when new search is entered', () => {
     const props = makeProps({searchText: 'out'})
     wrapper = mount(<OutcomeTray {...props} />)
-    wrapper.find('TextInput').prop('onChange')(null, 'text')
+    wrapper.find(TextInput).prop('onChange')(null, 'text')
     expect(props.updateSearchText.getCall(0).args).to.deep.equal(['text'])
   })
 

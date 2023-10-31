@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import OutcomeDescription from '../index'
 import checkA11y from '../../../test/checkA11y'
 import { ratings } from '../../../test/mockOutcomesData'
+import { Text } from '@instructure/ui-text'
 
 describe('OutcomeDescription', () => {
   function makeProps (props = {}) {
@@ -50,15 +51,15 @@ describe('OutcomeDescription', () => {
   it('renders a friendly description if there is one and if expanded', () => {
     const props = makeProps({friendlyDescription: 'Outcome Friendly Description', truncated: false})
     const wrapper = mount(<OutcomeDescription {...props} />)
-    const text = wrapper.find('Text').at(1)
+    const text = wrapper.find(Text).at(1)
     expect(text.text()).to.match(/Outcome Friendly Description/)
   })
 
   it('does not render a friendly description if not expanded', () => {
     const props = makeProps({friendlyDescription: 'Outcome Friendly Description'})
     const wrapper = mount(<OutcomeDescription {...props} />)
-    expect(wrapper.find('Text')).to.have.length(1)
-    const text = wrapper.find('Text').at(0)
+    expect(wrapper.find(Text)).to.have.length(1)
+    const text = wrapper.find(Text).at(0)
     expect(text.text()).not.to.match(/Outcome Friendly Description/)
   })
 
