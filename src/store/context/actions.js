@@ -10,6 +10,7 @@ import {
 } from '../../constants'
 import { hasRootOutcomes, getChildrenToLoad, getContext } from './selectors'
 import { getConfig } from '../config/selectors'
+import {getSelectedSharedContext} from '../OutcomePicker/selectors'
 
 export const setContext = createAction(SET_CONTEXT)
 export const setOutcomes = createAction(SET_OUTCOMES)
@@ -43,6 +44,8 @@ export const loadContext = (host, jwt, contextUuid) => {
 export const loadRootOutcomes = () => {
   return (dispatch, getState, _arg, scope) => {
     const { contextUuid } = getConfig(getState(), scope)
+    const selectSharedContext = getSelectedSharedContext(getState(), scope)
+    const context = selectSharedContext ? selectSharedContext.uuid : contextUuid
     if (hasRootOutcomes(getState(), scope)) {
       return Promise.resolve()
     }
@@ -56,8 +59,8 @@ export const loadRootOutcomes = () => {
             child_ids: json.root_ids.map((id) => id.toString())
           }
         })
-        dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
-        dispatch(setRootOutcomeIds({ [contextUuid]: json.root_ids }))
+        dispatch(setOutcomes({ [context]: json.outcomes }))
+        dispatch(setRootOutcomeIds({ [context]: json.root_ids }))
         return Promise.resolve()
       }).catch((e) => {
         dispatch(setError(e))
@@ -85,12 +88,15 @@ export const loadMoreOutcomes = (id) => {
 const loadOutcomes = (ids) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
+    const selectSharedContext = getSelectedSharedContext(getState(), scope)
+    const context = selectSharedContext ? selectSharedContext.uuid : contextUuid
+
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'loadOutcomes',
-        args: [host, jwt, contextUuid, ids]
+        args: [host, jwt, context, ids]
       }
     }).then((json) => {
       return Promise.resolve(json)

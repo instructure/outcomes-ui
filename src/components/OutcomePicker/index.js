@@ -12,7 +12,7 @@ import OutcomeViewModal from '../OutcomeViewModal'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
 import NoReport from '../../icons/NoReport.svg'
-import { outcomeShape } from '../../store/shapes'
+import {outcomeShape, sharedContextsShape} from '../../store/shapes'
 
 class OutcomePicker extends React.Component {
   // eslint-disable-next-line no-undef
@@ -39,11 +39,13 @@ class OutcomePicker extends React.Component {
     updateSearchPage: PropTypes.func.isRequired,
     hasOutcomes: PropTypes.bool.isRequired,
     scope: PropTypes.string.isRequired,
+    sharedContexts: sharedContextsShape,
     treeView: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     focusedOutcome: null,
+    sharedContexts: null,
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
@@ -152,9 +154,12 @@ class OutcomePicker extends React.Component {
     )
   }
   render() {
-    const { hasOutcomes, searchText } = this.props
-
-    if (!hasOutcomes) {
+    const { hasOutcomes, searchText, sharedContexts } = this.props
+    // If there are shared contexts, we cannot render this billboard because hasOutcomes is evaluated only for
+    // the currently selected context. This would prevent users from selecting another context if the first
+    // context failed to be retrieved OR had no contexts.
+    const hasMultipleContexts = sharedContexts?.length > 1
+    if (!hasOutcomes && !hasMultipleContexts ) {
       return (
         <Billboard
           message={t(

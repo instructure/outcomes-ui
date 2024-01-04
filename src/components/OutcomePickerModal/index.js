@@ -7,6 +7,7 @@ import { Modal } from '@instructure/ui-modal'
 import t from 'format-message'
 
 import OutcomePickerLoader from '../OutcomePickerLoader'
+import {sharedContextsShape} from '../../store/shapes'
 
 const { Header: ModalHeader, Body: ModalBody, Footer: ModalFooter } = Modal
 
@@ -25,6 +26,7 @@ export default class OutcomePickerModal extends React.Component {
     anyOutcomeSelected: PropTypes.bool.isRequired,
     trigger: PropTypes.object,
     scope: PropTypes.string.isRequired,
+    sharedContexts: sharedContextsShape,
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
@@ -38,6 +40,7 @@ export default class OutcomePickerModal extends React.Component {
     onModalOpen: null,
     onUpdate: null,
     trigger: null,
+    sharedContexts: null,
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
@@ -100,6 +103,7 @@ export default class OutcomePickerModal extends React.Component {
       loadOutcomePicker,
       setFocusedOutcome,
       scope,
+      sharedContexts,
       artifactTypeName,
       displayMasteryDescription,
       displayMasteryPercentText,
@@ -154,6 +158,7 @@ export default class OutcomePickerModal extends React.Component {
                     loadOutcomePicker,
                     setFocusedOutcome,
                     scope,
+                    sharedContexts,
                     artifactTypeName,
                     displayMasteryDescription,
                     displayMasteryPercentText,

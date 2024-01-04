@@ -27,6 +27,14 @@ describe('OutcomePickerLoader', () => {
     expect(props.loadOutcomePicker.calledWith()).to.be.true
   })
 
+  it('calls loadOutcomePicker with sharedContexts on mount', () => {
+    const sharedContexts = [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}]
+    const props = makeProps({sharedContexts: sharedContexts})
+    shallow(<OutcomePickerLoader {...props} />)
+    expect(props.loadOutcomePicker.calledOnce).to.be.true
+    expect(props.loadOutcomePicker.calledWith(sharedContexts)).to.be.true
+  })
+
   it('displays nothing when closed', () => {
     const wrapper = shallow(<OutcomePickerLoader {...makeProps()} />)
     expect(wrapper.equals(<div />)).to.be.true

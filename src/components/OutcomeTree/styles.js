@@ -1,6 +1,7 @@
 
 const generateStyle = () => {
   return {
+    outcomesSharedContextSelector: {},
     outcomeTree: { overflow: 'scroll', height: '100%' },
     outcomeContent: {
       display: 'flex',

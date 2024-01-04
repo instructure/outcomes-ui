@@ -53,6 +53,7 @@ const DemoAlignment = (props) => {
     artifactId,
     artifactTypeName,
     contextUuid,
+    sharedContexts,
     emptySetHeading,
     displayMasteryDescription,
     displayMasteryPercentText,
@@ -77,6 +78,7 @@ const DemoAlignment = (props) => {
         artifactType={artifactType}
         artifactId={artifactId}
         contextUuid={contextUuid}
+        sharedContexts={sharedContexts}
         host={outcomesHost}
         jwt={jwt}
         emptyText="No outcomes are aligned"
@@ -102,6 +104,7 @@ const DemoAlignment = (props) => {
           alignmentSetId={alignmentSetId}
           pickerType={currentPicker}
           contextUuid={contextUuid}
+          sharedContexts={sharedContexts}
           emptySetHeading={emptySetHeading}
           onUpdate={console.log}
           artifactType={artifactType}
@@ -227,6 +230,35 @@ function rerender() {
             emptySetHeading="Align Institution outcomes to this quiz."
             jwt={createJwt}
             alignmentWidget={AlignmentWidget}
+          />
+          {/* Using the strings artifactType and artifactId to not interfere with the
+            * other demos that use the same artifactType and artifactId. If we didn't do
+            * this, the properties of the last component rendered on the page would take
+            * precedence. This would result in the sharedContexts not being set in the
+            * redux store.
+            *
+            * The integration test use the demo app to test against. Unfortunately, the tests rely on the order of the
+            * artifacts on the page, hence this has to be last. We will fix that as part of OUT-6077
+            * https://instructure.atlassian.net/browse/OUT-6077
+            */}
+          <DemoAlignment
+            name='Quiz #XX - with shared contexts (alignment set d15f9530-81af-4ab5-9da7-7b49ee1aac0d)'
+            alignmentSetId='d15f9530-81af-4ab5-9da7-7b49ee1aac0d'
+            artifactType='artifactType'
+            artifactId='artifactId'
+            contextUuid="dummy_uuid"
+            sharedContexts={[
+              {uuid:'dummy_uuid',  name:'Dummy UUID - Default uuid'},
+              {uuid:'K-science',  name:'The science of K'},
+              {uuid:'1-science',  name:'One Science #1'},
+              {uuid:'euYV4xoDWZgrdFDiIsOhJ8IKXfQfS5nL3iD8OhvK',  name:'Empty Context'},
+              {uuid: 'contextDoesNotExistHereForTestingErrorHandling', name: 'Error Handling'}
+            ]}
+            emptySetHeading="Align Institution outcomes to this quiz."
+            displayMasteryDescription
+            displayMasteryPercentText
+            artifactTypeName="Quiz"
+            jwt={createJwt}
           />
         </Tabs.Panel>
         <Tabs.Panel isSelected={currentTab === 'report'} renderTitle="Report" textAlign="center" id="report">

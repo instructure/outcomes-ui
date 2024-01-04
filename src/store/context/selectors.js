@@ -4,6 +4,7 @@ import { createSelector } from 'reselect'
 import createCachedSelector, { LruObjectCache } from 're-reselect'
 
 import { getConfig } from '../config/selectors'
+import {getSelectedSharedContext} from '../OutcomePicker/selectors'
 
 function restrict (state, contextUuid) {
   return state.getIn(['context', contextUuid]) || Map()
@@ -20,7 +21,9 @@ export const isGroup = (outcome) => {
 const getContextOutcomes = createSelector(
   (state, scope) => {
     const uuid = getContextUuid(state, scope)
-    return restrict(state, 'outcomes').get(uuid)
+    const selectSharedContext = getSelectedSharedContext(state, scope)
+    const context = selectSharedContext ? selectSharedContext.uuid : uuid
+    return restrict(state, 'outcomes').get(context)
   },
   (contextOutcomes) => contextOutcomes ? contextOutcomes.toJS() : {}
 )
@@ -48,8 +51,11 @@ export function isOutcomeGroup (state, scope, id) {
 
 export const getRootOutcomeIds = createSelector(
   (state, scope) => {
+    // uuid is the context in which we are viewing outcomes
     const uuid = getContextUuid(state, scope)
-    return restrict(state, 'rootOutcomeIds').get(uuid)
+    const selectSharedContext = getSelectedSharedContext(state, scope)
+    const context = selectSharedContext ? selectSharedContext.uuid : uuid
+    return restrict(state, 'rootOutcomeIds').get(context)
   },
   (ids) => ids ? ids.toJS() : []
 )
@@ -78,7 +84,7 @@ export const getCollectionData = createSelector(
   getContextOutcomes,
   (outcomes) => {
     if (outcomes.length === 0) {
-      return // return null so tree doesnt try to render an empty object
+      return // return null so tree doesn't try to render an empty object
     }
     const collections = {}
     for (const id of Object.keys(outcomes)) { // eslint-disable-line no-unused-vars

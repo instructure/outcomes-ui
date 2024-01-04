@@ -11,7 +11,9 @@ import {
   getActiveCollection,
   getExpandedIds,
   makeIsOutcomeSelected,
-  getActiveChildren
+  getActiveChildren,
+  getSharedContexts,
+  getSelectedSharedContext
 } from '../store/OutcomePicker/selectors'
 import OutcomeTree from '../components/OutcomeTree'
 
@@ -24,7 +26,9 @@ const mapStateToProps = (state, ownProps) => {
     isOutcomeSelected: makeIsOutcomeSelected(state, scope),
     rootOutcomeIds: getRootOutcomeIds(state, scope),
     activeCollection: getActiveCollection(state, scope),
-    expandedIds: getExpandedIds(state, scope)
+    expandedIds: getExpandedIds(state, scope),
+    sharedContexts: getSharedContexts(state, scope),
+    selectedSharedContext: getSelectedSharedContext(state, scope)
   }
 }
 

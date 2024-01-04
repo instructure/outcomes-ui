@@ -12,6 +12,7 @@ import { Text } from '@instructure/ui-text'
 import { Heading } from '@instructure/ui-heading'
 import { Billboard } from '@instructure/ui-billboard'
 import { findElementsWithStyle } from '../../../util/__tests__/findElementsWithStyle'
+import {SimpleSelect} from '@instructure/ui-simple-select'
 
 describe('OutcomeTree', () => {
   const outcomeData = { label: 'FOO', title: 'bar' }
@@ -34,6 +35,7 @@ describe('OutcomeTree', () => {
       isOutcomeSelected: sinon.stub().returns(false),
       getOutcomeSummary: sinon.spy(),
       selectOutcomeIds: sinon.spy(),
+      changeSelectedSharedContext: sinon.spy(),
       deselectOutcomeIds: sinon.spy(),
       setFocusedOutcome: sinon.spy(),
       setActiveCollection: sinon.spy(),
@@ -141,5 +143,32 @@ describe('OutcomeTree', () => {
     const wrapper = mount(<OutcomeTree {...makeProps()} />)
     wrapper.setProps({...makeProps({activeCollection: {id: '101'}})})
     expect(wrapper.getDOMNode().contains(document.activeElement))
+  })
+
+  it('does not render context selector if missing sharedContexts', () => {
+    // Make props does not set the sharedContexts property
+    const props = makeProps()
+    const wrapper = mount(<OutcomeTree {...props} />)
+    expect(wrapper.find(SimpleSelect)).to.have.length(0)
+  })
+
+  it('does not render context selector if only one context', () => {
+    // Make props does not set the sharedContexts property
+    const props = makeProps()
+    props.sharedContexts = [{uuid: 'foo', name: 'bar'}]
+    const wrapper = mount(<OutcomeTree {...props} />)
+    expect(wrapper.find(SimpleSelect)).to.have.length(0)
+  })
+
+  it('render context selector if more than one context', () => {
+    // Make props does not set the sharedContexts property
+    const props = makeProps({
+      sharedContexts: [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}],
+      selectedSharedContext: {uuid: 'fuz', name: 'baz'}
+    })
+    const wrapper = mount(<OutcomeTree {...props} />)
+    const contextSelector = wrapper.find(SimpleSelect)
+    expect(contextSelector).to.have.length(1)
+    expect(contextSelector.prop('value')).to.equal('baz')
   })
 })

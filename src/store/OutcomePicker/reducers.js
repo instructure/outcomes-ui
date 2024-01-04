@@ -1,11 +1,23 @@
 import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux-immutable'
-import { Set } from 'immutable'
+import {Map, Set} from 'immutable'
 
-import { RESET_OUTCOME_PICKER } from '../../constants'
-import { setFocusedOutcomeAction, toggleExpandedIds } from './actions'
+import {RESET_OUTCOME_PICKER} from '../../constants'
+import {
+  resetExpandedIds,
+  setFocusedOutcomeAction,
+  toggleExpandedIds
+} from './actions'
 import search from '../search/reducers'
 import tray from '../OutcomeTray/reducers'
+
+const sharedContexts = handleActions({
+  SET_SHARED_CONTEXTS: (state, action) => action.payload
+}, Map())
+
+const selectedSharedContext = handleActions({
+  SET_SELECTED_SHARED_CONTEXT: (state, action) => action.payload
+}, null)
 
 const focusedOutcome = handleActions({
   [setFocusedOutcomeAction]: (state, action) => action.payload
@@ -18,6 +30,9 @@ const expandedIds = handleActions({
     } else {
       return state.add(action.payload.id.toString())
     }
+  },
+  [resetExpandedIds]: (state, action) => {
+    return action.payload
   }
 }, Set())
 
@@ -44,6 +59,8 @@ const state = handleActions({
 }, 'closed')
 
 const OutcomePickerReducer = combineReducers({
+  sharedContexts,
+  selectedSharedContext,
   state,
   selected,
   focusedOutcome,

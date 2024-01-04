@@ -8,6 +8,9 @@ import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
 import { Heading } from '@instructure/ui-heading'
+import { SimpleSelect } from '@instructure/ui-simple-select'
+import { View } from '@instructure/ui-view'
+import { IconCheckSolid } from '@instructure/ui-icons'
 
 import OutcomeSelectionList from '../OutcomeSelectionList'
 import OutcomeFolderList from '../OutcomeFolderList'
@@ -29,6 +32,9 @@ class OutcomeTree extends React.Component {
     getOutcomeSummary: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
+    sharedContexts: PropTypes.array,
+    selectedSharedContext: PropTypes.string,
+    changeSelectedSharedContext: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
     collections: PropTypes.object.isRequired,
     setActiveCollection: PropTypes.func.isRequired,
@@ -52,7 +58,9 @@ class OutcomeTree extends React.Component {
     activeChildren: {
       groups: [],
       nonGroups: []
-    }
+    },
+    sharedContexts: null,
+    selectedSharedContext: null,
   }
 
   setRHS(rhs) {
@@ -117,6 +125,52 @@ class OutcomeTree extends React.Component {
     )
   }
 
+  renderContextSelector() {
+    const { sharedContexts, selectedSharedContext, changeSelectedSharedContext } = this.props
+    const hasMoreThanOneContext = sharedContexts?.length >= 2
+
+    if (hasMoreThanOneContext) {
+      return (
+        <View
+          as="div"
+          margin="xx-small"
+          data-automation='outcomeTree__outcomesSharedContextSelector'
+        >
+          <SimpleSelect
+            renderLabel={t('Source')}
+            value={selectedSharedContext.name}
+            onChange={(e, { id, value }) => changeSelectedSharedContext({uuid: id, name: value})}
+          >
+            {sharedContexts.map((context) => {
+              const isSelected = selectedSharedContext.uuid === context.uuid
+              return isSelected ? (
+                <SimpleSelect.Option
+                  id={context.uuid}
+                  key={context.uuid}
+                  value={context.name}
+                  renderBeforeLabel={(_props) => {
+                    return <IconCheckSolid />
+                  }}
+                >
+                  { context.name }
+                </SimpleSelect.Option>
+              ) : (
+                <SimpleSelect.Option
+                  id={context.uuid}
+                  key={context.uuid}
+                  value={context.name}
+                >
+                  { context.name }
+                </SimpleSelect.Option>
+              )
+            })}
+          </SimpleSelect>
+        </View>
+      )
+    }
+    return null
+  }
+
   render() {
     const {
       activeChildren,
@@ -136,6 +190,7 @@ class OutcomeTree extends React.Component {
     return (
       <Flex alignItems="stretch" height="100%" width="100%">
         <Flex.Item width="30%">
+          {this.renderContextSelector()}
           <div
             css={this.props.styles.outcomeTree}
             data-automation="outcomePicker__outcomeTree"

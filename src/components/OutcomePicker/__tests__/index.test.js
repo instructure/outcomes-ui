@@ -64,6 +64,25 @@ describe('OutcomePicker', () => {
     expect(wrapper.find('Billboard').prop('heading')).to.equal('There are no outcomes')
   })
 
+  it('shows the proper billboard when there are no outcomes present and single shared context', () => {
+    const props = makeProps({hasOutcomes: false, sharedContexts: [{uuid:'uuid', name:'name'}]})
+    const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Billboard')).to.have.length(1)
+    expect(wrapper.find('Billboard').prop('heading')).to.equal('There are no outcomes')
+  })
+
+  it('does not display billboard when there are no outcomes present but user can select another context', () => {
+    const props = makeProps({
+      hasOutcomes: false,
+      sharedContexts: [
+        {uuid:'uuid1', name:'name1'},
+        {uuid:'uuid2', name:'name2'}
+      ]
+    })
+    const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Billboard')).to.have.length(0)
+  })
+
   it('renders search bar', () => {
     const wrapper = shallow(<OutcomePicker {...makeProps()} />, {disableLifecycleMethods: true})
     expect(wrapper.find('SearchInput')).to.have.length(1)
