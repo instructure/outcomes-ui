@@ -2,6 +2,7 @@ import { Map, List } from 'immutable'
 import { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getOutcome } from '../context/selectors'
+import {getSharedContexts} from '../OutcomePicker/selectors'
 
 const restrict = (state, scope) => state.getIn([scope, 'alignments']) || Map()
 const alignedOutcomes = (state, scope) => restrict(state, scope).get('alignedOutcomes') || List()
@@ -35,8 +36,25 @@ export const getAlignedOutcome = createSelector(
   (outcome) => outcome
 )
 
+function getOutcomeFromAnyContext(state, scope, id) {
+  const sharedContexts = getSharedContexts(state, scope)
+
+  if (sharedContexts) {
+    for (const sharedContext of sharedContexts) {
+      const uuid = sharedContext.uuid
+      const o = state.getIn(['context', 'outcomes', uuid, id.toString()])
+      if (o) {
+        return o.toJS()
+      }
+    }
+  }
+  return null
+}
+
 export function getAnyOutcome (state, scope, id) {
-  return getAlignedOutcome(state, scope, id) || getOutcome(state, scope, id)
+  return getAlignedOutcome(
+    state, scope, id
+  ) || getOutcome(state, scope, id) || getOutcomeFromAnyContext(state, scope, id)
 }
 
 export function getOutcomeAlignmentSetId (state, scope) {
@@ -49,4 +67,3 @@ export const makeIsOpen = createCachedSelector(
 ) (
   (_state, scope) => scope
 )
-

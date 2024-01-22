@@ -30,6 +30,9 @@ describe('context/selectors', () => {
           2: { id: 2, label: 'l2', title: 't2', child_ids: ['4'] },
           3: { id: 3, label: 'l3', title: 't3', child_ids: [] },
           4: { id: 4, label: 'l4', title: 't4' }
+        },
+        selectedSharedContext: {
+          5: { id: 5, label: 'l5', title: 't5' }
         }
       },
       contexts: {
@@ -42,6 +45,14 @@ describe('context/selectors', () => {
       },
       rootOutcomeIds: {
         course_100: [1]
+      }
+    }
+  })
+
+  const stateWithSelectedSharedContext = state.merge({
+    scopeForTest: {
+      OutcomePicker: {
+        selectedSharedContext: {uuid: 'selectedSharedContext', name: 'selectedSharedContext'}
       }
     }
   })
@@ -106,6 +117,15 @@ describe('context/selectors', () => {
     it('returns null if not present', () => {
       expect(getOutcome(state, scope, '10')).to.be.null
     })
+
+    it('returns null if not present in the selected shared context', () => {
+      expect(getOutcome(stateWithSelectedSharedContext, scope, '3')).to.be.null
+    })
+
+    it('retrieves the correct value from the selected shared context', () => {
+      expect(getOutcome(stateWithSelectedSharedContext, scope, '5')).to.have.property('id', 5)
+    })
+
   })
 
   describe('getRootOutcomeIds', () => {

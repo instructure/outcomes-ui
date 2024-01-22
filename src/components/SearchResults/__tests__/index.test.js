@@ -34,6 +34,18 @@ describe('SearchResults', () => {
     expect(wrapper.find('Spinner')).to.have.length(1)
   })
 
+  it('filters out null outcomes if the outcome cannot be found', () => {
+    const props = makeProps()
+    props.isSearchLoading = false
+    props.searchEntries = [{ id: '2', label: 'abc', title: '123' }, null, { id: '3', label: 'def', title: '456' }]
+    const wrapper = shallow(<SearchResults {...props} />, {disableLifecycleMethods: true})
+    const checkbox = wrapper.find('AlignmentItem')
+
+    expect(checkbox).to.have.length(2)
+    expect(checkbox.at(0).prop('outcome')).to.eql({ id: '2', label: 'abc', title: '123' })
+    expect(checkbox.at(1).prop('outcome')).to.eql({ id: '3', label: 'def', title: '456' })
+  })
+
   it('passes correct params to AlignmentItem components', () => {
     const props = makeProps()
     props.isSearchLoading = false

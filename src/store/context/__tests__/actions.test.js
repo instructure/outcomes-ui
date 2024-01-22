@@ -41,6 +41,17 @@ const stateWithOutcomes = fromJS({
   }
 })
 
+const stateWithSelectedSharedContext = stateWithOutcomes.merge({
+  scopeForTest: {
+    OutcomePicker: {
+      selectedSharedContext: {uuid: 'selectedSharedContext', name: 'selectedSharedContext'}
+    }
+  }
+})
+
+const contextUuidIndex = 2
+const outcomeIdsIndex = 3
+
 describe('context/actions', () => {
   describe('setOutcomes', () => {
     it('creates an action', () => {
@@ -99,12 +110,36 @@ describe('context/actions', () => {
         })
     })
 
+    it('calls outcome service to load outcomes with selected shared context', () => {
+      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithSelectedSharedContext, service)
+      return store.dispatch(actions.loadRootOutcomes())
+        .then(() => {
+          expect(service.loadOutcomes.calledOnce).to.be.true
+          expect(service.loadOutcomes.getCall(0).args).to.include('selectedSharedContext')
+          return null
+        })
+    })
+
     it('dispatches setOutcomes on outcome service success', () => {
       const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
       const store = createMockStore(stateWithoutOutcomes, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
           expect(store.getActions()).to.deep.include(scopedActions.setOutcomes({ course_100: response.outcomes }))
+          expect(store.getActions()[0].payload.root).to.be.present
+          return null
+        })
+    })
+
+    it('dispatches setOutcomes on outcome service success with selected shared context', () => {
+      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithSelectedSharedContext, service)
+      return store.dispatch(actions.loadRootOutcomes())
+        .then(() => {
+          expect(store.getActions()).to.deep.include(scopedActions.setOutcomes(
+            { selectedSharedContext: response.outcomes }
+          ))
           expect(store.getActions()[0].payload.root).to.be.present
           return null
         })
@@ -165,7 +200,21 @@ describe('context/actions', () => {
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
           expect(service.loadOutcomes.calledOnce).to.be.true
-          expect(service.loadOutcomes.args[0][3]).to.deep.equal(['1'])
+          expect(service.loadOutcomes.args[0][contextUuidIndex]).to.deep.equal('course_100')
+          expect(service.loadOutcomes.args[0][outcomeIdsIndex]).to.deep.equal(['1'])
+          return null
+        })
+    })
+
+    it('calls loadOutcomes for unloaded children when shared context is selected', () => {
+      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithSelectedSharedContext, service)
+
+      return store.dispatch(actions.loadMoreOutcomes('1'))
+        .then(() => {
+          expect(service.loadOutcomes.calledOnce).to.be.true
+          expect(service.loadOutcomes.args[0][contextUuidIndex]).to.deep.equal('selectedSharedContext')
+          expect(service.loadOutcomes.args[0][outcomeIdsIndex]).to.deep.equal(['1'])
           return null
         })
     })
@@ -176,6 +225,18 @@ describe('context/actions', () => {
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
           expect(store.getActions()).to.deep.include(scopedActions.setOutcomes({ course_100: response.outcomes }))
+          return null
+        })
+    })
+
+    it('adds its outcomes to the state under the selected shared context', () => {
+      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const store = createMockStore(stateWithSelectedSharedContext, service)
+      return store.dispatch(actions.loadMoreOutcomes('1'))
+        .then(() => {
+          expect(store.getActions()).to.deep.include(
+            scopedActions.setOutcomes({ selectedSharedContext: response.outcomes })
+          )
           return null
         })
     })

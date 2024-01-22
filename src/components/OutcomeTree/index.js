@@ -19,7 +19,7 @@ import AlignOutcomes from '../../icons/AlignOutcomes.svg'
 import generateComponentTheme from '../theme'
 import generateStyle from './styles'
 import { sanitizeHtml } from '../../lib/sanitize'
-import { stylesShape } from '../../store/shapes'
+import {selectedSharedContextShape, sharedContextsShape, stylesShape} from '../../store/shapes'
 
 
 @withStyle(generateStyle, generateComponentTheme)
@@ -32,8 +32,8 @@ class OutcomeTree extends React.Component {
     getOutcomeSummary: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
-    sharedContexts: PropTypes.array,
-    selectedSharedContext: PropTypes.string,
+    sharedContexts: sharedContextsShape,
+    selectedSharedContext: selectedSharedContextShape,
     changeSelectedSharedContext: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
     collections: PropTypes.object.isRequired,
@@ -133,7 +133,7 @@ class OutcomeTree extends React.Component {
       return (
         <View
           as="div"
-          margin="xx-small"
+          padding="small small none"
           data-automation='outcomeTree__outcomesSharedContextSelector'
         >
           <SimpleSelect

@@ -13,10 +13,16 @@ import { setOutcomes } from '../../../store/context/actions'
 const scopedActions = scopeActions({ ...actions, setOutcomes })
 
 describe('search/actions', () => {
+  const contextUuid = 'course_100'
+  const selectedSharedContext = {uuid: 'dummy_uuid', name: 'Dummy UUID'}
+  const sharedContexts = [
+    {uuid: contextUuid, name: contextUuid},
+    selectedSharedContext
+  ]
   const state = fromJS({
     scopeForTest: {
       config: {
-        contextUuid: 'course_100'
+        contextUuid: contextUuid
       },
       OutcomePicker: {
         search: {
@@ -55,6 +61,31 @@ describe('search/actions', () => {
         expect(service.getSearchResults).to.have.been.called
         expect(service.getSearchResults.getCall(0).args).to.include('def') // text
         expect(service.getSearchResults.getCall(0).args).to.include(1) // page
+        expect(service.getSearchResults.getCall(0).args).to.include(contextUuid) // context
+      })
+
+      it('handles shared context selector', () => {
+        const newState = state.merge({
+          scopeForTest: {
+            OutcomePicker: {
+              sharedContexts: sharedContexts,
+              selectedSharedContext: selectedSharedContext
+            }
+          }
+        })
+        const store = createMockStore(newState, service)
+        store.dispatch(actions.updateSearchText('def'))
+        expect(store.getActions()[0]).to.deep.equal(scopedActions.setSearchText('def'))
+        expect(store.getActions()[1]).to.deep.equal(scopedActions.setSearchPage(1))
+        expect(store.getActions()[2]).to.deep.equal(scopedActions.setSearchTotal(null))
+        expect(store.getActions()[3]).to.deep.equal(scopedActions.setSearchLoading(true))
+        expect(store.getActions()).to.have.length(4)
+        clock.tick(250)
+        expect(store.getActions()).to.have.length(5)
+        expect(service.getSearchResults).to.have.been.called
+        expect(service.getSearchResults.getCall(0).args).to.include('def') // text
+        expect(service.getSearchResults.getCall(0).args).to.include(1) // page
+        expect(service.getSearchResults.getCall(0).args).to.include(selectedSharedContext.uuid) // context
       })
     })
 
@@ -108,7 +139,7 @@ describe('search/actions', () => {
     }
     const response = {
       matches: matches,
-      outcomes: outcomes['course_100'],
+      outcomes: outcomes[contextUuid],
       total: 101
     }
 

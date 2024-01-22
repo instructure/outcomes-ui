@@ -64,7 +64,8 @@ class SearchResults extends React.Component {
       deselectOutcomeIds,
       searchEntries
     } = this.props
-    return searchEntries.map((outcome) => {
+    // Filter out and null search results. This could happen if the outcome cannot be found.
+    return searchEntries.filter(Boolean).map((outcome) => {
       return (
         <div key={outcome.id} data-automation="searchResults__outcomeResult">
           {isPicker ? (

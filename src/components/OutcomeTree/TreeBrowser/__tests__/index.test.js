@@ -143,10 +143,15 @@ describe('TreeBrowser', () => {
     expect(wrapper.find('TreeButton')).to.have.length(8)
   })
 
-  it('does not render if collections are undefined', () => {
-    const props = makeProps({ collections: void 0 })
+  it('does not render if collections is empty', () => {
+    const props = makeProps({ collections: {} })
     const wrapper = mount(<TreeBrowser {...props} />)
     expect(wrapper.find('TreeBrowser')).to.have.length(0)
+    expect(wrapper.find('NoResults')).to.have.length(1)
+
+    // Enzyme finds two Billboard components because of the instui decorator on the component
+    expect(wrapper.find('Billboard')).to.have.length(2)
+    expect(wrapper.find('Billboard').at(0).prop('heading')).to.equal('There are no outcomes')
   })
 
   it('sets the active collection and when clicked', () => {

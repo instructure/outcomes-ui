@@ -114,6 +114,33 @@ describe('alignments/selectors', () => {
       expect(outcome.label).to.equal('l1')
     })
 
+    it('can pull outcomes from sharedContext outcomes', () => {
+      const state = fromJS({
+        scopeForTest: {
+          config: {
+            contextUuid: 'course_100'
+          },
+          OutcomePicker: {
+            sharedContexts: [
+              {uuid: 'sharedContext', name: 'sharedContext'}
+            ]
+          }
+        },
+        context: {
+          outcomes: {
+            course_100: {
+              1: { id: 1, label: 'l1', title: 't1', child_ids: ['2', '3'] }
+            },
+            sharedContext: {
+              4: { id: 4, label: 'l4', title: 't4', child_ids: ['5', '6'] }
+            }
+          }
+        }
+      })
+      const outcome = getAnyOutcome(state, 'scopeForTest', '4')
+      expect(outcome.label).to.equal('l4')
+    })
+
     it('returns null if neither present', () => {
       const state = Map()
       const outcome = getAnyOutcome(state, 'scopeForTest', '101')

@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import t from 'format-message'
 
-import { Billboard } from '@instructure/ui-billboard'
 import { Flex } from '@instructure/ui-flex'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 import { View } from '@instructure/ui-view'
@@ -11,8 +10,8 @@ import OutcomeTags from '../OutcomeTags'
 import OutcomeViewModal from '../OutcomeViewModal'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
-import NoReport from '../../icons/NoReport.svg'
 import {outcomeShape, sharedContextsShape} from '../../store/shapes'
+import NoResults from '../NoResults'
 
 class OutcomePicker extends React.Component {
   // eslint-disable-next-line no-undef
@@ -161,17 +160,7 @@ class OutcomePicker extends React.Component {
     const hasMultipleContexts = sharedContexts?.length > 1
     if (!hasOutcomes && !hasMultipleContexts ) {
       return (
-        <Billboard
-          message={t(
-            'To add or create outcomes, visit the Canvas outcomes page.'
-          )}
-          heading={t('There are no outcomes')}
-          headingAs="h3"
-          headingLevel="h3"
-          size="small"
-          hero={<NoReport />}
-          margin="medium"
-        />
+        <NoResults />
       )
     }
     return (

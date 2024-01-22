@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import { combineReducers } from 'redux-immutable'
-import {Map, Set} from 'immutable'
+import {fromJS, Set} from 'immutable'
 
 import {RESET_OUTCOME_PICKER} from '../../constants'
 import {
@@ -12,11 +12,11 @@ import search from '../search/reducers'
 import tray from '../OutcomeTray/reducers'
 
 const sharedContexts = handleActions({
-  SET_SHARED_CONTEXTS: (state, action) => action.payload
-}, Map())
+  SET_SHARED_CONTEXTS: (state, action) => fromJS(action.payload)
+}, null)
 
 const selectedSharedContext = handleActions({
-  SET_SELECTED_SHARED_CONTEXT: (state, action) => action.payload
+  SET_SELECTED_SHARED_CONTEXT: (state, action) => fromJS(action.payload)
 }, null)
 
 const focusedOutcome = handleActions({

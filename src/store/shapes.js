@@ -76,9 +76,9 @@ export const algorithmDataShape = PropTypes.oneOf([nMasteryDataShape, decayingAv
 
 export const stylesShape = PropTypes.object
 
-export const sharedContextsShape = PropTypes.arrayOf(
-  PropTypes.shape({
-    uuid: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  })
-)
+export const selectedSharedContextShape = PropTypes.shape({
+  uuid: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+})
+
+export const sharedContextsShape = PropTypes.arrayOf(selectedSharedContextShape)

@@ -45,7 +45,7 @@ export const loadRootOutcomes = () => {
   return (dispatch, getState, _arg, scope) => {
     const { contextUuid } = getConfig(getState(), scope)
     const selectSharedContext = getSelectedSharedContext(getState(), scope)
-    const context = selectSharedContext ? selectSharedContext.uuid : contextUuid
+    const context = selectSharedContext?.uuid || contextUuid
     if (hasRootOutcomes(getState(), scope)) {
       return Promise.resolve()
     }
@@ -71,13 +71,15 @@ export const loadRootOutcomes = () => {
 export const loadMoreOutcomes = (id) => {
   return (dispatch, getState, _arg, scope) => {
     const { contextUuid } = getConfig(getState(), scope)
+    const selectSharedContext = getSelectedSharedContext(getState(), scope)
+    const context = selectSharedContext?.uuid || contextUuid
 
     const idsToLoad = getChildrenToLoad(getState(), scope, id)
     if (idsToLoad.length === 0) { return Promise.resolve() }
 
     return dispatch(loadOutcomes(idsToLoad))
       .then((json) => {
-        dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
+        dispatch(setOutcomes({ [context]: json.outcomes }))
         return Promise.resolve()
       }).catch((e) => {
         dispatch(setError(e))
@@ -89,7 +91,7 @@ const loadOutcomes = (ids) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
     const selectSharedContext = getSelectedSharedContext(getState(), scope)
-    const context = selectSharedContext ? selectSharedContext.uuid : contextUuid
+    const context = selectSharedContext?.uuid || contextUuid
 
     return dispatch({
       type: CALL_SERVICE,

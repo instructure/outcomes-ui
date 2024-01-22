@@ -124,6 +124,7 @@ describe('OutcomePicker/actions', () => {
         scoring_method: {
         }
       }
+      // If we have the outcome and the outcome has a scoring tier, we do not call outcomes service
       return store.dispatch(actions.setFocusedOutcome(full))
         .then(() => {
           expect(store.getActions()).to.have.length(1)
@@ -156,6 +157,47 @@ describe('OutcomePicker/actions', () => {
             scoring_method: {}
           }))
           expect(store.getActions()[3]).to.deep.equal(scopedActions.setFocusedOutcomeAction(full))
+          expect(service.getOutcome.calledOnce).to.be.true
+          return null
+        })
+    })
+
+    it('fetches an outcome and dispatches setFocusedOutcomeAction twice with selected shared context', () => {
+      const state = fromJS({
+        scopeForTest: {
+          OutcomePicker: {
+            selectedSharedContext: {
+              uuid: 'selectedSharedContext',
+              name: 'selectedSharedContext'
+            }
+          }
+        }
+      })
+      const full = {
+        id: 1,
+        scoring_method: {
+        }
+      }
+      const service = {
+        getOutcome: sinon.stub().returns(Promise.resolve(full)),
+        setFocusedOutcome: sinon.stub().returns(Promise.resolve())
+      }
+      const store = createMockStore(state, service)
+      const partial = {
+        id: 1
+      }
+      return store.dispatch(actions.setFocusedOutcome(partial))
+        .then(() => {
+          expect(store.getActions()).to.have.length(4)
+          expect(store.getActions()[0]).to.deep.equal(scopedActions.setFocusedOutcomeAction(partial))
+          expect(store.getActions()[2]).to.deep.equal(scopedActions.setScoringMethod({
+            context_uuid: 'selectedSharedContext',
+            id: 1,
+            scoring_method: {}
+          }))
+          expect(store.getActions()[3]).to.deep.equal(scopedActions.setFocusedOutcomeAction(full))
+          expect(service.getOutcome.calledOnce).to.be.true
+          expect(service.getOutcome.getCall(0).args).to.include('selectedSharedContext')
           return null
         })
     })

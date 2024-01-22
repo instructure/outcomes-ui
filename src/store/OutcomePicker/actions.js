@@ -71,7 +71,7 @@ export const loadOutcomePicker = (sharedContexts) => {
 
 export const changeSelectedSharedContext = (newSelectedSharedContext) => {
   return (dispatch, getState, _arg, scope) => {
-    dispatch(setOutcomePickerState('selected_context_changing'))
+    dispatch(setOutcomePickerState('loading'))
     dispatch(setSelectedSharedContext(newSelectedSharedContext))
     // Reset activeCollection and expanded ids since we are moving to another context hierarchy
     dispatch(setActiveCollectionFrd(null))
@@ -96,6 +96,8 @@ export const setFocusedOutcome = (outcome) => {
       return Promise.resolve()
     }
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
+    const selected = getSelectedSharedContext(getState(), scope)
+    const context = selected?.uuid || contextUuid
     // First dispatch brings up the outcome view,
     // second dispatch provides the scoring method
     dispatch(setFocusedOutcomeAction(outcome))
@@ -104,12 +106,12 @@ export const setFocusedOutcome = (outcome) => {
       payload: {
         service: 'outcomes',
         method: 'getOutcome',
-        args: [host, jwt, outcome.id, contextUuid]
+        args: [host, jwt, outcome.id, context]
       }
     })
       .then((json) => {
         dispatch(setScoringMethod({
-          context_uuid: contextUuid,
+          context_uuid: context,
           id: outcome.id,
           scoring_method: json.scoring_method
         }))

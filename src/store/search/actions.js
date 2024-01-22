@@ -11,6 +11,7 @@ import {
 } from '../../constants'
 import { setOutcomes } from '../context/actions'
 import debounceLatestPromise from '../../util/debouceLatestPromise'
+import {getSelectedSharedContext} from '../OutcomePicker/selectors'
 
 export const setSearchText = createAction(SET_SEARCH_TEXT)
 export const setSearchLoading = createAction(SET_SEARCH_LOADING)
@@ -28,18 +29,22 @@ export const searchOutcomes = ({ text, page }) => {
     const initialPage = page || getSearchPage(getState(), scope)
 
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
+
+    const selectSharedContext = getSelectedSharedContext(getState(), scope)
+    const context = selectSharedContext?.uuid || contextUuid
+
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'getSearchResults',
-        args: [host, jwt, initialText, initialPage, contextUuid]
+        args: [host, jwt, initialText, initialPage, context]
       }
     })
       .then((json) => {
         if (getSearchText(getState(), scope) === initialText
         && getSearchPage(getState(), scope) === initialPage) {
-          dispatch(setOutcomes({ [contextUuid]: json.outcomes }))
+          dispatch(setOutcomes({ [context]: json.outcomes }))
           dispatch(setSearchEntries(json.matches))
           dispatch(setSearchTotal(json.total))
           dispatch(setSearchLoading(false))

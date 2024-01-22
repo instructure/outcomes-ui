@@ -40,13 +40,16 @@ export const makeIsOutcomeSelected = createCachedSelector(
   (_state, scope) => scope
 )
 
-export const getSharedContexts = (state, scope) => {
-  return restrict(state, scope).get('sharedContexts') || null
-}
+export const getSharedContexts = createSelector(
+  (state, scope) => restrict(state, scope).get('sharedContexts'),
+  (sharedContexts) => sharedContexts ? sharedContexts.toJS() : null
+)
 
-export function getSelectedSharedContext (state, scope) {
-  return restrict(state, scope).get('selectedSharedContext') || null
-}
+export const getSelectedSharedContext = createSelector(
+  (state, scope) => restrict(state, scope).get('selectedSharedContext'),
+  (selectedSharedContext) => selectedSharedContext ? selectedSharedContext.toJS() : null
+
+)
 
 export function anyOutcomeSelected (state, scope) {
   const ids = restrict(state, scope).get('selected')

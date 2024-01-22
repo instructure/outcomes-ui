@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { View } from '@instructure/ui-view'
 import { TreeBrowser } from '@instructure/ui-tree-browser'
+import NoResults from '../../NoResults'
 
 const OutcomeBrowser = (props) => {
   if (!props.collections) {
@@ -22,6 +23,8 @@ const OutcomeBrowser = (props) => {
   }
 
   const defaultExpanded = rootOutcomeIds.length === 1 ? rootOutcomeIds : []
+  const hasCollections = collections && Object.keys(collections).length
+  const emptyContext = rootOutcomeIds.length === 0 && !hasCollections
 
   const renderRootLevel = () => {
     let showRoot = false
@@ -33,7 +36,9 @@ const OutcomeBrowser = (props) => {
     return showRoot
   }
 
-  return (
+  return emptyContext ? (
+    <NoResults />
+  ) : (
     <View as="div" margin="xx-small">
       <TreeBrowser
         collections={collections}

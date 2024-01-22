@@ -36,7 +36,9 @@ export const hasContextOutcomes = (state, scope) => {
 export const getOutcome = createCachedSelector(
   (state, scope, id) => {
     const uuid = getContextUuid(state, scope)
-    return restrict(state, 'outcomes').getIn([uuid, id.toString()])
+    const selectSharedContext = getSelectedSharedContext(state, scope)
+    const context = selectSharedContext?.uuid || uuid
+    return restrict(state, 'outcomes').getIn([context, id.toString()])
   },
   (outcome) => outcome ? outcome.toJS() : null
 ) ({
@@ -54,7 +56,7 @@ export const getRootOutcomeIds = createSelector(
     // uuid is the context in which we are viewing outcomes
     const uuid = getContextUuid(state, scope)
     const selectSharedContext = getSelectedSharedContext(state, scope)
-    const context = selectSharedContext ? selectSharedContext.uuid : uuid
+    const context = selectSharedContext?.uuid || uuid
     return restrict(state, 'rootOutcomeIds').get(context)
   },
   (ids) => ids ? ids.toJS() : []

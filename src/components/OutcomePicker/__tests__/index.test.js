@@ -57,18 +57,34 @@ describe('OutcomePicker', () => {
     expect(props.setFocusedOutcome.calledOnce).to.be.true
   })
 
-  it('shows the proper billboard when there are no outcomes present', () => {
+  it('shows the NoResults billboard when there are no outcomes present', () => {
     const props = makeProps({hasOutcomes: false})
     const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Billboard')).to.have.length(1)
-    expect(wrapper.find('Billboard').prop('heading')).to.equal('There are no outcomes')
+    expect(wrapper.find('NoResults')).to.have.length(1)
   })
 
-  it('shows the proper billboard when there are no outcomes present and single shared context', () => {
+  it('shows NoResults billboard when there are no outcomes present and single shared context', () => {
     const props = makeProps({hasOutcomes: false, sharedContexts: [{uuid:'uuid', name:'name'}]})
     const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find('Billboard')).to.have.length(1)
-    expect(wrapper.find('Billboard').prop('heading')).to.equal('There are no outcomes')
+    expect(wrapper.find('NoResults')).to.have.length(1)
+  })
+
+  it('does not display billboard when there are no outcomes present but user can select another context', () => {
+    const props = makeProps({
+      hasOutcomes: false,
+      sharedContexts: [
+        {uuid:'uuid1', name:'name1'},
+        {uuid:'uuid2', name:'name2'}
+      ]
+    })
+    const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('Billboard')).to.have.length(0)
+  })
+
+  it('shows the NoResults billboard when there are no outcomes present and single shared context', () => {
+    const props = makeProps({hasOutcomes: false, sharedContexts: [{uuid:'uuid', name:'name'}]})
+    const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
+    expect(wrapper.find('NoResults')).to.have.length(1)
   })
 
   it('does not display billboard when there are no outcomes present but user can select another context', () => {
