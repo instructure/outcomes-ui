@@ -190,11 +190,11 @@ class OutcomeTree extends React.Component {
     return (
       <Flex alignItems="stretch" height="100%" width="100%">
         <Flex.Item width="30%">
-          {this.renderContextSelector()}
           <div
             css={this.props.styles.outcomeTree}
             data-automation="outcomePicker__outcomeTree"
           >
+            {this.renderContextSelector()}
             <TreeBrowser
               collections={collections}
               setActiveCollection={setActiveCollection}
