@@ -111,7 +111,7 @@ describe('OutcomesService', () => {
   describe('getAlignments', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).to.match(/\/alignment_sets\/foo\?includes\[\]=outcomes&includes\[\]=friendly_description&context_uuid=alphabeta$/)
+        expect(url).to.match(/\/alignment_sets\/foo\?includes\[\]=outcomes&includes\[\]=friendly_description&includes\[\]=source_context_name&context_uuid=alphabeta$/)
         return true
       }, [])
       return subject.getAlignments(host, jwt, 'foo', 'alphabeta')
@@ -127,7 +127,7 @@ describe('OutcomesService', () => {
           ]
         }
       }
-      mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&context_uuid=alphabeta', alignments)
+      mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_name&context_uuid=alphabeta', alignments)
       return subject.getAlignments(host, jwt, 'baz', 'alphabeta')
         .then((result) => {
           expect(result).to.deep.equal(alignments.alignment_set)
@@ -135,7 +135,7 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      mockGet('/api/alignment_sets/foo?includes[]=outcomes&includes[]=friendly_description&context_uuid=alphabeta', 500)
+      mockGet('/api/alignment_sets/foo?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_name&context_uuid=alphabeta', 500)
       return subject.getAlignments(host, jwt, 'foo', 'alphabeta')
         .catch((err) => {
           expect(err).to.have.property('status', 500)
@@ -245,7 +245,7 @@ describe('OutcomesService', () => {
     it('posts data in correct format', () => {
       fetchMock.postOnce((url, opts) => {
         const body = JSON.parse(opts.body)
-        expect(body).to.deep.equal({ outcome_ids: [44, 99] })
+        expect(body).to.deep.equal({ outcome_ids: [44, 99], includes: ['outcomes', 'source_context_name'] })
         return true
       }, {})
       return subject.createAlignmentSet(host, jwt, [44, 99])

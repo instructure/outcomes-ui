@@ -126,10 +126,16 @@ export const saveOutcomePickerAlignments = (updateCallback, shouldUpdateArtifact
 
     const state = getState()
     const outcomeIds = getSelectedOutcomeIds(state, scope)
-    const outcomes = outcomeIds.map((id) => getAnyOutcome(state, scope, id))
+
     const updateAlignmentFunc = shouldUpdateArtifact ? upsertArtifact : createAlignmentSet
     return dispatch(updateAlignmentFunc(outcomeIds))
-      .then(response => dispatch(updateAlignments(response.guid, outcomes, updateCallback)))
+      .then(response => {
+        if (shouldUpdateArtifact) {
+          const outcomes = outcomeIds.map((id) => getAnyOutcome(state, scope, id))
+          return dispatch(updateAlignments(response.guid, outcomes, updateCallback))
+        }
+        return dispatch(updateAlignments(response.guid, response.outcomes, updateCallback))
+      })
       .then(() => dispatch(setOutcomePickerState('complete')))
       .catch(err => dispatch(setError(err)))
   }

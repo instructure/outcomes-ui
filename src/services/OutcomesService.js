@@ -82,7 +82,7 @@ class OutcomesService {
       return Promise.resolve([])
     }
 
-    let params = 'includes[]=outcomes&includes[]=friendly_description'
+    let params = 'includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_name'
 
     if (contextUuid) {
       params += `&context_uuid=${contextUuid}`
@@ -126,7 +126,8 @@ class OutcomesService {
     }
 
     const params = {
-      outcome_ids: outcomeIds
+      outcome_ids: outcomeIds,
+      includes: ['outcomes', 'source_context_name']
     }
 
     return this.post(host, jwt, '/api/alignment_sets', params)

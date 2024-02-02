@@ -22,7 +22,7 @@ export default class OutcomeLabels extends React.Component {
     return (
       <span key={str}>
         <span css={this.props.styles.pill}>{str}</span>
-        {includeComma && <span css={this.props.styles.comma}>,</span>}
+        {includeComma && <span css={this.props.styles.pill}>,&nbsp;</span>}
       </span>
     )
   }

@@ -10,7 +10,6 @@ const generateStyle = (componentTheme) => {
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap'
     },
-    comma: { cssFloat: 'left', width: '0.5rem' }
   }
 }
 

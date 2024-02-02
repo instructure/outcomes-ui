@@ -19,7 +19,8 @@ export default class Alignment extends React.Component {
   static propTypes = {
     outcome: PropTypes.shape({
       label: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
+      title: PropTypes.string.isRequired,
+      source_context_name: PropTypes.string
     }).isRequired,
     removeAlignment: PropTypes.func.isRequired,
     viewAlignment: PropTypes.func.isRequired,
@@ -82,15 +83,23 @@ export default class Alignment extends React.Component {
         <span css={this.props.styles.link}>
           <span css={this.props.styles.linkText}>
             <span css={this.props.innerLinkText}>
-              <View as="div" margin="xx-small">
+              <View as="div" margin="none none none xx-small">
                 <Link
                   onClick={viewAlignment}
                   ref={(link) => {
                     this.focusLink = link
                   }} // eslint-disable-line immutable/no-mutation
                 >
-                  <Text weight="bold">{outcome.title}</Text>
+                  <Text weight="bold" lineHeight="condensed">{outcome.title}</Text>
                 </Link>
+                {outcome.source_context_name && <Text
+                  as="div"
+                  weight="light"
+                  size="x-small"
+                  lineHeight="condensed"
+                >
+                  {outcome.source_context_name}
+                </Text>}
               </View>
             </span>
           </span>

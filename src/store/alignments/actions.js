@@ -84,8 +84,11 @@ export const removeAlignment = (alignmentId, updateCallback, shouldUpdateArtifac
     const updateAlignmentFunc = shouldUpdateArtifact ? upsertArtifact : createAlignmentSet
     return dispatch(updateAlignmentFunc(newIds))
       .then(response => {
-        const newOutcomes = newIds.map((id) => getAlignedOutcome(getState(), scope, id))
-        dispatch(updateAlignments(response.guid, newOutcomes, updateCallback))
+        if (shouldUpdateArtifact) {
+          const newOutcomes = newIds.map((id) => getAlignedOutcome(getState(), scope, id))
+          return dispatch(updateAlignments(response.guid, newOutcomes, updateCallback))
+        }
+        return dispatch(updateAlignments(response.guid, response.outcomes, updateCallback))
       })
       .catch(e => dispatch(setError(e)))
   }

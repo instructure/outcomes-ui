@@ -225,7 +225,12 @@ describe('OutcomePicker/actions', () => {
     })
 
     it('wraps its calls in setOutcomePickerState', () => {
-      const store = createMockStore(state)
+      const service = {
+        createAlignmentSet: sinon.stub().returns(Promise.resolve(
+          {guid: 'newguid', outcomes: [{id: '1'}, {id: '2'}]}
+        ))
+      }
+      const store = createMockStore(state, service)
       return store.dispatch(actions.saveOutcomePickerAlignments())
         .then(() => {
           expect(store.getActions()[0]).to.deep.equal(
@@ -242,7 +247,12 @@ describe('OutcomePicker/actions', () => {
     })
 
     it('fires an updateCallback function if provided', () => {
-      const store = createMockStore(state)
+      const service = {
+        createAlignmentSet: sinon.stub().returns(Promise.resolve(
+          {guid: 'newguid', outcomes: [{id: '1'}, {id: '2'}]}
+        ))
+      }
+      const store = createMockStore(state, service)
       const callback = sinon.stub()
       return store.dispatch(actions.saveOutcomePickerAlignments(callback))
         .then(() => {
