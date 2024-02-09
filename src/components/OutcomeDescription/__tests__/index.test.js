@@ -13,7 +13,7 @@ describe('OutcomeDescription', () => {
       truncated: true,
       ratings: ratings,
       calculationMethod: 'latest',
-      calculationInt: {}
+      calculationInt: null
     }, props)
   }
 

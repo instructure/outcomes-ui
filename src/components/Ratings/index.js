@@ -125,9 +125,9 @@ const Ratings = ({ ratings, masteryPercent, pointsPossible, isTray }) => {
 }
 
 Ratings.propTypes = {
-  ratings: PropTypes.arrayOf(scoringTierShape).isRequired,
-  masteryPercent: PropTypes.number.isRequired,
-  pointsPossible: PropTypes.number.isRequired,
+  ratings: PropTypes.arrayOf(scoringTierShape),
+  masteryPercent: PropTypes.number,
+  pointsPossible: PropTypes.number,
   isTray: PropTypes.bool
 }
 

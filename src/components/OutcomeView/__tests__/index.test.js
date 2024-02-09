@@ -23,7 +23,7 @@ const sharedSpecs = (makeProps) => {
 
   it('includes counts if outcome result is defined', () => {
     const props = makeProps({
-      outcomeResult: { count: 100, masteryCount: 50 }
+      outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' }
     })
     const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find(MasteryCounts)).to.have.length(1)
@@ -169,7 +169,7 @@ describe('OutcomeView', () => {
 
       it('displays scoring tiers if outcomeResult is defined', () => {
         const props = makeProps({
-          outcomeResult: { count: 100, masteryCount: 50 }
+          outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' }
         })
         const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
         expect(wrapper.find(ScoringTiers)).to.have.length(1)
@@ -177,7 +177,7 @@ describe('OutcomeView', () => {
 
       it('passes prop.scoringTiers to <ScoringTiers /> if defined', () => {
         const props = makeProps({
-          outcomeResult: { count: 100, masteryCount: 50 },
+          outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' },
           scoringTiers: defaultProps.scoringTiers
         })
         const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
@@ -187,7 +187,7 @@ describe('OutcomeView', () => {
       it('renders mastery description if displayMasteryDescription is true, no artifactTypeName provided and outcomeResult defined', () => {
         const props = makeProps({
           displayMasteryDescription: true,
-          outcomeResult: { count: 100, masteryCount: 50 }
+          outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' }
         })
         const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
         const scoreMastery = wrapper.find(MasteryDescription)

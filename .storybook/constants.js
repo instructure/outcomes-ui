@@ -15,7 +15,7 @@ export const defaultOutcomes = () => {
   for(let i = 1; i <= OUTCOME_COUNT; i++) {
     outcomes.push(
       {
-        id: i,
+        id: `${i}`,
         label: `Grade ${i}`,
         title: `Title-0${i}`,
         summary: `Summary of Grade ${i}`,

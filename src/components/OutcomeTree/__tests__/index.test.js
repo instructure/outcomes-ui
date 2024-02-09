@@ -141,7 +141,14 @@ describe('OutcomeTree', () => {
 
   it('resets focus on update', () => {
     const wrapper = mount(<OutcomeTree {...makeProps()} />)
-    wrapper.setProps({...makeProps({activeCollection: {id: '101'}})})
+
+    // It is not very apparent how this test works. At this point, wrapper.getDOMNode()
+    // returns the outcome tree with outcome 100 as active (see makeProps()). The next
+    // line sets the collection to 101, which cannot be found, so the outcome description
+    // title and header is not rendered. This test would be more readable if it was
+    // asserting that, because it is not clear what document.activeElement is.
+
+    wrapper.setProps({...makeProps({activeCollection: {id: '101', header: 'Foo'}})})
     expect(wrapper.getDOMNode().contains(document.activeElement))
   })
 

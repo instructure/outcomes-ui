@@ -153,7 +153,7 @@ export default class AlignmentWidget extends React.Component {
     return (
       <List isUnstyled margin='small 0'>
         {/* We render this empty list item to render a delimiter at the top of the list */}
-        {alignedOutcomes.length > 0 && <List.Item key="delimiter-0" />}
+        {alignedOutcomes.length > 0 && <List.Item key="delimiter-0"><div/></List.Item>}
         {alignedOutcomes.map((outcome, index) => {
           return (
             <List.Item padding="0 small 0 medium" key={outcome.id}>
@@ -170,7 +170,7 @@ export default class AlignmentWidget extends React.Component {
           )
         })}
         {/* We render this empty list item to render a delimiter at the end of the list */}
-        {alignedOutcomes.length > 0 && <List.Item key="delimiter-1" />}
+        {alignedOutcomes.length > 0 && <List.Item key="delimiter-1"><div/></List.Item>}
       </List>
     )
   }

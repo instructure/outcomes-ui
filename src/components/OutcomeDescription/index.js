@@ -135,34 +135,44 @@ const OutcomeDescription = ({
       </div>
     )
 
-  const renderRatingsAndCalculation = () => (
-    <View>
-      {ratings.length > 0 && (
-        <View as="div" margin="small none">
-          <Ratings
-            ratings={ratings}
-            masteryPercent={masteryPercent}
-            pointsPossible={pointsPossible}
-            isTray={isTray}
-          />
-        </View>
-      )}
-      {calculationMethod && calculationInt && (
-        <Flex wrap="wrap" padding="none small small none">
-          <Flex.Item as="div" padding="none xx-small none none">
-            <View as="div">
-              <Text weight="bold">{t('Proficiency Calculation:')}</Text>
-            </View>
-          </Flex.Item>
-          <Flex.Item>
-            <Text color="primary" weight="normal">
-              {formatCalculationMethodText()}
-            </Text>
-          </Flex.Item>
-        </Flex>
-      )}
-    </View>
-  )
+  const renderRatingsAndCalculation = () => {
+    const calculationMethodRequiringCalculationInt = [
+      N_MASTERY,
+      STANDARD_DECAYING_AVERAGE,
+      WEIGHTED_AVERAGE,
+      DECAYING_AVERAGE
+    ]
+    const hasRequireData = calculationMethodRequiringCalculationInt.includes(calculationMethod) ?
+      calculationInt : true
+    return (
+      <View>
+        {ratings.length > 0 && (
+          <View as="div" margin="small none">
+            <Ratings
+              ratings={ratings}
+              masteryPercent={masteryPercent}
+              pointsPossible={pointsPossible}
+              isTray={isTray}
+            />
+          </View>
+        )}
+        {calculationMethod && hasRequireData && (
+          <Flex wrap="wrap" padding="none small small none">
+            <Flex.Item as="div" padding="none xx-small none none">
+              <View as="div">
+                <Text weight="bold">{t('Proficiency Calculation:')}</Text>
+              </View>
+            </Flex.Item>
+            <Flex.Item>
+              <Text color="primary" weight="normal">
+                {formatCalculationMethodText()}
+              </Text>
+            </Flex.Item>
+          </Flex>
+        )}
+      </View>
+    )
+  }
 
   return (
     <div>

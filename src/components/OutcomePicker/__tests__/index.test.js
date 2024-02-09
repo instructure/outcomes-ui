@@ -30,6 +30,7 @@ describe('OutcomePicker', () => {
       scope: 'scopeForTest',
       artifactTypeName: '',
       isSearchLoading: false,
+      toggleExpandedIds: () => null
     }, props)
   }
 

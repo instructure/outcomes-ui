@@ -14,7 +14,16 @@ describe('ConnectedOutcomePicker', () => {
           focusedOutcome: null,
           state: 'loading',
           activeChildren: [],
-          scope: 'scopeForTest'
+          scope: 'scopeForTest',
+          search: {
+            searchText: 'abc',
+            pagination: {
+              page: 1,
+              total: null,
+            },
+            isLoading: true,
+            entries: []
+          }
         }
       }
     }))

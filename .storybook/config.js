@@ -18,7 +18,7 @@ function loadStories () {
   manualExamplesContext.keys().forEach(fname => {
     const exports = manualExamplesContext(fname)
     const title = exports.default.title
-    const storyContext = storiesOf(title).addDecorator(withKnobs)
+    const storyContext = storiesOf(title, module).addDecorator(withKnobs)
 
     Object.entries(exports).forEach(([key, value]) => {
       if (key !== 'default') {

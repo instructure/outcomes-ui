@@ -24,6 +24,7 @@ describe('OutcomesPerStudent/Header', () => {
         mastery_count: 5,
         childArtifactCount: 12
       },
+      scope: 'artifactType::artifactId',
       viewReportAlignment: sinon.spy(),
       getReportOutcome: sinon.stub().returns({ id: '1', label: 'FOO', title: 'bar' }),
       isOpen: false,

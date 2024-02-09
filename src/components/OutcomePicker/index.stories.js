@@ -36,6 +36,7 @@ export const collapsed = () => (
       searchEntries = { [] }
       treeView = { () => <div><br /> OutcomeTree Placeholder </div> }
       hasOutcomes = { true }
+      scope='outcomePicker::story'
     />
   </View>
 )

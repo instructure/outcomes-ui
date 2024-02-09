@@ -89,7 +89,7 @@ describe('FlashAlert', () => {
 
   describe('showFlashSuccess', () => {
     it('calls render', () => {
-      const showAlert = showFlashSuccess()
+      const showAlert = showFlashSuccess('showFlashSuccess')
       showAlert()
       expect(renderSpy).to.have.been.called
     })

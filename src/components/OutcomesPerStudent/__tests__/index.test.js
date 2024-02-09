@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme'
 import OutcomesPerStudent from '../index'
 import checkA11y from '../../../test/checkA11y'
 import styles from '../styles.js'
-import { REPORT_DOWNLOAD_FF } from '../../../constants'
+import {COMPLETED, REPORT_DOWNLOAD_FF} from '../../../constants'
 import Header from '../Header'
 import Score from '../Score'
 import {  PaginationButton } from '@instructure/ui-pagination'
@@ -19,6 +19,10 @@ describe('OutcomesPerStudent/index', () => {
   function makeProps (props = {}) {
     return Object.assign({
       loadPage: sinon.stub().returns(Promise.resolve()),
+      loading: false,
+      loadRemainingPages: sinon.spy(),
+      csvFetchingStatus: COMPLETED,
+      formatCSVData: sinon.spy(),
       clearReportStore: sinon.spy(),
       getReportOutcome: sinon.stub().returns({ id: 1, label: 'Foo.PRQ.2', title: 'Learn stuff' }),
       getScore: sinon.spy(),
@@ -28,6 +32,7 @@ describe('OutcomesPerStudent/index', () => {
       closeReportAlignment: sinon.spy(),
       artifactType: 'foo',
       artifactId: 'bar',
+      scope: 'foo:bar',
       hasAnyOutcomes: true,
       currentPage: 3,
       pageCount: 5,

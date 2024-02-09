@@ -14,7 +14,8 @@ describe('OutcomeLabels', () => {
     ]
 
     return Object.assign({
-      outcomes
+      outcomes,
+      emptyText: 'No Outcomes are currently selected'
     }, props)
   }
 

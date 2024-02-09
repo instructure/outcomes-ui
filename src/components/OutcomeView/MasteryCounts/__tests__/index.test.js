@@ -20,7 +20,10 @@ describe('OutcomeView MasteryCounts', () => {
       scoringMethod,
       outcomeResult: {
         masteryCount: 10,
-        count: 20
+        count: 20,
+        averageScore: 0.5,
+        childArtifactCount: 1,
+        outcomeId: '1'
       }
     }, props)
   }

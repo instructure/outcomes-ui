@@ -17,13 +17,14 @@ export const standard = () => (
     onModalClose={ () => {} }
     onModalOpen={ () => {} }
     onUpdate={ () => {} }
+    closeOutcomePicker={ () => {} }
     trigger={ this }
     scope=""
     artifactTypeName="Quiz"
     displayMasteryDescription={ true }
     displayMasteryPercentText={ true }
     screenreaderNotification={ () => {} }
-    liveRegion=""
+    liveRegion={ () => {} }
     mountNode={ () => {} }
     outcomePicker={ () => (<div><br/>OutcomePicker would go here</div>) }
   />

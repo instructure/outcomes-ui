@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export const scoringMethodShape = PropTypes.shape({
-  algorithm: PropTypes.isRequired,
+  algorithm: PropTypes.string.isRequired,
   algorithm_data: PropTypes.object,
   mastery_percent: PropTypes.number,
   points_possible: PropTypes.number,
@@ -72,7 +72,15 @@ export const decayingAverageDataShape = PropTypes.shape({
   decaying_average_percent: PropTypes.number.isRequired
 })
 
-export const algorithmDataShape = PropTypes.oneOf([nMasteryDataShape, decayingAverageDataShape])
+export const standardDecayingAverageDataShape = PropTypes.shape({
+  standard_decaying_average_percent: PropTypes.number.isRequired
+})
+
+export const algorithmDataShape = PropTypes.oneOfType([
+  nMasteryDataShape,
+  decayingAverageDataShape,
+  standardDecayingAverageDataShape
+])
 
 export const stylesShape = PropTypes.object
 

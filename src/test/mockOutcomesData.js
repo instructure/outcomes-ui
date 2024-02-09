@@ -11,7 +11,7 @@ export const OUTCOME_1 = {
   friendly_description: 'fdA1',
   scoring_method: {
     algorithm: 'highest',
-    algorithm_data: {},
+    algorithm_data: null,
     mastery_percent: 0.6,
     points_possible: 5,
     scoring_tiers: ratings
@@ -26,7 +26,7 @@ export const OUTCOME_2 = {
   friendly_description: 'fdB2',
   scoring_method: {
     algorithm: 'latest',
-    algorithm_data: {},
+    algorithm_data: null,
     mastery_percent: 0.6,
     points_possible: 5,
     scoring_tiers: ratings
@@ -41,7 +41,7 @@ export const OUTCOME_3 = {
   friendly_description: 'fdC3',
   scoring_method: {
     algorithm: 'average',
-    algorithm_data: {},
+    algorithm_data: null,
     mastery_percent: 0.6,
     points_possible: 5,
     scoring_tiers: ratings

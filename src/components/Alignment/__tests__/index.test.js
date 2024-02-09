@@ -20,6 +20,8 @@ describe('Alignment', () => {
       removeAlignment: sinon.spy(),
       isOpen: false,
       readOnly: false,
+      scope: 'artifactType:artifactId',
+      index: 0
     }, props)
   }
 

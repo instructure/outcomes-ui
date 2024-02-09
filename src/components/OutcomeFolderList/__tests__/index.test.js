@@ -16,7 +16,8 @@ describe('OutcomeFolderList', () => {
     return Object.assign({
       outcomes,
       getOutcomeSummary: sinon.spy(),
-      setActiveCollection: sinon.spy()
+      setActiveCollection: sinon.spy(),
+      toggleExpandedIds: sinon.spy()
     }, props)
   }
 

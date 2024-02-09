@@ -15,6 +15,8 @@ describe('OutcomeTray', () => {
     return Object.assign({
       searchText: '',
       updateSearchText: sinon.spy(),
+      updateSearchPage: sinon.spy(),
+      saveOutcomePickerAlignments: sinon.spy(),
       setSearchLoading: sinon.spy(),
       setSearchEntries: sinon.spy(),
       isSearchLoading: false,

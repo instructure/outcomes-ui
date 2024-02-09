@@ -94,6 +94,7 @@ describe('OutcomeTags', () => {
     }, 1)
   })
 
+  // TODO: Fix this test
   it('focuses on empty results div when all tags are deleted', (done) => {
     const wrapper = mount(<OutcomeTags {...makeProps()} />)
     setTimeout(() => {
