@@ -12,6 +12,7 @@ import {  PaginationButton } from '@instructure/ui-pagination'
 import { Billboard } from '@instructure/ui-billboard'
 import ExportCSVButton from '../ExportCSVButton'
 import { findElementsWithStyle } from '../../../util/__tests__/findElementsWithStyle'
+import generateComponentTheme from '../../theme'
 
 chai.use(require('sinon-chai'))
 
@@ -99,9 +100,7 @@ describe('OutcomesPerStudent/index', () => {
 
   it('renders a row for each student', () => {
     const wrapper = mount(<OutcomesPerStudent {...makeProps()} />, {disableLifecycleMethods: true})
-    // expect(wrapper.find(`.${styles.studentRow}`)).to.have.length(5)
-    expect(findElementsWithStyle(wrapper, styles().studentRow)).to.have.length(5)
-
+    expect(findElementsWithStyle(wrapper, styles(generateComponentTheme).studentRow)).to.have.length(5)
   })
 
   it('renders a score for each student score', () => {

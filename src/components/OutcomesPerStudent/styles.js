@@ -1,4 +1,4 @@
-const generateStyle = () => {
+const generateStyle = (componentTheme) => {
   return {
     reportWrapper: { position: 'relative', paddingLeft: '13rem' },
     background: { backgroundColor: 'white' },
@@ -15,21 +15,21 @@ const generateStyle = () => {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center'
-    },
-    '.headerCell, .corner': {
-      boxSizing: 'border-box',
+      justifyContent: 'center',
       height: '5.5rem',
-      borderRight: 'var(--reportBorder)',
-      borderBottom: 'var(--reportBorder)'
+      borderRight: componentTheme.reportBorder,
+      borderBottom: componentTheme.reportBorder
     },
     headerCell: {
       boxSizing: 'border-box',
-      borderTop: 'var(--reportBorder)',
+      borderTop: componentTheme.reportBorder,
       padding: '0.5rem',
       flex: '1 0 10rem',
       overflow: 'hidden',
-      textOverflow: 'ellipsis'
+      textOverflow: 'ellipsis',
+      height: '5.5rem',
+      borderRight: componentTheme.reportBorder,
+      borderBottom: componentTheme.reportBorder
     },
     loadingSpinner: {
       width: '100%',
@@ -51,23 +51,23 @@ const generateStyle = () => {
       width: '13rem',
       height: '4rem',
       paddingLeft: '0.5rem',
-      borderRight: 'var(--reportBorder)',
+      borderRight: componentTheme.reportBorder,
       display: 'flex',
       justifyContent: 'flex-start',
-      borderBottom: 'var(--reportBorder)',
-      alignItems: 'center',
-      '& .avatar': { paddingRight: '.5rem' },
-      '& .name': {
-        textAlign: 'left',
-        textOverflow: 'ellipsis',
-        overflowX: 'hidden',
-        whiteSpace: 'nowrap'
-      }
+      borderBottom: componentTheme.reportBorder,
+      alignItems: 'center'
+    },
+    avatar: { paddingRight: '0.5rem' },
+    name: {
+      textAlign: 'left',
+      textOverflow: 'ellipsis',
+      overflowX: 'hidden',
+      whiteSpace: 'nowrap'
     },
     scoreCell: {
       boxSizing: 'border-box',
       flex: '1 0 10rem',
-      borderBottom: 'var(--reportBorder)'
+      borderBottom: componentTheme.reportBorder
     }
   }
 }

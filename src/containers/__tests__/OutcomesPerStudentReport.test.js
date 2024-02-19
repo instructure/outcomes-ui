@@ -4,6 +4,7 @@ import { mount } from 'enzyme'
 import OutcomesPerStudentReport from '../OutcomesPerStudentReport'
 import styles from '../../components/OutcomesPerStudent/styles.js'
 import { findElementsWithStyle } from '../../util/__tests__/findElementsWithStyle'
+import generateComponentTheme from '../../components/theme'
 
 describe('OutcomesPerStudentReport', () => {
   function makeProps () {
@@ -29,6 +30,6 @@ describe('OutcomesPerStudentReport', () => {
     const wrapper = mount(
       <div id="app"><OutcomesPerStudentReport {...makeProps()} /></div>
     )
-    expect(findElementsWithStyle(wrapper, styles().background)).to.have.length(1)
+    expect(findElementsWithStyle(wrapper, styles(generateComponentTheme).background)).to.have.length(1)
   })
 })
