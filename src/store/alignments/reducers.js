@@ -17,6 +17,10 @@ const alignedOutcomes = handleActions({
   }
 }, List())
 
+const launchContexts = handleActions({
+  SET_LAUNCH_CONTEXTS: (state, action) => fromJS(action.payload)
+}, null)
+
 const openAlignmentId = handleActions({
   VIEW_ALIGNMENT: (state, action) => action.payload,
   CLOSE_ALIGNMENT: () => null
@@ -30,6 +34,7 @@ const alignmentSetId = handleActions({
 
 export default combineReducers({
   alignedOutcomes,
+  launchContexts,
   openAlignmentId,
   alignmentSetId
 })

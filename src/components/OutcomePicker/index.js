@@ -10,7 +10,7 @@ import OutcomeTags from '../OutcomeTags'
 import OutcomeViewModal from '../OutcomeViewModal'
 import SearchInput from '../SearchInput'
 import SearchResults from '../SearchResults'
-import {outcomeShape, sharedContextsShape} from '../../store/shapes'
+import {outcomeShape, launchContextsShape} from '../../store/shapes'
 import NoResults from '../NoResults'
 
 class OutcomePicker extends React.Component {
@@ -38,13 +38,13 @@ class OutcomePicker extends React.Component {
     updateSearchPage: PropTypes.func.isRequired,
     hasOutcomes: PropTypes.bool.isRequired,
     scope: PropTypes.string.isRequired,
-    sharedContexts: sharedContextsShape,
+    launchContexts: launchContextsShape,
     treeView: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     focusedOutcome: null,
-    sharedContexts: null,
+    launchContexts: null,
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
@@ -153,11 +153,11 @@ class OutcomePicker extends React.Component {
     )
   }
   render() {
-    const { hasOutcomes, searchText, sharedContexts } = this.props
-    // If there are shared contexts, we cannot render this billboard because hasOutcomes is evaluated only for
+    const { hasOutcomes, searchText, launchContexts } = this.props
+    // If there are launch contexts, we cannot render this billboard because hasOutcomes is evaluated only for
     // the currently selected context. This would prevent users from selecting another context if the first
-    // context failed to be retrieved OR had no contexts.
-    const hasMultipleContexts = sharedContexts?.length > 1
+    // context failed to be retrieved OR had no outcomes.
+    const hasMultipleContexts = launchContexts?.length > 1
     if (!hasOutcomes && !hasMultipleContexts ) {
       return (
         <NoResults />

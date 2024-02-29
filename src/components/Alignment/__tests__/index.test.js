@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import { mount, shallow } from 'enzyme'
 import { IconOutcomesLine, IconTrashLine } from '@instructure/ui-icons'
 import { Link } from '@instructure/ui-link'
+import { Text } from '@instructure/ui-text'
 import Alignment from '../index'
 import checkA11y from '../../../test/checkA11y'
 
@@ -25,20 +26,55 @@ describe('Alignment', () => {
     }, props)
   }
 
+  it('shows source context name', () => {
+    const props = makeProps({
+      outcome: {
+        id: '1',
+        label: 'FOO',
+        title: 'User can foo a bar',
+        source_context_info: { name: 'Source Context' }
+      }
+    })
+    const wrapper = mount(<Alignment {...props} />, {disableLifecycleMethods: true})
+    const link = wrapper.find(Text).last()
+    expect(link.text()).to.equal('Source Context')
+  })
+
+  it('handles null source context name', () => {
+    const props = makeProps({
+      outcome: {
+        id: '1',
+        label: 'FOO',
+        title: 'User can foo a bar',
+        source_context_info: { name: null }
+      }
+    })
+    const wrapper = mount(<Alignment {...props} />)
+    const link = wrapper.find(Text).last()
+    expect(link.text()).to.equal('')
+  })
+
+  it('handles null source context info', () => {
+    const wrapper = mount(<Alignment {...makeProps()} />)
+    const link = wrapper.find(Text).last()
+    expect(link).to.have.length(1)
+    expect(link.text()).to.equal('User can foo a bar')
+  })
+
   it('includes an icon', () => {
-    const wrapper = mount(<Alignment {...makeProps()} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<Alignment {...makeProps()} />)
     expect(wrapper.find(IconOutcomesLine)).to.have.length(1)
   })
 
   it('includes a delete button', () => {
     const props = makeProps()
-    const wrapper = mount(<Alignment {...props} />, {disableLifecycleMethods: true})
+    const wrapper = mount(<Alignment {...props} />)
     expect(wrapper.find(IconTrashLine)).to.have.length(1)
   })
 
   it('does not include a delete button if readOnly', () => {
     const props = makeProps({ readOnly: true })
-    const wrapper = shallow(<Alignment {...props} />, {disableLifecycleMethods: true})
+    const wrapper = shallow(<Alignment {...props} />)
     expect(wrapper.find('Button')).to.have.length(0)
   })
 

@@ -11,12 +11,8 @@ import {
 import search from '../search/reducers'
 import tray from '../OutcomeTray/reducers'
 
-const sharedContexts = handleActions({
-  SET_SHARED_CONTEXTS: (state, action) => fromJS(action.payload)
-}, null)
-
-const selectedSharedContext = handleActions({
-  SET_SELECTED_SHARED_CONTEXT: (state, action) => fromJS(action.payload)
+const selectedLaunchContext = handleActions({
+  SET_SELECTED_LAUNCH_CONTEXT: (state, action) => fromJS(action.payload)
 }, null)
 
 const focusedOutcome = handleActions({
@@ -59,8 +55,7 @@ const state = handleActions({
 }, 'closed')
 
 const OutcomePickerReducer = combineReducers({
-  sharedContexts,
-  selectedSharedContext,
+  selectedLaunchContext,
   state,
   selected,
   focusedOutcome,

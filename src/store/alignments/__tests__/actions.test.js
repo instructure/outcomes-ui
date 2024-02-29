@@ -175,6 +175,23 @@ describe('alignments/actions', () => {
         })
     })
 
+    it('calls outcome service with launchContext to load alignments', () => {
+      const service = { getAlignments: sinon.stub().returns(Promise.resolve()) }
+      const store = createMockStore(Map(fromJS({
+        scopeForTest: {
+          alignments: {
+            launchContexts: [{uuid: 'foo', name: 'Dave University'}]
+          }
+        }
+      })), service)
+      return store.dispatch(actions.loadAlignments('hexadecimal'))
+        .then(() => {
+          expect(service.getAlignments.calledOnce).to.be.true
+          expect(service.getAlignments.getCall(0).args).to.include('foo')
+          return null
+        })
+    })
+
     it('dispatches setError on outcome service failure', () => {
       const error = { message: 'foo bar baz' }
       const service = { getAlignments: sinon.stub().returns(Promise.reject(error)) }
@@ -229,7 +246,26 @@ describe('alignments/actions', () => {
       return store.dispatch(actions.removeAlignment('12'))
         .then(() => {
           expect(service.createAlignmentSet.calledOnce).to.be.true
-          expect(service.createAlignmentSet.calledWith([]))
+          expect(service.createAlignmentSet.getCall(0).args[2]).to.deep.equal(['1'])
+          return null
+        })
+    })
+
+    it('calls outcomes service to create new alignment set with launch context', () => {
+      const service = { createAlignmentSet: sinon.stub().returns(Promise.resolve()) }
+      const store = createMockStore(fromJS({
+        scopeForTest: {
+          alignments: {
+            alignedOutcomes: [{id: '1'}, {id: '12'}],
+            launchContexts: [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}]
+          }
+        }
+      }), service)
+      return store.dispatch(actions.removeAlignment('12'))
+        .then(() => {
+          expect(service.createAlignmentSet.calledOnce).to.be.true
+          expect(service.createAlignmentSet.getCall(0).args[2]).to.deep.equal(['1'])
+          expect(service.createAlignmentSet.getCall(0).args[3]).to.deep.equal('fuz')
           return null
         })
     })

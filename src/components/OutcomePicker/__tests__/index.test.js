@@ -65,7 +65,7 @@ describe('OutcomePicker', () => {
   })
 
   it('shows NoResults billboard when there are no outcomes present and single shared context', () => {
-    const props = makeProps({hasOutcomes: false, sharedContexts: [{uuid:'uuid', name:'name'}]})
+    const props = makeProps({hasOutcomes: false, launchContexts: [{uuid:'uuid', name:'name'}]})
     const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('NoResults')).to.have.length(1)
   })
@@ -73,7 +73,7 @@ describe('OutcomePicker', () => {
   it('does not display billboard when there are no outcomes present but user can select another context', () => {
     const props = makeProps({
       hasOutcomes: false,
-      sharedContexts: [
+      launchContexts: [
         {uuid:'uuid1', name:'name1'},
         {uuid:'uuid2', name:'name2'}
       ]
@@ -83,7 +83,7 @@ describe('OutcomePicker', () => {
   })
 
   it('shows the NoResults billboard when there are no outcomes present and single shared context', () => {
-    const props = makeProps({hasOutcomes: false, sharedContexts: [{uuid:'uuid', name:'name'}]})
+    const props = makeProps({hasOutcomes: false, launchContexts: [{uuid:'uuid', name:'name'}]})
     const wrapper = shallow(<OutcomePicker {...props} />, {disableLifecycleMethods: true})
     expect(wrapper.find('NoResults')).to.have.length(1)
   })
@@ -91,7 +91,7 @@ describe('OutcomePicker', () => {
   it('does not display billboard when there are no outcomes present but user can select another context', () => {
     const props = makeProps({
       hasOutcomes: false,
-      sharedContexts: [
+      launchContexts: [
         {uuid:'uuid1', name:'name1'},
         {uuid:'uuid2', name:'name2'}
       ]

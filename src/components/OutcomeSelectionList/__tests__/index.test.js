@@ -109,7 +109,7 @@ describe('OutcomeSelectionList', () => {
     // Enzyme finds extra Checkbox components because of the instui decorator on the component
     const change = wrapper.find('Checkbox[value="selectAll"]').at(0).prop('onChange')
     change()
-    expect(props.selectOutcomeIds.calledWith(['1', '2', '3']))
+    expect(props.selectOutcomeIds.calledWith(['1', '2', '3'])).to.be.true
   })
 
   it('calls unselect function on all outcomes when select all is checked and clicked', () => {
@@ -120,7 +120,7 @@ describe('OutcomeSelectionList', () => {
 
     const change = wrapper.find('Checkbox[value="selectAll"]').at(0).prop('onChange')
     change()
-    expect(props.deselectOutcomeIds.calledWith(['1', '2', '3']))
+    expect(props.deselectOutcomeIds.calledWith(['1', '2', '3'])).to.be.true
   })
 
   it('meets a11y standards', () => {

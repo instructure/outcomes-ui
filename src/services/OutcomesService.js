@@ -77,15 +77,18 @@ class OutcomesService {
       .then((json) => json)
   }
 
-  getAlignments (host, jwt, alignmentSetId, contextUuid) {
+  getAlignments (host, jwt, alignmentSetId, contextUuid, launchContext) {
     if (!alignmentSetId) {
       return Promise.resolve([])
     }
 
-    let params = 'includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_name'
+    let params = 'includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info'
 
     if (contextUuid) {
       params += `&context_uuid=${contextUuid}`
+    }
+    if (launchContext) {
+      params += `&launch_context=${launchContext}`
     }
 
     return this.get(host, jwt, `/api/alignment_sets/${alignmentSetId}?${params}`)
@@ -120,14 +123,17 @@ class OutcomesService {
       .then((json) => (json.alignment_set || json))
   }
 
-  createAlignmentSet (host, jwt, outcomeIds) {
+  createAlignmentSet (host, jwt, outcomeIds, launchContext) {
     if (!outcomeIds.length) {
       return Promise.resolve({guid: null})
     }
 
     const params = {
       outcome_ids: outcomeIds,
-      includes: ['outcomes', 'source_context_name']
+      includes: ['outcomes', 'source_context_info']
+    }
+    if (launchContext) {
+      params.launch_context = launchContext
     }
 
     return this.post(host, jwt, '/api/alignment_sets', params)

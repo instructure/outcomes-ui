@@ -10,8 +10,7 @@ import {
   SET_ACTIVE_COLLECTION_ID,
   TOGGLE_EXPANDED_IDS,
   RESET_OUTCOME_PICKER,
-  SET_SHARED_CONTEXTS,
-  SET_SELECTED_SHARED_CONTEXT,
+  SET_SELECTED_LAUNCH_CONTEXT,
   RESET_EXPANDED_IDS
 } from '../../constants'
 import {
@@ -20,14 +19,13 @@ import {
   setError,
   setScoringMethod
 } from '../context/actions'
-import { getAlignedOutcomeIds, getAnyOutcome } from '../alignments/selectors'
-import {getSelectedOutcomeIds, getOutcomePickerState, getSelectedSharedContext, getSharedContexts} from './selectors'
+import {getAlignedOutcomeIds, getAnyOutcome, getLaunchContexts} from '../alignments/selectors'
+import {getSelectedOutcomeIds, getOutcomePickerState, getSelectedLaunchContext} from './selectors'
 import { createAlignmentSet, updateAlignments, upsertArtifact } from '../alignments/actions'
 import { setScope } from '../activePicker/actions'
 import {Set} from 'immutable'
 
-export const setSharedContexts = createAction(SET_SHARED_CONTEXTS)
-export const setSelectedSharedContext = createAction(SET_SELECTED_SHARED_CONTEXT)
+export const setSelectedLaunchContext = createAction(SET_SELECTED_LAUNCH_CONTEXT)
 export const selectOutcomeIds = createAction(SELECT_OUTCOME_IDS)
 export const deselectOutcomeIds = createAction(UNSELECT_OUTCOME_IDS)
 export const setSelectedOutcomeIds = createAction(SET_SELECTED_OUTCOME_IDS)
@@ -38,28 +36,21 @@ export const toggleExpandedIds = createAction(TOGGLE_EXPANDED_IDS)
 export const resetExpandedIds = createAction(RESET_EXPANDED_IDS)
 export const resetOutcomePicker = createAction(RESET_OUTCOME_PICKER)
 
-export const loadSharedContexts = (sharedContexts) => {
-  return (dispatch, _getState) => {
-    return dispatch(setSharedContexts(sharedContexts))
-  }
-}
-
-export const loadSelectedSharedContext = () => {
+export const loadSelectedLaunchContext = () => {
   return (dispatch, getState, _arg, scope) => {
-    const selected = getSelectedSharedContext(getState(), scope)
-    const sharedContexts = getSharedContexts(getState(), scope)
-    if (sharedContexts === null || selected) {
+    const selected = getSelectedLaunchContext(getState(), scope)
+    const launchContexts = getLaunchContexts(getState(), scope)
+    if (launchContexts === null || selected) {
       return Promise.resolve()
     }
-    return dispatch(setSelectedSharedContext(sharedContexts[0]))
+    return dispatch(setSelectedLaunchContext(launchContexts[0]))
   }
 }
 
-export const loadOutcomePicker = (sharedContexts) => {
+export const loadOutcomePicker = () => {
   return (dispatch, getState, _arg, scope) => {
     dispatch(setOutcomePickerState('loading'))
-    dispatch(loadSharedContexts(sharedContexts))
-    dispatch(loadSelectedSharedContext())
+    dispatch(loadSelectedLaunchContext())
     return dispatch(loadRootOutcomes())
       .then(() => dispatch(setSelectedOutcomeIds(getAlignedOutcomeIds(getState(), scope))))
       .then(() => dispatch(setOutcomePickerState('choosing')))
@@ -69,10 +60,10 @@ export const loadOutcomePicker = (sharedContexts) => {
   }
 }
 
-export const changeSelectedSharedContext = (newSelectedSharedContext) => {
+export const changeSelectedLaunchContext = (newSelectedLaunchContext) => {
   return (dispatch, getState, _arg, scope) => {
     dispatch(setOutcomePickerState('loading'))
-    dispatch(setSelectedSharedContext(newSelectedSharedContext))
+    dispatch(setSelectedLaunchContext(newSelectedLaunchContext))
     // Reset activeCollection and expanded ids since we are moving to another context hierarchy
     dispatch(setActiveCollectionFrd(null))
     dispatch(resetExpandedIds(Set()))
@@ -96,7 +87,7 @@ export const setFocusedOutcome = (outcome) => {
       return Promise.resolve()
     }
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
-    const selected = getSelectedSharedContext(getState(), scope)
+    const selected = getSelectedLaunchContext(getState(), scope)
     const context = selected?.uuid || contextUuid
     // First dispatch brings up the outcome view,
     // second dispatch provides the scoring method

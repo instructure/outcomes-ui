@@ -192,7 +192,7 @@ class AlignmentList extends React.Component {
       onModalOpen,
       onModalClose,
       scope,
-      sharedContexts,
+      launchContexts,
       artifactTypeName,
       displayMasteryDescription,
       displayMasteryPercentText,
@@ -208,7 +208,7 @@ class AlignmentList extends React.Component {
         onUpdate={onUpdate}
         trigger={this}
         scope={scope}
-        sharedContexts={sharedContexts}
+        launchContexts={launchContexts}
         artifactTypeName={artifactTypeName}
         displayMasteryDescription={displayMasteryDescription}
         displayMasteryPercentText={displayMasteryPercentText}

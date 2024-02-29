@@ -19,7 +19,7 @@ import AlignOutcomes from '../../icons/AlignOutcomes.svg'
 import generateComponentTheme from '../theme'
 import generateStyle from './styles'
 import { sanitizeHtml } from '../../lib/sanitize'
-import {selectedSharedContextShape, sharedContextsShape, stylesShape} from '../../store/shapes'
+import {selectedLaunchContextShape, launchContextsShape, stylesShape} from '../../store/shapes'
 
 
 @withStyle(generateStyle, generateComponentTheme)
@@ -32,9 +32,9 @@ class OutcomeTree extends React.Component {
     getOutcomeSummary: PropTypes.func.isRequired,
     isOutcomeSelected: PropTypes.func.isRequired,
     selectOutcomeIds: PropTypes.func.isRequired,
-    sharedContexts: sharedContextsShape,
-    selectedSharedContext: selectedSharedContextShape,
-    changeSelectedSharedContext: PropTypes.func.isRequired,
+    launchContexts: launchContextsShape,
+    selectedLaunchContext: selectedLaunchContextShape,
+    changeSelectedLaunchContext: PropTypes.func.isRequired,
     deselectOutcomeIds: PropTypes.func.isRequired,
     collections: PropTypes.object.isRequired,
     setActiveCollection: PropTypes.func.isRequired,
@@ -59,8 +59,8 @@ class OutcomeTree extends React.Component {
       groups: [],
       nonGroups: []
     },
-    sharedContexts: null,
-    selectedSharedContext: null,
+    launchContexts: null,
+    selectedLaunchContext: null,
   }
 
   setRHS(rhs) {
@@ -126,23 +126,23 @@ class OutcomeTree extends React.Component {
   }
 
   renderContextSelector() {
-    const { sharedContexts, selectedSharedContext, changeSelectedSharedContext } = this.props
-    const hasMoreThanOneContext = sharedContexts?.length >= 2
+    const { launchContexts, selectedLaunchContext, changeSelectedLaunchContext } = this.props
+    const hasMoreThanOneContext = launchContexts?.length >= 2
 
     if (hasMoreThanOneContext) {
       return (
         <View
           as="div"
           padding="small small none"
-          data-automation='outcomeTree__outcomesSharedContextSelector'
+          data-automation='outcomeTree__outcomesLaunchContextSelector'
         >
           <SimpleSelect
             renderLabel={t('Source')}
-            value={selectedSharedContext.name}
-            onChange={(e, { id, value }) => changeSelectedSharedContext({uuid: id, name: value})}
+            value={selectedLaunchContext.name}
+            onChange={(e, { id, value }) => changeSelectedLaunchContext({uuid: id, name: value})}
           >
-            {sharedContexts.map((context) => {
-              const isSelected = selectedSharedContext.uuid === context.uuid
+            {launchContexts.map((context) => {
+              const isSelected = selectedLaunchContext.uuid === context.uuid
               return isSelected ? (
                 <SimpleSelect.Option
                   id={context.uuid}

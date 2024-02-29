@@ -2,11 +2,20 @@ import { Map, List } from 'immutable'
 import { createSelector } from 'reselect'
 import createCachedSelector from 're-reselect'
 import { getOutcome } from '../context/selectors'
-import {getSharedContexts} from '../OutcomePicker/selectors'
 
 const restrict = (state, scope) => state.getIn([scope, 'alignments']) || Map()
 const alignedOutcomes = (state, scope) => restrict(state, scope).get('alignedOutcomes') || List()
 const openAlignmentId = (state, scope) => restrict(state, scope).get('openAlignmentId')
+
+export const getLaunchContexts = createSelector(
+  (state, scope) => restrict(state, scope).get('launchContexts'),
+  (launchContexts) => launchContexts?.toJS() || null
+)
+
+export function getLaunchContextUuid(state, scope) {
+  const launchContexts = getLaunchContexts(state, scope)
+  return launchContexts?.slice(-1)[0]?.uuid || null
+}
 
 export const getAlignedOutcomes = createCachedSelector(
   alignedOutcomes,
@@ -37,11 +46,11 @@ export const getAlignedOutcome = createSelector(
 )
 
 function getOutcomeFromAnyContext(state, scope, id) {
-  const sharedContexts = getSharedContexts(state, scope)
+  const launchContexts = getLaunchContexts(state, scope)
 
-  if (sharedContexts) {
-    for (const sharedContext of sharedContexts) {
-      const uuid = sharedContext.uuid
+  if (launchContexts) {
+    for (const launchContext of launchContexts) {
+      const uuid = launchContext.uuid
       const o = state.getIn(['context', 'outcomes', uuid, id.toString()])
       if (o) {
         return o.toJS()

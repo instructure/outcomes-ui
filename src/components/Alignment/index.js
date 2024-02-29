@@ -20,7 +20,13 @@ export default class Alignment extends React.Component {
     outcome: PropTypes.shape({
       label: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      source_context_name: PropTypes.string
+      in_launch_context: PropTypes.bool,
+      launch_context_type: PropTypes.string,
+      source_context_info: PropTypes.shape({
+        name: PropTypes.string,
+        context_type: PropTypes.string,
+        uuid: PropTypes.string
+      })
     }).isRequired,
     removeAlignment: PropTypes.func.isRequired,
     viewAlignment: PropTypes.func.isRequired,
@@ -92,13 +98,13 @@ export default class Alignment extends React.Component {
                 >
                   <Text weight="bold" lineHeight="condensed">{outcome.title}</Text>
                 </Link>
-                {outcome.source_context_name && <Text
+                {outcome.source_context_info && <Text
                   as="div"
                   weight="light"
                   size="x-small"
                   lineHeight="condensed"
                 >
-                  {outcome.source_context_name}
+                  {outcome.source_context_info.name}
                 </Text>}
               </View>
             </span>

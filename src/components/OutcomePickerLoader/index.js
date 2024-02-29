@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Spinner } from '@instructure/ui-spinner'
 import { Flex } from '@instructure/ui-flex'
 import t from 'format-message'
-import {sharedContextsShape} from '../../store/shapes'
+import {launchContextsShape} from '../../store/shapes'
 
 export default class OutcomePickerLoader extends React.Component {
   static propTypes = {
@@ -12,7 +12,7 @@ export default class OutcomePickerLoader extends React.Component {
     outcomePickerState: PropTypes.string.isRequired,
     outcomePicker: PropTypes.func.isRequired,
     scope: PropTypes.string.isRequired,
-    sharedContexts: sharedContextsShape,
+    launchContexts: launchContextsShape,
     artifactTypeName: PropTypes.string,
     displayMasteryDescription: PropTypes.bool,
     displayMasteryPercentText: PropTypes.bool,
@@ -20,7 +20,7 @@ export default class OutcomePickerLoader extends React.Component {
   }
 
   static defaultProps = {
-    sharedContexts: null,
+    launchContexts: null,
     artifactTypeName: null,
     displayMasteryDescription: false,
     displayMasteryPercentText: false,
@@ -28,8 +28,8 @@ export default class OutcomePickerLoader extends React.Component {
   }
 
   componentWillMount () {
-    const { loadOutcomePicker, sharedContexts } = this.props
-    loadOutcomePicker(sharedContexts)
+    const { loadOutcomePicker } = this.props
+    loadOutcomePicker()
   }
 
   render () {
@@ -47,7 +47,7 @@ export default class OutcomePickerLoader extends React.Component {
         return (
           <OutcomePicker
             scope={this.props.scope}
-            sharedContexts={this.props.sharedContexts}
+            launchContexts={this.props.launchContexts}
             artifactTypeName={this.props.artifactTypeName}
             displayMasteryDescription={this.props.displayMasteryDescription}
             displayMasteryPercentText={this.props.displayMasteryPercentText}

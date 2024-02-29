@@ -11,7 +11,7 @@ import {
 } from '../../constants'
 import { setOutcomes } from '../context/actions'
 import debounceLatestPromise from '../../util/debouceLatestPromise'
-import {getSelectedSharedContext} from '../OutcomePicker/selectors'
+import {getSelectedLaunchContext} from '../OutcomePicker/selectors'
 
 export const setSearchText = createAction(SET_SEARCH_TEXT)
 export const setSearchLoading = createAction(SET_SEARCH_LOADING)
@@ -30,8 +30,8 @@ export const searchOutcomes = ({ text, page }) => {
 
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
 
-    const selectSharedContext = getSelectedSharedContext(getState(), scope)
-    const context = selectSharedContext?.uuid || contextUuid
+    const selectLaunchContext = getSelectedLaunchContext(getState(), scope)
+    const context = selectLaunchContext?.uuid || contextUuid
 
     return dispatch({
       type: CALL_SERVICE,

@@ -26,4 +26,17 @@ describe('WithAlignmentSet', () => {
     expect(props.loadAlignments.calledOnce).to.be.true
     expect(props.loadAlignments.calledWith('xxxooo')).to.be.true
   })
+
+  it('loads launch contexts on mount', () => {
+    const launchContexts = [
+      {uuid: 'foo', name: 'foo'},
+      {uuid: 'bar', name: 'bar'}
+    ]
+    const props = makeProps({
+      launchContexts: launchContexts
+    })
+    mount(<AlignedDummy {...props} />)
+    expect(props.loadAlignments.calledOnce).to.be.true
+    expect(props.loadAlignments.getCall(0).args[1]).to.eql(launchContexts)
+  })
 })

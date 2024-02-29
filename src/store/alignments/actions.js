@@ -4,19 +4,28 @@ import {
   SET_ALIGNMENTS,
   VIEW_ALIGNMENT,
   CLOSE_ALIGNMENT,
-  UPDATE_ALIGNMENT
+  UPDATE_ALIGNMENT,
+  SET_LAUNCH_CONTEXTS
 } from '../../constants'
-import { getAlignedOutcomeIds, getAlignedOutcome, getOutcomeAlignmentSetId } from './selectors'
+import {getAlignedOutcomeIds, getAlignedOutcome, getOutcomeAlignmentSetId, getLaunchContextUuid} from './selectors'
 import { getConfig } from '../config/selectors'
 import { setError } from '../context/actions'
+import {loadSelectedLaunchContext} from '../OutcomePicker/actions'
 
 /*
  * action creators
  */
+export const setLaunchContexts = createAction(SET_LAUNCH_CONTEXTS)
 export const setAlignments = createAction(SET_ALIGNMENTS)
 export const viewAlignmentAction = createAction(VIEW_ALIGNMENT)
 export const closeAlignment = createAction(CLOSE_ALIGNMENT)
 export const updateAlignment = createAction(UPDATE_ALIGNMENT)
+
+export const loadLaunchContexts = (launchContexts) => {
+  return (dispatch, _getState) => {
+    return dispatch(setLaunchContexts(launchContexts))
+  }
+}
 
 export const viewAlignment = (outcomeId) => {
   return (dispatch, getState, _arg, scope) => {
@@ -52,12 +61,17 @@ export const updateAlignments = (guid, outcomes, updateCallback) => {
   }
 }
 
-export const loadAlignments = (alignmentSetId, updateCallback) => {
+export const loadAlignments = (alignmentSetId, launchContexts, updateCallback) => {
   return (dispatch, getState, _arg, scope) => {
     if (alignmentSetId && getOutcomeAlignmentSetId(getState(), scope) === alignmentSetId) {
       return Promise.resolve()
     }
+    if (launchContexts) {
+      dispatch(loadLaunchContexts(launchContexts))
+      dispatch(loadSelectedLaunchContext())
+    }
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
+    const launchContext = getLaunchContextUuid(getState(), scope)
     return dispatch(clearAlignmentSet())
       .then(() => {
         return dispatch({
@@ -65,7 +79,7 @@ export const loadAlignments = (alignmentSetId, updateCallback) => {
           payload: {
             service: 'outcomes',
             method: 'getAlignments',
-            args: [host, jwt, alignmentSetId, contextUuid]
+            args: [host, jwt, alignmentSetId, contextUuid, launchContext]
           }
         })
       })
@@ -97,12 +111,13 @@ export const removeAlignment = (alignmentId, updateCallback, shouldUpdateArtifac
 export const createAlignmentSet = (outcomeIds) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt } = getConfig(getState(), scope)
+    const launchContext = getLaunchContextUuid(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'createAlignmentSet',
-        args: [host, jwt, outcomeIds]
+        args: [host, jwt, outcomeIds, launchContext]
       }
     })
   }

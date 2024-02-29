@@ -95,7 +95,7 @@ describe('OutcomeCheckbox', () => {
     const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
     const change = wrapper.find(Checkbox).prop('onChange')
     change()
-    expect(props.selectOutcomeIds.calledWith([101]))
+    expect(props.selectOutcomeIds.calledWith(['101'])).to.be.true
   })
 
   it('calls deselectOutcomeIds when selected and user clicks', () => {
@@ -105,7 +105,7 @@ describe('OutcomeCheckbox', () => {
     const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
     const change = wrapper.find(Checkbox).prop('onChange')
     change()
-    expect(props.deselectOutcomeIds.calledWith([101]))
+    expect(props.deselectOutcomeIds.calledWith(['101'])).to.be.true
   })
 
   it('meets a11y standards', () => {

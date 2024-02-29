@@ -84,9 +84,9 @@ export const algorithmDataShape = PropTypes.oneOfType([
 
 export const stylesShape = PropTypes.object
 
-export const selectedSharedContextShape = PropTypes.shape({
+export const selectedLaunchContextShape = PropTypes.shape({
   uuid: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 })
 
-export const sharedContextsShape = PropTypes.arrayOf(selectedSharedContextShape)
+export const launchContextsShape = PropTypes.arrayOf(selectedLaunchContextShape)

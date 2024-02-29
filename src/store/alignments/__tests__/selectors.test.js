@@ -6,7 +6,8 @@ import {
   getAlignedOutcome,
   getAlignedOutcomeCount,
   getAnyOutcome,
-  makeIsOpen
+  makeIsOpen,
+  getLaunchContextUuid
 } from '../selectors'
 
 describe('alignments/selectors', () => {
@@ -114,15 +115,15 @@ describe('alignments/selectors', () => {
       expect(outcome.label).to.equal('l1')
     })
 
-    it('can pull outcomes from sharedContext outcomes', () => {
+    it('can pull outcomes from launchContext outcomes', () => {
       const state = fromJS({
         scopeForTest: {
           config: {
             contextUuid: 'course_100'
           },
-          OutcomePicker: {
-            sharedContexts: [
-              {uuid: 'sharedContext', name: 'sharedContext'}
+          alignments: {
+            launchContexts: [
+              {uuid: 'launchContext', name: 'LaunchContext'}
             ]
           }
         },
@@ -131,7 +132,7 @@ describe('alignments/selectors', () => {
             course_100: {
               1: { id: 1, label: 'l1', title: 't1', child_ids: ['2', '3'] }
             },
-            sharedContext: {
+            launchContext: {
               4: { id: 4, label: 'l4', title: 't4', child_ids: ['5', '6'] }
             }
           }
@@ -145,6 +146,34 @@ describe('alignments/selectors', () => {
       const state = Map()
       const outcome = getAnyOutcome(state, 'scopeForTest', '101')
       expect(outcome).to.be.null
+    })
+  })
+  describe('launchContexts', () => {
+    const scope = 'scopeForTest'
+    function setLaunchContexts(state, launchContexts) {
+      return state.setIn([scope, 'alignments', 'launchContexts'], fromJS(launchContexts))
+    }
+
+    it('is null if launchContexts is null', () => {
+      expect(getLaunchContextUuid(state, scope)).to.deep.equal(null)
+    })
+
+    it('is null if launchContexts is empty', () => {
+      const launchContexts = []
+      const newState = setLaunchContexts(state, launchContexts)
+      expect(getLaunchContextUuid(newState, scope)).to.deep.equal(null)
+    })
+
+    it('is only element if launchContexts has one element', () => {
+      const launchContexts = [{uuid: 'foo', name: 'bar'}]
+      const newState = setLaunchContexts(state, launchContexts)
+      expect(getLaunchContextUuid(newState, scope)).to.deep.equal('foo')
+    })
+
+    it('is last if launchContexts has multiple entries', () => {
+      const launchContexts = [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}]
+      const newState = setLaunchContexts(state, launchContexts)
+      expect(getLaunchContextUuid(newState, scope)).to.deep.equal('fuz')
     })
   })
 })

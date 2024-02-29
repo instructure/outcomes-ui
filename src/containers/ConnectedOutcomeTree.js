@@ -12,10 +12,10 @@ import {
   getExpandedIds,
   makeIsOutcomeSelected,
   getActiveChildren,
-  getSharedContexts,
-  getSelectedSharedContext
+  getSelectedLaunchContext
 } from '../store/OutcomePicker/selectors'
 import OutcomeTree from '../components/OutcomeTree'
+import { getLaunchContexts } from '../store/alignments/selectors'
 
 const mapStateToProps = (state, ownProps) => {
   const { scope } = ownProps
@@ -27,8 +27,8 @@ const mapStateToProps = (state, ownProps) => {
     rootOutcomeIds: getRootOutcomeIds(state, scope),
     activeCollection: getActiveCollection(state, scope),
     expandedIds: getExpandedIds(state, scope),
-    sharedContexts: getSharedContexts(state, scope),
-    selectedSharedContext: getSelectedSharedContext(state, scope)
+    launchContexts: getLaunchContexts(state, scope),
+    selectedLaunchContext: getSelectedLaunchContext(state, scope)
   }
 }
 

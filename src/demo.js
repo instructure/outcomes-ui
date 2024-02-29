@@ -53,7 +53,7 @@ const DemoAlignment = (props) => {
     artifactId,
     artifactTypeName,
     contextUuid,
-    sharedContexts,
+    launchContexts,
     emptySetHeading,
     displayMasteryDescription,
     displayMasteryPercentText,
@@ -78,7 +78,7 @@ const DemoAlignment = (props) => {
         artifactType={artifactType}
         artifactId={artifactId}
         contextUuid={contextUuid}
-        sharedContexts={sharedContexts}
+        launchContexts={launchContexts}
         host={outcomesHost}
         jwt={jwt}
         emptyText="No outcomes are aligned"
@@ -104,7 +104,7 @@ const DemoAlignment = (props) => {
           alignmentSetId={alignmentSetId}
           pickerType={currentPicker}
           contextUuid={contextUuid}
-          sharedContexts={sharedContexts}
+          launchContexts={launchContexts}
           emptySetHeading={emptySetHeading}
           onUpdate={console.log}
           artifactType={artifactType}
@@ -234,7 +234,7 @@ function rerender() {
           {/* Using the strings artifactType and artifactId to not interfere with the
             * other demos that use the same artifactType and artifactId. If we didn't do
             * this, the properties of the last component rendered on the page would take
-            * precedence. This would result in the sharedContexts not being set in the
+            * precedence. This would result in the launchContexts not being set in the
             * redux store.
             *
             * The integration test use the demo app to test against. Unfortunately, the tests rely on the order of the
@@ -247,12 +247,10 @@ function rerender() {
             artifactType='artifactType'
             artifactId='artifactId'
             contextUuid="dummy_uuid"
-            sharedContexts={[
+            launchContexts={[
               {uuid:'dummy_uuid',  name:'Dummy UUID - Default uuid'},
               {uuid:'K-science',  name:'The science of K'},
               {uuid:'1-science',  name:'One Science #1'},
-              {uuid:'euYV4xoDWZgrdFDiIsOhJ8IKXfQfS5nL3iD8OhvK',  name:'Empty Context'},
-              {uuid: 'contextDoesNotExistHereForTestingErrorHandling', name: 'Error Handling'}
             ]}
             emptySetHeading="Align Institution outcomes to this quiz."
             displayMasteryDescription

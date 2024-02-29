@@ -23,10 +23,10 @@ const WithAlignmentSet = (ComponentClass) => class extends React.Component {
   }
 
   loadIfNeeded (props) {
-    const { alignmentSetId, loadAlignments } = props
+    const { alignmentSetId, loadAlignments, launchContexts } = props
     if (!this.state || this.state.alignmentSetId !== alignmentSetId) {
       this.setState({ alignmentSetId })
-      loadAlignments(alignmentSetId)
+      loadAlignments(alignmentSetId, launchContexts)
     }
   }
 

@@ -31,7 +31,7 @@ describe('context/selectors', () => {
           3: { id: 3, label: 'l3', title: 't3', child_ids: [] },
           4: { id: 4, label: 'l4', title: 't4' }
         },
-        selectedSharedContext: {
+        selectedLaunchContext: {
           5: { id: 5, label: 'l5', title: 't5' }
         }
       },
@@ -49,10 +49,10 @@ describe('context/selectors', () => {
     }
   })
 
-  const stateWithSelectedSharedContext = state.merge({
+  const stateWithSelectedLaunchContext = state.merge({
     scopeForTest: {
       OutcomePicker: {
-        selectedSharedContext: {uuid: 'selectedSharedContext', name: 'selectedSharedContext'}
+        selectedLaunchContext: {uuid: 'selectedLaunchContext', name: 'selectedLaunchContext'}
       }
     }
   })
@@ -118,12 +118,12 @@ describe('context/selectors', () => {
       expect(getOutcome(state, scope, '10')).to.be.null
     })
 
-    it('returns null if not present in the selected shared context', () => {
-      expect(getOutcome(stateWithSelectedSharedContext, scope, '3')).to.be.null
+    it('returns null if not present in the selected launch context', () => {
+      expect(getOutcome(stateWithSelectedLaunchContext, scope, '3')).to.be.null
     })
 
-    it('retrieves the correct value from the selected shared context', () => {
-      expect(getOutcome(stateWithSelectedSharedContext, scope, '5')).to.have.property('id', 5)
+    it('retrieves the correct value from the selected launch context', () => {
+      expect(getOutcome(stateWithSelectedLaunchContext, scope, '5')).to.have.property('id', 5)
     })
 
   })

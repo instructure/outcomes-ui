@@ -14,10 +14,10 @@ const scopedActions = scopeActions({ ...actions, setOutcomes })
 
 describe('search/actions', () => {
   const contextUuid = 'course_100'
-  const selectedSharedContext = {uuid: 'dummy_uuid', name: 'Dummy UUID'}
-  const sharedContexts = [
+  const selectedLaunchContext = {uuid: 'dummy_uuid', name: 'Dummy UUID'}
+  const launchContexts = [
     {uuid: contextUuid, name: contextUuid},
-    selectedSharedContext
+    selectedLaunchContext
   ]
   const state = fromJS({
     scopeForTest: {
@@ -64,12 +64,14 @@ describe('search/actions', () => {
         expect(service.getSearchResults.getCall(0).args).to.include(contextUuid) // context
       })
 
-      it('handles shared context selector', () => {
+      it('handles launch context selector', () => {
         const newState = state.merge({
           scopeForTest: {
+            alignments: {
+              launchContexts: launchContexts
+            },
             OutcomePicker: {
-              sharedContexts: sharedContexts,
-              selectedSharedContext: selectedSharedContext
+              selectedLaunchContext: selectedLaunchContext
             }
           }
         })
@@ -85,7 +87,7 @@ describe('search/actions', () => {
         expect(service.getSearchResults).to.have.been.called
         expect(service.getSearchResults.getCall(0).args).to.include('def') // text
         expect(service.getSearchResults.getCall(0).args).to.include(1) // page
-        expect(service.getSearchResults.getCall(0).args).to.include(selectedSharedContext.uuid) // context
+        expect(service.getSearchResults.getCall(0).args).to.include(selectedLaunchContext.uuid) // context
       })
     })
 

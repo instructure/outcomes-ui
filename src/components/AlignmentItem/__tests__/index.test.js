@@ -110,7 +110,7 @@ describe('AlignmentItem', () => {
     const props = makeProps({ isOutcomeSelected, isTray: true })
     const wrapper = shallow(<AlignmentItem {...props} />, {disableLifecycleMethods: true})
     wrapper.find('Checkbox').simulate('change')
-    expect(props.selectOutcomeIds.calledWith([1]))
+    expect(props.selectOutcomeIds.calledWith(['1'])).to.be.true
   })
 
   it('calls deselectOutcomeIds when selected and user clicks', () => {
@@ -118,7 +118,7 @@ describe('AlignmentItem', () => {
     const props = makeProps({ isOutcomeSelected, isTray: true })
     const wrapper = shallow(<AlignmentItem {...props} />, {disableLifecycleMethods: true})
     wrapper.find('Checkbox').simulate('change')
-    expect(props.deselectOutcomeIds.calledWith([1]))
+    expect(props.deselectOutcomeIds.calledWith(['1'])).to.be.true
   })
 
   it('displays the popover when the outcome title is truncated', () => {

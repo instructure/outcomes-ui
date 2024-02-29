@@ -41,10 +41,10 @@ const stateWithOutcomes = fromJS({
   }
 })
 
-const stateWithSelectedSharedContext = stateWithOutcomes.merge({
+const stateWithSelectedLaunchContext = stateWithOutcomes.merge({
   scopeForTest: {
     OutcomePicker: {
-      selectedSharedContext: {uuid: 'selectedSharedContext', name: 'selectedSharedContext'}
+      selectedLaunchContext: {uuid: 'selectedLaunchContext', name: 'selectedLaunchContext'}
     }
   }
 })
@@ -110,13 +110,13 @@ describe('context/actions', () => {
         })
     })
 
-    it('calls outcome service to load outcomes with selected shared context', () => {
+    it('calls outcome service to load outcomes with selected launch context', () => {
       const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
-      const store = createMockStore(stateWithSelectedSharedContext, service)
+      const store = createMockStore(stateWithSelectedLaunchContext, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
           expect(service.loadOutcomes.calledOnce).to.be.true
-          expect(service.loadOutcomes.getCall(0).args).to.include('selectedSharedContext')
+          expect(service.loadOutcomes.getCall(0).args).to.include('selectedLaunchContext')
           return null
         })
     })
@@ -132,13 +132,13 @@ describe('context/actions', () => {
         })
     })
 
-    it('dispatches setOutcomes on outcome service success with selected shared context', () => {
+    it('dispatches setOutcomes on outcome service success with selected launch context', () => {
       const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
-      const store = createMockStore(stateWithSelectedSharedContext, service)
+      const store = createMockStore(stateWithSelectedLaunchContext, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
           expect(store.getActions()).to.deep.include(scopedActions.setOutcomes(
-            { selectedSharedContext: response.outcomes }
+            { selectedLaunchContext: response.outcomes }
           ))
           expect(store.getActions()[0].payload.root).to.be.present
           return null
@@ -206,14 +206,14 @@ describe('context/actions', () => {
         })
     })
 
-    it('calls loadOutcomes for unloaded children when shared context is selected', () => {
+    it('calls loadOutcomes for unloaded children when launch context is selected', () => {
       const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
-      const store = createMockStore(stateWithSelectedSharedContext, service)
+      const store = createMockStore(stateWithSelectedLaunchContext, service)
 
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
           expect(service.loadOutcomes.calledOnce).to.be.true
-          expect(service.loadOutcomes.args[0][contextUuidIndex]).to.deep.equal('selectedSharedContext')
+          expect(service.loadOutcomes.args[0][contextUuidIndex]).to.deep.equal('selectedLaunchContext')
           expect(service.loadOutcomes.args[0][outcomeIdsIndex]).to.deep.equal(['1'])
           return null
         })
@@ -229,13 +229,13 @@ describe('context/actions', () => {
         })
     })
 
-    it('adds its outcomes to the state under the selected shared context', () => {
+    it('adds its outcomes to the state under the selected launch context', () => {
       const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
-      const store = createMockStore(stateWithSelectedSharedContext, service)
+      const store = createMockStore(stateWithSelectedLaunchContext, service)
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
           expect(store.getActions()).to.deep.include(
-            scopedActions.setOutcomes({ selectedSharedContext: response.outcomes })
+            scopedActions.setOutcomes({ selectedLaunchContext: response.outcomes })
           )
           return null
         })

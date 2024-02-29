@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import AlignmentList from '../components/AlignmentList'
 import WithAlignmentSet from '../components/WithAlignmentSet'
-import { getAlignedOutcomes, makeIsOpen } from '../store/alignments/selectors'
+import {getAlignedOutcomes, getLaunchContexts, makeIsOpen} from '../store/alignments/selectors'
 import * as contextActions from '../store/context/actions'
 import * as alignmentActions from '../store/alignments/actions'
 import * as outcomePickerActions from '../store/OutcomePicker/actions'
@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     addModal: pickerType === 'tray' ? ConnectedOutcomeTray : ConnectedOutcomePickerModal,
     alignedOutcomes: getAlignedOutcomes(state, scope),
+    launchContext: getLaunchContexts(state, scope),
     isOpen: makeIsOpen(state, scope)
   }
 }

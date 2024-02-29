@@ -35,7 +35,7 @@ describe('OutcomeTree', () => {
       isOutcomeSelected: sinon.stub().returns(false),
       getOutcomeSummary: sinon.spy(),
       selectOutcomeIds: sinon.spy(),
-      changeSelectedSharedContext: sinon.spy(),
+      changeSelectedLaunchContext: sinon.spy(),
       deselectOutcomeIds: sinon.spy(),
       setFocusedOutcome: sinon.spy(),
       setActiveCollection: sinon.spy(),
@@ -152,26 +152,26 @@ describe('OutcomeTree', () => {
     expect(wrapper.getDOMNode().contains(document.activeElement))
   })
 
-  it('does not render context selector if missing sharedContexts', () => {
-    // Make props does not set the sharedContexts property
+  it('does not render context selector if missing launchContexts', () => {
+    // Make props does not set the launchContexts property
     const props = makeProps()
     const wrapper = mount(<OutcomeTree {...props} />)
     expect(wrapper.find(SimpleSelect)).to.have.length(0)
   })
 
   it('does not render context selector if only one context', () => {
-    // Make props does not set the sharedContexts property
+    // Make props does not set the launchContexts property
     const props = makeProps()
-    props.sharedContexts = [{uuid: 'foo', name: 'bar'}]
+    props.launchContexts = [{uuid: 'foo', name: 'bar'}]
     const wrapper = mount(<OutcomeTree {...props} />)
     expect(wrapper.find(SimpleSelect)).to.have.length(0)
   })
 
   it('render context selector if more than one context', () => {
-    // Make props does not set the sharedContexts property
+    // Make props does not set the launchContexts property
     const props = makeProps({
-      sharedContexts: [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}],
-      selectedSharedContext: {uuid: 'fuz', name: 'baz'}
+      launchContexts: [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}],
+      selectedLaunchContext: {uuid: 'fuz', name: 'baz'}
     })
     const wrapper = mount(<OutcomeTree {...props} />)
     const contextSelector = wrapper.find(SimpleSelect)

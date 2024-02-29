@@ -93,6 +93,16 @@ describe('OutcomePicker/actions', () => {
     })
   })
 
+  describe('changeSelectedLaunchContext', () => {
+    it('updates selected launch context', () => {
+      const store = createMockStore()
+      return store.dispatch(actions.changeSelectedLaunchContext({uuid: 'uuid', name: 'name'}))
+        .then(() => {
+          expect(store.getActions()).to.deep.include(scopedActions.setSelectedLaunchContext({uuid: 'uuid', name: 'name'}))
+        })
+    })
+  })
+
   describe('setActiveCollection', () => {
     it('sets the underlying collection id', () => {
       const store = createMockStore()
@@ -162,13 +172,13 @@ describe('OutcomePicker/actions', () => {
         })
     })
 
-    it('fetches an outcome and dispatches setFocusedOutcomeAction twice with selected shared context', () => {
+    it('fetches an outcome and dispatches setFocusedOutcomeAction twice with selected launch context', () => {
       const state = fromJS({
         scopeForTest: {
           OutcomePicker: {
-            selectedSharedContext: {
-              uuid: 'selectedSharedContext',
-              name: 'selectedSharedContext'
+            selectedLaunchContext: {
+              uuid: 'selectedLaunchContext',
+              name: 'selectedLaunchContext'
             }
           }
         }
@@ -191,13 +201,13 @@ describe('OutcomePicker/actions', () => {
           expect(store.getActions()).to.have.length(4)
           expect(store.getActions()[0]).to.deep.equal(scopedActions.setFocusedOutcomeAction(partial))
           expect(store.getActions()[2]).to.deep.equal(scopedActions.setScoringMethod({
-            context_uuid: 'selectedSharedContext',
+            context_uuid: 'selectedLaunchContext',
             id: 1,
             scoring_method: {}
           }))
           expect(store.getActions()[3]).to.deep.equal(scopedActions.setFocusedOutcomeAction(full))
           expect(service.getOutcome.calledOnce).to.be.true
-          expect(service.getOutcome.getCall(0).args).to.include('selectedSharedContext')
+          expect(service.getOutcome.getCall(0).args).to.include('selectedLaunchContext')
           return null
         })
     })
@@ -262,7 +272,7 @@ describe('OutcomePicker/actions', () => {
     })
 
     it('creates alignment set from selection', () => {
-      const newState = state.setIn(['OutcomePicker', 'selected'], List(['1', '2', '3']))
+      const newState = state.setIn(['scopeForTest', 'OutcomePicker', 'selected'], List(['1', '2', '3']))
       const service = {
         createAlignmentSet: sinon.stub().returns(Promise.resolve())
       }
@@ -270,7 +280,7 @@ describe('OutcomePicker/actions', () => {
       return store.dispatch(actions.saveOutcomePickerAlignments())
         .then(() => {
           expect(service.createAlignmentSet.calledOnce).to.be.true
-          expect(service.createAlignmentSet.calledWith(['1', '2', '3']))
+          expect(service.createAlignmentSet.getCall(0).args[2]).to.deep.equal(['1', '2', '3'])
         })
     })
 
@@ -283,7 +293,8 @@ describe('OutcomePicker/actions', () => {
       const store = createMockStore(newState, service)
       return store.dispatch(actions.saveOutcomePickerAlignments())
         .then(() => {
-          expect(service.createAlignmentSet.calledWith(['1', '2']))
+          expect(service.createAlignmentSet.calledOnce).to.be.true
+          expect(service.createAlignmentSet.getCall(0).args[2]).to.deep.equal(['1', '2'])
         })
     })
 
@@ -308,7 +319,8 @@ describe('OutcomePicker/actions', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.saveOutcomePickerAlignments(null, true))
         .then(() => {
-          expect(service.upsertArtifact.calledWith(['1', '2']))
+          expect(service.upsertArtifact.calledOnce).to.be.true
+          expect(service.upsertArtifact.getCall(0).args[5]).to.deep.equal(['1', '2'])
           expect(store.getActions()).to.deep.include(scopedActions.setAlignments({
             guid: 'guid-1',
             outcomes: [{id: '1'}, {id: '2'}]

@@ -10,7 +10,7 @@ import {
 } from '../../constants'
 import { hasRootOutcomes, getChildrenToLoad, getContext } from './selectors'
 import { getConfig } from '../config/selectors'
-import {getSelectedSharedContext} from '../OutcomePicker/selectors'
+import {getSelectedLaunchContext} from '../OutcomePicker/selectors'
 
 export const setContext = createAction(SET_CONTEXT)
 export const setOutcomes = createAction(SET_OUTCOMES)
@@ -44,8 +44,8 @@ export const loadContext = (host, jwt, contextUuid) => {
 export const loadRootOutcomes = () => {
   return (dispatch, getState, _arg, scope) => {
     const { contextUuid } = getConfig(getState(), scope)
-    const selectSharedContext = getSelectedSharedContext(getState(), scope)
-    const context = selectSharedContext?.uuid || contextUuid
+    const selectLaunchContext = getSelectedLaunchContext(getState(), scope)
+    const context = selectLaunchContext?.uuid || contextUuid
     if (hasRootOutcomes(getState(), scope)) {
       return Promise.resolve()
     }
@@ -71,8 +71,8 @@ export const loadRootOutcomes = () => {
 export const loadMoreOutcomes = (id) => {
   return (dispatch, getState, _arg, scope) => {
     const { contextUuid } = getConfig(getState(), scope)
-    const selectSharedContext = getSelectedSharedContext(getState(), scope)
-    const context = selectSharedContext?.uuid || contextUuid
+    const selectLaunchContext = getSelectedLaunchContext(getState(), scope)
+    const context = selectLaunchContext?.uuid || contextUuid
 
     const idsToLoad = getChildrenToLoad(getState(), scope, id)
     if (idsToLoad.length === 0) { return Promise.resolve() }
@@ -90,8 +90,8 @@ export const loadMoreOutcomes = (id) => {
 const loadOutcomes = (ids) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
-    const selectSharedContext = getSelectedSharedContext(getState(), scope)
-    const context = selectSharedContext?.uuid || contextUuid
+    const selectLaunchContext = getSelectedLaunchContext(getState(), scope)
+    const context = selectLaunchContext?.uuid || contextUuid
 
     return dispatch({
       type: CALL_SERVICE,

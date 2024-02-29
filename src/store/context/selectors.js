@@ -4,7 +4,7 @@ import { createSelector } from 'reselect'
 import createCachedSelector, { LruObjectCache } from 're-reselect'
 
 import { getConfig } from '../config/selectors'
-import {getSelectedSharedContext} from '../OutcomePicker/selectors'
+import {getSelectedLaunchContext} from '../OutcomePicker/selectors'
 
 function restrict (state, contextUuid) {
   return state.getIn(['context', contextUuid]) || Map()
@@ -21,8 +21,8 @@ export const isGroup = (outcome) => {
 const getContextOutcomes = createSelector(
   (state, scope) => {
     const uuid = getContextUuid(state, scope)
-    const selectSharedContext = getSelectedSharedContext(state, scope)
-    const context = selectSharedContext ? selectSharedContext.uuid : uuid
+    const selectLaunchContext = getSelectedLaunchContext(state, scope)
+    const context = selectLaunchContext ? selectLaunchContext.uuid : uuid
     return restrict(state, 'outcomes').get(context)
   },
   (contextOutcomes) => contextOutcomes ? contextOutcomes.toJS() : {}
@@ -36,8 +36,8 @@ export const hasContextOutcomes = (state, scope) => {
 export const getOutcome = createCachedSelector(
   (state, scope, id) => {
     const uuid = getContextUuid(state, scope)
-    const selectSharedContext = getSelectedSharedContext(state, scope)
-    const context = selectSharedContext?.uuid || uuid
+    const selectLaunchContext = getSelectedLaunchContext(state, scope)
+    const context = selectLaunchContext?.uuid || uuid
     return restrict(state, 'outcomes').getIn([context, id.toString()])
   },
   (outcome) => outcome ? outcome.toJS() : null
@@ -55,8 +55,8 @@ export const getRootOutcomeIds = createSelector(
   (state, scope) => {
     // uuid is the context in which we are viewing outcomes
     const uuid = getContextUuid(state, scope)
-    const selectSharedContext = getSelectedSharedContext(state, scope)
-    const context = selectSharedContext?.uuid || uuid
+    const selectLaunchContext = getSelectedLaunchContext(state, scope)
+    const context = selectLaunchContext?.uuid || uuid
     return restrict(state, 'rootOutcomeIds').get(context)
   },
   (ids) => ids ? ids.toJS() : []
