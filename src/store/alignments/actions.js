@@ -7,7 +7,13 @@ import {
   UPDATE_ALIGNMENT,
   SET_LAUNCH_CONTEXTS
 } from '../../constants'
-import {getAlignedOutcomeIds, getAlignedOutcome, getOutcomeAlignmentSetId, getLaunchContextUuid} from './selectors'
+import {
+  getAlignedOutcomeIds,
+  getAlignedOutcome,
+  getOutcomeAlignmentSetId,
+  getLaunchContextUuid,
+  isLaunchingFromRootAccount
+} from './selectors'
 import { getConfig } from '../config/selectors'
 import { setError } from '../context/actions'
 import {loadSelectedLaunchContext} from '../OutcomePicker/actions'
@@ -72,6 +78,7 @@ export const loadAlignments = (alignmentSetId, launchContexts, updateCallback) =
     }
     const { host, jwt, contextUuid } = getConfig(getState(), scope)
     const launchContext = getLaunchContextUuid(getState(), scope)
+    const launchingFromRoot = isLaunchingFromRootAccount(getState(), scope)
     return dispatch(clearAlignmentSet())
       .then(() => {
         return dispatch({
@@ -79,7 +86,7 @@ export const loadAlignments = (alignmentSetId, launchContexts, updateCallback) =
           payload: {
             service: 'outcomes',
             method: 'getAlignments',
-            args: [host, jwt, alignmentSetId, contextUuid, launchContext]
+            args: [host, jwt, alignmentSetId, contextUuid, launchContext, launchingFromRoot]
           }
         })
       })
@@ -112,12 +119,13 @@ export const createAlignmentSet = (outcomeIds) => {
   return (dispatch, getState, _arg, scope) => {
     const { host, jwt } = getConfig(getState(), scope)
     const launchContext = getLaunchContextUuid(getState(), scope)
+    const launchingFromRoot = isLaunchingFromRootAccount(getState(), scope)
     return dispatch({
       type: CALL_SERVICE,
       payload: {
         service: 'outcomes',
         method: 'createAlignmentSet',
-        args: [host, jwt, outcomeIds, launchContext]
+        args: [host, jwt, outcomeIds, launchContext, launchingFromRoot]
       }
     })
   }

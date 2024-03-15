@@ -7,7 +7,7 @@ import {
   getAlignedOutcomeCount,
   getAnyOutcome,
   makeIsOpen,
-  getLaunchContextUuid
+  getLaunchContextUuid, getRootAccountContextUuid, isLaunchingFromRootAccount
 } from '../selectors'
 
 describe('alignments/selectors', () => {
@@ -15,8 +15,8 @@ describe('alignments/selectors', () => {
     scopeForTest: {
       alignments: {
         alignedOutcomes: [
-          { id: '101', label: 'l1', title: 't2' },
           { id: '102', label: 'l2', title: 't1' },
+          { id: '101', label: 'l1', title: 't2' },
           { id: '103', label: 'l3', title: 't3' }
         ],
         openAlignmentId: 12
@@ -168,12 +168,16 @@ describe('alignments/selectors', () => {
       const launchContexts = [{uuid: 'foo', name: 'bar'}]
       const newState = setLaunchContexts(state, launchContexts)
       expect(getLaunchContextUuid(newState, scope)).to.deep.equal('foo')
+      expect(getRootAccountContextUuid(newState, scope)).to.deep.equal('foo')
+      expect(isLaunchingFromRootAccount(newState, scope)).to.equal(true)
     })
 
     it('is last if launchContexts has multiple entries', () => {
       const launchContexts = [{uuid: 'foo', name: 'bar'}, {uuid: 'fuz', name: 'baz'}]
       const newState = setLaunchContexts(state, launchContexts)
       expect(getLaunchContextUuid(newState, scope)).to.deep.equal('fuz')
+      expect(getRootAccountContextUuid(newState, scope)).to.deep.equal('foo')
+      expect(isLaunchingFromRootAccount(newState, scope)).to.equal(false)
     })
   })
 })

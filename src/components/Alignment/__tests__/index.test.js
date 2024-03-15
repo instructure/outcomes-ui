@@ -7,6 +7,8 @@ import { Link } from '@instructure/ui-link'
 import { Text } from '@instructure/ui-text'
 import Alignment from '../index'
 import checkA11y from '../../../test/checkA11y'
+import {Pill} from '@instructure/ui-pill'
+import {Tooltip} from '@instructure/ui-tooltip'
 
 describe('Alignment', () => {
   function makeProps (props = {}) {
@@ -59,6 +61,84 @@ describe('Alignment', () => {
     const link = wrapper.find(Text).last()
     expect(link).to.have.length(1)
     expect(link.text()).to.equal('User can foo a bar')
+  })
+
+  describe('renderOutcomeDecoration', () => {
+    function getDecoratedOutcome(decorator) {
+      return makeProps({
+        outcome: {
+          id: '1',
+          label: 'FOO',
+          title: 'User can foo a bar',
+          source_context_info: {name: null},
+          decorator: decorator
+        }
+      })
+    }
+
+    it('does not decorate if there is no decorator', () => {
+      const wrapper = mount(<Alignment {...makeProps()} />)
+      const pill = wrapper.find(Pill).last()
+      expect(pill).to.have.length(0)
+    })
+
+
+    it('does not decorate if decorator is HIDE', () => {
+      const props = getDecoratedOutcome('HIDE')
+      const wrapper = mount(<Alignment {...props} />)
+      const pill = wrapper.find(Pill).last()
+      expect(pill).to.have.length(0)
+    })
+
+    it('decorates if decorator is SUB_ACCOUNT_OUTCOME', () => {
+      const props = getDecoratedOutcome('SUB_ACCOUNT_OUTCOME')
+      const wrapper = mount(<Alignment {...props} />)
+      const pill = wrapper.find(Pill).last()
+      expect(pill).to.have.length(1)
+      expect(pill.props().color).to.equal('primary')
+      expect(pill.text()).to.equal('Sub-Account Outcome')
+
+      const tip = wrapper.find(Tooltip).last()
+      expect(tip).to.have.length(0)
+    })
+
+    it('decorates if decorator is NOT_IN_SUB_ACCOUNT', () => {
+      const props = getDecoratedOutcome('NOT_IN_SUB_ACCOUNT')
+      const wrapper = mount(<Alignment {...props} />)
+      const pill = wrapper.find(Pill).last()
+      expect(pill).to.have.length(1)
+      expect(pill.props().color).to.equal('danger')
+      expect(pill.text()).to.equal('Not in this Sub-Account')
+
+      const tip = wrapper.find(Tooltip).last()
+      expect(tip).to.have.length(1)
+      expect(tip.props().renderTip).to.equal('To add this outcome, navigate to the Outcomes Management page.')
+    })
+
+    it('decorates if decorator is COURSE_OUTCOME', () => {
+      const props = getDecoratedOutcome('COURSE_OUTCOME')
+      const wrapper = mount(<Alignment {...props} />)
+      const pill = wrapper.find(Pill).last()
+      expect(pill).to.have.length(1)
+      expect(pill.props().color).to.equal('primary')
+      expect(pill.text()).to.equal('Course Outcome')
+
+      const tip = wrapper.find(Tooltip).last()
+      expect(tip).to.have.length(0)
+    })
+
+    it('decorates if decorator is NOT_IN_COURSE', () => {
+      const props = getDecoratedOutcome('NOT_IN_COURSE')
+      const wrapper = mount(<Alignment {...props} />)
+      const pill = wrapper.find(Pill).last()
+      expect(pill).to.have.length(1)
+      expect(pill.props().color).to.equal('danger')
+      expect(pill.text()).to.equal('Not in this Course')
+
+      const tip = wrapper.find(Tooltip).last()
+      expect(tip).to.have.length(1)
+      expect(tip.props().renderTip).to.equal('To add this outcome, navigate to the Outcomes Management page.')
+    })
   })
 
   it('includes an icon', () => {

@@ -19,6 +19,91 @@ const getTotal = (response) => {
   return total ? Number.parseInt(total) : 0
 }
 
+const SUB_ACCOUNT_OUTCOME = 'SUB_ACCOUNT_OUTCOME'
+const NOT_IN_SUB_ACCOUNT = 'NOT_IN_SUB_ACCOUNT'
+const COURSE_OUTCOME = 'COURSE_OUTCOME'
+const NOT_IN_COURSE = 'NOT_IN_COURSE'
+const HIDE = 'HIDE'
+
+const DECORATOR_SORT_ORDER = {
+  null: 0,
+  undefined: 0,
+  SUB_ACCOUNT_OUTCOME: 1,
+  NOT_IN_SUB_ACCOUNT: 2,
+  COURSE_OUTCOME: 3,
+  NOT_IN_COURSE: 4,
+  HIDE: 5
+}
+
+const byDecorator = (o1, o2) => {
+  const d1 = DECORATOR_SORT_ORDER[o1.decorator]
+  const d2 = DECORATOR_SORT_ORDER[o2.decorator]
+
+  if (d1 < d2) {
+    return -1
+  } else if (d1 > d2) {
+    return 1
+  }
+  return 0
+}
+
+/* eslint-disable no-param-reassign */
+const  decorateAlignments = (alignmentSet, launchContext, isLaunchingFromRootAccount) => {
+  const outcomes = alignmentSet.outcomes
+  if(!launchContext || !outcomes) {
+    return alignmentSet
+  }
+  outcomes.forEach((outcome) => {
+    if (isLaunchingFromRootAccount) {
+      // No need to decorate if outcome is in root account
+      if (!outcome.in_launch_context) {
+        switch (outcome.source_context_info?.context_type) {
+          case 'course':
+            outcome.decorator = COURSE_OUTCOME
+            break
+          case 'account':
+            outcome.decorator = SUB_ACCOUNT_OUTCOME
+            break
+        }
+      }
+    } else if (outcome.launch_context_type === 'account') {
+      // No need to decorate if outcome is in the sub-account
+      if (!outcome.in_launch_context) {
+        switch (outcome.source_context_info?.context_type) {
+          case 'course':
+            outcome.decorator = COURSE_OUTCOME
+            break
+          case 'account':
+            outcome.decorator = NOT_IN_SUB_ACCOUNT
+            break
+        }
+      }
+    } else if (outcome.launch_context_type === 'course') {
+      // No need to decorate if outcome is in the course
+      if (!outcome.in_launch_context) {
+        switch (outcome.source_context_info?.context_type) {
+          case 'course':
+            outcome.decorator = HIDE
+            break
+          case 'account':
+            outcome.decorator = NOT_IN_COURSE
+            break
+        }
+      }
+    }
+  })
+
+  // Now that the outcomes are populated with the decorator, sort by title,
+  // filter out those that we need to hide, then sort by decorator.
+  alignmentSet.outcomes = outcomes.sort((a, b) => {
+    const titleA = (a && a.title) || 'ZZZZZZZZZZZZ' // treat null as really large
+    const titleB = (b && b.title) || 'ZZZZZZZZZZZZ' // treat null as really large
+    return titleA.localeCompare(titleB)
+  }).filter((outcome) => outcome.decorator !== HIDE).sort(byDecorator)
+  return alignmentSet
+}
+/* eslint-enable no-param-reassign */
+
 class OutcomesService {
   get (host, jwt, path) {
     return fetch(host + path, {
@@ -77,7 +162,7 @@ class OutcomesService {
       .then((json) => json)
   }
 
-  getAlignments (host, jwt, alignmentSetId, contextUuid, launchContext) {
+  getAlignments (host, jwt, alignmentSetId, contextUuid, launchContext, isLaunchingFromRootAccount) {
     if (!alignmentSetId) {
       return Promise.resolve([])
     }
@@ -94,7 +179,9 @@ class OutcomesService {
     return this.get(host, jwt, `/api/alignment_sets/${alignmentSetId}?${params}`)
       .then(checkResponse)
       .then(toJson)
-      .then((json) => (json.alignment_set || json))
+      .then((json) => {
+        return decorateAlignments(json.alignment_set || json, launchContext, isLaunchingFromRootAccount)
+      })
   }
 
   getArtifact (host, jwt, artifactType, artifactId) {
@@ -123,7 +210,7 @@ class OutcomesService {
       .then((json) => (json.alignment_set || json))
   }
 
-  createAlignmentSet (host, jwt, outcomeIds, launchContext) {
+  createAlignmentSet (host, jwt, outcomeIds, launchContext, isLaunchingFromRootAccount) {
     if (!outcomeIds.length) {
       return Promise.resolve({guid: null})
     }
@@ -139,7 +226,9 @@ class OutcomesService {
     return this.post(host, jwt, '/api/alignment_sets', params)
       .then(checkResponse)
       .then(toJson)
-      .then((json) => (json.alignment_set || json))
+      .then((json) => {
+        return decorateAlignments(json.alignment_set || json, launchContext, isLaunchingFromRootAccount)
+      })
   }
 
   getOutcomeRollups (host, jwt, artifactType, artifactId) {

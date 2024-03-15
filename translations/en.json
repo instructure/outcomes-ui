@@ -86,6 +86,9 @@
   "count_plural_one_outcome_other_outcomes_7112a43f": {
     "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
   },
+  "course_outcome_6757974b": {
+    "message": "Course Outcome"
+  },
   "csv_export_has_completed_f7a0b07a": {
     "message": "CSV export has completed"
   },
@@ -212,6 +215,12 @@
   "no_outcomes_are_currently_selected_f6092d7f": {
     "message": "No Outcomes are currently selected"
   },
+  "not_in_this_course_47a38653": {
+    "message": "Not in this Course"
+  },
+  "not_in_this_sub_account_8e97a627": {
+    "message": "Not in this Sub-Account"
+  },
   "number_of_aligned_questions_4a4402a6": {
     "message": "Number of Aligned Questions"
   },
@@ -297,6 +306,9 @@
   "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
     "message": "Students must finish the assessment before any outcome results will show here. Check back here after some students have completed the assessment."
   },
+  "sub_account_outcome_202c4ff4": {
+    "message": "Sub-Account Outcome"
+  },
   "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
     "message": "The assessment has no outcomes aligned to it. Go to the Build tab to align outcomes."
   },
@@ -311,6 +323,9 @@
   },
   "to_add_or_create_outcomes_visit_the_canvas_outcome_d5910ce4": {
     "message": "To add or create outcomes, visit the Canvas outcomes page or contact your admin."
+  },
+  "to_add_this_outcome_navigate_to_the_outcomes_manag_99e3b9c": {
+    "message": "To add this outcome, navigate to the Outcomes Management page."
   },
   "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
     "message": "Variable due to All/Random selection from item bank"

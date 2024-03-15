@@ -20,7 +20,7 @@ const generateStyle = () => {
       overflow: 'hidden',
       textOverflow: 'ellipsis'
     },
-    delete: { flex: '0 0 1rem' }
+    rightAligned: { flex: '0 0 1rem' }
   }
 }
 

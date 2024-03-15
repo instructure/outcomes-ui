@@ -5,13 +5,21 @@ import PropTypes from 'prop-types'
 import { IconButton } from '@instructure/ui-buttons'
 import { Text } from '@instructure/ui-text'
 import { Link } from '@instructure/ui-link'
-import { IconTrashLine, IconOutcomesLine } from '@instructure/ui-icons'
+import {
+  IconTrashLine,
+  IconOutcomesLine,
+  IconSubaccountsLine,
+  IconCoursesLine,
+  IconWarningLine
+} from '@instructure/ui-icons'
 import { View } from '@instructure/ui-view'
 import { withStyle, jsx } from '@instructure/emotion'
 import OutcomeViewModal from '../OutcomeViewModal'
 import generateComponentTheme from '../theme'
 import generateStyle from './styles'
 import { stylesShape } from '../../store/shapes'
+import {Pill} from '@instructure/ui-pill'
+import {Tooltip} from '@instructure/ui-tooltip'
 
 @withStyle(generateStyle, generateComponentTheme)
 export default class Alignment extends React.Component {
@@ -50,6 +58,62 @@ export default class Alignment extends React.Component {
   focus() {
     this.focusLink.focus()
   }
+
+  getIcon(decorator, color) {
+    if (color === 'danger') {
+      return IconWarningLine
+    }
+    return decorator?.includes('ACCOUNT') ? IconSubaccountsLine : IconCoursesLine
+  }
+
+  getPillText(decorator, color) {
+    if (color === 'danger') {
+      return decorator?.includes('ACCOUNT') ? t('Not in this Sub-Account') : t('Not in this Course')
+    }
+    return decorator?.includes('ACCOUNT') ? t('Sub-Account Outcome') : t('Course Outcome')
+  }
+
+  renderWithTooltip = (Icon, color, text) => {
+    return (
+      <span css={this.props.styles.rightAligned}>
+        <Tooltip renderTip={t('To add this outcome, navigate to the Outcomes Management page.')}>
+          <Pill
+            renderIcon={<Icon/>}
+            color={color}
+            margin="xxx-small"
+          >
+            {text}
+          </Pill>
+        </Tooltip>
+      </span>
+    )
+  }
+
+  renderWithoutTooltip = (Icon, color, text) => {
+    return (
+      <span css={this.props.styles.rightAligned}>
+        <Pill
+          renderIcon={<Icon/>}
+          color={color}
+          margin="xxx-small"
+        >
+          {text}
+        </Pill>
+      </span>
+    )
+  }
+
+  renderOutcomeDecoration(index, outcome) {
+    const decorator = outcome.decorator
+    const display = ['SUB_ACCOUNT_OUTCOME', 'NOT_IN_SUB_ACCOUNT', 'COURSE_OUTCOME', 'NOT_IN_COURSE'].includes(decorator)
+    const color = decorator?.startsWith('NOT_IN') ? 'danger' : 'primary'
+    const Icon = this.getIcon(decorator, color)
+    const text = this.getPillText(decorator, color)
+    const renderFunction = color === 'danger' ? this.renderWithTooltip : this.renderWithoutTooltip
+    return display && renderFunction(Icon, color, text)
+  }
+
+
 
   render() {
     const {
@@ -110,8 +174,9 @@ export default class Alignment extends React.Component {
             </span>
           </span>
         </span>
+        {this.renderOutcomeDecoration(index, outcome)}
         {!readOnly && (
-          <span css={this.props.styles.delete} data-automation="alignment-delete">
+          <span css={this.props.styles.rightAligned} data-automation="alignment-delete">
             <IconButton
               screenReaderLabel=""
               onClick={removeAlignment}

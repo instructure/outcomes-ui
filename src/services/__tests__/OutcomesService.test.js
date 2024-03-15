@@ -552,4 +552,293 @@ describe('OutcomesService', () => {
         })
     })
   })
+
+  describe('decorateAlignments', () => {
+    const rootAccountUuid = {
+      name: 'Root University',
+      context_type: 'account',
+      uuid: 'rootAccountUuid'
+    }
+    const subAccountUuid = {
+      name: 'Sub Account',
+      context_type: 'account',
+      uuid: 'subAccountUuid'
+    }
+    const courseUuid = {
+      name: 'Course',
+      context_type: 'course',
+      uuid: 'courseUuid'
+    }
+
+    function getResponse(launchContextType, sourceContext, inLaunchContext) {
+      return {
+        guid: '29515c21-ee97-4a10-836c-c8f669fcf098',
+        outcomes: [
+          {
+            id: '2889',
+            guid: '',
+            group: false,
+            label: 'Default U - Account Level Outcome',
+            title: 'Default U - Account Level Outcome',
+            source_context_info: sourceContext,
+            in_launch_context: inLaunchContext,
+            launch_context_type: launchContextType
+          }
+        ]
+      }
+    }
+
+    describe('no launch context', () => {
+      it('does not change alignments', () => {
+        const alignments = getResponse('course', courseUuid, true)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result).to.deep.equal(alignments)
+          })
+      })
+    })
+
+    describe('launching from course', () => {
+      it('when outcome in the course, no decoration', () => {
+        const alignments = getResponse('course', courseUuid, true)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).not.to.be.present
+          })
+      })
+
+      it('when outcome has been added to the course, no decoration', () => {
+        const alignments = getResponse('course', subAccountUuid, true)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).not.to.be.present
+          })
+      })
+
+      it('when outcome from another course, hide', () => {
+        const alignments = getResponse('course', courseUuid, false)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(0)
+          })
+      })
+
+      it('when outcome not in the course, decorate with not in the course', () => {
+        const alignments = getResponse('course', subAccountUuid, false)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).to.equal('NOT_IN_COURSE')
+          })
+      })
+    })
+
+    describe('launching from sub-account', () => {
+      it('when outcome in the sub-account, no decoration', () => {
+        const alignments = getResponse('account', subAccountUuid, true)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).not.to.be.present
+          })
+      })
+
+      it('when outcome has been added to the sub-account, no decoration', () => {
+        const alignments = getResponse('account', rootAccountUuid, true)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).not.to.be.present
+          })
+      })
+
+      it('when outcome from a course, decorate with course outcome', () => {
+        const alignments = getResponse('account', courseUuid, false)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).to.equal('COURSE_OUTCOME')
+          })
+      })
+
+      it('when outcome from another account, decorate with not in account', () => {
+        const alignments = getResponse('account', subAccountUuid, false)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).to.equal('NOT_IN_SUB_ACCOUNT')
+          })
+      })
+    })
+
+    describe('launching from root account', () => {
+      it('when outcome in the root account, no decoration', () => {
+        const alignments = getResponse('account', subAccountUuid, true)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', true)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).not.to.be.present
+          })
+      })
+
+
+      it('when outcome from a course, decorate with course outcome', () => {
+        const alignments = getResponse('account', courseUuid, false)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', true)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).to.equal('COURSE_OUTCOME')
+          })
+      })
+
+      it('when outcome from another account, decorate with sub-account account', () => {
+        const alignments = getResponse('account', subAccountUuid, false)
+        mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+        return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', true)
+          .then((result) => {
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).to.equal('SUB_ACCOUNT_OUTCOME')
+          })
+      })
+    })
+  })
+
+  describe('sortAlignments', () => {
+    const rootAccountUuid = {
+      name: 'Root University',
+      context_type: 'account',
+      uuid: 'rootAccountUuid'
+    }
+    const subAccountUuid = {
+      name: 'Sub Account',
+      context_type: 'account',
+      uuid: 'subAccountUuid'
+    }
+    const courseUuid = {
+      name: 'Course',
+      context_type: 'course',
+      uuid: 'courseUuid'
+    }
+
+    function getResponse(launchContextType) {
+      return {
+        guid: '29515c21-ee97-4a10-836c-c8f669fcf098',
+        outcomes: [
+          {
+            id: '1',
+            guid: '',
+            group: false,
+            title: 'Root Account Outcome Not In Launch',
+            source_context_info: rootAccountUuid,
+            in_launch_context: false,
+            launch_context_type: launchContextType
+          },
+          {
+            id: '2',
+            guid: '',
+            group: false,
+            title: 'Root Account Outcome In Launch',
+            source_context_info: rootAccountUuid,
+            in_launch_context: true,
+            launch_context_type: launchContextType
+          },
+          {
+            id: '3',
+            guid: '',
+            group: false,
+            title: 'Course Outcome Not In Launch',
+            source_context_info: courseUuid,
+            in_launch_context: false,
+            launch_context_type: launchContextType
+          },
+          {
+            id: '4',
+            guid: '',
+            group: false,
+            title: 'Course Outcome In Launch',
+            source_context_info: courseUuid,
+            in_launch_context: true,
+            launch_context_type: launchContextType
+          },
+          {
+            id: '5',
+            guid: '',
+            group: false,
+            title: 'Sub-Account Outcome Not In Launch',
+            source_context_info: subAccountUuid,
+            in_launch_context: false,
+            launch_context_type: launchContextType
+          },
+          {
+            id: '6',
+            guid: '',
+            group: false,
+            title: 'Sub-Account Outcome In Launch',
+            source_context_info: subAccountUuid,
+            in_launch_context: true,
+            launch_context_type: launchContextType
+          }
+        ]
+      }
+    }
+
+    it('sort order for when launch context is course', () => {
+      const alignments = getResponse('course')
+      mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+      return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+        .then((result) => {
+          // 4, 2, 6 are in launch context (4 2 6 because 'Course...', 'Root...', 'Sub..' alphabetically)
+          // 3 is a course outcome not in launch context, so it is filtered out
+          // 1 and 5  are account outcomes not in the course
+          expect(result.outcomes.map((o) => o.id)).to.deep.equal(['4', '2', '6', '1', '5'])
+          expect(result.outcomes.map((o) => o.decorator)).to.deep.equal([
+            undefined, undefined, undefined, 'NOT_IN_COURSE', 'NOT_IN_COURSE'
+          ])
+        })
+
+    })
+    it('sort order for when launch context is sub-account', () => {
+      const alignments = getResponse('account')
+      mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+      return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
+        .then((result) => {
+          // 4, 2, 6 are in launch context (4 2 6 because 'Course...', 'Root...', 'Sub..' alphabetically)
+          // 1 and 5  are account outcomes not in the sub account
+          // 3 is a course outcome not in launch context
+          expect(result.outcomes.map((o) => o.id)).to.deep.equal([ '4', '2', '6', '1', '5', '3' ])
+          expect(result.outcomes.map((o) => o.decorator)).to.deep.equal([
+            undefined, undefined, undefined, 'NOT_IN_SUB_ACCOUNT', 'NOT_IN_SUB_ACCOUNT', 'COURSE_OUTCOME'
+          ])
+        })
+
+    })
+    it('sort order for when launch context is root account', () => {
+      const alignments = getResponse('account')
+      mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
+      return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', true)
+        .then((result) => {
+          // 4, 2, 6 are in launch context (4 2 6 because 'Course...', 'Root...', 'Sub..' alphabetically)
+          // 1 and 5  are account outcomes not in the root account
+          // 3 is a course outcome not in the root account
+          expect(result.outcomes.map((o) => o.id)).to.deep.equal(['4', '2', '6', '1', '5', '3'])
+          expect(result.outcomes.map((o) => o.decorator)).to.deep.equal([
+            undefined, undefined, undefined, 'SUB_ACCOUNT_OUTCOME', 'SUB_ACCOUNT_OUTCOME', 'COURSE_OUTCOME'
+          ])
+        })
+
+    })
+  })
 })
