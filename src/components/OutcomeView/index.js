@@ -147,7 +147,7 @@ export default class OutcomeView extends React.Component {
             />
           </Text>
         </div>
-        {scoringTiers && scoringMethod && displayMasteryInformation && (
+        {scoringTiers && scoringMethod && (
           <ScoringTiers
             outcomeResult={outcomeResult}
             scoringTiers={scoringTiers}
