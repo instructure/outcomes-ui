@@ -72,7 +72,7 @@ export const loadAlignments = (alignmentSetId, launchContexts, updateCallback) =
     if (alignmentSetId && getOutcomeAlignmentSetId(getState(), scope) === alignmentSetId) {
       return Promise.resolve()
     }
-    if (launchContexts) {
+    if (launchContexts && launchContexts.length > 0) {
       dispatch(loadLaunchContexts(launchContexts))
       dispatch(loadSelectedLaunchContext())
     }

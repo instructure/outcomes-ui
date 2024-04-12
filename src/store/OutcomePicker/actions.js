@@ -40,10 +40,9 @@ export const loadSelectedLaunchContext = () => {
   return (dispatch, getState, _arg, scope) => {
     const selected = getSelectedLaunchContext(getState(), scope)
     const launchContexts = getLaunchContexts(getState(), scope)
-    if (launchContexts === null || selected) {
-      return Promise.resolve()
+    if (launchContexts && launchContexts.length > 0 && !selected) {
+      dispatch(setSelectedLaunchContext(launchContexts[0]))
     }
-    return dispatch(setSelectedLaunchContext(launchContexts[0]))
   }
 }
 

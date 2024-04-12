@@ -69,6 +69,7 @@ const DemoAlignment = (props) => {
           artifactType={artifactType}
           artifactId={artifactId}
           contextUuid={contextUuid}
+          launchContexts={launchContexts}
           host={outcomesHost}
           jwt={jwt}
         />

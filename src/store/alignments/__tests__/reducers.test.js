@@ -4,7 +4,8 @@ import {
   SET_ALIGNMENTS,
   VIEW_ALIGNMENT,
   CLOSE_ALIGNMENT,
-  UPDATE_ALIGNMENT
+  UPDATE_ALIGNMENT,
+  SET_LAUNCH_CONTEXTS
 } from '../../../constants'
 import reducer from '../reducers'
 
@@ -15,6 +16,14 @@ describe('alignments/reducers', () => {
     alignmentSetId: 'originalguid',
     alignedOutcomes: [{id: '2'}, {id: '3'}],
     openAlignmentId: 10
+  })
+
+  describe('launchContexts', () => {
+    it('is updated by SET_LAUNCH_CONTEXTS', () => {
+      const newLaunchContexts = [{uuid: 'foo', name: 'Dave University'}]
+      const newState = reduce(state, SET_LAUNCH_CONTEXTS, newLaunchContexts)
+      expect(newState.get('launchContexts')?.toJS()).to.deep.equal(newLaunchContexts)
+    })
   })
 
   describe('alignedOutcomes', () => {

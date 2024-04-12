@@ -175,6 +175,32 @@ describe('alignments/actions', () => {
         })
     })
 
+    it('does not set launch contexts to empty array ', () => {
+      const service = { getAlignments: sinon.stub().returns({guid: 'guid', outcomes: []}) }
+      const store = createMockStore(Map(), service)
+      return store.dispatch(actions.loadAlignments('hexadecimal', []))
+        .then(() => {
+          for (const action of store.getActions()) {
+            expect(action.type).to.not.equal('SET_LAUNCH_CONTEXTS')
+          }
+          expect(service.getAlignments.calledOnce).to.be.true
+          return null
+        })
+    })
+
+    it('sets Launch context if one is supplied', () => {
+      const service = { getAlignments: sinon.stub().returns({guid: 'guid', outcomes: []}) }
+      const store = createMockStore(Map(), service)
+      return store.dispatch(actions.loadAlignments('hexadecimal', [{uuid: 'foo', name: 'Dave University'}]))
+        .then(() => {
+          expect(store.getActions()[0]).to.deep.equal(
+            scopedActions.setLaunchContexts([{uuid: 'foo', name: 'Dave University'}])
+          )
+          expect(service.getAlignments.calledOnce).to.be.true
+          return null
+        })
+    })
+
     it('calls outcome service with launchContext to load alignments', () => {
       const service = { getAlignments: sinon.stub().returns(Promise.resolve()) }
       const store = createMockStore(Map(fromJS({
@@ -186,6 +212,10 @@ describe('alignments/actions', () => {
       })), service)
       return store.dispatch(actions.loadAlignments('hexadecimal'))
         .then(() => {
+          // launch contexts is not passed to loadAlignments. Instead, it is read from the store.
+          for (const action of store.getActions()) {
+            expect(action.type).to.not.equal('SET_LAUNCH_CONTEXTS')
+          }
           expect(service.getAlignments.calledOnce).to.be.true
           expect(service.getAlignments.getCall(0).args).to.include('foo')
           return null

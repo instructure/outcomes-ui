@@ -15,7 +15,9 @@ import { setError, setScoringMethod } from '../../../store/context/actions'
 import { setAlignments } from '../../alignments/actions'
 import { setScope } from '../../activePicker/actions'
 
-const scopedActions = scopeActions({ ...actions, setError, setScoringMethod, setAlignments, setScope })
+const scopedActions = scopeActions(
+  { ...actions, setError, setScoringMethod, setAlignments, setScope }
+)
 
 describe('OutcomePicker/actions', () => {
   describe('selectOutcomeIds', () => {
@@ -90,6 +92,60 @@ describe('OutcomePicker/actions', () => {
         .then(() => {
           expect(store.getActions()).to.deep.include(scopedActions.setOutcomePickerState('choosing'))
         })
+    })
+  })
+
+  describe('loadSelectedLaunchContext', () => {
+    it('does not setSelectedLaunchContext when there is no launch context', () => {
+      const store = createMockStore(Map(fromJS({
+        scopeForTest: {
+          alignments: {
+          }
+        }
+      })))
+      store.dispatch(actions.loadSelectedLaunchContext())
+      expect(store.getActions().length).to.equal(0)
+    })
+
+    it('does not setSelectedLaunchContext when launch context is empty', () => {
+      const store = createMockStore(Map(fromJS({
+        scopeForTest: {
+          alignments: {
+            launchContexts: []
+          }
+        }
+      })))
+      store.dispatch(actions.loadSelectedLaunchContext())
+      expect(store.getActions().length).to.equal(0)
+    })
+
+    it('does not setSelectedLaunchContext when already selected', () => {
+      const store = createMockStore(Map(fromJS({
+        scopeForTest: {
+          alignments: {
+          },
+          OutcomePicker: {
+            selectedLaunchContext: {uuid: 'foo', name: 'Dave University'}
+          }
+        }
+      })))
+      store.dispatch(actions.loadSelectedLaunchContext())
+      expect(store.getActions().length).to.equal(0)
+    })
+
+    it('setSelectedLaunchContext when launch context is not empty', () => {
+      const store = createMockStore(Map(fromJS({
+        scopeForTest: {
+          alignments: {
+            launchContexts: [{uuid: 'foo', name: 'Dave University'}]
+          }
+        }
+      })))
+      store.dispatch(actions.loadSelectedLaunchContext())
+      expect(store.getActions().length).to.equal(1)
+      expect(store.getActions()[0]).to.deep.equal(
+        scopedActions.setSelectedLaunchContext({uuid: 'foo', name: 'Dave University'})
+      )
     })
   })
 
