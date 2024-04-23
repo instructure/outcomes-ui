@@ -47,6 +47,19 @@ describe('OutcomeLabels', () => {
     expect(wrapper.text().match(/No Outcomes are currently selected/)).to.be.truthy
   })
 
+  it('renders default text when all outcomes are hidden', () => {
+    const props = makeProps({
+      outcomes: [
+        { id: '1', label: 'ABC', title: 'Title1', decorator: 'HIDE' },
+        { id: '2', label: 'DEF', title: 'Title2', decorator: 'HIDE' },
+        { id: '3', label: 'GHI', title: 'Title3', decorator: 'HIDE' }
+      ]
+    })
+
+    const wrapper = render(<OutcomeLabels {...props} />)
+    expect(wrapper.text().match(/No Outcomes are currently selected/)).to.be.truthy
+  })
+
   it('meets a11y standards', () => {
     return checkA11y(<OutcomeLabels {...makeProps()} />)
   })

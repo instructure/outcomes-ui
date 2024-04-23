@@ -66,6 +66,22 @@ describe('alignments/selectors', () => {
       const count = getAlignedOutcomeCount(state, 'anotherScope')
       expect(count).to.equal(0)
     })
+
+    it('does not count hidden outcomes', () => {
+      const newState = fromJS({
+        scopeForTest: {
+          alignments: {
+            alignedOutcomes: [
+              { id: '102', label: 'l2', title: 't1', decorator: 'HIDE' },
+              { id: '101', label: 'l1', title: 't2' },
+              { id: '103', label: 'l3', title: 't3' }
+            ]
+          }
+        }
+      })
+      const count = getAlignedOutcomeCount(newState, 'scopeForTest')
+      expect(count).to.equal(2)
+    })
   })
 
   describe('makeIsOpen', () => {

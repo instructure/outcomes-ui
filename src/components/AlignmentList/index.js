@@ -117,9 +117,8 @@ class AlignmentList extends React.Component {
     )
   }
 
-  renderList() {
+  renderList(filteredOutcomes) {
     const {
-      alignedOutcomes,
       viewAlignment,
       closeAlignment,
       isOpen,
@@ -132,7 +131,7 @@ class AlignmentList extends React.Component {
     return (
       <div>
         <ul css={this.props.styles.list}>
-          {alignedOutcomes.map((outcome, index) => (
+          {filteredOutcomes.map((outcome, index) => (
             <Alignment
               key={outcome.id}
               ref={(o) => {
@@ -177,8 +176,9 @@ class AlignmentList extends React.Component {
 
   renderBody() {
     const { alignedOutcomes } = this.props
-    if (alignedOutcomes && alignedOutcomes.length > 0) {
-      return this.renderList()
+    const filteredOutcomes = alignedOutcomes.filter((outcome) => outcome.decorator !== 'HIDE')
+    if (filteredOutcomes && filteredOutcomes.length > 0) {
+      return this.renderList(filteredOutcomes)
     } else {
       return this.renderEmpty()
     }

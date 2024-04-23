@@ -625,7 +625,8 @@ describe('OutcomesService', () => {
         mockGet('/api/alignment_sets/baz?includes[]=outcomes&includes[]=friendly_description&includes[]=source_context_info&context_uuid=alphabeta&launch_context=launchContext', alignments)
         return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
           .then((result) => {
-            expect(result.outcomes).to.have.length(0)
+            expect(result.outcomes).to.have.length(1)
+            expect(result.outcomes[0].decorator).to.equal('HIDE')
           })
       })
 
@@ -801,11 +802,11 @@ describe('OutcomesService', () => {
       return subject.getAlignments(host, jwt, 'baz', 'alphabeta', 'launchContext', false)
         .then((result) => {
           // 4, 2, 6 are in launch context (4 2 6 because 'Course...', 'Root...', 'Sub..' alphabetically)
-          // 3 is a course outcome not in launch context, so it is filtered out
           // 1 and 5  are account outcomes not in the course
-          expect(result.outcomes.map((o) => o.id)).to.deep.equal(['4', '2', '6', '1', '5'])
+          // 3 is a course outcome not in launch context, so it will be hidden
+          expect(result.outcomes.map((o) => o.id)).to.deep.equal(['4', '2', '6', '1', '5', '3'])
           expect(result.outcomes.map((o) => o.decorator)).to.deep.equal([
-            undefined, undefined, undefined, 'NOT_IN_COURSE', 'NOT_IN_COURSE'
+            undefined, undefined, undefined, 'NOT_IN_COURSE', 'NOT_IN_COURSE', 'HIDE'
           ])
         })
 

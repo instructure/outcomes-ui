@@ -197,4 +197,18 @@ describe('AlignmentList', () => {
       return checkA11y(<AlignmentList {...makeProps()} />)
     })
   })
+
+  describe('outcome decoration', () => {
+    it('behaves as empty if all outcomes are hidden', () => {
+      const props = makeProps({
+        alignedOutcomes: [
+          { id: '1', label: 'A1', title: 'tA1', decorator: 'HIDE' },
+          { id: '2', label: 'B2', title: 'tB2', decorator: 'HIDE' },
+          { id: '3', label: 'C3', title: 'tC3', decorator: 'HIDE' }
+        ]
+      })
+      const wrapper = mount(<AlignmentList {...props} />, {disableLifecycleMethods: true})
+      expect(wrapper.find(Billboard)).to.have.length(1)
+    })
+  })
 })

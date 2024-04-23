@@ -143,7 +143,7 @@ export default class Alignment extends React.Component {
     if (index !== 0){
       itemStyle.push(this.props.styles.itemSeparator)
     }
-    return (
+    return outcome.decorator !== 'HIDE' && (
       <li css={itemStyle} data-automation="outcomeAlignment__item">
         <span css={this.props.styles.outcome}>
           <Text size="large">

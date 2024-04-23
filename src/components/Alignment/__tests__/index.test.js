@@ -83,11 +83,11 @@ describe('Alignment', () => {
     })
 
 
-    it('does not decorate if decorator is HIDE', () => {
+    it('does not render if decorator is HIDE', () => {
       const props = getDecoratedOutcome('HIDE')
       const wrapper = mount(<Alignment {...props} />)
-      const pill = wrapper.find(Pill).last()
-      expect(pill).to.have.length(0)
+      const text = wrapper.find(Text).last()
+      expect(text).to.have.length(0)
     })
 
     it('decorates if decorator is SUB_ACCOUNT_OUTCOME', () => {

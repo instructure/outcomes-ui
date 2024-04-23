@@ -29,6 +29,7 @@ export default class OutcomeLabels extends React.Component {
 
   render() {
     const { outcomes, emptyText } = this.props
+    const filteredOutcomes = outcomes.filter((outcome) => outcome.decorator !== 'HIDE')
     return (
       <div
         css={this.props.styles.line}
@@ -40,10 +41,10 @@ export default class OutcomeLabels extends React.Component {
         </Text>
         <Text size="small">
           <div css={this.props.styles.text}>
-            {outcomes.length === 0
+            {filteredOutcomes.length === 0
               ? emptyText
-              : outcomes.map((o, i) => {
-                return this.wrap(o.title, i < outcomes.length - 1)
+              : filteredOutcomes.map((o, i) => {
+                return this.wrap(o.title, i < filteredOutcomes.length - 1)
               })}
           </div>
         </Text>

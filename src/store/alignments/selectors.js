@@ -55,7 +55,9 @@ export const getAlignedOutcomeIds = createSelector(
 
 export function getAlignedOutcomeCount (state, scope) {
   if (state && restrict(state, scope).get('alignedOutcomes')) {
-    return restrict(state, scope).get('alignedOutcomes').size
+    return restrict(state, scope).get('alignedOutcomes').filter((outcome) => {
+      return outcome.toJS().decorator !== 'HIDE'
+    }).size
   }
   return 0
 }

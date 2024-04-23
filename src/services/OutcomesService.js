@@ -93,13 +93,15 @@ const  decorateAlignments = (alignmentSet, launchContext, isLaunchingFromRootAcc
     }
   })
 
-  // Now that the outcomes are populated with the decorator, sort by title,
-  // filter out those that we need to hide, then sort by decorator.
+  // Now that the outcomes are populated with the decorator, sort by title then sort by decorator.
+  // The various components will need to filter out those that are hidden, but they need to be
+  // returned and stored in the redux store to prevent them from getting unaligned when the
+  // alignment set is mutated.
   alignmentSet.outcomes = outcomes.sort((a, b) => {
     const titleA = (a && a.title) || 'ZZZZZZZZZZZZ' // treat null as really large
     const titleB = (b && b.title) || 'ZZZZZZZZZZZZ' // treat null as really large
     return titleA.localeCompare(titleB)
-  }).filter((outcome) => outcome.decorator !== HIDE).sort(byDecorator)
+  }).sort(byDecorator)
   return alignmentSet
 }
 /* eslint-enable no-param-reassign */

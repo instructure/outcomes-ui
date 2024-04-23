@@ -43,7 +43,7 @@ export default class OutcomeTags extends React.Component {
     const { outcomes } = this.props
     return outcomes.sort((a, b) => {
       return a.title ? a.title.localeCompare(b.title) : -1
-    })
+    }).filter((outcome) => outcome.decorator !== 'HIDE')
   }
 
   renderEmpty() {
@@ -96,6 +96,7 @@ export default class OutcomeTags extends React.Component {
   }
 
   render() {
+    const sortedOutcomes = this.getSortedOutcomes()
     return (
       <div
         css={this.props.styles.line}
@@ -105,7 +106,7 @@ export default class OutcomeTags extends React.Component {
           <IconOutcomesLine />
         </Text>
         <div css={this.props.styles.tags}>
-          {this.props.outcomes.length ? this.renderTags() : this.renderEmpty()}
+          {sortedOutcomes.length ? this.renderTags() : this.renderEmpty()}
         </div>
       </div>
     )

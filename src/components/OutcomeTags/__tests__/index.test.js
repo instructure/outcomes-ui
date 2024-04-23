@@ -13,7 +13,8 @@ describe('OutcomeTags', () => {
     const outcomes = [
       { id: '1', label: 'ABC', title: 'Title1' },
       { id: '2', label: 'DEF', title: 'Title2' },
-      { id: '3', label: 'GHI', title: 'Title3' }
+      { id: '3', label: 'GHI', title: 'Title3' },
+      { id: '4', label: 'JKL', title: 'Title4', decorator: 'HIDE' }
     ]
 
     return Object.assign({
@@ -49,6 +50,15 @@ describe('OutcomeTags', () => {
     expect(text.match(/Title3/)).to.be.truthy
   })
 
+  it('does not render outcome titles for hidden outcomes', () => {
+    const wrapper = render(<OutcomeTags {...makeProps()} />)
+    const text = wrapper.text()
+    expect(text.match(/Title1/)).to.be.truthy
+    expect(text.match(/Title2/)).to.be.truthy
+    expect(text.match(/Title3/)).to.be.truthy
+    expect(text.match(/Title4/)).to.be.falsey
+  })
+
   it('does not render outcome labels', () => {
     const wrapper = render(<OutcomeTags {...makeProps()} />)
     const text = wrapper.text()
@@ -60,6 +70,12 @@ describe('OutcomeTags', () => {
   it('renders default text when outcome list empty', () => {
     const props = makeProps({ outcomes: [] })
 
+    const wrapper = render(<OutcomeTags {...props} />)
+    expect(wrapper.text().match(/No Outcomes are currently selected/)).to.be.truthy
+  })
+
+  it('renders default text when all outcomes are hidden', () => {
+    const props = makeProps({ outcomes: [{ id: '1', label: 'ABC', title: 'Title1', decorator: 'HIDE' }] })
     const wrapper = render(<OutcomeTags {...props} />)
     expect(wrapper.text().match(/No Outcomes are currently selected/)).to.be.truthy
   })
