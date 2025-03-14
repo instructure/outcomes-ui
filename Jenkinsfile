@@ -29,9 +29,8 @@ def verify_translations_up_to_date() {
 pipeline {
   agent { label 'docker' }
   environment {
-      COMPOSE_PROJECT_NAME = 'outcomes-ui'
-      COMPOSE_FILE = 'docker-compose.test.yml'
-      SNYK_TOKEN = credentials('SNYK_TOKEN')
+    COMPOSE_PROJECT_NAME = 'outcomes-ui'
+    COMPOSE_FILE = 'docker-compose.test.yml'
   }
 
   options {
@@ -64,14 +63,30 @@ pipeline {
           echo 'Verifying Translations'
           def translations_status = verify_translations_up_to_date()
           sh "exit $translations_status"
+        }
+      }
+    }
 
-          if (env.GERRIT_EVENT_TYPE == "change-merged") {
-            echo 'Scanning modules for security vulnerabilities'
-            try {
-              sh 'docker-compose run -e "SNYK_TOKEN=${SNYK_TOKEN}" --rm karma bash -c "yarn run snyk-test; yarn run snyk-monitor"'
-            } catch (err) {
-              echo "Snyk module scan exited with non-zero status code! " + err.toString()
-            }
+    stage ('Snyk') {
+      when { environment name: "GERRIT_EVENT_TYPE", value: "change-merged" }
+      environment {
+        SNYK_TOKEN = credentials('SNYK_TOKEN_CANVAS_LMS_ORG')
+        ORG = "canvas-lms"
+        PROJECT_NAME = "outcomes-ui"
+        PROJECT_TEAM = "dev-team=engage"
+      }
+      steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+          script {
+            sh '''
+              docker-compose run -e "SNYK_TOKEN=${SNYK_TOKEN}" --rm karma bash -c "
+                SNYK_ORG=${ORG} 
+                SNYK_PROJECT_NAME=${PROJECT_NAME} 
+                SNYK_PROJECT_TAGS=${PROJECT_TEAM} 
+                yarn run snyk-test;
+                yarn run snyk-monitor
+              "
+            '''
           }
         }
       }

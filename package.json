@@ -21,8 +21,8 @@
     "test": "karma start",
     "test:headless": "karma start --headless --no-sandbox",
     "mocha": "find src -name '*.js' | grep '__tests__' | xargs mocha --compilers js:@babel/register --require src/test/mocha-bootstrap",
-    "snyk-monitor": "node --max-old-space-size=4096 node_modules/.bin/snyk monitor --org=instructure --file=yarn.lock --project-name=outcomes-service:node",
-    "snyk-test": "node --max-old-space-size=4096 node_modules/.bin/snyk test --org=instructure --file=yarn.lock --project-name=outcomes-service:node",
+    "snyk-monitor": "node --max-old-space-size=4096 node_modules/.bin/snyk monitor --org=${SNYK_ORG} --file=yarn.lock --project-name=${SNYK_PROJECT_NAME} --project-tags=${SNYK_PROJECT_TAGS}",
+    "snyk-test": "node --max-old-space-size=4096 node_modules/.bin/snyk test --org=${SNYK_ORG} --file=yarn.lock --project-name=${SNYK_PROJECT_NAME} --project-tags=${SNYK_PROJECT_TAGS}",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test-storybook": "jest .storybook/storyshots.test.js"
