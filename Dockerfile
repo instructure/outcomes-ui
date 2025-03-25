@@ -1,7 +1,7 @@
 FROM instructure/node:16
 
-ENV APP_HOME /usr/src/app/
-ENV YARN_CACHE /home/docker/.cache/yarn
+ENV APP_HOME=/usr/src/app/
+ENV YARN_CACHE=/home/docker/.cache/yarn
 
 RUN mkdir -p $APP_HOME/coverage $APP_HOME/node_modules $YARN_CACHE
 
