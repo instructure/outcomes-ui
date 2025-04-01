@@ -23,7 +23,7 @@ describe('Pagination', () => {
   it('calls updatePage when a page is clicked', () => {
     const props = makeProps()
     const wrapper = mount(<Pagination {...props} />)
-    wrapper.find(InstuiPagination.Page).last().simulate('click')
+    wrapper.find(InstuiPagination.Page).last().find('button').simulate('click')
     expect(props.updatePage.calledWith(2)).to.be.true
   })
 
