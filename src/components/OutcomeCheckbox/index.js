@@ -42,6 +42,7 @@ export default class OutcomeCheckbox extends React.Component {
     return (
       <div css={this.props.styles.checkbox} className='OutcomeSelector'>
         <Checkbox
+          id={`outcome-select-${id}`}
           value={id}
           checked={this.selected()}
           onChange={() => this.toggleOutcomeSelection()}

@@ -24,8 +24,11 @@ describe('OutcomeCheckbox', () => {
   }
 
   it('renders a checkbox', () => {
-    const wrapper = mount(<OutcomeCheckbox {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(Checkbox)).to.have.length(1)
+    const props = makeProps()
+    const wrapper = mount(<OutcomeCheckbox {...props} />, {disableLifecycleMethods: true})
+    const checkbox = wrapper.find(Checkbox)
+    expect(checkbox).to.have.length(1)
+    expect(checkbox.prop('id')).to.equal(`outcome-select-${props.outcome.id}`)
   })
 
   it('renders outcome title in link', () => {

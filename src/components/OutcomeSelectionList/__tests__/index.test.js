@@ -59,6 +59,7 @@ describe('OutcomeSelectionList', () => {
     const wrapper = mount(<OutcomeSelectionList {...makeProps()} />, {disableLifecycleMethods: true})
     // Enzyme finds extra Checkbox components because of the instui decorator on the component
     expect(wrapper.find('Checkbox[value="selectAll"]')).to.have.length(3)
+    expect(wrapper.find('Checkbox[value="selectAll"]').at(0).prop('id')).to.equal('outcome-select-all')
   })
 
   it('renders select all as unchecked when no outcomes selected', () => {

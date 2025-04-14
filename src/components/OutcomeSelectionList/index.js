@@ -59,6 +59,7 @@ export default class OutcomeSelectionList extends React.Component {
       >
         <div css={this.props.styles.checkbox}>
           <Checkbox
+            id="outcome-select-all"
             value="selectAll"
             checked={this.allSelected()}
             onChange={() => this.toggleAllSelected()}
