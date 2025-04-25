@@ -1,4 +1,4 @@
-FROM instructure/node:16
+FROM instructure/node:18
 
 ENV APP_HOME=/usr/src/app/
 ENV YARN_CACHE=/home/docker/.cache/yarn
