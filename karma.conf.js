@@ -13,6 +13,11 @@ if (headless) {
 
 const coverageArgs = { plugins: [], reporters: [], coverageReporter: null }
 if (withCoverage) {
+  const { getSourceFilesThatHaveJestRTLTests } = require('./testing-utilities')
+
+  // don't measure coverage of files that already have jest tests
+  const ignoredSourceFiles = getSourceFilesThatHaveJestRTLTests()
+
   // eslint-disable-next-line immutable/no-mutation
   coverageArgs.coverageReporter = {
     reporters: [
@@ -22,10 +27,12 @@ if (withCoverage) {
     ],
     check: {
       global: { // fail if overall coverage too low
-        lines: 95
+        lines: 95,
+        excludes: ignoredSourceFiles
       },
       each: { // fail if individual file coverage too low
-        lines: 70
+        lines: 70,
+        excludes: ignoredSourceFiles
       }
     }
   }

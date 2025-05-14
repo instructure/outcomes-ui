@@ -117,7 +117,7 @@ const AlignmentItem = ({
   )
 
   return (
-    <View as="div" padding="x-small 0" data-automation="outcomeAlignment__item">
+    <View as="div" padding="x-small 0" data-automation="outcomeAlignment__item" data-testid="alignment-item">
       <Flex as="div" alignItems="start">
         <Flex.Item as="div" size={isTray ? '4.5rem' : '2rem'}>
           <div style={{ padding: '0.3125rem 0' }}>

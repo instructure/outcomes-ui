@@ -1,11 +1,10 @@
-import { expect } from 'chai'
+import { expect } from '@jest/globals'
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
 import MasteryDescription from '../index'
 import checkA11y from '../../../../test/checkA11y'
-import { Spinner } from '@instructure/ui-spinner'
-import styles from '../styles'
-import { findElementsWithStyle } from '../../../../util/__tests__/findElementsWithStyle'
+
 
 describe('MasteryDescription', () => {
   const scoringMethod = {
@@ -29,68 +28,67 @@ describe('MasteryDescription', () => {
     const props = makeProps({
       scoringMethod: null
     })
-    const wrapper = mount(<MasteryDescription {...props} />, {attachTo: document.body})
-    expect(wrapper.find(Spinner)).to.have.length(1)
+    render(<MasteryDescription {...props} />, {attachTo: document.body})
+    expect(screen.getByRole('img', {name: 'Loading'})).toBeInTheDocument()
   })
 
   it('does not render mastery percent text if displayMasteryPercentText is false', () => {
     const props = makeProps({
       displayMasteryPercentText: false
     })
-    const wrapper = mount(<MasteryDescription {...props} />)
-    const scoreMastery = wrapper.find(`.${styles.scoreMasteryText}`)
-    expect(scoreMastery.length).to.equal(0)
+    render(<MasteryDescription {...props} />)
+    expect(screen.queryByText('By aligning to this Quiz if the student scores above 60% mastery will be achieved.'))
+      .toBeNull()
   })
 
   it('does not render mastery percent text if no artifactTypeName provided', () => {
     const props = makeProps({
       artifactTypeName: null
     })
-    const wrapper = mount(<MasteryDescription {...props} />)
-    const scoreMastery = wrapper.find(`.${styles.scoreMasteryText}`)
-    expect(scoreMastery.length).to.equal(0)
+    render(<MasteryDescription {...props} />)
+    expect(screen.queryByText('By aligning to this Quiz if the student scores above 60% mastery will be achieved.'))
+      .toBeNull()
   })
 
   it('renders mastery percent text', () => {
-    const wrapper = mount(<MasteryDescription {...makeProps()} />)
-    const scoreMastery = findElementsWithStyle(wrapper, styles().scoreMasteryText)
-    expect(scoreMastery.length).to.equal(1)
+    const props = makeProps({})
+    render(<MasteryDescription {...props} />)
+    expect(screen.getByText('By aligning to this Quiz if the student scores above 60% mastery will be achieved.'))
+      .toBeInTheDocument()
   })
 
   it('renders mastery description for decaying_average', () => {
     const props = makeProps({
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'decaying_average'}
     })
-    const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = findElementsWithStyle(wrapper, styles().scoreMastery)
-    expect(txt.first().text()).to.match(/Decaying Average/)
+    render(<MasteryDescription {...props} />)
+    expect(screen.getByText('Mastery calculated by Decaying Average', {exact: false}))
+      .toBeInTheDocument()
   })
 
   it('renders mastery description for n_mastery', () => {
     const props = makeProps({
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'n_mastery'}
     })
-    const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = findElementsWithStyle(wrapper, styles().scoreMastery).find('Text')
-    expect(txt.first().text()).to.match(/n Number of Times/)
+    render(<MasteryDescription {...props} />)
+    const txt = screen.getByText(/n Number of Times/i)
+    expect(txt).toBeInTheDocument()
   })
 
   it('renders mastery description for highest', () => {
     const props = makeProps({
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'highest'}
     })
-    const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = findElementsWithStyle(wrapper, styles().scoreMastery).find('Text')
-    expect(txt.first().text()).to.match(/Highest Score/)
+    render(<MasteryDescription {...props} />)
+    expect(screen.getByText(/Highest Score/i)).toBeInTheDocument()
   })
 
   it('renders mastery description for latest', () => {
     const props = makeProps({
       scoringMethod: {...scoringMethod, mastery_percent: 0.8, algorithm: 'latest'}
     })
-    const wrapper = mount(<MasteryDescription {...props} />)
-    const txt = findElementsWithStyle(wrapper, styles().scoreMastery).find('Text')
-    expect(txt.first().text()).to.match(/Most Recent Score/)
+    render(<MasteryDescription {...props} />)
+    expect(screen.getByText(/Most Recent Score/i)).toBeInTheDocument()
   })
 
   it('meets a11y standards', () => {

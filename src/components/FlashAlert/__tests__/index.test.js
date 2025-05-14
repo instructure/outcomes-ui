@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import sinon from 'sinon'
 import { expect } from 'chai'
 import { mount } from 'enzyme'
-import FlashAlert, {showFlashAlert, showFlashError, showFlashSuccess, defaultTimeout} from '../FlashAlert'
+import FlashAlert, {showFlashAlert, showFlashError, showFlashSuccess, defaultTimeout} from '../../FlashAlert'
 import {Transition} from '@instructure/ui-motion'
 import {Alert} from '@instructure/ui-alerts'
 

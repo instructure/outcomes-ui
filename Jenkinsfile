@@ -95,6 +95,7 @@ pipeline {
     stage('UI Tests') {
       steps {
         sh 'docker-compose run --name outcomes_ui karma yarn test:headless -- --single-run --no-auto-watch --coverage'
+        sh 'docker-compose run --name outcomes_ui_jest karma yarn test:jest-rtl'
       }
       post {
         always {

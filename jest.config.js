@@ -15,7 +15,7 @@ module.exports = {
   // cacheDirectory: "/private/var/folders/cm/6h0rslfn3k70mgpml10d_85nkht033/T/jest_s1d943",
 
   // Automatically clear mock calls and instances between every test
-  // clearMocks: false,
+  clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -40,7 +40,20 @@ module.exports = {
   // ],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: undefined,
+  get coverageThreshold() {
+    const { getSourceFilesThatHaveJestRTLTests } = require('./testing-utilities')
+
+    const sourceFilesToCheckForCoverage = getSourceFilesThatHaveJestRTLTests()
+
+    const thresholdsPerFile = {
+      lines: 70, // doing what karma.conf.js#40 does with "each"
+      // see https://jestjs.io/docs/configuration#coveragethreshold-object for more info
+    }
+
+    return Object.fromEntries(
+      sourceFilesToCheckForCoverage.map(path => [path, thresholdsPerFile])
+    )
+  },
 
   // A path to a custom dependency extractor
   // dependencyExtractor: undefined,
@@ -123,7 +136,7 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
+  setupFiles: ['<rootDir>/src/test/jest-setup/resize-observer-mock.js'],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],
@@ -178,7 +191,7 @@ module.exports = {
   // unmockedModulePathPatterns: undefined,
 
   // Indicates whether each individual test should be reported during the run
-  // verbose: undefined,
+  verbose: true,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],
