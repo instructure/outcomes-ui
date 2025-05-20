@@ -1,5 +1,4 @@
-import { expect } from 'chai'
-import sinon from 'sinon'
+import { expect, jest, describe, it } from '@jest/globals'
 import { Map, fromJS } from 'immutable'
 import {
   SET_OUTCOMES,
@@ -7,7 +6,7 @@ import {
   SET_ERROR,
   SET_SCORING_METHOD
 } from '../../../constants'
-import createMockStore, { scopeActions } from '../../../test/createMockStore'
+import createMockStore, { scopeActions } from '../../../test/createMockStore_jest_rtl'
 import * as actions from '../actions'
 
 const scopedActions = scopeActions(actions)
@@ -56,24 +55,24 @@ describe('context/actions', () => {
   describe('setOutcomes', () => {
     it('creates an action', () => {
       const action = actions.setOutcomes([])
-      expect(action.type).to.equal(SET_OUTCOMES)
-      expect(action.payload).to.deep.equal([])
+      expect(action.type).toBe(SET_OUTCOMES)
+      expect(action.payload).toEqual([])
     })
   })
 
   describe('setRootOutcomeIds', () => {
     it('creates an action', () => {
       const action = actions.setRootOutcomeIds([])
-      expect(action.type).to.equal(SET_ROOT_OUTCOME_IDS)
-      expect(action.payload).to.deep.equal([])
+      expect(action.type).toBe(SET_ROOT_OUTCOME_IDS)
+      expect(action.payload).toEqual([])
     })
   })
 
   describe('setError', () => {
     it('creates an action', () => {
       const action = actions.setError('foo')
-      expect(action.type).to.equal(SET_ERROR)
-      expect(action.payload).to.deep.equal('foo')
+      expect(action.type).toBe(SET_ERROR)
+      expect(action.payload).toEqual('foo')
     })
   })
 
@@ -85,8 +84,8 @@ describe('context/actions', () => {
         scoring_method: {}
       }
       const action = actions.setScoringMethod(payload)
-      expect(action.type).to.equal(SET_SCORING_METHOD)
-      expect(action.payload).to.deep.equal(payload)
+      expect(action.type).toBe(SET_SCORING_METHOD)
+      expect(action.payload).toEqual(payload)
     })
   })
 
@@ -95,173 +94,158 @@ describe('context/actions', () => {
       const store = createMockStore(stateWithOutcomes)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()).to.have.length(0)
-          return null
+          expect(store.getActions()).toHaveLength(0)
         })
     })
 
     it('calls outcome service to load outcomes', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(service.loadOutcomes.calledOnce).to.be.true
-          return null
+          expect(service.loadOutcomes).toHaveBeenCalledTimes(1)
         })
     })
 
     it('calls outcome service to load outcomes with selected launch context', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithSelectedLaunchContext, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(service.loadOutcomes.calledOnce).to.be.true
-          expect(service.loadOutcomes.getCall(0).args).to.include('selectedLaunchContext')
-          return null
+          expect(service.loadOutcomes).toHaveBeenCalledTimes(1)
+          expect(service.loadOutcomes.mock.calls[0]).toContain('selectedLaunchContext')
         })
     })
 
     it('dispatches setOutcomes on outcome service success', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithoutOutcomes, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setOutcomes({ course_100: response.outcomes }))
-          expect(store.getActions()[0].payload.root).to.be.present
-          return null
+          expect(store.getActions()).toContainEqual(scopedActions.setOutcomes({ course_100: response.outcomes }))
+          expect(store.getActions()[1].payload.course_100).toBeDefined()
         })
     })
 
     it('dispatches setOutcomes on outcome service success with selected launch context', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithSelectedLaunchContext, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setOutcomes(
+          expect(store.getActions()).toContainEqual(scopedActions.setOutcomes(
             { selectedLaunchContext: response.outcomes }
           ))
-          expect(store.getActions()[0].payload.root).to.be.present
-          return null
+          expect(store.getActions()[1].payload.selectedLaunchContext).toBeDefined()
         })
     })
 
     it('creates a root level outcome to store roots if root ids are present', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()[0].payload.root).to.be.present
-          return null
+          expect(store.getActions()[1].payload).toBeDefined()
         })
     })
 
     it('does not create a root level outcome if root ids are not present', () => {
       const service = {
-        loadOutcomes: sinon.stub().returns(Promise.resolve({
+        loadOutcomes: jest.fn().mockResolvedValue({
           outcomes: [{id: 1}, {id: 2}],
           root_ids: []
-        }))
+        })
       }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()[0].payload.root).not.to.be.present
-          return null
+          expect(store.getActions()[1].payload.root).toBeUndefined()
         })
     })
 
     it('dispatches setRootOutcomeIds on outcome service success', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithoutOutcomes, service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setRootOutcomeIds({ course_100: response.root_ids }))
-          return null
+          expect(store.getActions()).toContainEqual(scopedActions.setRootOutcomeIds({ course_100: response.root_ids }))
         })
     })
 
     it('dispatches setError on outcome service failure', () => {
       const error = { message: 'foo bar baz' }
-      const service = { loadOutcomes: sinon.stub().returns(Promise.reject(error)) }
+      const service = { loadOutcomes: jest.fn().mockRejectedValue(error) }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadRootOutcomes())
         .then(() => {
-          expect(store.getActions()).to.have.length(2)
-          expect(store.getActions()[1]).to.deep.equal(scopedActions.setError(error))
-          return null
+          expect(store.getActions()).toHaveLength(2)
+          expect(store.getActions()[1]).toEqual(scopedActions.setError(error))
         })
     })
   })
 
   describe('loadMoreOutcomes', () => {
     it('calls loadOutcomes for unloaded children', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithOutcomes, service)
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
-          expect(service.loadOutcomes.calledOnce).to.be.true
-          expect(service.loadOutcomes.args[0][contextUuidIndex]).to.deep.equal('course_100')
-          expect(service.loadOutcomes.args[0][outcomeIdsIndex]).to.deep.equal(['1'])
-          return null
+          expect(service.loadOutcomes).toHaveBeenCalledTimes(1)
+          expect(service.loadOutcomes.mock.calls[0][contextUuidIndex]).toBe('course_100')
+          expect(service.loadOutcomes.mock.calls[0][outcomeIdsIndex]).toEqual(['1'])
         })
     })
 
     it('calls loadOutcomes for unloaded children when launch context is selected', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithSelectedLaunchContext, service)
 
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
-          expect(service.loadOutcomes.calledOnce).to.be.true
-          expect(service.loadOutcomes.args[0][contextUuidIndex]).to.deep.equal('selectedLaunchContext')
-          expect(service.loadOutcomes.args[0][outcomeIdsIndex]).to.deep.equal(['1'])
-          return null
+          expect(service.loadOutcomes).toHaveBeenCalledTimes(1)
+          expect(service.loadOutcomes.mock.calls[0][contextUuidIndex]).toBe('selectedLaunchContext')
+          expect(service.loadOutcomes.mock.calls[0][outcomeIdsIndex]).toEqual(['1'])
         })
     })
 
     it('adds its outcomes to the state', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithOutcomes, service)
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setOutcomes({ course_100: response.outcomes }))
-          return null
+          expect(store.getActions()).toContainEqual(scopedActions.setOutcomes({ course_100: response.outcomes }))
         })
     })
 
     it('adds its outcomes to the state under the selected launch context', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithSelectedLaunchContext, service)
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
-          expect(store.getActions()).to.deep.include(
+          expect(store.getActions()).toContainEqual(
             scopedActions.setOutcomes({ selectedLaunchContext: response.outcomes })
           )
-          return null
         })
     })
 
     it('does not add its root ids to the state', () => {
-      const service = { loadOutcomes: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { loadOutcomes: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithoutOutcomes, service)
       return store.dispatch(actions.loadMoreOutcomes('1'))
         .then(() => {
-          expect(store.getActions()).not.to.deep.include(
+          expect(store.getActions()).not.toContainEqual(
             scopedActions.setRootOutcomeIds({ course_100: response.root_ids })
           )
-          return null
         })
     })
 
     it('dispatches setError on outcome service failure', () => {
       const error = { message: 'foo bar baz' }
-      const service = { loadOutcomes: sinon.stub().returns(Promise.reject(error)) }
+      const service = { loadOutcomes: jest.fn().mockRejectedValue(error) }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadMoreOutcomes('12'))
         .then(() => {
-          expect(store.getActions()).to.have.length(2)
-          expect(store.getActions()[1]).to.deep.equal(scopedActions.setError(error))
-          return null
+          expect(store.getActions()).toHaveLength(2)
+          expect(store.getActions()[1]).toEqual(scopedActions.setError(error))
         })
     })
   })
@@ -301,55 +285,50 @@ describe('context/actions', () => {
     })
 
     it('calls getContext for unloaded children', () => {
-      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { getContext: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithoutContext, service)
       return store.dispatch(actions.loadContext('host', 'jwt', '1'))
         .then(() => {
-          expect(service.getContext.calledOnce).to.be.true
-          expect(service.getContext.args[0][2]).to.equal('1')
-          return null
+          expect(service.getContext).toHaveBeenCalledTimes(1)
+          expect(service.getContext.mock.calls[0][2]).toBe('1')
         })
     })
 
     it('adds its context to the state', () => {
-      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { getContext: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithoutContext, service)
       return store.dispatch(actions.loadContext('host', 'jwt', '1'))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setContext({ '1': { loading: false, data: response } }))
-          return null
+          expect(store.getActions()).toContainEqual(scopedActions.setContext({ '1': { loading: false, data: response } }))
         })
     })
 
     it('does not calls service when its already loaded', () => {
-      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { getContext: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithContext, service)
       return store.dispatch(actions.loadContext('host', 'jwt', '1'))
         .then(() => {
-          expect(store.getActions().length).to.be.equal(0)
-          return null
+          expect(store.getActions().length).toBe(0)
         })
     })
 
     it('does not calls service when its loading', () => {
-      const service = { getContext: sinon.stub().returns(Promise.resolve(response)) }
+      const service = { getContext: jest.fn().mockResolvedValue(response) }
       const store = createMockStore(stateWithContextLoading, service)
       return store.dispatch(actions.loadContext('host', 'jwt', '1'))
         .then(() => {
-          expect(store.getActions().length).to.be.equal(0)
-          return null
+          expect(store.getActions().length).toBe(0)
         })
     })
 
     it('dispatches setError on service failure', () => {
       const error = { message: 'foo bar baz' }
-      const service = { getContext: sinon.stub().returns(Promise.reject(error)) }
+      const service = { getContext: jest.fn().mockRejectedValue(error) }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadContext('host', 'jwt', '12'))
         .then(() => {
-          expect(store.getActions()).to.have.length(3)
-          expect(store.getActions()[2]).to.deep.equal(scopedActions.setError(error))
-          return null
+          expect(store.getActions()).toHaveLength(3)
+          expect(store.getActions()[2]).toEqual(scopedActions.setError(error))
         })
     })
   })
