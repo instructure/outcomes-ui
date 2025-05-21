@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect, describe, it } from '@jest/globals'
 import { fromJS, Map } from 'immutable'
 import { getConfig } from '../selectors'
 
@@ -13,11 +13,11 @@ describe('context/selectors', () => {
 
   describe('getConfig', () => {
     it('retrieves the correct value', () => {
-      expect(getConfig(state, 'scopeForTest')).to.deep.equal({ foo: 'bar' })
+      expect(getConfig(state, 'scopeForTest')).toEqual({ foo: 'bar' })
     })
 
     it('returns an empty object if no config present', () => {
-      expect(getConfig(Map(), 'scopeForTest')).to.deep.equal({})
+      expect(getConfig(Map(), 'scopeForTest')).toEqual({})
     })
   })
 })

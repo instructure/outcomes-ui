@@ -1,11 +1,10 @@
 /* eslint-disable promise/always-return */
-import { expect } from 'chai'
+import { expect, describe, it, afterEach, jest } from '@jest/globals'
 import { fromJS } from 'immutable'
-import sinon from 'sinon'
-import createMockStore, { scopeActions } from '../../../test/createMockStore'
+import createMockStore, { scopeActions } from '../../../test/createMockStore_jest_rtl'
 import * as actions from '../actions'
-import { setError } from '../../../store/context/actions'
-import { setOutcomePickerState } from '../../../store/OutcomePicker/actions'
+import { setError } from '../../context/actions'
+import { setOutcomePickerState } from '../../OutcomePicker/actions'
 
 const scopedActions = scopeActions({ ...actions, setError, setOutcomePickerState })
 
@@ -27,30 +26,30 @@ describe('OutcomeTray/actions', () => {
   })
   const outcomes = [{id: '1', name: 'red'}, {id: '2', name: 'blue'}]
   const response = {outcomes, total: 2}
-  const service = { listOutcomes: sinon.stub().returns(Promise.resolve(response)) }
-  afterEach(() => service.listOutcomes.resetHistory())
+  const service = { listOutcomes: jest.fn().mockResolvedValue(response) }
+  afterEach(() => service.listOutcomes.mockClear())
 
   describe('getOutcomesList', () => {
     it('dispatches state change to loading', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()[0]).to.deep.equal(scopedActions.setOutcomePickerState('loading'))
+          expect(store.getActions()[0]).toEqual(scopedActions.setOutcomePickerState('loading'))
         })
     })
 
     it('dispatches listOutcomes', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
-        .then(() => expect(service.listOutcomes.calledOnce).to.be.true)
+        .then(() => expect(service.listOutcomes).toHaveBeenCalledTimes(1))
     })
 
     it('dispatches in correct order', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()[2]).to.deep.equal(scopedActions.setOutcomeList(outcomes))
-          expect(store.getActions()[3]).to.deep.equal(scopedActions.setOutcomes(
+          expect(store.getActions()[2]).toEqual(scopedActions.setOutcomeList(outcomes))
+          expect(store.getActions()[3]).toEqual(scopedActions.setOutcomes(
             {
               [undefined]:
                 {
@@ -59,25 +58,25 @@ describe('OutcomeTray/actions', () => {
                 }
             }
           ))
-          expect(store.getActions()[4]).to.deep.equal(scopedActions.setListTotal(response.total))
-          expect(store.getActions()[5]).to.deep.equal(scopedActions.setOutcomePickerState('choosing'))
+          expect(store.getActions()[4]).toEqual(scopedActions.setListTotal(response.total))
+          expect(store.getActions()[5]).toEqual(scopedActions.setOutcomePickerState('choosing'))
         })
     })
 
     it('dispatches setPage if a page is provided', () => {
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList({ page: 2 }))
-        .then(() => expect(store.getActions()[0]).to.deep.equal(scopedActions.setListPage(2)))
+        .then(() => expect(store.getActions()[0]).toEqual(scopedActions.setListPage(2)))
     })
 
     it('dispatches setError on listOutcomes failure', () => {
       const error = { message: 'foo bar baz' }
-      const service = { listOutcomes: sinon.stub().returns(Promise.reject(error)) }
+      const service = { listOutcomes: jest.fn().mockRejectedValue(error) }
       const store = createMockStore(state, service)
       return store.dispatch(actions.getOutcomesList())
         .then(() => {
-          expect(store.getActions()).to.have.length(3)
-          expect(store.getActions()[2]).to.deep.equal(scopedActions.setError(error))
+          expect(store.getActions()).toHaveLength(3)
+          expect(store.getActions()[2]).toEqual(scopedActions.setError(error))
         })
     })
   })
@@ -89,9 +88,9 @@ describe('OutcomeTray/actions', () => {
       const store = createMockStore(alignmentState, service)
       return store.dispatch(actions.setInitialSelectedOutcomes())
         .then(() => {
-          expect(store.getActions()).to.have.length(1)
-          expect(store.getActions()[0]).to.deep.equal(scopedActions.setSelectedOutcomeIds(['1', '999']))
-          expect(store.getActions()[0].payload).to.deep.equal(['1', '999'])
+          expect(store.getActions()).toHaveLength(1)
+          expect(store.getActions()[0]).toEqual(scopedActions.setSelectedOutcomeIds(['1', '999']))
+          expect(store.getActions()[0].payload).toEqual(['1', '999'])
         })
     })
   })

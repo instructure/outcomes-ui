@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect, describe, it } from '@jest/globals'
 import { fromJS } from 'immutable'
 import {
   getOutcomeList,
@@ -27,19 +27,19 @@ describe('OutcomeTray/selectors', () => {
 
   describe('getOutcomeList', () => {
     it('returns the outcome list', () => {
-      expect(getOutcomeList(state, scope)).to.deep.equal([])
+      expect(getOutcomeList(state, scope)).toEqual([])
     })
   })
 
   describe('getListPage', () => {
     it('returns the current page', () => {
-      expect(getListPage(state, scope)).to.equal(7)
+      expect(getListPage(state, scope)).toBe(7)
     })
   })
 
   describe('getListTotal', () => {
     it('returns the current total', () => {
-      expect(getListTotal(state, scope)).to.equal(100)
+      expect(getListTotal(state, scope)).toBe(100)
     })
   })
 })

@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect, describe, it } from '@jest/globals'
 import { fromJS } from 'immutable'
 import { getScope, isOpen } from '../selectors'
 
@@ -9,22 +9,22 @@ describe('activePicker/selectors', () => {
 
   describe('getScope', () => {
     it('retrieves the current scope', () => {
-      expect(getScope(state)).to.equal('current_scope')
+      expect(getScope(state)).toBe('current_scope')
     })
 
     it('returns `` when empty', () => {
       const newState = state.setIn(['activePicker'], '')
-      expect(getScope(newState)).to.equal('')
+      expect(getScope(newState)).toBe('')
     })
   })
 
   describe('isOpen', () => {
     it('returns true if the scope matches', () => {
-      expect(isOpen(state, 'current_scope')).to.equal(true)
+      expect(isOpen(state, 'current_scope')).toBe(true)
     })
 
     it('returns false if the scope doesnt match', () => {
-      expect(isOpen(state, '')).to.equal(false)
+      expect(isOpen(state, '')).toBe(false)
     })
   })
 })

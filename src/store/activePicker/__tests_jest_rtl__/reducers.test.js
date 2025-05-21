@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect, describe, it } from '@jest/globals'
 import {
   SET_SCOPE
 } from '../../../constants'
@@ -12,7 +12,7 @@ describe('activePicker/reducers', () => {
   it('SET_SCOPE updates the scope', () => {
     const scope = 'current_scope'
     const newState = reduce(state, SET_SCOPE, scope)
-    expect(newState).to.deep.equal('current_scope')
+    expect(newState).toEqual('current_scope')
   })
 
 })
