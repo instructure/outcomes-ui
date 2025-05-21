@@ -1,7 +1,6 @@
-import { expect } from 'chai'
+import { describe, it, expect, jest } from '@jest/globals'
 import { fromJS, Map } from 'immutable'
 import { wrapAction } from 'multireducer'
-import sinon from 'sinon'
 
 import * as actions from '../actions'
 import {
@@ -15,7 +14,7 @@ import {
   ERROR
 } from '../../../constants'
 import { setError } from '../../context/actions'
-import createMockStore, { scopeActions } from '../../../test/createMockStore'
+import createMockStore, { scopeActions } from '../../../test/createMockStore_jest_rtl'
 
 const scopedActions = scopeActions({ ...actions, setError })
 
@@ -89,72 +88,73 @@ const rollups = rollupResponse.map(({
 const userList = fakeResults['2848'].map((user) => user.user_uuid)
 const users = userList.map((uuid) => ({ uuid }))
 
-const service = {
-  getUsers: sinon.stub().resolves({ users }),
-  getOutcomeRollups: sinon.stub().resolves(rollupResponse),
-  getOutcomeResults: (host, jwt, t, i, outcomeId) => {
+const createMockService = () => ({
+  getUsers: jest.fn().mockResolvedValue({ users }),
+  getOutcomeRollups: jest.fn().mockResolvedValue(rollupResponse),
+  getOutcomeResults: jest.fn((host, jwt, t, i, outcomeId) => {
     return Promise.resolve(fakeResults[outcomeId.toString()])
-  }
-}
+  })
+})
 
-const failedService = { getOutcomeRollups: sinon.stub().rejects({ error: 'OHNO' }) }
+const createFailedService = () => ({
+  getOutcomeRollups: jest.fn().mockRejectedValue({ error: 'OHNO' })
+})
 
 describe('report/actions', () => {
   describe('loadRollups', () => {
     it('calls outcome service to load rollups and individual results', () => {
       const state = { scopeForTest: { report: { page: { number: 0 }, users: { '0': users } } } }
+      const service = createMockService()
       const store = createMockStore(Map(fromJS(state)), service)
       return store.dispatch(actions.loadRollups('quiz', 101))
         .then(() => {
           const [add, update] = store.getActions().slice(1)
-          expect(add.type).to.equal(actions.setReportOutcomes.toString())
+          expect(add.type).toEqual(actions.setReportOutcomes.toString())
           rollupResponse.forEach((r) => {
-            expect(add.payload[r.outcome.id]).to.deep.equal(r.outcome)
+            expect(add.payload[r.outcome.id]).toEqual(r.outcome)
           })
 
-          expect(update.type).to.equal(actions.setRollups.toString())
-          expect(update.payload).to.deep.equal(rollups)
+          expect(update.type).toEqual(actions.setRollups.toString())
+          expect(update.payload).toEqual(rollups)
 
           store.getActions()
             .filter((act) => act.payload.method === 'getOutcomeResults')
             .forEach((act) => {
               const [requestedUsers] = act.payload.args.slice(-1)
-              expect(requestedUsers).to.deep.equal(userList)
+              expect(requestedUsers).toEqual(userList)
             })
 
           const resultActions = store.getActions().slice(-2)
           resultActions.forEach((act) => {
             const { outcomeId, seenResults } = act.payload
             const results = fakeResults[outcomeId]
-            expect(act).to.deep.equal(scopedActions.setResults({ outcomeId, results, seenResults }))
+            expect(act).toEqual(scopedActions.setResults({ outcomeId, results, seenResults }))
           })
-
-          return null
         })
     })
 
     it('dispatches failure action on failure', () => {
-      const store = createMockStore(Map(), failedService)
+      const service = createFailedService()
+      const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadRollups('quiz', 101))
         .then(() => {
           const [err] = store.getActions().slice(1)
-          expect(err.type).to.equal(SET_ERROR)
-          return null
+          expect(err.type).toEqual(SET_ERROR)
         })
     })
 
     describe('viewReportAlignment', () => {
       it('creates an action', () => {
         const action = actions.viewReportAlignment(12)
-        expect(action.type).to.equal(VIEW_REPORT_ALIGNMENT)
-        expect(action.payload).to.deep.equal(12)
+        expect(action.type).toEqual(VIEW_REPORT_ALIGNMENT)
+        expect(action.payload).toEqual(12)
       })
     })
 
     describe('closeReportAlignment', () => {
       it('creates an action', () => {
         const action = actions.closeReportAlignment()
-        expect(action.type).to.equal(CLOSE_REPORT_ALIGNMENT)
+        expect(action.type).toEqual(CLOSE_REPORT_ALIGNMENT)
       })
     })
   })
@@ -166,16 +166,18 @@ describe('report/actions', () => {
           report: { page: { number: 1, loading: false }, users: {} }
         }
       }
+      const service = createMockService()
       const store = createMockStore(fromJS(state), service)
 
       return store.dispatch(actions.loadPage('quiz', 101, 2)).then(() => {
-        expect(store.getActions()).to.deep.include.members([
-          wrapAction(actions.setPage({ number: 2, loading: true }), 'scopeForTest'),
-          wrapAction(actions.setUsers({2: users}), 'scopeForTest'),
-          wrapAction(actions.setRollups(rollups), 'scopeForTest'),
-          wrapAction(actions.setPage({ number: 2, loading: false }), 'scopeForTest')
-        ])
-        return null
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            wrapAction(actions.setPage({ number: 2, loading: true }), 'scopeForTest'),
+            wrapAction(actions.setUsers({2: users}), 'scopeForTest'),
+            wrapAction(actions.setRollups(rollups), 'scopeForTest'),
+            wrapAction(actions.setPage({ number: 2, loading: false }), 'scopeForTest')
+          ])
+        )
       })
     })
 
@@ -185,16 +187,18 @@ describe('report/actions', () => {
           report: { page: { number: 10, loading: false }, users: { } }
         }
       }
+      const service = createMockService()
       const store = createMockStore(fromJS(state), service)
 
       return store.dispatch(actions.loadPage('quiz', 101, 10)).then(() => {
-        expect(store.getActions()).to.deep.include.members([
-          wrapAction(actions.setPage({ number: 10, loading: true }), 'scopeForTest'),
-          wrapAction(actions.setUsers({ 10: users }), 'scopeForTest'),
-          wrapAction(actions.setRollups(rollups), 'scopeForTest'),
-          wrapAction(actions.setPage({ number: 10, loading: false }), 'scopeForTest')
-        ])
-        return null
+        expect(store.getActions()).toEqual(
+          expect.arrayContaining([
+            wrapAction(actions.setPage({ number: 10, loading: true }), 'scopeForTest'),
+            wrapAction(actions.setUsers({ 10: users }), 'scopeForTest'),
+            wrapAction(actions.setRollups(rollups), 'scopeForTest'),
+            wrapAction(actions.setPage({ number: 10, loading: false }), 'scopeForTest')
+          ])
+        )
       })
     })
 
@@ -204,11 +208,11 @@ describe('report/actions', () => {
           report: { page: { number: 5, loading: true }, users: { 1: [], 2: [] } }
         }
       }
+      const service = createMockService()
       const store = createMockStore(fromJS(state), service)
 
       return store.dispatch(actions.loadPage('quiz', 101, 2)).then(() => {
-        expect(store.getActions()).to.deep.equal([])
-        return null
+        expect(store.getActions()).toEqual([])
       })
     })
 
@@ -218,13 +222,14 @@ describe('report/actions', () => {
           report: { page: { number: 1 }, users: { } }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadPage('quiz', 101, 2))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setUsers({2: getUsersResponse.users}))
-          expect(store.getActions()).to.deep.include(scopedActions.setPageData({ perPage: 50, total: 2 }))
-          return null
+          expect(store.getActions()).toContainEqual(scopedActions.setUsers({2: getUsersResponse.users}))
+          expect(store.getActions()).toContainEqual(scopedActions.setPageData({ perPage: 50, total: 2 }))
         })
     })
 
@@ -235,13 +240,14 @@ describe('report/actions', () => {
         }
       }
       const error = { message: 'foo bar baz' }
-      const service = { getUsers: sinon.stub().returns(Promise.reject(error)) }
+      const service = {
+        getUsers: jest.fn().mockRejectedValue(error)
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadPage('quiz', 101, 2))
         .then(() => {
-          expect(store.getActions()).to.have.length(4)
-          expect(store.getActions()[3]).to.deep.equal(scopedActions.setError(error))
-          return null
+          expect(store.getActions()).toHaveLength(4)
+          expect(store.getActions()[3]).toEqual(scopedActions.setError(error))
         })
     })
 
@@ -251,26 +257,28 @@ describe('report/actions', () => {
           report: { page: { number: 1 }, users: { 1: [] } }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
-      const loadUsers = sinon.stub().returns(Promise.resolve())
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
+      const loadUsers = jest.fn().mockResolvedValue()
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadPage('quiz', 101, 2, loadUsers))
         .then(() => {
-          expect(service.getUsers).not.to.have.been.called
-          expect(loadUsers).to.have.been.calledOnce
-          return null
+          expect(service.getUsers).not.toHaveBeenCalled()
+          expect(loadUsers).toHaveBeenCalledTimes(1)
         })
     })
   })
 
   describe('loadUsers', () => {
     it('calls outcome service to load users', () => {
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
       const store = createMockStore(Map(), service)
       return store.dispatch(actions.loadUsers())
         .then(() => {
-          expect(service.getUsers).to.have.been.calledOnce
-          return null
+          expect(service.getUsers).toHaveBeenCalledTimes(1)
         })
     })
   })
@@ -281,15 +289,17 @@ describe('report/actions', () => {
         scopeForTest: {
           report: {
             page: { number: 1, loading: false }, users: { 1: users },
-            pageData: { total: 6, perPage: 2}, rollups: rollups
+            pageData: { total: 6, perPage: 2 }, rollups: rollups
           }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingPages('quiz', 101))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setLoadingRemainingPages(IN_PROGRESS))
+          expect(store.getActions()).toContainEqual(scopedActions.setLoadingRemainingPages(IN_PROGRESS))
         })
     })
 
@@ -300,15 +310,17 @@ describe('report/actions', () => {
             loadingRemainingPages: IN_PROGRESS,
             page: { number: 1, loading: false },
             users: { 1: users },
-            pageData: { total: 6, perPage: 2}, rollups: rollups
+            pageData: { total: 6, perPage: 2 }, rollups: rollups
           }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingPages('quiz', 101))
         .then(() => {
-          expect(store.getActions()).not.to.deep.include(scopedActions.setLoadingRemainingPages(IN_PROGRESS))
+          expect(store.getActions()).not.toContainEqual(scopedActions.setLoadingRemainingPages(IN_PROGRESS))
         })
     })
 
@@ -319,16 +331,18 @@ describe('report/actions', () => {
             loadingRemainingPages: ERROR,
             page: { number: 1, loading: false },
             users: { 1: users, 2: users },
-            pageData: { total: 6, perPage: 2},
+            pageData: { total: 6, perPage: 2 },
             rollups: rollups
           }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingPages('quiz', 101))
         .then(() => {
-          expect(service.getUsers).to.have.callCount(3)
+          expect(service.getUsers).toHaveBeenCalledTimes(3)
         })
     })
 
@@ -336,20 +350,22 @@ describe('report/actions', () => {
       const state = {
         scopeForTest: {
           report: {
-            loadingRemainingPages:NOT_FETCHING,
+            loadingRemainingPages: NOT_FETCHING,
             page: { number: 1, loading: false },
             users: { 1: users },
-            pageData: { total: 6, perPage: 2},
+            pageData: { total: 6, perPage: 2 },
             rollups: rollups
           }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.reject({message: 'error!'})) }
+      const service = {
+        getUsers: jest.fn().mockRejectedValue({ message: 'error!' })
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingPages('quiz', 101))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setLoadingRemainingPages(ERROR))
-          expect(store.getActions()).not.to.deep.include(scopedActions.setLoadingRemainingPages(COMPLETED))
+          expect(store.getActions()).toContainEqual(scopedActions.setLoadingRemainingPages(ERROR))
+          expect(store.getActions()).not.toContainEqual(scopedActions.setLoadingRemainingPages(COMPLETED))
         })
     })
 
@@ -360,20 +376,20 @@ describe('report/actions', () => {
             loadingRemainingPages: NOT_FETCHING,
             page: { number: 1, loading: false },
             users: { 1: users },
-            pageData: { total: 6, perPage: 2},
+            pageData: { total: 6, perPage: 2 },
             rollups: rollups
           }
         }
       }
       const service = {
-        getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)),
-        getOutcomeResults: sinon.stub().returns(Promise.reject({message: 'error!'}))
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse),
+        getOutcomeResults: jest.fn().mockRejectedValue({ message: 'error!' })
       }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingPages('quiz', 101))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setLoadingRemainingPages(ERROR))
-          expect(store.getActions()).not.to.deep.include(scopedActions.setLoadingRemainingPages(COMPLETED))
+          expect(store.getActions()).toContainEqual(scopedActions.setLoadingRemainingPages(ERROR))
+          expect(store.getActions()).not.toContainEqual(scopedActions.setLoadingRemainingPages(COMPLETED))
         })
     })
   })
@@ -385,13 +401,15 @@ describe('report/actions', () => {
           report: { page: { number: 1, loading: false }, users: { 1: users } }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.resolve(getUsersResponse)) }
+      const service = {
+        getUsers: jest.fn().mockResolvedValue(getUsersResponse)
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingUsers('quiz', 101, 2, 3))
         .then(() => {
-          expect(service.getUsers).to.have.been.calledTwice
-          expect(store.getActions()).to.deep.include(scopedActions.setUsers({ 1: users, 2: getUsersResponse.users }))
-          expect(store.getActions()).to.deep.include(scopedActions.setUsers({ 1: users, 3: getUsersResponse.users }))
+          expect(service.getUsers).toHaveBeenCalledTimes(2)
+          expect(store.getActions()).toContainEqual(scopedActions.setUsers({ 1: users, 2: getUsersResponse.users }))
+          expect(store.getActions()).toContainEqual(scopedActions.setUsers({ 1: users, 3: getUsersResponse.users }))
         })
     })
 
@@ -402,16 +420,18 @@ describe('report/actions', () => {
             loadingRemainingPages: IN_PROGRESS,
             page: { number: 1, loading: false },
             users: { 1: users },
-            pageData: { total: 6, perPage: 2},
+            pageData: { total: 6, perPage: 2 },
             rollups: rollups
           }
         }
       }
-      const service = { getUsers: sinon.stub().returns(Promise.reject({message: 'error!'})) }
+      const service = {
+        getUsers: jest.fn().mockRejectedValue({ message: 'error!' })
+      }
       const store = createMockStore(fromJS(state), service)
       return store.dispatch(actions.loadRemainingUsers('quiz', 101, 2, 3))
         .then(() => {
-          expect(store.getActions()).to.deep.include(scopedActions.setLoadingRemainingPages(ERROR))
+          expect(store.getActions()).toContainEqual(scopedActions.setLoadingRemainingPages(ERROR))
         })
     })
   })
@@ -419,6 +439,7 @@ describe('report/actions', () => {
   describe('loadRemainingResults', () => {
     it('calls outcome service for each remaining page and rollups and sets the results', () => {
       const state = { scopeForTest: { report: { page: { number: 0 }, users: { 1: users }, rollups: rollups } } }
+      const service = createMockService()
       const store = createMockStore(Map(fromJS(state)), service)
       return store.dispatch(actions.loadRemainingResults('quiz', 101, 2, 3))
         .then(() => {
@@ -427,9 +448,9 @@ describe('report/actions', () => {
           resultActions.forEach((act) => {
             const { outcomeId, seenResults } = act.payload
             const results = fakeResults[outcomeId]
-            expect(act).to.deep.equal(scopedActions.setResults({ outcomeId, results, seenResults }))
+            expect(act).toEqual(scopedActions.setResults({ outcomeId, results, seenResults }))
           })
-          expect(completeAction).to.deep.equal(scopedActions.setLoadingRemainingPages(COMPLETED))
+          expect(completeAction).toEqual(scopedActions.setLoadingRemainingPages(COMPLETED))
         })
     })
   })
@@ -446,9 +467,10 @@ describe('report/actions', () => {
           }
         }
       }
+      const service = createMockService()
       const store = createMockStore(Map(fromJS(state)), service)
       store.dispatch(actions.clearReportStore(state, 'scopeForTest'))
-      expect(store.getActions().slice(-1)[0].type).to.eq(CLEAR_REPORT_DATA)
+      expect(store.getActions().slice(-1)[0].type).toEqual(CLEAR_REPORT_DATA)
     })
   })
 
@@ -464,7 +486,7 @@ describe('report/actions', () => {
           }
         }
       }
-      expect(actions.getUserList(fromJS(state), 'scopeForTest', 1)).to.deep.eq(users.map((user) => user.uuid))
+      expect(actions.getUserList(fromJS(state), 'scopeForTest', 1)).toEqual(users.map((user) => user.uuid))
     })
 
     it('returns a list of user uuids from page 2', () => {
@@ -477,7 +499,8 @@ describe('report/actions', () => {
           }
         }
       }
-      expect(actions.getUserList(fromJS(state), 'scopeForTest', 2)).to.deep.eq(getUsersResponse.users.map((user) => user.uuid))
+      expect(actions.getUserList(fromJS(state), 'scopeForTest', 2))
+        .toEqual(getUsersResponse.users.map((user) => user.uuid))
     })
   })
 
@@ -495,7 +518,7 @@ describe('report/actions', () => {
           }
         }
       }
-      expect(actions.getPaginatedUserList(fromJS(state), 'scopeForTest', 1, 2)).to.deep.eq(allUsers)
+      expect(actions.getPaginatedUserList(fromJS(state), 'scopeForTest', 1, 2)).toEqual(allUsers)
     })
 
     it('returns a paginated list of a subset of users', () => {
@@ -511,7 +534,7 @@ describe('report/actions', () => {
           }
         }
       }
-      expect(actions.getPaginatedUserList(fromJS(state), 'scopeForTest', 2, 3)).to.deep.eq(allUsers)
+      expect(actions.getPaginatedUserList(fromJS(state), 'scopeForTest', 2, 3)).toEqual(allUsers)
     })
   })
 })

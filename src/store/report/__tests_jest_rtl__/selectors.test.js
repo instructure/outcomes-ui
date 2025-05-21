@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { describe, it, expect } from '@jest/globals'
 import { Map, fromJS } from 'immutable'
 import {
   formatCSVData,
@@ -70,37 +70,37 @@ describe('report/selectors', () => {
 
   describe('getPageCount', () => {
     it('returns the right page count', () => {
-      expect(getPageCount(state, 'scopeForTest')).to.deep.equal(3)
+      expect(getPageCount(state, 'scopeForTest')).toEqual(3)
     })
 
     it('returns null on initial load', () => {
       const newState = Map()
-      expect(getPageCount(newState, 'scopeForTest')).to.deep.equal(null)
+      expect(getPageCount(newState, 'scopeForTest')).toEqual(null)
     })
   })
 
   describe('getCurrentPage', () => {
     it('returns the current page', () => {
-      expect(getPageNumber(state, 'scopeForTest')).to.deep.equal(2)
+      expect(getPageNumber(state, 'scopeForTest')).toEqual(2)
     })
   })
 
   describe('getRollups', () => {
     it('retrieves the correct rollups', () => {
-      expect(getRollups(state, 'scopeForTest')).to.deep.equal([
+      expect(getRollups(state, 'scopeForTest')).toEqual([
         { outcomeId: '123', usesBank: false, childArtifactCount: 0 }
       ])
     })
 
     it('returns an empty array if no outcomes are selected', () => {
       const newState = Map()
-      expect(getRollups(newState, 'scopeForTest')).to.deep.equal([])
+      expect(getRollups(newState, 'scopeForTest')).toEqual([])
     })
   })
 
   describe('getScore', () => {
     it('returns score if outcome id and user id are present', () => {
-      expect(getScore(state, 'scopeForTest', '123', '10')).to.deep.equal({
+      expect(getScore(state, 'scopeForTest', '123', '10')).toEqual({
         percentScore: 0.5,
         points: 100,
         pointsPossible: 200,
@@ -109,33 +109,33 @@ describe('report/selectors', () => {
     })
 
     it('returns null if outcome is not present', () => {
-      expect(getScore(state, 'scopeForTest', '2', '2')).to.equal(null)
+      expect(getScore(state, 'scopeForTest', '2', '2')).toEqual(null)
     })
 
     it('returns null if user is not present', () => {
-      expect(getScore(state, 'scopeForTest', '1', '3')).to.equal(null)
+      expect(getScore(state, 'scopeForTest', '1', '3')).toEqual(null)
     })
   })
 
   describe('isOpen', () => {
     it('returns true if alignment id is openReportAlignmentId', () => {
-      expect(isOpen(state, 'scopeForTest', 12)).to.be.true
+      expect(isOpen(state, 'scopeForTest', 12)).toBe(true)
     })
 
     it('returns false if another alignment id is openReportAlignmentId', () => {
-      expect(isOpen(state, 'scopeForTest', 13)).to.be.false
+      expect(isOpen(state, 'scopeForTest', 13)).toBe(false)
     })
 
     it('returns false if no alignment is openReportAlignmentId', () => {
       const newState = Map()
-      expect(isOpen(newState, 'scopeForTest', 12)).to.be.false
+      expect(isOpen(newState, 'scopeForTest', 12)).toBe(false)
     })
   })
 
   describe('getUsers', () => {
     it('retrieves the correct users', () => {
       const pageNumber = getPageNumber(state, 'scopeForTest')
-      expect(getUsers(state, 'scopeForTest', pageNumber)).to.deep.equal([
+      expect(getUsers(state, 'scopeForTest', pageNumber)).toEqual([
         { uuid: '100', full_name: 'Student 3' },
         { uuid: '200', full_name: 'Student 4' }
       ])
@@ -143,13 +143,13 @@ describe('report/selectors', () => {
 
     it('returns an empty array if no users are present', () => {
       const newState = Map()
-      expect(getUsers(newState, 'scopeForTest')).to.deep.equal([])
+      expect(getUsers(newState, 'scopeForTest')).toEqual([])
     })
   })
 
   describe('getReportOutcome', () => {
     it('retrieves the correct outcome', () => {
-      expect(getReportOutcome(state, 'scopeForTest', '123')).to.deep.equal({
+      expect(getReportOutcome(state, 'scopeForTest', '123')).toEqual({
         id: '123',
         label: 'foo',
         title: 'foobar',
@@ -160,25 +160,25 @@ describe('report/selectors', () => {
     })
 
     it('returns nil if no outcome is found', () => {
-      expect(getReportOutcome(state, 'scopeForTest', '124')).to.equal(null)
+      expect(getReportOutcome(state, 'scopeForTest', '124')).toEqual(null)
     })
   })
 
   describe('getHighestPageSeen', () => {
     it('retrieves the highest page the user has viewed', () => {
-      expect(getHighestPageSeen(state, 'scopeForTest')).to.equal(2)
+      expect(getHighestPageSeen(state, 'scopeForTest')).toEqual(2)
     })
 
     it('returns 0 if no pages have been viewed', () => {
       const newState = Map()
-      expect(getHighestPageSeen(newState, 'scopeForTest')).to.equal(0)
+      expect(getHighestPageSeen(newState, 'scopeForTest')).toEqual(0)
     })
   })
 
   describe('formatCSVData', () => {
     it('has a row for each user result', () => {
       const formattedData = formatCSVData(state, 'scopeForTest')
-      expect(formattedData.length).to.eq(4)
+      expect(formattedData).toHaveLength(4)
     })
   })
 })

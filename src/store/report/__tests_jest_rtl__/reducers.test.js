@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { describe, it, expect } from '@jest/globals'
 import { fromJS } from 'immutable'
 import { IN_PROGRESS, NOT_FETCHING } from '../../../constants'
 
@@ -54,12 +54,12 @@ describe('reports/reducers', () => {
     it('is updated by setPage', () => {
       const newPage = { number: 10, loading: true }
       const newState = reducer(state, setPage(newPage))
-      expect(newState.get('page').toJS()).to.deep.equal(newPage)
+      expect(newState.get('page').toJS()).toEqual(newPage)
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('page').toJS()).to.deep.equal({number: void 0})
+      expect(newState.get('page').toJS()).toEqual({number: void 0})
     })
   })
 
@@ -67,36 +67,36 @@ describe('reports/reducers', () => {
     it('is updated by setPageData', () => {
       const newPageData = { perPage: 50, total: 597 }
       const newState = reducer(state, setPageData(newPageData))
-      expect(newState.get('pageData').toJS()).to.deep.equal(newPageData)
+      expect(newState.get('pageData').toJS()).toEqual(newPageData)
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('pageData').toJS()).to.deep.equal(new Map())
+      expect(newState.get('pageData').toJS()).toEqual({})
     })
   })
 
   describe('loading', () => {
     it('is updated by setLoading', () => {
       const newState = reducer(state, setLoading(true))
-      expect(newState.get('loading')).to.be.true
+      expect(newState.get('loading')).toBe(true)
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('loading')).to.be.false
+      expect(newState.get('loading')).toBe(false)
     })
   })
 
   describe('loadingRemainingPages', () => {
     it('is updated by setLoadingRemainingPages', () => {
       const newState = reducer(state, setLoadingRemainingPages(IN_PROGRESS))
-      expect(newState.get('loadingRemainingPages')).to.eq(IN_PROGRESS)
+      expect(newState.get('loadingRemainingPages')).toEqual(IN_PROGRESS)
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('loadingRemainingPages')).to.eq(NOT_FETCHING)
+      expect(newState.get('loadingRemainingPages')).toEqual(NOT_FETCHING)
     })
   })
 
@@ -104,12 +104,12 @@ describe('reports/reducers', () => {
     it('is updated by setReportOutcomes', () => {
       const newOutcome = { 200: { id: 200, label: 'yellow', title: 'red' } }
       const newState = reducer(state, setReportOutcomes(newOutcome))
-      expect(newState.get('outcomes').toJS()).to.deep.equal(newOutcome)
+      expect(newState.get('outcomes').toJS()).toEqual(newOutcome)
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('outcomes').toJS()).to.deep.equal(new Map())
+      expect(newState.get('outcomes').toJS()).toEqual({})
     })
   })
 
@@ -117,12 +117,12 @@ describe('reports/reducers', () => {
     it('is updated by setRollups', () => {
       const newRollup = { outcomeId: 200, averageScore: 0.9, count: 1, masteryCount: 1, childArtifactCount: 0 }
       const newState = reducer(state, setRollups([newRollup]))
-      expect(newState.get('rollups').toJS()).to.deep.equal([newRollup])
+      expect(newState.get('rollups').toJS()).toEqual([newRollup])
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('rollups').toJS()).to.deep.equal([])
+      expect(newState.get('rollups').toJS()).toEqual([])
     })
   })
 
@@ -138,7 +138,7 @@ describe('reports/reducers', () => {
       const newState = reducer(state, setResults(newResults))
 
       expect(newState.getIn(['results', '1955', user_uuid.toString()]).toJS())
-        .to.deep.equal({
+        .toEqual({
           userId: user_uuid,
           percentScore: result.percent_score,
           points: result.points,
@@ -158,7 +158,7 @@ describe('reports/reducers', () => {
 
       const newState = reducer(state, setResults(newResults))
       expect(newState.getIn(['results', '1955', seenResult.userId]))
-        .to.deep.equal({
+        .toEqual({
           userId: seenResult.userId,
           points: seenResult.points,
           pointsPossible: seenResult.pointsPossible
@@ -167,19 +167,19 @@ describe('reports/reducers', () => {
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('results').toJS()).to.deep.equal(new Map())
+      expect(newState.get('results').toJS()).toEqual({})
     })
   })
 
   describe('openReportAlignmentId', () => {
     it('is set by VIEW_REPORT_ALIGNMENT', () => {
       const newState = reducer(state, viewReportAlignment(99))
-      expect(newState.get('openReportAlignmentId')).to.equal(99)
+      expect(newState.get('openReportAlignmentId')).toEqual(99)
     })
 
     it('is cleared by CLOSE_REPORT_ALIGNMENT', () => {
       const newState = reducer(state, closeReportAlignment(null))
-      expect(newState.get('openReportAlignmentId')).to.equal(null)
+      expect(newState.get('openReportAlignmentId')).toEqual(null)
     })
   })
 
@@ -187,12 +187,12 @@ describe('reports/reducers', () => {
     it('is updated by setUsers', () => {
       const newUsers = {0: [{ uuid: '200' }, { uuid: '300' }]}
       const newState = reducer(state, setUsers(newUsers))
-      expect(newState.get('users').toJS()).to.deep.equal(newUsers)
+      expect(newState.get('users').toJS()).toEqual(newUsers)
     })
 
     it('is cleared by clearReportData', () => {
       const newState = reducer(state, clearReportData())
-      expect(newState.get('users').toJS()).to.deep.equal(new Map())
+      expect(newState.get('users').toJS()).toEqual({})
     })
   })
 })
