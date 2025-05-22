@@ -1,10 +1,21 @@
-import { expect } from 'chai'
 import React from 'react'
+import { jest, expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import createMockStore from '../../test/createMockStore_jest_rtl'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
-import createMockStore from '../../test/createMockStore'
 import ConnectedOutcomePicker from '../ConnectedOutcomePicker'
+
+// eslint-disable-next-line react/display-name
+jest.mock('../../components/OutcomePicker', () => props => {
+  return (
+    <div>
+      <p>OutcomePicker</p>
+      <p>{props.scope}</p>
+    </div>
+  )
+})
 
 describe('ConnectedOutcomePicker', () => {
   it('renders', () => {
@@ -27,11 +38,14 @@ describe('ConnectedOutcomePicker', () => {
         }
       }
     }))
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <ConnectedOutcomePicker contextUuid="course_100" scope="scopeForTest" />
       </Provider>
     )
-    expect(wrapper.find('OutcomePicker')).to.have.length(1)
+
+    expect(screen.getByText('OutcomePicker')).toBeInTheDocument()
+    expect(screen.getByText('scopeForTest')).toBeInTheDocument()
   })
 })

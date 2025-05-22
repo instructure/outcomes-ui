@@ -1,11 +1,11 @@
-import { expect } from 'chai'
 import React from 'react'
+import { expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
-import createMockStore from '../../test/createMockStore'
+import createMockStore from '../../test/createMockStore_jest_rtl'
 import ConnectedAlignmentCount from '../ConnectedAlignmentCount'
-import AlignmentCount from '../../components/AlignmentCount'
 
 describe('ConnectedAlignmentCount', () => {
   it('renders', () => {
@@ -20,7 +20,7 @@ describe('ConnectedAlignmentCount', () => {
       }
     }))
 
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <ConnectedAlignmentCount
           scope="scopeForTest"
@@ -28,7 +28,8 @@ describe('ConnectedAlignmentCount', () => {
         />
       </Provider>
     )
-    expect(wrapper.find(AlignmentCount)).to.have.length(1)
-    expect(wrapper.text()).to.match(/\(2\)/)
+
+    // Check for the presence of "(2)" in the rendered output
+    expect(screen.getByText(/\(2\)/)).toBeInTheDocument()
   })
 })

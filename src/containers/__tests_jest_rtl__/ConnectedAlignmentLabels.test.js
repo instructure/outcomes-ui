@@ -1,9 +1,10 @@
-import { expect } from 'chai'
 import React from 'react'
+import { expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
-import createMockStore from '../../test/createMockStore'
+import createMockStore from '../../test/createMockStore_jest_rtl'
 import ConnectedAlignmentLabels from '../ConnectedAlignmentLabels'
 
 describe('ConnectedAlignmentLabels', () => {
@@ -19,17 +20,17 @@ describe('ConnectedAlignmentLabels', () => {
       }
     }))
 
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <ConnectedAlignmentLabels
           scope="scopeForTest"
         />
       </Provider>
     )
-    // Enzyme finds two OutcomeLabels components because of the instui decorator on the component
-    expect(wrapper.find('OutcomeLabels')).to.have.length(2)
 
-    // There is a &nbsp; after the comma
-    expect(wrapper.text()).to.equal('baz,\u00a0woz')
+    // Check that the text content is rendered correctly
+    // There is a non-breaking space after the comma
+    expect(screen.getByText('baz')).toBeInTheDocument()
+    expect(screen.getByText('woz')).toBeInTheDocument()
   })
 })

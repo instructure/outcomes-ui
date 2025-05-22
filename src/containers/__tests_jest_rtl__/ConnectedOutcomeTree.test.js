@@ -1,10 +1,21 @@
-import { expect } from 'chai'
 import React from 'react'
+import { jest, expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import createMockStore from '../../test/createMockStore_jest_rtl'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
-import createMockStore from '../../test/createMockStore'
 import ConnectedOutcomeTree from '../ConnectedOutcomeTree'
+
+// eslint-disable-next-line react/display-name
+jest.mock('../../components/OutcomeTree', () => props => {
+  return (
+    <div>
+      <p>OutcomeTree</p>
+      <p>{props.scope}</p>
+    </div>
+  )
+})
 
 describe('ConnectedOutcomeTree', () => {
   it('renders', () => {
@@ -18,12 +29,11 @@ describe('ConnectedOutcomeTree', () => {
         }
       }
     }))
-    const wrapper = mount(
+    render(
       <Provider store={store}>
         <ConnectedOutcomeTree contextUuid="course_100" scope="scopeForTest" />
       </Provider>
     )
-    // Enzyme finds two OutcomeTree components because of the instui decorator on the component
-    expect(wrapper.find('OutcomeTree')).to.have.length(2)
+    expect(screen.getByText('OutcomeTree')).toBeInTheDocument()
   })
 })

@@ -1,0 +1,51 @@
+import React from 'react'
+import { jest, expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import createMockStore from '../../test/createMockStore_jest_rtl'
+import OutcomeAlignments from '../OutcomeAlignments'
+
+// eslint-disable-next-line react/display-name
+jest.mock('../../components/AlignmentList', () => props => {
+  return (
+    <div>
+      <p>AlignmentList</p>
+      <p>{props.scope}</p>
+    </div>
+  )
+})
+
+describe('OutcomeAlignments', () => {
+  function makeProps (props = {}) {
+    const store = createMockStore()
+    return Object.assign({
+      store,
+      artifactType: 'foo',
+      emptySetHeading: '',
+      artifactId: '1',
+      host: 'http://foo.outcomes.foo',
+      jwt: 'secretfoo'
+    }, props)
+  }
+
+  it('renders', () => {
+    render(
+      <div id="app"><OutcomeAlignments {...makeProps()} /></div>
+    )
+    expect(screen.getByText('AlignmentList')).toBeInTheDocument()
+  })
+
+  it('sets the scope', () => {
+    render(
+      <div id="app"><OutcomeAlignments {...makeProps()} /></div>
+    )
+    expect(screen.getByText('foo:::1')).toBeInTheDocument()
+  })
+
+  it('uses proper fallbacks if store is not passed in props', () => {
+    render(
+      <div id="app"><OutcomeAlignments {...makeProps({store: null})} /></div>
+    )
+    expect(screen.getByText('foo:::1')).toBeInTheDocument()
+  })
+})

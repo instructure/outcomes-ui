@@ -1,10 +1,21 @@
-import { expect } from 'chai'
 import React from 'react'
+import { jest, expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import createMockStore from '../../test/createMockStore_jest_rtl'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
 import { fromJS } from 'immutable'
-import createMockStore from '../../test/createMockStore'
 import ConnectedOutcomeTray from '../ConnectedOutcomeTray'
+
+// eslint-disable-next-line react/display-name
+jest.mock('../../components/OutcomeTray', () => props => {
+  return (
+    <div>
+      <p>OutcomeTray</p>
+      <p>{props.scope}</p>
+    </div>
+  )
+})
 
 describe('ConnectedOutcomeTray', () => {
   it('renders', () => {
@@ -22,15 +33,16 @@ describe('ConnectedOutcomeTray', () => {
         }
       }
     }))
-    //
-    const wrapper = mount(
+
+    render(
       <Provider store={store}>
         <ConnectedOutcomeTray
           scope="scopeForTest"
         />
       </Provider>
     )
-    // Enzyme finds two OutcomeTray components because of the instui decorator on the component
-    expect(wrapper.find('OutcomeTray')).to.have.length(2)
+
+    expect(screen.getByText('OutcomeTray')).toBeInTheDocument()
+    expect(screen.getByText('scopeForTest')).toBeInTheDocument()
   })
 })

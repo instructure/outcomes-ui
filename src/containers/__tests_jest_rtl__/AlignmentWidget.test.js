@@ -1,8 +1,19 @@
-import { expect } from 'chai'
 import React from 'react'
-import { mount } from 'enzyme'
-import createMockStore from '../../test/createMockStore'
+import { jest, expect } from '@jest/globals'
+import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+import createMockStore from '../../test/createMockStore_jest_rtl'
 import AlignmentWidget from '../AlignmentWidget'
+
+// eslint-disable-next-line react/display-name
+jest.mock('../../components/AlignmentWidget', () => props => {
+  return (
+    <div>
+      <p>AlignmentWidget</p>
+      <p>{props.scope}</p>
+    </div>
+  )
+})
 
 describe('AlignmentWidget', () => {
   function makeProps (props = {}) {
@@ -18,27 +29,25 @@ describe('AlignmentWidget', () => {
   }
 
   it('renders', () => {
-    const wrapper = mount(
+    render(
       <div id="app"><AlignmentWidget {...makeProps()} /></div>
     )
-    expect(wrapper.find(AlignmentWidget)).to.have.length(1)
+    expect(screen.getByText('AlignmentWidget')).toBeInTheDocument()
   })
 
   it('sets the scope', () => {
     const props = makeProps()
-    const wrapper = mount(
+    render(
       <div id="app"><AlignmentWidget {...props} /></div>
     )
-    // Enzyme finds two AlignmentWidget components because of the instui decorator on the component
-    expect(wrapper.find('AlignmentWidget').at(0).prop('scope')).to.equal('foo:::1')
+    expect(screen.getByText('foo:::1')).toBeInTheDocument()
   })
 
   it('uses proper fallbacks if store is not passed in props', () => {
     const props = makeProps({store: void 0})
-    const wrapper = mount(
+    render(
       <div id="app"><AlignmentWidget {...props} /></div>
     )
-    // Enzyme finds two Link components because of the instui decorator on the component
-    expect(wrapper.find('AlignmentWidget').at(0).prop('scope')).to.equal('foo:::1')
+    expect(screen.getByText('foo:::1')).toBeInTheDocument()
   })
 })
