@@ -13,10 +13,15 @@ if (headless) {
 
 const coverageArgs = { plugins: [], reporters: [], coverageReporter: null }
 if (withCoverage) {
-  const { getSourceFilesThatHaveJestRTLTests } = require('./testing-utilities')
+  const { getSourceFilesThatHaveJestRTLTests, getStyleSourceFiles } = require('./testing-utilities')
 
-  // don't measure coverage of files that already have jest tests
-  const ignoredSourceFiles = getSourceFilesThatHaveJestRTLTests()
+  // don't measure coverage of...
+  const ignoredSourceFiles = [
+    ...getSourceFilesThatHaveJestRTLTests(),
+    ...getStyleSourceFiles(),
+    'src/test/createMockStore.js',
+    // more to come...
+  ]
 
   // eslint-disable-next-line immutable/no-mutation
   coverageArgs.coverageReporter = {

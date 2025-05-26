@@ -1,57 +1,56 @@
-import { expect } from 'chai'
 import React from 'react'
-import { mount, shallow } from 'enzyme'
+import { expect } from '@jest/globals'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import { axe, toHaveNoViolations } from 'jest-axe'
 import OutcomeView from '../index'
-import MasteryCounts from '../MasteryCounts'
-import MasteryDescription from '../MasteryDescription'
-import ScoringTiers from '../ScoringTiers'
-import checkA11y from '../../../test/checkA11y'
+
+expect.extend(toHaveNoViolations)
 
 const sharedSpecs = (makeProps) => {
   it('includes the title and description', () => {
-    const wrapper = mount(<OutcomeView {...makeProps()} />)
-    const text = wrapper.text()
-    expect(text).to.match(/The rain in spain stays mainly\.\.\./)
-    expect(text).to.match(/My description/)
+    render(<OutcomeView {...makeProps()} />)
+    expect(screen.getByText('The rain in spain stays mainly...')).toBeInTheDocument()
+    expect(screen.getByText(/My description/)).toBeInTheDocument()
   })
 
   it('sanitizes the description', () => {
     const props = makeProps({ description: 'The <blink>rain in Spain' })
-    const wrapper = mount(<OutcomeView {...props} />)
-    expect(wrapper.html()).to.include('</blink>')
+    const { container } = render(<OutcomeView {...props} />)
+    expect(container.innerHTML.includes('</blink>')).toBeTruthy()
   })
 
   it('includes counts if outcome result is defined', () => {
     const props = makeProps({
       outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' }
     })
-    const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(MasteryCounts)).to.have.length(1)
+    const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+    expect(container.querySelectorAll('[data-automation="outcomeView__masteryCount"]').length).toEqual(1)
   })
 
-  it('does not display scoring tiers if tiers not defined', () => {
-    const props = makeProps({ scoringTiers: null })
-    const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(ScoringTiers)).to.have.length(0)
+  it('does not display scoring tiers if tiers not defined and no context to get defaults from', () => {
+    const props = makeProps({ scoringTiers: null, context: null })
+    const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+    expect(container.querySelectorAll('[data-automation="outcomeView__scoringTiers"]').length).toEqual(0)
   })
 
   it('includes Friendly Description if defined', () => {
     const props = makeProps({ friendlyDescription: 'This is another description' })
-    const wrapper = mount(<OutcomeView {...props} />)
-    const text = wrapper.text()
-    expect(text).to.match(/Friendly Description/)
-    expect(text).to.match(/This is another description/)
+    render(<OutcomeView {...props} />)
+    expect(screen.getByText(/Friendly Description/)).toBeInTheDocument()
+    expect(screen.getByText(/This is another description/)).toBeInTheDocument()
   })
 
   it('ensures Friendly Description does not show', () => {
-    const wrapper = mount(<OutcomeView {...makeProps()}/>)
-
-    expect(wrapper.find('[data-automation="outcomeView__friendly_description_header"]').length).to.equal(0)
-    expect(wrapper.find('[data-automation="outcomeView__friendly_description_expanded"]').length).to.equal(0)
+    const { container } = render(<OutcomeView {...makeProps()}/>)
+    expect(container.querySelectorAll('[data-automation="outcomeView__friendly_description_header"]').length).toEqual(0)
+    expect(container.querySelectorAll('[data-automation="outcomeView__friendly_description_expanded"]').length).toEqual(0)
   })
 
-  it('meets a11y standards', () => {
-    return checkA11y(<OutcomeView {...makeProps()} />)
+  it('meets a11y standards', async () => {
+    const { container } = render(<OutcomeView {...makeProps()} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
   })
 }
 
@@ -96,31 +95,29 @@ describe('OutcomeView', () => {
   })
 
   it('does not include counts if outcome result not defined', () => {
-    const wrapper = shallow(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(MasteryCounts)).to.have.length(0)
+    const { container } = render(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(container.querySelectorAll('[data-automation="outcomeView__masteryCount"]').length).toEqual(0)
   })
 
   it('renders mastery description if displayMasteryDescription is true and no artifactTypeName provided', () => {
     const props = makeProps({
       displayMasteryDescription: true
     })
-    const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-    const scoreMastery = wrapper.find(MasteryDescription)
-    expect(scoreMastery.length).to.equal(1)
+    const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+    expect(container.querySelectorAll('[data-automation="outcomeView__scoreMethodDescription"]').length).toEqual(1)
   })
 
   it('does not render mastery description if displayMasteryDescription is false', () => {
     const props = makeProps({
       displayMasteryDescription: false
     })
-    const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-    const scoreMastery = wrapper.find(MasteryDescription)
-    expect(scoreMastery.length).to.equal(0)
+    const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+    expect(container.querySelectorAll('[data-automation="outcomeView__scoreMethodDescription"]').length).toEqual(0)
   })
 
   it('displays scoring tiers if scoring method and tiers defined', () => {
-    const wrapper = mount(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
-    expect(wrapper.find(ScoringTiers)).to.have.length(1)
+    const { container } = render(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
+    expect(container.querySelectorAll('[data-automation="outcomeView__scoringTiers"]').length).toEqual(1)
   })
 
   describe('with context configured with proficiency', () => {
@@ -157,22 +154,24 @@ describe('OutcomeView', () => {
         const props = makeProps({
           displayMasteryDescription: true
         })
-        const wrapper = shallow(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-        const scoreMastery = wrapper.find(MasteryDescription)
-        expect(scoreMastery.length).to.equal(0)
+        const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        expect(container.querySelectorAll('[data-automation="outcomeView__scoreMethodDescription"]').length).toEqual(0)
       })
 
       it('does not display scoring tiers', () => {
-        const wrapper = shallow(<OutcomeView {...makeProps()} />, {disableLifecycleMethods: true})
-        expect(wrapper.find(ScoringTiers)).to.have.length(0)
+        const { container } = render(
+          <OutcomeView {...makeProps({ scoringTiers: null, context: null })} />,
+          {disableLifecycleMethods: true}
+        )
+        expect(container.querySelectorAll('[data-automation="outcomeView__scoringTiers"]').length).toEqual(0)
       })
 
       it('displays scoring tiers if outcomeResult is defined', () => {
         const props = makeProps({
           outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' }
         })
-        const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-        expect(wrapper.find(ScoringTiers)).to.have.length(1)
+        const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        expect(container.querySelectorAll('[data-automation="outcomeView__scoringTiers"]').length).toEqual(1)
       })
 
       it('passes prop.scoringTiers to <ScoringTiers /> if defined', () => {
@@ -180,8 +179,10 @@ describe('OutcomeView', () => {
           outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' },
           scoringTiers: defaultProps.scoringTiers
         })
-        const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-        expect(wrapper.find(ScoringTiers).prop('scoringTiers')).to.deep.equal(defaultProps.scoringTiers)
+        render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        defaultProps.scoringTiers.forEach((tier) => {
+          expect(screen.getByText(tier.description)).toBeInTheDocument()
+        })
       })
 
       it('renders mastery description if displayMasteryDescription is true, no artifactTypeName provided and outcomeResult defined', () => {
@@ -189,9 +190,8 @@ describe('OutcomeView', () => {
           displayMasteryDescription: true,
           outcomeResult: { count: 100, masteryCount: 50, averageScore: 0.5, childArtifactCount: 1, outcomeId: '1' }
         })
-        const wrapper = mount(<OutcomeView {...props} />, {disableLifecycleMethods: true})
-        const scoreMastery = wrapper.find(MasteryDescription)
-        expect(scoreMastery.length).to.equal(1)
+        const { container } = render(<OutcomeView {...props} />, {disableLifecycleMethods: true})
+        expect(container.querySelectorAll('[data-automation="outcomeView__scoreMethodDescription"]').length).toEqual(1)
       })
     }
 

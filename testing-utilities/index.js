@@ -10,6 +10,11 @@ function getSourceFilesThatHaveJestRTLTests() {
     })
 }
 
+function getStyleSourceFiles() {
+  return globSync('src/**/styles.js', { nodir: true })
+}
+
 module.exports = {
   getSourceFilesThatHaveJestRTLTests,
+  getStyleSourceFiles,
 }
