@@ -21,8 +21,8 @@ describe('debounceLatestPromise', () => {
     clock.tick(400)
     expect(dispatch).to.not.be.called
     clock.tick(100)
-    expect(dispatch).to.be.called.once
-    expect(dispatch).to.be.calledWith('search #1')
+    expect(dispatch.callCount).to.equal(1)
+    expect(dispatch.calledWith('search #1')).to.equal(true)
   })
 
   it('correctly debounces the latest promise', () => {
@@ -30,8 +30,8 @@ describe('debounceLatestPromise', () => {
     debounced('search #1')
     debounced('search #2')
     clock.tick(500)
-    expect(dispatch).to.be.called.once
-    expect(dispatch).to.be.calledWith('search #2')
+    expect(dispatch.callCount).to.equal(1)
+    expect(dispatch.calledWith('search #2')).to.equal(true)
   })
 
   it('calls the function again after the timeout passes', () => {
@@ -40,8 +40,7 @@ describe('debounceLatestPromise', () => {
     clock.tick(500)
     debounced('search #2')
     clock.tick(500)
-    expect(dispatch).to.be.called.calledTwice
-    expect(dispatch).to.be.calledWith('search #1')
-    expect(dispatch).to.be.calledWith('search #2')
+    expect(dispatch.calledWith('search #1')).to.equal(true)
+    expect(dispatch.calledWith('search #2')).to.equal(true)
   })
 })

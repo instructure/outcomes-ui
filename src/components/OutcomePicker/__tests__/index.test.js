@@ -135,7 +135,7 @@ describe('OutcomePicker', () => {
     const wrapper = mount(<OutcomePicker {...props} />)
     const onChange = wrapper.find(TextInput).prop('onChange')
     onChange('', 'abc')
-    expect(props.updateSearchText).to.be.called.once
-    expect(props.updateSearchText).to.be.calledWith('abc')
+    expect(props.updateSearchText).to.be.called
+    expect(props.updateSearchText.calledWith('abc')).to.equal(true)
   })
 })

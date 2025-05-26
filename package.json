@@ -106,6 +106,7 @@
     "@storybook/addon-storyshots": "^5.3.13",
     "@storybook/addons": "^5.3.10",
     "@storybook/react": "^5.3.10",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.0",

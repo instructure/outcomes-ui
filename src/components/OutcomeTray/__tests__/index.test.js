@@ -125,8 +125,8 @@ describe('OutcomeTray', () => {
     })
     wrapper = mount(<OutcomeTray {...props} />)
     wrapper.find('Button').last().prop('onClick')()
-    expect(props.saveOutcomePickerAlignments).to.be.called
-    expect(props.saveOutcomePickerAlignments).to.be.calledWith(props.onUpdate, false)
+    expect(props.saveOutcomePickerAlignments.callCount).to.be.greaterThan(0)
+    expect(props.saveOutcomePickerAlignments.calledWith(props.onUpdate, false)).to.equal(true)
   })
 
   it('calls showAlert when confirm alignment button is clicked', () => {
