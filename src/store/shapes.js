@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types'
 
+export const scoringTierShape = PropTypes.shape({
+  description: PropTypes.string.isRequired,
+  percent: PropTypes.number.isRequired,
+  count: PropTypes.number
+})
+
 export const scoringMethodShape = PropTypes.shape({
   algorithm: PropTypes.string.isRequired,
   algorithm_data: PropTypes.object,
@@ -26,12 +32,6 @@ export const outcomeResultShape = PropTypes.shape({
   masteryCount: PropTypes.number.isRequired,
   outcomeId: PropTypes.string.isRequired,
   usesBank: PropTypes.bool
-})
-
-export const scoringTierShape = PropTypes.shape({
-  description: PropTypes.string.isRequired,
-  percent: PropTypes.number.isRequired,
-  count: PropTypes.number
 })
 
 export const individualResultShape = PropTypes.shape({

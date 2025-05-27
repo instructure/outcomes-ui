@@ -17,6 +17,8 @@ describe('OutcomeList', () => {
       isOutcomeSelected: jest.fn(),
       selectOutcomeIds: jest.fn(),
       deselectOutcomeIds: jest.fn(),
+      getOutcomesList: jest.fn(),
+      listPage: 0,
       isLoading: false,
     }, props)
   }

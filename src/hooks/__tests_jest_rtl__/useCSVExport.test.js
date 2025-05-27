@@ -1,5 +1,6 @@
 import { expect, jest } from '@jest/globals'
 import { renderHook } from '@testing-library/react-hooks/dom'
+import { waitFor } from '@testing-library/react'
 import useCSVExport, {
   NOT_EXPORTING,
   FETCHING_DATA,
@@ -44,80 +45,96 @@ describe('useCSVExport', () => {
   })
 
   describe('beginExport', () => {
-    it('when called sets the exportState to fetching_data and calls fetchCSVData if this is the first fetch', () => {
+    it('when called sets the exportState to fetching_data and calls fetchCSVData if this is the first fetch', async () => {
       const props = makeProps({})
       const {result} = renderHook(() => useCSVExport({...props}))
-      result.current.beginExport()
+      await waitFor(() => {
+        result.current.beginExport()
+      })
       expect(result.current.exportState).toEqual(FETCHING_DATA)
       expect(props.fetchCSVData).toHaveBeenCalled()
       expect(props.formatCSVData).not.toHaveBeenCalled()
     })
 
-    it('when called sets the exportState to formatting_csv and calls formatCSVData if we have already completed a fetch', () => {
+    it('when called sets the exportState to formatting_csv and calls formatCSVData if we have already completed a fetch', async () => {
       const formattedData = [[{row1: 'row1'}]]
       const formatCSVDataMock = jest.fn().mockReturnValue(formattedData)
       const props = makeProps({fetchingStatus: COMPLETED, formatCSVData: formatCSVDataMock})
       const {result} = renderHook(() => useCSVExport({...props}))
-      result.current.beginExport()
+      await waitFor(() => {
+        result.current.beginExport()
+      })
       expect(result.current.exportState).toEqual(FORMATTING_CSV)
       expect(props.fetchCSVData).not.toHaveBeenCalled()
       expect(props.formatCSVData).toHaveBeenCalled()
     })
 
-    it('calls showFlashAlert with the starting message', () => {
+    it('calls showFlashAlert with the starting message', async () => {
       const showFlashAlert = jest.spyOn(Alerts, 'showFlashAlert')
       const {result} = renderHook(() => useCSVExport({...makeProps({})}))
-      result.current.beginExport()
+      await waitFor(() => {
+        result.current.beginExport()
+      })
       expect(showFlashAlert).toHaveBeenCalledWith(alertTypes.starting)
     })
 
-    it('calls showProgressBar', () => {
+    it('calls showProgressBar', async () => {
       const props = makeProps({})
       const {result} = renderHook(() => useCSVExport({...props}))
-      result.current.beginExport()
+      await waitFor(() => {
+        result.current.beginExport()
+      })
       expect(props.showProgressBar).toHaveBeenCalledTimes(1)
     })
   })
 
-  it('cancelExport sets the exportState to not_exporting and calls hideProgressBar and shows the cancelled alert', () => {
+  it('cancelExport sets the exportState to not_exporting and calls hideProgressBar and shows the cancelled alert', async () => {
     const showFlashAlert = jest.spyOn(Alerts, 'showFlashAlert')
     const props = makeProps({})
     const {result} = renderHook(() => useCSVExport({...props}))
-    result.current.beginExport()
-    result.current.cancelExport()
+    await waitFor(() => {
+      result.current.beginExport()
+      result.current.cancelExport()
+    })
     expect(result.current.exportState).toEqual(NOT_EXPORTING)
     expect(props.hideProgressBar).toHaveBeenCalledTimes(1)
     expect(showFlashAlert).toHaveBeenCalledWith(alertTypes.cancelled)
   })
 
-  it('sets the exportState to not_fetching if fetchCSVData throws an error', () => {
+  it('sets the exportState to not_fetching if fetchCSVData throws an error', async () => {
     const props = makeProps({fetchCSVData: jest.fn()})
     const newProps = makeProps({fetchingStatus: ERROR})
     const hook = renderHook(() => useCSVExport({...props}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(hook.result.current.exportState).toEqual(NOT_FETCHING)
     })
   })
 
-  it('calls showFlashAlert with the error message', () => {
+  it('calls showFlashAlert with the error message', async () => {
     const showFlashAlert = jest.spyOn(Alerts, 'showFlashAlert')
     const fetchCSVDataError = jest.fn()
     const props = makeProps({fetchCSVData: fetchCSVDataError})
     const newProps = makeProps({fetchingStatus: ERROR})
     const hook = renderHook(() => useCSVExport({...props}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(showFlashAlert).to.have.been.calledWith(alertTypes.error)
     })
   })
 
-  it('does not call formatCSVData if fetchingStatus is still in progress', () => {
+  it('does not call formatCSVData if fetchingStatus is still in progress', async () => {
     const newProps = makeProps({fetchingStatus: IN_PROGRESS})
     const hook = renderHook(() => useCSVExport({...makeProps({})}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(hook.result.current.exportState).to.equal(FETCHING_DATA)
@@ -125,10 +142,12 @@ describe('useCSVExport', () => {
     })
   })
 
-  it('does not call formatCSVData if we are no longer fetching and did not complete', () => {
+  it('does not call formatCSVData if we are no longer fetching and did not complete', async () => {
     const newProps = makeProps({fetchingStatus: NOT_FETCHING})
     const hook = renderHook(() => useCSVExport({...makeProps({})}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(newProps.formatCSVData).to.not.have.been.called
@@ -141,26 +160,30 @@ describe('useCSVExport', () => {
     expect(props.formatCSVData).not.toHaveBeenCalled()
   })
 
-  it('does not call formatCSVData if fetching results in an error', () => {
+  it('does not call formatCSVData if fetching results in an error', async () => {
     const fetchCSVDataError = jest.fn()
     const props = makeProps({fetchCSVData: fetchCSVDataError})
     const newProps = makeProps({fetchingStatus: ERROR})
     const hook = renderHook(() => useCSVExport({...props}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(newProps.formatCSVData).to.not.have.been.called
     })
   })
 
-  it('sets the exportState to csv_complete when the data is formatted and shows the success alert', () => {
+  it('sets the exportState to csv_complete when the data is formatted and shows the success alert', async () => {
     const showFlashAlert = jest.spyOn(Alerts, 'showFlashAlert')
     const formattedData = [[{row1: 'row1'}]]
     const formatCSVDataMock = jest.fn().mockReturnValue(formattedData)
     const props = makeProps({formatCSVData: formatCSVDataMock})
     const newProps = makeProps({fetchingStatus: COMPLETED})
     const hook = renderHook(() => useCSVExport({...props}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(hook.result.current.formattedData).to.deep.equal(formattedData)
@@ -169,13 +192,15 @@ describe('useCSVExport', () => {
     })
   })
 
-  it('hides the progress bar and sets exportState to not_exporting once we have exported', () => {
+  it('hides the progress bar and sets exportState to not_exporting once we have exported', async () => {
     const formattedData = [[{row1: 'row1'}]]
     const formatCSVDataMock = jest.fn().mockReturnValue(formattedData)
     const props = makeProps({formatCSVData: formatCSVDataMock})
     const newProps = makeProps({fetchingStatus: COMPLETED})
     const hook = renderHook(() => useCSVExport({...props}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       jest.advanceTimersByTime(2000)
@@ -184,12 +209,14 @@ describe('useCSVExport', () => {
     })
   })
 
-  it('does not set the exportState to csv_complete if the formatted data is empty', () => {
+  it('does not set the exportState to csv_complete if the formatted data is empty', async () => {
     const formatCSVDataMock = jest.fn().mockReturnValue([])
     const props = makeProps({formatCSVData: formatCSVDataMock})
     const newProps = makeProps({fetchingStatus: COMPLETED})
     const hook = renderHook(() => useCSVExport({...props}))
-    hook.result.current.beginExport()
+    await waitFor(() => {
+      hook.result.current.beginExport()
+    })
     hook.rerender(newProps)
     hook.waitForNextUpdate(() => {
       expect(hook.result.current.exportState).to.not.equal(CSV_COMPLETE)

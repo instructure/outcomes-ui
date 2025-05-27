@@ -13,12 +13,16 @@ describe('OutcomeViewModal', () => {
       outcome: {
         label: 'Foo',
         title: 'Bar',
+        description: 'Baz',
         scoring_method: {
-          scoring_tiers: [{description: 'it brings a tier to your eye', points: 100}]
+          scoring_tiers: [{description: 'it brings a tier to your eye', percent: 100}],
+          algorithm: 'points',
+          points_possible: 5,
         }
       },
       closeAlignment: jest.fn(),
-      isOpen: true
+      isOpen: true,
+      scope: 'course',
     }, props)
   }
 

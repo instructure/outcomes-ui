@@ -161,15 +161,17 @@ export default class ScoringTiers extends React.Component {
           null,
           ...scoringTiers.slice(0, 1),
         )}
-        {scoringTiers.map((tier, i) => [
-          renderTier(scoringMethod, tier, this.props.styles),
-          renderGap(
-            this.props.styles,
-            scoringMethod,
-            outcomeResult,
-            ...scoringTiers.slice(i, i + 2),
-          )
-        ])}
+        {scoringTiers.map((tier, i) => (
+          <React.Fragment key={`tier-${i}`}>
+            {renderTier(scoringMethod, tier, this.props.styles)}
+            {renderGap(
+              this.props.styles,
+              scoringMethod,
+              outcomeResult,
+              ...scoringTiers.slice(i, i + 2),
+            )}
+          </React.Fragment>
+        ))}
       </div>
     )
   }

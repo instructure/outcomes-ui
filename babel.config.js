@@ -11,6 +11,9 @@ module.exports = {
   ],
   plugins: [
     'inline-react-svg',
+    ['@babel/plugin-transform-private-property-in-object', { 'loose': true }],
+    ['@babel/plugin-proposal-decorators', { 'version': 'legacy' }],
+    ['@babel/plugin-transform-private-methods', { 'loose': true }],
     ...getFormatMessageConfig()
   ]
 }
