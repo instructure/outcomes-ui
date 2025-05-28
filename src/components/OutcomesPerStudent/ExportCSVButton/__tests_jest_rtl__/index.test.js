@@ -29,7 +29,7 @@ describe('OutcomesPerStudent/ExportCSVButton', () => {
       fetchCSVData: jest.fn(),
       formatCSVData: jest.fn(),
       fetchingStatus: NOT_FETCHING,
-      artifactId: 1,
+      artifactId: '1',
       ...props
     }
   }

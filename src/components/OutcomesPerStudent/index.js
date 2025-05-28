@@ -199,7 +199,7 @@ class OutcomesPerStudentReport extends React.Component {
     showRollups: true
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { artifactType, artifactId, loadPage, setError, loadUsersOverride } =
       this.props
     loadPage(artifactType, artifactId, 1, loadUsersOverride).catch((e) => setError(e))
