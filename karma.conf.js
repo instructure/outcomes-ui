@@ -13,15 +13,15 @@ if (headless) {
 
 const coverageArgs = { plugins: [], reporters: [], coverageReporter: null }
 if (withCoverage) {
-  const { getSourceFilesThatHaveJestRTLTests, getStyleSourceFiles } = require('./testing-utilities')
+  // const { getSourceFilesThatHaveJestRTLTests, getStyleSourceFiles } = require('./testing-utilities')
 
   // don't measure coverage of...
-  const ignoredSourceFiles = [
-    ...getSourceFilesThatHaveJestRTLTests(),
-    ...getStyleSourceFiles(),
-    'src/test/createMockStore.js',
-    // more to come...
-  ]
+  // const ignoredSourceFiles = [
+  //   ...getSourceFilesThatHaveJestRTLTests(),
+  //   ...getStyleSourceFiles(),
+  //   'src/test/createMockStore.js',
+  //   // more to come...
+  // ]
 
   // eslint-disable-next-line immutable/no-mutation
   coverageArgs.coverageReporter = {
@@ -30,16 +30,17 @@ if (withCoverage) {
       { type: 'lcov', dir: 'coverage/', subdir: 'ui' },
       { type: 'html', dir: 'coverage/', subdir: 'ui' }
     ],
-    check: {
-      global: { // fail if overall coverage too low
-        lines: 95,
-        excludes: ignoredSourceFiles
-      },
-      each: { // fail if individual file coverage too low
-        lines: 70,
-        excludes: ignoredSourceFiles
-      }
-    }
+    // Turn off coverage while we are migrating to jest-rtl tests
+    // check: {
+    //   global: { // fail if overall coverage too low
+    //     lines: 95,
+    //     excludes: ignoredSourceFiles
+    //   },
+    //   each: { // fail if individual file coverage too low
+    //     lines: 70,
+    //     excludes: ignoredSourceFiles
+    //   }
+    // }
   }
   coverageArgs.reporters.push('coverage')
 }
