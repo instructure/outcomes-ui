@@ -1,9 +1,11 @@
-import { expect } from 'chai'
 import React from 'react'
-import sinon from 'sinon'
-import { mount } from 'enzyme'
+import {axe, toHaveNoViolations} from 'jest-axe'
+import {expect, jest} from '@jest/globals'
+import {render, screen, fireEvent} from '@testing-library/react'
+import '@testing-library/jest-dom'
 import TreeBrowser from '../index'
-import checkA11y from '../../../../test/checkA11y'
+
+expect.extend(toHaveNoViolations)
 
 describe('TreeBrowser', () => {
   function makeProps (props = {}) {
@@ -24,10 +26,10 @@ describe('TreeBrowser', () => {
         }
       },
       expandedIds: [],
-      toggleExpandedIds: sinon.spy(),
+      toggleExpandedIds: jest.fn(),
       items: {},
       rootOutcomeIds: [],
-      setActiveCollection: sinon.spy()
+      setActiveCollection: jest.fn()
     }, props)
   }
 
@@ -39,18 +41,18 @@ describe('TreeBrowser', () => {
   }
 
   it('renders a TreeBrowser component', () => {
-    const wrapper = mount(<TreeBrowser {...makeProps()} />)
-    expect(wrapper.find(TreeBrowser)).to.have.length(1)
+    render(<TreeBrowser {...makeProps()} />)
+    expect(screen.getByText('Collectiony Collectionface')).toBeInTheDocument()
   })
 
   it('does not require a set of rootOutcomeIds', () => {
-    const wrapper = mount(<TreeBrowser {...makeProps()} />)
-    // Enzyme finds extra TreeButton components because of the instui decorator on the component
-    expect(wrapper.find('TreeButton')).to.have.length(6)
+    render(<TreeBrowser {...makeProps()} />)
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(3)
   })
 
   it('does not render a Home directory if only existing root is a collection', () => {
-    const wrapper = mount(
+    render(
       <TreeBrowser
         {...makeProps({
           rootOutcomeIds: [1],
@@ -58,14 +60,14 @@ describe('TreeBrowser', () => {
         })}
       />
     )
-    // Enzyme finds extra TreeButton components because of the instui decorator on the component
-    expect(wrapper.find('TreeButton')).to.have.length(4)
-    expect(wrapper.find('TreeButton').at(0).text()).to.include('Collectiony Collectionface')
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(2)
+    expect(buttons[0].textContent).toEqual('Collectiony Collectionface')
   })
 
   it('renders a Home directory if only existing root is not a collection', () => {
     const rootIds = ['4']
-    const wrapper = mount(
+    render(
       <TreeBrowser
         {...makeProps({
           rootOutcomeIds: rootIds,
@@ -73,14 +75,15 @@ describe('TreeBrowser', () => {
         })}
       />
     )
-    // Enzyme finds extra TreeButton components because of the instui decorator on the component
-    expect(wrapper.find('TreeButton')).to.have.length(2)
-    expect(wrapper.find('TreeButton').at(0).text()).to.include('Home')
+
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(1)
+    expect(buttons[0].textContent).toEqual('Home')
   })
 
   it('does not render Home level if all roots are collections', () => {
     const rootIds = ['1', '2']
-    const wrapper = mount(
+    render(
       <TreeBrowser
         {...makeProps({
           rootOutcomeIds: rootIds,
@@ -88,13 +91,14 @@ describe('TreeBrowser', () => {
         })}
       />
     )
-    // Enzyme finds extra TreeButton components because of the instui decorator on the component
-    expect(wrapper.find('TreeButton')).to.have.length(4)
+
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(2)
   })
 
   it('passes children of root collections', () => {
     const rootIds = ['1', '2']
-    const wrapper = mount(
+    render(
       <TreeBrowser {...makeProps({
         rootOutcomeIds: rootIds,
         collections: collectionsWithRoot(rootIds),
@@ -102,8 +106,9 @@ describe('TreeBrowser', () => {
       })}
       />
     )
-    // Enzyme finds extra TreeButton components because of the instui decorator on the component
-    expect(wrapper.find('TreeButton')).to.have.length(6)
+
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(3)
   })
 
   it('can expand non-root collections', () => {
@@ -131,7 +136,7 @@ describe('TreeBrowser', () => {
     }
 
     const rootIds = ['1']
-    const wrapper = mount(
+    render(
       <TreeBrowser {...makeProps({
         rootOutcomeIds: rootIds,
         collections: collections,
@@ -139,30 +144,28 @@ describe('TreeBrowser', () => {
       })}
       />
     )
-    // Enzyme finds extra TreeButton components because of the instui decorator on the component
-    expect(wrapper.find('TreeButton')).to.have.length(8)
+
+    const buttons = screen.getAllByRole('button')
+    expect(buttons).toHaveLength(4)
   })
 
   it('does not render if collections is empty', () => {
     const props = makeProps({ collections: {} })
-    const wrapper = mount(<TreeBrowser {...props} />)
-    expect(wrapper.find('TreeBrowser')).to.have.length(0)
-    expect(wrapper.find('NoResults')).to.have.length(1)
-
-    // Enzyme finds two Billboard components because of the instui decorator on the component
-    expect(wrapper.find('Billboard')).to.have.length(2)
-    expect(wrapper.find('Billboard').at(0).prop('heading')).to.equal('There are no outcomes')
+    render(<TreeBrowser {...props} />)
+    expect(screen.getByText('There are no outcomes')).toBeInTheDocument()
   })
 
   it('sets the active collection and when clicked', () => {
-    const setActiveCollection = sinon.stub()
+    const setActiveCollection = jest.fn()
     const props = makeProps({ setActiveCollection })
-    const wrapper = mount(<TreeBrowser {...props} />)
-    wrapper.find('TreeButton').first().simulate('click')
-    expect(props.setActiveCollection.calledWith()).to.equal(true)
+    render(<TreeBrowser {...props} />)
+    fireEvent.click(screen.getAllByRole('button')[0])
+    expect(props.setActiveCollection).toHaveBeenCalled()
   })
 
-  it('meets a11y standards', () => {
-    return checkA11y(<TreeBrowser {...makeProps()} />)
+  it('meets a11y standards', async () => {
+    const {container} = render(<TreeBrowser {...makeProps()} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
   })
 })
