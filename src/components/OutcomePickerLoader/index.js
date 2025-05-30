@@ -27,7 +27,7 @@ export default class OutcomePickerLoader extends React.Component {
     screenreaderNotification: null,
   }
 
-  componentWillMount () {
+  UNSAFE_componentWillMount () {
     const { loadOutcomePicker } = this.props
     loadOutcomePicker()
   }

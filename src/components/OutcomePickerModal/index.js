@@ -173,7 +173,7 @@ export default class OutcomePickerModal extends React.Component {
               margin="xxx-small"
               onClick={() => this.handleModalRequestClose()}
               disabled={disabled}
-              data-automation="outcomePicker__cancelButton"
+              data-testid="outcomePicker__cancelButton"
             >
               {t('Cancel')}
             </Button>
@@ -182,7 +182,7 @@ export default class OutcomePickerModal extends React.Component {
               onClick={() => this.handleSubmit()}
               color="primary"
               disabled={disabled}
-              data-automation="outcomePicker__submitButton"
+              data-testid="outcomePicker__submitButton"
             >
               {this.submitText()}
             </Button>

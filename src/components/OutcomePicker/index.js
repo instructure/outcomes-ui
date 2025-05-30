@@ -169,6 +169,7 @@ class OutcomePicker extends React.Component {
         height="100%"
         width="100%"
         padding="x-small small 0 small"
+        data-testid="outcomePicker__container"
       >
         <Flex.Item>{this.renderHeader()}</Flex.Item>
         <Flex.Item shouldGrow maxHeight="100%" size="0">
