@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect } from '@jest/globals'
 import { contextConfiguredWithProficiencies, getMasteryPercent, getScoringMethodFromContext, getScoringTiersFromContext } from '../proficienciesUtils'
 
 const contextWithProficiencies = {
@@ -33,27 +33,27 @@ const contextWithoutProficiencies = {
 
 describe('contextConfiguredWithProficiencies', () => {
   it('returns true when context has proficiencies', () => {
-    expect(contextConfiguredWithProficiencies(contextWithProficiencies)).to.be.true
+    expect(contextConfiguredWithProficiencies(contextWithProficiencies)).toEqual(true)
   })
 
   it('returns false when context doesnt have proficiencies', () => {
-    expect(contextConfiguredWithProficiencies(contextWithoutProficiencies)).to.be.false
+    expect(contextConfiguredWithProficiencies(contextWithoutProficiencies)).toEqual(false)
   })
 })
 
 describe('getMasteryPercent', () => {
   it('returns correct mastery percent', () => {
-    expect(getMasteryPercent(contextWithProficiencies)).to.be.equal(0.6)
+    expect(getMasteryPercent(contextWithProficiencies)).toEqual(0.6)
   })
 
   it('returns undefined when can not calculate', () => {
-    expect(getMasteryPercent(contextWithoutProficiencies)).to.be.undefined
+    expect(getMasteryPercent(contextWithoutProficiencies)).not.toBeDefined()
   })
 })
 
 describe('getScoringMethodFromContext', () => {
   it('returns correct scoring method for highest', () => {
-    expect(getScoringMethodFromContext(contextWithProficiencies)).to.be.deep.equal({
+    expect(getScoringMethodFromContext(contextWithProficiencies)).toEqual({
       algorithm: 'highest',
       algorithm_data: {},
       mastery_percent: 0.6,
@@ -68,7 +68,7 @@ describe('getScoringMethodFromContext', () => {
         calculation_method: 'decaying_average',
         calculation_int: 65,
       }
-    })).to.be.deep.equal({
+    })).toEqual({
       algorithm: 'decaying_average',
       algorithm_data: {
         decaying_average_percent: 0.65
@@ -85,7 +85,7 @@ describe('getScoringMethodFromContext', () => {
         calculation_method: 'n_mastery',
         calculation_int: 5,
       }
-    })).to.be.deep.equal({
+    })).toEqual({
       algorithm: 'n_mastery',
       algorithm_data: {
         n_mastery_count: 5
@@ -98,21 +98,23 @@ describe('getScoringMethodFromContext', () => {
 
 describe('getScoringTiersFromContext', () => {
   it('returns correct scoring method for highest', () => {
-    expect(getScoringTiersFromContext(contextWithProficiencies)).to.have.deep.members([
-      {
-        description: 'Does Not Meet Expectations', percent: 0
-      },
-      {
-        description: 'Meets Expectations.', percent: 0.6
-      },
-      {
-        description: 'Exceeds Expectations', percent: 1
-      }
-    ])
+    expect(getScoringTiersFromContext(contextWithProficiencies)).toEqual(
+      expect.arrayContaining([
+        {
+          description: 'Does Not Meet Expectations', percent: 0
+        },
+        {
+          description: 'Meets Expectations.', percent: 0.6
+        },
+        {
+          description: 'Exceeds Expectations', percent: 1
+        }
+      ])
+    )
   })
 
   it('returns undefined when context doesnt have proficiencies', () => {
-    expect(getScoringTiersFromContext(contextWithoutProficiencies)).to.be.undefined
+    expect(getScoringTiersFromContext(contextWithoutProficiencies)).not.toBeDefined()
   })
 
   it('translates default description keys', () => {
@@ -147,7 +149,7 @@ describe('getScoringTiersFromContext', () => {
         }]
       }
     }
-    expect(getScoringTiersFromContext(context).map(tier => tier.description)).to.eql([
+    expect(getScoringTiersFromContext(context).map(tier => tier.description)).toEqual([
       'Exceeds Mastery',
       'Mastery',
       'Near Mastery',

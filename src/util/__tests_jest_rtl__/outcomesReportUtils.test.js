@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect } from '@jest/globals'
 import {
   formatDataIntoRow,
   hasMastery,
@@ -71,17 +71,17 @@ describe('outcomesReportUtils', () => {
   describe('formatDataInRow', () => {
     it('returns the correct value for each row header', () => {
       const formattedRow = formatDataIntoRow(user1, outcome, rollup, masteryResult)
-      expect(formattedRow[STUDENT_NAME]).to.eq(user1.full_name)
-      expect(formattedRow[STUDENT_UUID]).to.eq(user1.uuid)
-      expect(formattedRow[ATTEMPT_COUNT]).to.eq(masteryResult.attempt)
-      expect(formattedRow[ALIGNED_QUESTIONS_COUNT]).to.eq(rollup.childArtifactCount)
-      expect(formattedRow[LOR_POINTS]).to.eq(masteryResult.points)
-      expect(formattedRow[LOR_POINTS_POSSIBLE]).to.eq(masteryResult.pointsPossible)
-      expect(formattedRow[LO_NAME]).to.eq(outcome.title)
-      expect(formattedRow[LO_ID]).to.eq(outcome.id)
-      expect(formattedRow[LO_MASTERY_PERCENT]).to.eq(outcome.scoring_method.mastery_percent)
-      expect(formattedRow[LO_MASTERED]).to.be.true
-      expect(Object.keys(formattedRow).length).eq(10)
+      expect(formattedRow[STUDENT_NAME]).toEqual(user1.full_name)
+      expect(formattedRow[STUDENT_UUID]).toEqual(user1.uuid)
+      expect(formattedRow[ATTEMPT_COUNT]).toEqual(masteryResult.attempt)
+      expect(formattedRow[ALIGNED_QUESTIONS_COUNT]).toEqual(rollup.childArtifactCount)
+      expect(formattedRow[LOR_POINTS]).toEqual(masteryResult.points)
+      expect(formattedRow[LOR_POINTS_POSSIBLE]).toEqual(masteryResult.pointsPossible)
+      expect(formattedRow[LO_NAME]).toEqual(outcome.title)
+      expect(formattedRow[LO_ID]).toEqual(outcome.id)
+      expect(formattedRow[LO_MASTERY_PERCENT]).toEqual(outcome.scoring_method.mastery_percent)
+      expect(formattedRow[LO_MASTERED]).toEqual(true)
+      expect(Object.keys(formattedRow)).toHaveLength(10)
     })
 
     describe('for aligned questions count row', () => {
@@ -91,26 +91,26 @@ describe('outcomesReportUtils', () => {
           usesBank: true
         }
         const formattedRow = formatDataIntoRow(user1, outcome, usesBank, masteryResult)
-        expect(formattedRow[ALIGNED_QUESTIONS_COUNT]).to.eq('Variable Questions')
+        expect(formattedRow[ALIGNED_QUESTIONS_COUNT]).toEqual('Variable Questions')
       })
     })
   })
 
   describe('hasMastery', () => {
     it('returns true if the student achieved mastery for the given outcome', () => {
-      expect(hasMastery(masteryResult, outcome)).to.be.true
+      expect(hasMastery(masteryResult, outcome)).toEqual(true)
     })
 
     it('returns false if the student did not reach mastery for the given outcome', () => {
-      expect(hasMastery(nonMasteryResult, outcome)).to.be.false
+      expect(hasMastery(nonMasteryResult, outcome)).toEqual(false)
     })
   })
 
   describe('fileName', () => {
     it('returns the file name for the csv report', () => {
       const name = fileName(1)
-      expect(name.includes('outcome_analysis_csv_')).to.be.true
-      expect(name.includes('_quiz_1.csv')).to.be.true
+      expect(name.includes('outcome_analysis_csv_')).toEqual(true)
+      expect(name.includes('_quiz_1.csv')).toEqual(true)
     })
   })
 
@@ -118,18 +118,18 @@ describe('outcomesReportUtils', () => {
     // Regex for yyyy-mm-dd format was found here:
     // https://stackoverflow.com/questions/22061723/regex-date-validation-for-yyyy-mm-dd
     it('returns the date in yyyy-mm-dd format', () => {
-      expect(getDate().match(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)).not.to.empty
+      expect(getDate().match(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/).length).toBeGreaterThan(0)
     })
   })
 
   describe('formatPercentage', () => {
     it('formats two numbers into a percentage', () => {
-      expect(formatPercentage(50, 100)).to.eq(50)
-      expect(formatPercentage(5, 10)).to.eq(50)
+      expect(formatPercentage(50, 100)).toEqual(50)
+      expect(formatPercentage(5, 10)).toEqual(50)
     })
 
     it('formats two numbers into a percentage and rounds', () => {
-      expect(formatPercentage(1, 3)).to.eq(33)
+      expect(formatPercentage(1, 3)).toEqual(33)
     })
   })
 })

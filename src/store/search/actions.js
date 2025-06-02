@@ -10,7 +10,7 @@ import {
   SET_SEARCH_TOTAL
 } from '../../constants'
 import { setOutcomes } from '../context/actions'
-import debounceLatestPromise from '../../util/debouceLatestPromise'
+import debounceLatestPromise from '../../util/debounceLatestPromise'
 import {getSelectedLaunchContext} from '../OutcomePicker/selectors'
 
 export const setSearchText = createAction(SET_SEARCH_TEXT)
