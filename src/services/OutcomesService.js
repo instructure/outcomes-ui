@@ -141,7 +141,7 @@ class OutcomesService {
         context_uuid: contextUuid
       })}`
     }
-    params += '&includes[]=friendly_description'
+    params += '&includes[]=friendly_description&includes[]=source_context_info'
     if (roots) {
       params += `&${queryString.stringify({ roots: roots }, { arrayFormat: 'bracket' })}`
     }
@@ -296,7 +296,7 @@ class OutcomesService {
   }
 
   listOutcomes (host, jwt, page, contextUuid = null, artifactId = null, artifactType = null) {
-    const params = { per_page: 10, page, includes: ['scoring_method', 'friendly_description'] }
+    const params = { per_page: 10, page, includes: ['scoring_method', 'friendly_description', 'source_context_info'] }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
     }
@@ -318,7 +318,7 @@ class OutcomesService {
   }
 
   getSearchResults (host, jwt, text, page, contextUuid = '') {
-    const params = { text, page, includes: ['scoring_method', 'friendly_description'] }
+    const params = { text, page, includes: ['scoring_method', 'friendly_description', 'source_context_info'] }
     if (contextUuid) {
       params['context_uuid'] = contextUuid
     }

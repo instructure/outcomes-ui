@@ -86,6 +86,9 @@
   "count_plural_one_outcome_other_outcomes_7112a43f": {
     "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
   },
+  "course_8a63b4a3": {
+    "message": "Course"
+  },
   "course_outcome_6757974b": {
     "message": "Course Outcome"
   },
@@ -136,6 +139,9 @@
   },
   "home_level_groups_and_outcomes_59843468": {
     "message": "Home level groups and outcomes"
+  },
+  "institution_14179014": {
+    "message": "Institution"
   },
   "label_alignment_removed_8060dd68": {
     "message": "{ label } alignment removed"
@@ -320,6 +326,12 @@
   },
   "there_was_an_error_in_fetching_the_data_please_try_dd66ba13": {
     "message": "There was an error in fetching the data. Please try again."
+  },
+  "this_is_a_course_level_outcome_163d3c28": {
+    "message": "This is a course-level outcome"
+  },
+  "this_is_an_institution_level_outcome_2a470cc": {
+    "message": "This is an institution-level outcome"
   },
   "to_add_or_create_outcomes_visit_the_canvas_outcome_d5910ce4": {
     "message": "To add or create outcomes, visit the Canvas outcomes page or contact your admin."

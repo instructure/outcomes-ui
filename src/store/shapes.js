@@ -23,6 +23,11 @@ export const outcomeShape = PropTypes.shape({
   description: PropTypes.string,
   scoring_method: scoringMethodShape,
   group: PropTypes.bool,
+  source_context_info: PropTypes.shape({
+    name: PropTypes.string,
+    context_type: PropTypes.string,
+    uuid: PropTypes.string
+  }),
 })
 
 export const outcomeResultShape = PropTypes.shape({

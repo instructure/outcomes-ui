@@ -6,6 +6,7 @@ import { Link } from '@instructure/ui-link'
 import { Checkbox } from '@instructure/ui-checkbox'
 import { outcomeShape, stylesShape } from '../../store/shapes'
 import OutcomeDescription from '../OutcomeDescription'
+import OutcomeContextTag from '../OutcomeContextTag'
 import { View } from '@instructure/ui-view'
 import t from 'format-message'
 import { withStyle, jsx } from '@instructure/emotion'
@@ -92,6 +93,9 @@ export default class OutcomeCheckbox extends React.Component {
         )}
         <div css={this.props.styles.checkboxDescription}>
           <OutcomeDescription description={description} maxLines={2} />
+        </div>
+        <div css={this.props.styles.checkboxContextTag}>
+          <OutcomeContextTag outcomeContextType={outcome.source_context_info?.context_type} />
         </div>
       </div>
     )

@@ -9,21 +9,21 @@ expect.extend(toHaveNoViolations)
 
 describe('OutcomeCheckbox', () => {
   function makeProps(props = {}) {
-    return Object.assign(
-      {
-        outcome: {
-          id: '101',
-          label: 'XYZ',
-          title: 'The student will make cupcakes',
-          description: 'Hello there',
-        },
-        setFocusedOutcome: jest.fn(),
-        isOutcomeSelected: jest.fn(),
-        selectOutcomeIds: jest.fn(),
-        deselectOutcomeIds: jest.fn(),
-      },
-      props
-    )
+    const defaultOutcome = {
+      id: '101',
+      label: 'XYZ',
+      title: 'The student will make cupcakes',
+      description: 'Hello there',
+    }
+
+    return {
+      outcome: {...defaultOutcome, ...props.outcome},
+      setFocusedOutcome: jest.fn(),
+      isOutcomeSelected: jest.fn(),
+      selectOutcomeIds: jest.fn(),
+      deselectOutcomeIds: jest.fn(),
+      ...props,
+    }
   }
 
   it('renders a checkbox', () => {
@@ -42,10 +42,6 @@ describe('OutcomeCheckbox', () => {
   it('renders friendly description', () => {
     const props = makeProps({
       outcome: {
-        id: '101',
-        label: 'XYZ',
-        title: 'The student will make cupcakes',
-        description: 'Hello there',
         friendly_description: 'This is the Friendly Description',
       },
     })
@@ -122,5 +118,48 @@ describe('OutcomeCheckbox', () => {
     const {container} = render(<OutcomeCheckbox {...makeProps()} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
+  })
+
+  describe('OutcomeContextTag', () => {
+    it('renders Institution tag when source_context_info.context_type is account', () => {
+      const props = makeProps({
+        outcome: {
+          source_context_info: {
+            context_type: 'account',
+          },
+        },
+      })
+      render(<OutcomeCheckbox {...props} />)
+      expect(screen.getByTestId('outcome-context-tag')).toBeInTheDocument()
+      expect(screen.getByText('Institution')).toBeInTheDocument()
+    })
+
+    it('renders Course tag when source_context_info.context_type is course', () => {
+      const props = makeProps({
+        outcome: {
+          source_context_info: {
+            context_type: 'course',
+          },
+        },
+      })
+      render(<OutcomeCheckbox {...props} />)
+      expect(screen.getByTestId('outcome-context-tag')).toBeInTheDocument()
+      expect(screen.getByText('Course')).toBeInTheDocument()
+    })
+
+    it('does not render tag when source_context_info.context_type is missing', () => {
+      const props = makeProps({
+        outcome: {
+          source_context_info: {},
+        },
+      })
+      render(<OutcomeCheckbox {...props} />)
+      expect(screen.queryByTestId('outcome-context-tag')).not.toBeInTheDocument()
+    })
+
+    it('does not render tag when source_context_info is missing', () => {
+      render(<OutcomeCheckbox {...makeProps()} />)
+      expect(screen.queryByTestId('outcome-context-tag')).not.toBeInTheDocument()
+    })
   })
 })

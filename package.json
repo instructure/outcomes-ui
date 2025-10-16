@@ -62,6 +62,7 @@
     "@instructure/ui-tree-browser": "^10",
     "@instructure/ui-truncate-text": "^10",
     "@instructure/ui-view": "^10",
+    "@instructure/ui-svg-images": "10.15.0",
     "classnames": "^2.2.5",
     "core-js": "^3.2.1",
     "format-message": "^6.2.1",

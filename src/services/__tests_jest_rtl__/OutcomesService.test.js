@@ -30,7 +30,7 @@ describe('OutcomesService', () => {
           ]
         }
       }
-      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2&includes[]=friendly_description', serverResponse)
+      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2&includes[]=friendly_description&includes[]=source_context_info', serverResponse)
       return subject.loadOutcomes(host, jwt)
         .then((result) => {
           expect(result).toEqual(serverResponse.outcome_tree)
@@ -39,7 +39,7 @@ describe('OutcomesService', () => {
 
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).toMatch(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&context_uuid=alphabeta&includes\[\]=friendly_description$/)
+        expect(url).toMatch(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&context_uuid=alphabeta&includes\[\]=friendly_description&includes\[\]=source_context_info$/)
         return true
       }, [])
       return subject.loadOutcomes(host, jwt, 'alphabeta')
@@ -47,7 +47,7 @@ describe('OutcomesService', () => {
 
     it('adds includes friendly description with blank context', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).toMatch(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&includes\[\]=friendly_description$/)
+        expect(url).toMatch(/\/outcomes\/tree\?excludes\[\]=scoring_method&depth=2&includes\[\]=friendly_description&includes\[\]=source_context_info$/)
         return true
       }, [])
       return subject.loadOutcomes(host, jwt, '')
@@ -62,7 +62,7 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2&includes[]=friendly_description', 500)
+      mockGet('/api/outcomes/tree?excludes[]=scoring_method&depth=2&includes[]=friendly_description&includes[]=source_context_info', 500)
       return subject.loadOutcomes(host, jwt)
         .catch((err) => {
           expect(err).toHaveProperty('status', 500)
@@ -469,7 +469,7 @@ describe('OutcomesService', () => {
   describe('getSearchResults', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        expect(url).toMatch(/\/outcomes\/search\?context_uuid=def&includes\[\]=scoring_method&includes\[\]=friendly_description&page=999&text=abc$/)
+        expect(url).toMatch(/\/outcomes\/search\?context_uuid=def&includes\[\]=scoring_method&includes\[\]=friendly_description&includes\[\]=source_context_info&page=999&text=abc$/)
         return true
       }, [])
       return subject.getSearchResults(host, jwt, 'abc', 999, 'def')
@@ -486,7 +486,7 @@ describe('OutcomesService', () => {
       const headers = {
         total: 101
       }
-      mockGet('/api/outcomes/search?context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&page=999&text=abc', { body, headers })
+      mockGet('/api/outcomes/search?context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&includes[]=source_context_info&page=999&text=abc', { body, headers })
       return subject.getSearchResults(host, jwt, 'abc', 999, 'def')
         .then((result) => {
           expect(result).toEqual({...body, total: 101})
@@ -494,7 +494,7 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      mockGet('/api/outcomes/search?context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&page=999&text=abc', 500)
+      mockGet('/api/outcomes/search?context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&includes[]=source_context_info&page=999&text=abc', 500)
       return subject.getSearchResults(host, jwt, 'abc', 999, 'def')
         .catch((err) => {
           expect(err).toHaveProperty('status', 500)
@@ -505,7 +505,7 @@ describe('OutcomesService', () => {
   describe('listOutcomes', () => {
     it('uses correct query', () => {
       fetchMock.getOnce((url, opts) => {
-        const exp_url = /\/outcomes\/list\?artifact_id=103&artifact_type=quizzes\.quiz&context_uuid=def&includes\[\]=scoring_method&includes\[\]=friendly_description&page=999&per_page=10$/
+        const exp_url = /\/outcomes\/list\?artifact_id=103&artifact_type=quizzes\.quiz&context_uuid=def&includes\[\]=scoring_method&includes\[\]=friendly_description&includes\[\]=source_context_info&page=999&per_page=10$/
         expect(url).toMatch(exp_url)
         return true
       }, [])
@@ -520,7 +520,7 @@ describe('OutcomesService', () => {
       const headers = {
         total: 101
       }
-      const url = '/api/outcomes/list?context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&page=999&per_page=10'
+      const url = '/api/outcomes/list?context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&includes[]=source_context_info&page=999&per_page=10'
       mockGet(url, { body, headers })
       return subject.listOutcomes(host, jwt, 999, 'def')
         .then((result) => {
@@ -529,7 +529,7 @@ describe('OutcomesService', () => {
     })
 
     it('rejects on error', () => {
-      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&page=999&per_page=10'
+      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&includes[]=source_context_info&page=999&per_page=10'
       mockGet(url, 500)
       return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz')
         .catch((err) => {
@@ -545,7 +545,7 @@ describe('OutcomesService', () => {
       const headers = {
         total: 101
       }
-      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&page=999&per_page=10'
+      const url = '/api/outcomes/list?artifact_id=103&artifact_type=quizzes.quiz&context_uuid=def&includes[]=scoring_method&includes[]=friendly_description&includes[]=source_context_info&page=999&per_page=10'
       mockGet(url, { body, headers })
       return subject.listOutcomes(host, jwt, 999, 'def', '103', 'quizzes.quiz')
         .then((result) => {

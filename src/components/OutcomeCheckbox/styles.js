@@ -8,6 +8,10 @@ const generateStyle = (componentTheme) => {
     checkboxDescription: {
       paddingLeft: componentTheme.checkboxDescriptionLeftPadding
     },
+    checkboxContextTag: {
+      paddingLeft: componentTheme.checkboxDescriptionLeftPadding,
+      marginTop: '4px'
+    },
     checkboxFriendlyDescription: {
       marginLeft: componentTheme.checkboxDescriptionLeftPadding,
       marginBottom: '10px'
