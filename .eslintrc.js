@@ -2,8 +2,8 @@ const defaultConfig = require('@instructure/ui-eslint-config')
 const defaultExtends = Array.isArray(defaultConfig.extends) ? defaultConfig.extends : [defaultConfig.extends]
 
 module.exports = Object.assign({}, defaultConfig, {
-  extends: defaultExtends.concat(['plugin:security/recommended', 'plugin:react-redux/recommended']),
-  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security', 'react-redux']),
+  extends: defaultExtends.concat(['plugin:security/recommended']),
+  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security']),
   rules: Object.assign({}, defaultConfig.rules, {
     /*
     The things these warnings catch really should be fixed. They are probably causing

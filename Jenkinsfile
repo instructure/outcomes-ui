@@ -115,7 +115,7 @@ pipeline {
 
     stage('Validate Storybook Stories') {
       steps {
-        sh 'docker-compose run --rm ui yarn test-storybook'
+        sh 'docker-compose run --rm ui yarn storybook:test'
       }
     }
 

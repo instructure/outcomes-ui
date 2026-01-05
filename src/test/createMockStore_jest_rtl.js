@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals'
-import configureStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 import { Map } from 'immutable'
 import serviceMiddleware from '@instructure/redux-service-middleware'
@@ -14,7 +14,7 @@ const mockService = {
 }
 
 export default function createMockStore (state = Map(), outcomesService = mockService, scope = 'scopeForTest') {
-  const baseStore = configureStore([
+  const baseStore = configureMockStore([
     thunkMiddleware,
     serviceMiddleware({ outcomes: outcomesService })
   ])(state)

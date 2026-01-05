@@ -21,9 +21,9 @@
     "test:jest-rtl": "yarn run jest __tests_jest_rtl__/.*test.[jt]sx?$ --coverage --forceExit",
     "snyk-monitor": "node --max-old-space-size=4096 node_modules/.bin/snyk monitor --org=${SNYK_ORG} --file=yarn.lock --project-name=${SNYK_PROJECT_NAME} --project-tags=${SNYK_PROJECT_TAGS}",
     "snyk-test": "node --max-old-space-size=4096 node_modules/.bin/snyk test --org=${SNYK_ORG} --file=yarn.lock --project-name=${SNYK_PROJECT_NAME} --project-tags=${SNYK_PROJECT_TAGS}",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "test-storybook": "jest .storybook/storyshots.test.js"
+    "storybook:dev": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
+    "storybook:test": "jest .storybook/storyshots.test.js"
   },
   "dependencies": {
     "@instructure/redux-service-middleware": "^1.0.0",
@@ -98,12 +98,20 @@
     "@instructure/ui-tabs": "^10",
     "@instructure/ui-webpack-config": "^8",
     "@jest/globals": "^29.7.0",
-    "@storybook/addon-actions": "^5.3.10",
-    "@storybook/addon-knobs": "^5.3.11",
-    "@storybook/addon-links": "^5.3.10",
-    "@storybook/addon-storyshots": "^5.3.13",
-    "@storybook/addons": "^5.3.10",
-    "@storybook/react": "^5.3.10",
+    "@storybook/addon-actions": "^7.6.20",
+    "@storybook/addon-controls": "^7.6.20",
+    "@storybook/addon-essentials": "^7.6.20",
+    "@storybook/addon-knobs": "^7.0.2",
+    "@storybook/addon-links": "^7.6.20",
+    "@storybook/addon-storyshots": "^6.5.16",
+    "@storybook/addons": "^7.6.20",
+    "@storybook/api": "^7.6.20",
+    "@storybook/blocks": "^7.6.20",
+    "@storybook/components": "^7.6.20",
+    "@storybook/core-events": "^7.6.20",
+    "@storybook/react": "^7.6.20",
+    "@storybook/react-webpack5": "^7.6.20",
+    "@storybook/theming": "^7.6.20",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^12.1.5",
@@ -149,6 +157,7 @@
     "redux-mock-store": "^1.5.3",
     "require-context.macro": "^1.2.2",
     "snyk": "^1.89.0",
+    "storybook": "^7.6.20",
     "storybook-readme": "^5.0.8",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
@@ -160,5 +169,8 @@
   "peerDependencies": {
     "react": "^16.2",
     "react-dom": "^16.2"
+  },
+  "resolutions": {
+    "cheerio": "1.0.0-rc.12"
   }
 }

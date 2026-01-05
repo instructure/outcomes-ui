@@ -23,10 +23,8 @@ describe('OutcomeSDKComponent', () => {
         <div data-testid="userUuid">{props.userUuid}</div>
       </div>
     }
-    // eslint-disable-next-line react-redux/connect-prefer-named-arguments
     const connected = connect(state => ({
       storeState: Array.from(state.keys()).join('/')
-    // eslint-disable-next-line react-redux/prefer-separate-component-file
     }))(Inner)
     const Wrapped = OutcomeSDKComponent(connected, { foo: PropTypes.string })
 

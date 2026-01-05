@@ -42,7 +42,6 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-/* eslint-disable react-redux/mapDispatchToProps-returns-object */
 function mapDispatchToProps (dispatch, ownProps) {
   const { scope } = ownProps
   return bindScopedActionCreators({
@@ -54,7 +53,6 @@ function mapDispatchToProps (dispatch, ownProps) {
     clearReportStore
   }, dispatch, scope)
 }
-/* eslint-enable react-redux/mapDispatchToProps-returns-object */
 
 const ConnectedOutcomesPerStudent = connect(
   mapStateToProps,
