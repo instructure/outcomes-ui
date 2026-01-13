@@ -5,18 +5,18 @@ def verify_translations_up_to_date() {
   def exit_status = 0
 
   script {
-    // Compare existing yarn.lock and generated yarn.lock
-    def existing_yarn_lock_sha256 = sh (script: 'docker-compose run --rm karma sha256sum translations/en.json',
+    // Compare existing translations and generated translations
+    def existing_translations_sha256 = sh (script: 'docker-compose run --rm ui sha256sum translations/en.json',
       returnStdout: true
     ).trim()
 
-    sh 'docker-compose run --rm karma yarn run extract'
+    sh 'docker-compose run --rm ui yarn run extract'
 
-    def new_yarn_lock_sha256 = sh (script: 'docker-compose run --rm karma sha256sum translations/en.json',
+    def new_translations_sha256 = sh (script: 'docker-compose run --rm ui sha256sum translations/en.json',
       returnStdout: true
     ).trim()
 
-    if (existing_yarn_lock_sha256 != new_yarn_lock_sha256) {
+    if (existing_translations_sha256 != new_translations_sha256) {
       echo '    The translations/en.json catalog appears to be out of date!'
       echo '    Please run \"docker-compose run --rm ui yarn run extract\",'
       echo '    and add any translation file changes to your commit.'
@@ -42,7 +42,7 @@ pipeline {
     stage('Build UI') {
       steps {
         script {
-          sh 'docker-compose build --pull karma'
+          sh 'docker-compose build --pull ui'
         }
       }
     }
@@ -51,12 +51,12 @@ pipeline {
       steps {
         script {
           echo 'Verifying Lockfile up to date'
-          sh 'docker-compose run --rm karma yarn --ignore-scripts --frozen-lockfile'
+          sh 'docker-compose run --rm ui yarn --ignore-scripts --frozen-lockfile'
 
           echo 'Running ESLint'
           sh '''#!/usr/bin/env bash
           set -o pipefail
-          docker-compose run --rm karma yarn run lint \
+          docker-compose run --rm ui yarn run lint \
             | docker-compose run --rm gergich capture eslint -
           '''
 
@@ -79,10 +79,10 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
           script {
             sh '''
-              docker-compose run -e "SNYK_TOKEN=${SNYK_TOKEN}" --rm karma bash -c "
-                SNYK_ORG=${ORG} 
-                SNYK_PROJECT_NAME=${PROJECT_NAME} 
-                SNYK_PROJECT_TAGS=${PROJECT_TEAM} 
+              docker-compose run -e "SNYK_TOKEN=${SNYK_TOKEN}" --rm ui bash -c "
+                SNYK_ORG=${ORG}
+                SNYK_PROJECT_NAME=${PROJECT_NAME}
+                SNYK_PROJECT_TAGS=${PROJECT_TEAM}
                 yarn run snyk-test;
                 yarn run snyk-monitor
               "
@@ -94,21 +94,19 @@ pipeline {
 
     stage('UI Tests') {
       steps {
-        sh 'docker-compose run --name outcomes_ui karma yarn test:headless -- --single-run --no-auto-watch --coverage'
-        sh 'docker-compose run --name outcomes_ui_jest karma yarn test:jest-rtl'
+        sh 'docker-compose run --name outcomes_ui ui yarn test:jest-rtl'
       }
       post {
         always {
-          sh 'docker cp outcomes_ui:/usr/src/app/coverage/ui ./ui_coverage'
+          sh 'docker cp outcomes_ui:/usr/src/app/coverage ./ui_coverage'
           archiveArtifacts 'ui_coverage/**'
-          junit 'ui_coverage/karma-junit-reports/**/*.xml'
         }
         success {
           script {
-            def ui_coverage = sh (script: 'grep -B 1 "Lines" ui_coverage/index.html | head -1 | grep -Eo "[0-9]+\\.[0-9]+\\%"',
+            def ui_coverage = sh (script: 'grep -B 1 "Lines" ui_coverage/lcov-report/index.html | head -1 | grep -Eo "[0-9]+\\.[0-9]+\\%"',
               returnStdout: true
             ).trim()
-            def path_to_coverage = "$env.BUILD_URL" + 'artifact/ui_coverage/index.html'
+            def path_to_coverage = "$env.BUILD_URL" + 'artifact/ui_coverage/lcov-report/index.html'
             gergich_msg += ":js: ${ui_coverage} <$path_to_coverage>"
           }
         }
@@ -117,7 +115,7 @@ pipeline {
 
     stage('Validate Storybook Stories') {
       steps {
-        sh 'docker-compose run --rm karma yarn test-storybook'
+        sh 'docker-compose run --rm ui yarn test-storybook'
       }
     }
 

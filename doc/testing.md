@@ -1,43 +1,43 @@
 # Testing
 
-Outcomes uses [mocha], [chai], and [karma] for our test suite. Where applicable,
-we have `__tests__` directories located at any level of the filesystem
-where tests can be created using the following convention:
+Outcomes uses [Jest] and [React Testing Library] for our test suite. We have `__tests_jest_rtl__` directories
+located at any level of the filesystem where tests can be created using the following convention:
 
 logic: `src/components/lol.js`
-tests: `src/components/__tests__/lol.test.js`
+tests: `src/components/__tests_jest_rtl__/lol.test.js`
 
-To get setup for testing, make sure you have the `karma` service listed
-in your `docker-compose.override.yml` and the `karma` image built. Then
-run the following command to build and start the karma server:
+To run the test suite:
 
 ```
-docker-compose run --rm karma yarn --ignore-scripts
-docker-compose run --rm karma yarn test
+yarn test:jest-rtl
 ```
 
-If you need to rebuild karma, run the following command instead of the first:
+[Jest]: https://jestjs.io/
+[React Testing Library]: https://testing-library.com/docs/react-testing-library/intro/
+
+## Development Setup
+
+To set up the development environment with Docker:
 
 ```
-docker-compose build --no-cache
+docker-compose run --rm ui yarn --ignore-scripts
 ```
 
-If starting the karma server results in a namespace error, run the second command with the no sandbox and headless flags:
+To run tests in Docker:
 
 ```
-docker-compose run --rm karma yarn test --no-sandbox --headless
+docker-compose run --rm ui yarn test:jest-rtl
 ```
 
-Open `karma.outcomes.docker` in your browser and save a source or test file
-to trigger a test (re)run.
-
-[mocha]: https://mochajs.org/
-[chai]: http://chaijs.com/
-[karma]: https://karma-runner.github.io
+Open `ui.outcomes.docker` in your browser for the development server.
 
 ## Linting
 
-Run `docker-compose run --rm karma yarn run lint` to lint the src dir.
+Run `yarn run lint` to lint the src dir, or use Docker:
+
+```
+docker-compose run --rm ui yarn run lint
+```
 
 We are using [ESLint](http://eslint.org/).
 
@@ -47,19 +47,10 @@ As a convenience, you can install a pre-push hook for git to prevent pushing esl
 cp hooks/pre-push.example .git/hooks/pre-push
 ```
 
-You might need to globally install a few eslint packages, depending on your environment.  Here's a start:
-
-```sh
-npm install -g eslint babel-eslint eslint-plugin-{format-message,react,mocha,standard,promise} eslint-config-standard{,-react}
-```
-
 ## Code Coverage
 
-To run a code coverage report add the following script argument:
+Code coverage is automatically generated when running the test suite with `yarn test:jest-rtl`.
 
-`docker-compose run --rm karma yarn test -- --coverage`
+After running tests, you can inspect the generated HTML report:
 
-After running tests as described above, you'll see a brief text overview
-in your logs and can also inspect a generated HTML report like so:
-
-`open coverage/ui/index.html`
+`open coverage/index.html`

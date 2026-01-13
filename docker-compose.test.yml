@@ -12,17 +12,17 @@ services:
       - '.git:/app/.git'
       - 'tmp:/tmp'
 
-  karma:
+  ui:
     build:
       context: .
-      dockerfile: Dockerfile.karma
+      dockerfile: Dockerfile
     environment:
       NODE_ENV: test
     volumes:
-      - karma-modules:/usr/src/app/node_modules
-      - karma-translations:/usr/src/app/translations
+      - ui-modules:/usr/src/app/node_modules
+      - ui-translations:/usr/src/app/translations
 
 volumes:
-  karma-modules: {}
-  karma-translations: {}
+  ui-modules: {}
+  ui-translations: {}
   tmp: {}

@@ -1,8 +1,8 @@
 services:
-  karma:
+  ui:
     build:
       context: .
-      dockerfile: Dockerfile.karma
+      dockerfile: Dockerfile
     logging:
       options:
         max-file: '50'
@@ -12,7 +12,7 @@ services:
       - node-modules:/usr/src/app/node_modules
       - yarn-cache:/home/docker/.cache/yarn
     environment:
-      VIRTUAL_HOST: karma.outcomes.docker
+      VIRTUAL_HOST: ui.outcomes.docker
 
 volumes:
   node-modules: {}
