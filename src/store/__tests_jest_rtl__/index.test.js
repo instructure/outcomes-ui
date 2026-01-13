@@ -41,7 +41,6 @@ describe('getStore', () => {
   it('calls replaceReducer per unique scope', () => {
     const store = getStore(host, jwt, 'scope')
 
-    // Use Jest's spyOn instead of sinon.stub
     jest.spyOn(store, 'replaceReducer')
 
     getStore(host, jwt, 'scope')

@@ -1,7 +1,5 @@
-var defaultConfig = require('@instructure/ui-eslint-config')
-var defaultExtends = Array.isArray(defaultConfig.extends) ? defaultConfig.extends : [defaultConfig.extends]
-
-delete defaultConfig.overrides[0].rules['mocha/no-exclusive-tests']
+const defaultConfig = require('@instructure/ui-eslint-config')
+const defaultExtends = Array.isArray(defaultConfig.extends) ? defaultConfig.extends : [defaultConfig.extends]
 
 module.exports = Object.assign({}, defaultConfig, {
   extends: defaultExtends.concat(['plugin:security/recommended', 'plugin:react-redux/recommended']),
@@ -28,7 +26,6 @@ module.exports = Object.assign({}, defaultConfig, {
     'security/detect-object-injection': 0,
     'notice/notice': 0,
     'no-unused-expressions': 0,
-    'mocha/no-exclusive-tests': process.env.NODE_ENV === 'test' ? 'warn' : 'error',
     'promise/no-nesting': 'off',
 
     // Something in instui is configured incorrectly for this
