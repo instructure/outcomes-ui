@@ -1,9 +1,10 @@
-import { mount } from 'enzyme'
-import axe from 'axe-core'
+import { render } from '@testing-library/react'
+import { axe, toHaveNoViolations } from 'jest-axe'
+import { expect } from '@jest/globals'
 
-import { expect } from 'chai'
+expect.extend(toHaveNoViolations)
 
-export default function checkA11y (reactElement, options = {}) {
+export default async function checkA11y (reactElement, options = {}) {
   // We can't run aXe outside the browser
   if (process && process.title !== 'browser') {
     return Promise.resolve()
@@ -11,13 +12,16 @@ export default function checkA11y (reactElement, options = {}) {
 
   const ignores = options.ignores || []
 
-  const wrapper = mount(reactElement, { attachTo: document.getElementById('testbed') })
-  const node = wrapper.getDOMNode() // eslint-disable-line react/no-find-dom-node
+  const { container, unmount } = render(reactElement, {
+    container: document.getElementById('testbed') || document.body
+  })
 
   document.querySelectorAll('*[aria-labelledby]').forEach((el) => {
     el.getAttribute('aria-labelledby').split(' ').forEach((id) => {
-      const message = 'aria-labelledby cannot reference parent'
-      expect(document.getElementById(id).contains(el), message).to.be.false
+      const labelElement = document.getElementById(id)
+      if (labelElement && labelElement.contains(el)) {
+        throw new Error('aria-labelledby cannot reference parent')
+      }
     })
   })
 
@@ -31,16 +35,17 @@ export default function checkA11y (reactElement, options = {}) {
     }
   }
 
-  return axe.run(node, axeConfig)
-    .then((result) => {
-      wrapper.unmount()
+  const results = await axe(container, axeConfig)
 
-      const violations = result.violations.filter((violation) => {
-        return !ignores.includes(violation.id)
-      })
-      if (violations.length > 0) {
-        throw new Error(JSON.stringify(violations))
-      }
-      return result
-    })
+  unmount()
+
+  const violations = results.violations.filter((violation) => {
+    return !ignores.includes(violation.id)
+  })
+
+  if (violations.length > 0) {
+    throw new Error(JSON.stringify(violations))
+  }
+
+  return results
 }

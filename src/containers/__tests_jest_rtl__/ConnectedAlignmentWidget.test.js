@@ -37,7 +37,6 @@ describe('ConnectedAlignmentWidget', () => {
       </Provider>
     )
 
-    // Using React Testing Library's screen queries instead of Enzyme's find
     expect(screen.getByText('AlignmentWidget')).toBeInTheDocument()
     expect(screen.getByTestId('tray')).toHaveTextContent('Has Tray')
   })
