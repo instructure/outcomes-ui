@@ -14,12 +14,14 @@ const WithAlignmentSet = (ComponentClass) => class extends React.Component {
 
   static displayName = `WithAlignmentSet(${ComponentClass.displayName})`
 
-  UNSAFE_componentWillMount () {
+  componentDidMount() {
     this.loadIfNeeded(this.props)
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps) {
-    this.loadIfNeeded(nextProps)
+  componentDidUpdate(prevProps) {
+    if (prevProps.alignmentSetId !== this.props.alignmentSetId) {
+      this.loadIfNeeded(this.props)
+    }
   }
 
   loadIfNeeded (props) {

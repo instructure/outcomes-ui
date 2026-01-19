@@ -16,12 +16,17 @@ const WithArtifact = (ComponentClass) => class extends React.Component {
 
   static displayName = `WithArtifact(${ComponentClass.displayName})`
 
-  UNSAFE_componentWillMount () {
+  componentDidMount() {
     this.loadIfNeeded(this.props)
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps) {
-    this.loadIfNeeded(nextProps)
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.artifactId !== this.props.artifactId ||
+      prevProps.artifactType !== this.props.artifactType
+    ) {
+      this.loadIfNeeded(this.props)
+    }
   }
 
   loadIfNeeded (props) {

@@ -1,5 +1,5 @@
 import { expect } from '@jest/globals'
-import { renderHook, act } from '@testing-library/react-hooks/dom'
+import { renderHook, act } from '@testing-library/react'
 import useBoolean from '../useBoolean'
 
 describe('useBoolean', () => {
@@ -13,17 +13,17 @@ describe('useBoolean', () => {
     expect(result.current[0]).toEqual(true)
   })
 
-  it('changes state to true when first exported fn is called', () => {
+  it('changes state to true when first exported fn is called', async () => {
     const {result} = renderHook(() => useBoolean())
-    act(() => {
+    await act(async () => {
       result.current[1]()
     })
     expect(result.current[0]).toEqual(true)
   })
 
-  it('changes state to false when second exported fn is called', () => {
+  it('changes state to false when second exported fn is called', async () => {
     const {result} = renderHook(() => useBoolean())
-    act(() => {
+    await act(async () => {
       result.current[2]()
     })
     expect(result.current[0]).toEqual(false)

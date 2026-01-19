@@ -31,7 +31,7 @@ describe('OutcomeList', () => {
   it('renders loading spinner when state is loading', () => {
     const props = makeProps({ isLoading: true })
     render(<OutcomeList {...props} />)
-    expect(screen.getByRole('img', { value: { text: 'Loading' } })).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: /loading/i })).toBeInTheDocument()
   })
 
   it('renders pagination', () => {

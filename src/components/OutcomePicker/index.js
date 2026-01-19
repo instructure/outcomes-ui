@@ -39,7 +39,7 @@ class OutcomePicker extends React.Component {
     hasOutcomes: PropTypes.bool.isRequired,
     scope: PropTypes.string.isRequired,
     launchContexts: launchContextsShape,
-    treeView: PropTypes.func.isRequired
+    treeView: PropTypes.elementType.isRequired
   }
 
   static defaultProps = {

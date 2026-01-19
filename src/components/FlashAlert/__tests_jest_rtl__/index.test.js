@@ -1,7 +1,6 @@
 import {expect, jest} from '@jest/globals'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {render, screen} from '@testing-library/react'
+import {render, screen, act, waitFor} from '@testing-library/react'
 import '@testing-library/jest-dom'
 import {axe, toHaveNoViolations} from 'jest-axe'
 import FlashAlert, {showFlashAlert, showFlashError, showFlashSuccess, defaultTimeout} from '..'
@@ -24,17 +23,22 @@ describe('FlashAlert', () => {
   }
 
   describe('rendering', () => {
-    let renderSpy
-
     beforeEach(() => {
-      renderSpy = jest.spyOn(ReactDOM, 'render')
       jest.useFakeTimers()
     })
 
     afterEach(() => {
-      renderSpy.mockRestore()
       jest.clearAllTimers()
       jest.useRealTimers()
+      // Clean up any rendered flash alerts
+      const container = document.getElementById('flashalert_message_holder')
+      if (container) {
+        container.remove()
+      }
+      const liveRegion = document.getElementById('flash_screenreader_holder')
+      if (liveRegion) {
+        liveRegion.remove()
+      }
     })
 
     it('renders message and error', () => {
@@ -49,14 +53,18 @@ describe('FlashAlert', () => {
       expect(screen.queryByText('loading chunk 123')).not.toBeInTheDocument()
     })
 
-    it('closes after timeout', () => {
+    it('closes after timeout', async () => {
       const onClose = jest.fn()
-      render(<FlashAlert {...makeProps({onClose})} />)
 
-      jest.advanceTimersByTime(defaultTimeout)
-      jest.advanceTimersByTime(1000)
+      render(<FlashAlert {...makeProps({ onClose })} />)
 
-      expect(onClose).toHaveBeenCalled()
+      await act(async () => {
+        jest.advanceTimersByTime(defaultTimeout + 1000)
+      })
+
+      await waitFor(() => {
+        expect(onClose).toHaveBeenCalled()
+      })
     })
 
     it('renders with correct variant', () => {
@@ -70,10 +78,11 @@ describe('FlashAlert', () => {
     })
 
     describe('showFlashAlert', () => {
-      it('renders flash alert', () => {
+      it('renders flash alert', async () => {
         const props = makeProps()
-        showFlashAlert({...props})
-        expect(renderSpy).toHaveBeenCalled()
+        await act(async () => {
+          showFlashAlert({...props})
+        })
 
         const container = document.getElementById('flashalert_message_holder')
         expect(container).not.toBeNull()
@@ -81,20 +90,22 @@ describe('FlashAlert', () => {
     })
 
     describe('showFlashError', () => {
-      it('renders error alert', () => {
+      it('renders error alert', async () => {
         const showAlert = showFlashError()
-        showAlert(new Error('Test error'))
-        expect(renderSpy).toHaveBeenCalled()
+        await act(async () => {
+          showAlert(new Error('Test error'))
+        })
 
         jest.advanceTimersByTime(0)
       })
     })
 
     describe('showFlashSuccess', () => {
-      it('renders success alert', () => {
+      it('renders success alert', async () => {
         const showAlert = showFlashSuccess('Success message')
-        showAlert()
-        expect(renderSpy).toHaveBeenCalled()
+        await act(async () => {
+          showAlert()
+        })
 
         jest.advanceTimersByTime(0)
       })

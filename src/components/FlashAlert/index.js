@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
+import {createRoot} from 'react-dom/client'
 import t from 'format-message'
 import {Alert} from '@instructure/ui-alerts'
 import {Link} from '@instructure/ui-link'
@@ -21,8 +21,10 @@ const screenreaderMessageHolderId = 'flash_screenreader_holder'
 export const defaultTimeout = 10000
 
 export function showFlashAlert({message, err, type = err ? 'error' : 'info', timeout = defaultTimeout, srOnly = false}) {
-  function closeAlert(atNode) {
-    ReactDOM.unmountComponentAtNode(atNode)
+  function closeAlert(atNode, root) {
+    if (root) {
+      root.unmount()
+    }
     atNode.remove()
   }
 
@@ -42,16 +44,16 @@ export function showFlashAlert({message, err, type = err ? 'error' : 'info', tim
   }
 
   function renderAlert(parent) {
-    ReactDOM.render(
+    const root = createRoot(parent)
+    root.render(
       <FlashAlert
         message={message}
         timeout={timeout}
         error={err}
         variant={type}
-        onClose={closeAlert.bind(null, parent)}
+        onClose={closeAlert.bind(null, parent, root)}
         screenReaderOnly={srOnly}
-      />,
-      parent
+      />
     )
   }
 

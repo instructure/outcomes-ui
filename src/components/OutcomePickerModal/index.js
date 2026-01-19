@@ -19,7 +19,7 @@ export default class OutcomePickerModal extends React.Component {
     loadOutcomePicker: PropTypes.func.isRequired,
     setFocusedOutcome: PropTypes.func.isRequired,
     saveOutcomePickerAlignments: PropTypes.func.isRequired,
-    outcomePicker: PropTypes.func.isRequired,
+    outcomePicker: PropTypes.elementType.isRequired,
     onModalClose: PropTypes.func,
     onModalOpen: PropTypes.func,
     onUpdate: PropTypes.func,

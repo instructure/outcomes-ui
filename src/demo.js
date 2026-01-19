@@ -1,7 +1,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { fromPairs } from 'lodash'
 import { Alert } from '@instructure/ui-alerts'
 import { Heading } from '@instructure/ui-heading'
@@ -20,20 +20,24 @@ import {
 
 const themes = {'canvas': canvas, 'canvas-high-contrast': canvasHighContrast}
 
-const root = document.createElement('div')
-root.setAttribute('id', 'app')
-document.body.appendChild(root)
+const rootElement = document.createElement('div')
+rootElement.setAttribute('id', 'app')
+document.body.appendChild(rootElement)
 const alert = document.createElement('div')
 alert.setAttribute('id', 'alert')
 document.body.appendChild(alert)
 const getLive = () => document.getElementById('alert-live-region')
 getLive().setAttribute('role', 'alert')
+
+let alertRoot = null
 const screenreaderNotification = (text) => {
-  render(
+  if (!alertRoot) {
+    alertRoot = createRoot(alert)
+  }
+  alertRoot.render(
     <Alert screenReaderOnly liveRegion={getLive}>
       {text}
-    </Alert>,
-    alert
+    </Alert>
   )
 }
 const searchString = window.location.search.slice(1)
@@ -127,8 +131,12 @@ let currentPicker = 'dialog'
 let currentTheme = process?.env?.DEFAULT_HIGH_CONTRAST ? 'canvas-high-contrast' : 'canvas'
 let readOnly = 'false'
 let currentTab = 'alignments'
+let root = null
+
 const reset = () => {
-  render(<div />, root)
+  if (root) {
+    root.render(<div />)
+  }
   rerender()
 }
 const handleThemeChange = (_, { value: theme }) => {
@@ -153,7 +161,10 @@ const handleTabChange = (_, { id }) => {
   rerender()
 }
 function rerender() {
-  render(
+  if (!root) {
+    root = createRoot(rootElement)
+  }
+  root.render(
     <InstUISettingsProvider theme={themes[currentTheme]}>
       <Tabs onRequestTabChange={handleTabChange}>
         <Tabs.Panel id="alignments" renderTitle="Alignments" isSelected={currentTab === 'alignments'}>
@@ -294,8 +305,7 @@ function rerender() {
           </SimpleSelect>
         </Tabs.Panel>
       </Tabs>
-    </InstUISettingsProvider>,
-    root
+    </InstUISettingsProvider>
   )
 }
 rerender()

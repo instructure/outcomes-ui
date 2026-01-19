@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
 import t from 'format-message'
 import { withStyle, jsx } from '@instructure/emotion'
 import { Billboard } from '@instructure/ui-billboard'
@@ -63,6 +62,11 @@ class OutcomeTree extends React.Component {
     selectedLaunchContext: null,
   }
 
+  constructor(props) {
+    super(props)
+    this.containerRef = React.createRef()
+  }
+
   setRHS(rhs) {
     this.rhs = rhs // eslint-disable-line immutable/no-mutation
   }
@@ -74,7 +78,7 @@ class OutcomeTree extends React.Component {
     const newCollection = this.props.activeCollection
       ? this.props.activeCollection.id
       : null
-    const parent = ReactDOM.findDOMNode(this) // eslint-disable-line react/no-find-dom-node
+    const parent = this.containerRef.current
     if (
       oldCollection !== newCollection &&
       parent &&
@@ -188,7 +192,7 @@ class OutcomeTree extends React.Component {
     } = this.props
     const { groups, nonGroups } = activeChildren
     return (
-      <Flex alignItems="stretch" height="100%" width="100%">
+      <Flex alignItems="stretch" height="100%" width="100%" elementRef={(el) => { this.containerRef.current = el }}>
         <Flex.Item width="30%">
           <div
             css={this.props.styles.outcomeTree}

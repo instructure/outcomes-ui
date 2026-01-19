@@ -10,7 +10,7 @@ export default class OutcomePickerLoader extends React.Component {
     loadOutcomePicker: PropTypes.func.isRequired,
     setFocusedOutcome: PropTypes.func.isRequired,
     outcomePickerState: PropTypes.string.isRequired,
-    outcomePicker: PropTypes.func.isRequired,
+    outcomePicker: PropTypes.elementType.isRequired,
     scope: PropTypes.string.isRequired,
     launchContexts: launchContextsShape,
     artifactTypeName: PropTypes.string,
@@ -27,7 +27,7 @@ export default class OutcomePickerLoader extends React.Component {
     screenreaderNotification: null,
   }
 
-  UNSAFE_componentWillMount () {
+  componentDidMount() {
     const { loadOutcomePicker } = this.props
     loadOutcomePicker()
   }

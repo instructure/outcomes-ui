@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
 import { Billboard } from '@instructure/ui-billboard'
 import { IconButton } from '@instructure/ui-buttons'
 import { IconPlusLine } from '@instructure/ui-icons'
@@ -18,7 +17,7 @@ import { stylesShape } from '../../store/shapes'
 class AlignmentList extends React.Component {
   // eslint-disable-next-line no-undef
   static propTypes = {
-    addModal: PropTypes.func.isRequired,
+    addModal: PropTypes.elementType.isRequired,
     pickerType: PropTypes.string,
     pickerProps: PropTypes.object,
     alignedOutcomes: PropTypes.arrayOf(
@@ -63,6 +62,11 @@ class AlignmentList extends React.Component {
     mountNode: null
   }
 
+  constructor(props) {
+    super(props)
+    this.triggerButtonRef = React.createRef()
+  }
+
   handleModalOpen = () => {
     this.props.openOutcomePicker()
   }
@@ -87,15 +91,14 @@ class AlignmentList extends React.Component {
   }
 
   triggerButton = () => {
-    // eslint-disable-next-line react/no-find-dom-node
-    const r = ReactDOM.findDOMNode(this.triggerRoot)
-    return r.type === 'button' ? r : r.children[0]
+    const r = this.triggerButtonRef.current
+    return r?.type === 'button' ? r : r?.children?.[0]
   }
 
   componentDidUpdate(oldProps) {
     const { alignedOutcomes } = this.props
     if (oldProps.alignedOutcomes.length && !alignedOutcomes.length) {
-      this.triggerButton().focus()
+      this.triggerButton()?.focus()
     }
   }
 
@@ -103,7 +106,7 @@ class AlignmentList extends React.Component {
     return (
       <li css={this.props.styles.addOutcome}>
         <IconButton
-          elementRef={d => (this.triggerRoot = d)} // eslint-disable-line immutable/no-mutation
+          elementRef={(el) => { this.triggerButtonRef.current = el }}
           shape='circle'
           color='primary'
           size="small"
@@ -160,7 +163,7 @@ class AlignmentList extends React.Component {
     return (
       !this.props.readOnly && (
         <Billboard
-          elementRef={d => (this.triggerRoot = d)} // eslint-disable-line immutable/no-mutation
+          elementRef={(el) => { this.triggerButtonRef.current = el }}
           heading={this.props.emptySetHeading}
           message={t('Browse and add outcomes by clicking here.')}
           headingAs="h3"
@@ -221,8 +224,8 @@ class AlignmentList extends React.Component {
   }
 
   focus() {
-    if (this.triggerRoot) {
-      this.triggerButton().focus()
+    if (this.triggerButtonRef.current) {
+      this.triggerButton()?.focus()
     }
   }
 
