@@ -35,7 +35,7 @@ Object.assign(exports, {
     bundle: ['./demo']
   },
   resolve: {
-    extensions: ['.js', '.scss', '.json', '.svg'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.json', '.svg'],
     modules: [resolve(__dirname), 'node_modules'],
     fallback: { 'process/browser': require.resolve('process/browser') }
   },
@@ -48,6 +48,22 @@ Object.assign(exports, {
   },
   module: {
     rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        include: src,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },
       {
         test: /\.js$/,
         include: src,

@@ -1,3 +1,5 @@
 coverage/*
 build/*
 lib/*
+es/*
+node_modules/*

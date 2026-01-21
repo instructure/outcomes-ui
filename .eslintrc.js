@@ -3,7 +3,7 @@ const defaultExtends = Array.isArray(defaultConfig.extends) ? defaultConfig.exte
 
 module.exports = Object.assign({}, defaultConfig, {
   extends: defaultExtends.concat(['plugin:security/recommended']),
-  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security']),
+  plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security', '@typescript-eslint']),
   rules: Object.assign({}, defaultConfig.rules, {
     /*
     The things these warnings catch really should be fixed. They are probably causing
@@ -44,5 +44,17 @@ module.exports = Object.assign({}, defaultConfig, {
       ignoreRegExpLiterals: true,
       ignoreComments: true
     }],
-  })
+  }),
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off'
+      }
+    }
+  ]
 })
