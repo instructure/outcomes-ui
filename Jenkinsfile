@@ -42,6 +42,7 @@ pipeline {
     stage('Build UI') {
       steps {
         script {
+          sh 'docker pull instructure/node:20'
           sh 'docker-compose build --pull ui'
         }
       }
@@ -94,7 +95,7 @@ pipeline {
 
     stage('UI Tests') {
       steps {
-        sh 'docker-compose run --name outcomes_ui ui yarn test:jest-rtl'
+        sh 'docker-compose run --name outcomes_ui ui yarn test'
       }
       post {
         always {

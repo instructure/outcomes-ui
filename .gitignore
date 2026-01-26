@@ -12,3 +12,4 @@ yarn-error.log
 .babel-cache
 es
 .storybook/__snapshots__/
+storybook-static/

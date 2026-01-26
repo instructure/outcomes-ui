@@ -1,15 +1,15 @@
 # Testing
 
-Outcomes uses [Jest] and [React Testing Library] for our test suite. We have `__tests_jest_rtl__` directories
+Outcomes uses [Jest] and [React Testing Library] for our test suite. We have `__tests__` directories
 located at any level of the filesystem where tests can be created using the following convention:
 
-logic: `src/components/lol.js`
-tests: `src/components/__tests_jest_rtl__/lol.test.js`
+logic: `src/components/example.js`
+tests: `src/components/__tests__/example.test.js`
 
 To run the test suite:
 
 ```
-yarn test:jest-rtl
+yarn test
 ```
 
 [Jest]: https://jestjs.io/
@@ -26,7 +26,7 @@ docker-compose run --rm ui yarn --ignore-scripts
 To run tests in Docker:
 
 ```
-docker-compose run --rm ui yarn test:jest-rtl
+docker-compose run --rm ui yarn test
 ```
 
 Open `ui.outcomes.docker` in your browser for the development server.
@@ -49,7 +49,7 @@ cp hooks/pre-push.example .git/hooks/pre-push
 
 ## Code Coverage
 
-Code coverage is automatically generated when running the test suite with `yarn test:jest-rtl`.
+Code coverage is automatically generated when running the test suite with `yarn test`.
 
 After running tests, you can inspect the generated HTML report:
 

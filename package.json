@@ -20,7 +20,7 @@
     "lint": "eslint . && yarn typecheck",
     "start": "webpack-dev-server",
     "pretest": "rm -rf coverage && mkdir coverage",
-    "test:jest-rtl": "yarn run jest __tests_jest_rtl__/.*test.[jt]sx?$ --coverage --forceExit",
+    "test": "yarn run jest __tests__/.*test.[jt]sx?$ --coverage --forceExit",
     "snyk-monitor": "node --max-old-space-size=4096 node_modules/.bin/snyk monitor --org=${SNYK_ORG} --file=yarn.lock --project-name=${SNYK_PROJECT_NAME} --project-tags=${SNYK_PROJECT_TAGS}",
     "snyk-test": "node --max-old-space-size=4096 node_modules/.bin/snyk test --org=${SNYK_ORG} --file=yarn.lock --project-name=${SNYK_PROJECT_NAME} --project-tags=${SNYK_PROJECT_TAGS}",
     "storybook:dev": "storybook dev -p 6006",
