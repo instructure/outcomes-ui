@@ -11319,7 +11319,7 @@ format-message-formats@^6.2.4:
   resolved "https://registry.yarnpkg.com/format-message-formats/-/format-message-formats-6.2.4.tgz#68b782e70c3c15f017377848c3225731e52ac4ea"
   integrity sha512-smT/fAqBLqusWfWCKRAx6QBDAAbmYznWsIyTyk66COmvwt2Byiqd7SJe2ma9a5oV0kwRaOJpN/F4lr4YK/n6qQ==
 
-format-message-generate-id@^6.2.4:
+format-message-generate-id@^6.2.1, format-message-generate-id@^6.2.4:
   version "6.2.4"
   resolved "https://registry.yarnpkg.com/format-message-generate-id/-/format-message-generate-id-6.2.4.tgz#d3322719efa35ce4ff0ae0b16ad752204bf2a535"
   integrity sha512-yx+sq5Thn0u5bMyy1qNkNA45nJSCskfOPXHx7KoDu/WCF/qudmXqvmuuS8ntz9qikH37ggAfiLM8Zrm0Fh+H7A==
