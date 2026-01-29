@@ -74,6 +74,31 @@ module.exports = {
       }
     }
 
+    // Add custom resolver to strip .js extensions for TypeScript files
+    // This is the webpack equivalent of Jest's moduleNameMapper
+    if (!config.resolve.plugins) config.resolve.plugins = []
+    config.resolve.plugins.push({
+      apply(resolver) {
+        const target = resolver.ensureHook('resolve')
+        resolver.getHook('described-resolve').tapAsync(
+          'StripJsExtensionPlugin',
+          (request, resolveContext, callback) => {
+            if (request.request && request.request.endsWith('.js')) {
+              const requestWithoutExt = request.request.slice(0, -3)
+              return resolver.doResolve(
+                target,
+                { ...request, request: requestWithoutExt },
+                null,
+                resolveContext,
+                callback
+              )
+            }
+            callback()
+          }
+        )
+      }
+    })
+
     // Merge plugins (keeping Storybook's and adding base config's)
     if (baseConfig.plugins) {
       config.plugins = [...config.plugins, ...baseConfig.plugins]

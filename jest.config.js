@@ -92,7 +92,15 @@ module.exports = {
   // ],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  // Note: This is needed because somewhere in the TypeScript/Babel transformation chain,
+  // .js extensions are being appended to relative imports. This mapper strips them off
+  // so Jest can find the actual .ts/.tsx files.
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],

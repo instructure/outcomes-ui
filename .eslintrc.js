@@ -4,6 +4,13 @@ const defaultExtends = Array.isArray(defaultConfig.extends) ? defaultConfig.exte
 module.exports = Object.assign({}, defaultConfig, {
   extends: defaultExtends.concat(['plugin:security/recommended']),
   plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security', '@typescript-eslint']),
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      }
+    }
+  },
   rules: Object.assign({}, defaultConfig.rules, {
     /*
     The things these warnings catch really should be fixed. They are probably causing
