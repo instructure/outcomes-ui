@@ -97,6 +97,11 @@ module.exports = {
   // so Jest can find the actual .ts/.tsx files.
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@util/(.*)$': '<rootDir>/src/util/$1',
+    '^@types/(.*)$': '<rootDir>/src/types/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'

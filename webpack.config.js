@@ -37,7 +37,14 @@ Object.assign(exports, {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.json', '.svg'],
     modules: [resolve(__dirname), 'node_modules'],
-    fallback: { 'process/browser': require.resolve('process/browser') }
+    fallback: { 'process/browser': require.resolve('process/browser') },
+    alias: {
+      '@': resolve(__dirname, 'src'),
+      '@components': resolve(__dirname, 'src/components'),
+      '@util': resolve(__dirname, 'src/util'),
+      '@types': resolve(__dirname, 'src/types'),
+      '@hooks': resolve(__dirname, 'src/hooks'),
+    }
   },
   output: {
     chunkFilename: '[name].[hash].js',

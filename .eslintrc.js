@@ -6,6 +6,10 @@ module.exports = Object.assign({}, defaultConfig, {
   plugins: defaultConfig.plugins.concat(['immutable', 'promise', 'security', '@typescript-eslint']),
   settings: {
     'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: './tsconfig.json'
+      },
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx']
       }
@@ -18,6 +22,7 @@ module.exports = Object.assign({}, defaultConfig, {
     lines so they are treated as errors.
     */
     'react/no-unused-prop-types': 'error',
+    'react/require-default-props': 0,
     'react/forbid-prop-types': ['error', {
       forbid: ['any'] // TODO: add 'array', 'object'
     }],
