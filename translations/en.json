@@ -119,6 +119,9 @@
   "done_54e3d4b6": {
     "message": "Done"
   },
+  "error_exporting_gradebook_b6558e60": {
+    "message": "Error exporting gradebook"
+  },
   "exceeds_mastery_1f995dce": {
     "message": "Exceeds Mastery"
   },
@@ -133,6 +136,9 @@
   },
   "export_csv_percent_complete_11594e37": {
     "message": "Export CSV Percent Complete"
+  },
+  "export_de71cd8e": {
+    "message": "Export"
   },
   "exporting_b1eab154": {
     "message": "Exporting"

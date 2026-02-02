@@ -16,7 +16,7 @@
     "build:types": "tsc --emitDeclarationOnly",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf es lib",
-    "extract": "format-message extract -g underscored_crc32 --out-file translations/en.json 'src/**/*.{js,jsx,ts,tsx}'",
+    "extract": "format-message extract -g underscored_crc32 --out-file translations/en.json 'src/**/!(*.d).{js,jsx,ts,tsx}'",
     "lint": "eslint . && yarn typecheck",
     "start": "webpack-dev-server",
     "pretest": "rm -rf coverage && mkdir coverage",
