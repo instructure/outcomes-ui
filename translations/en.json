@@ -86,6 +86,9 @@
   "count_plural_one_group_other_groups_aeb134dc": {
     "message": "{ count, plural,\n    one {# Group}\n  other {# Groups}\n}"
   },
+  "count_plural_one_one_option_available_other_option_e3576eb7": {
+    "message": "{ count, plural,\n    one {One option available.}\n  other {# options available.}\n}"
+  },
   "count_plural_one_outcome_other_outcomes_7112a43f": {
     "message": "{ count, plural,\n    one {# Outcome}\n  other {# Outcomes}\n}"
   },
@@ -161,6 +164,12 @@
   "label_alignment_removed_8060dd68": {
     "message": "{ label } alignment removed"
   },
+  "label_removed_436b4303": {
+    "message": "{ label } removed."
+  },
+  "label_selected_list_collapsed_8af3a06b": {
+    "message": "{ label } selected. List collapsed."
+  },
   "learning_outcome_id_4fcc6822": {
     "message": "Learning Outcome ID"
   },
@@ -235,6 +244,9 @@
   },
   "no_outcomes_are_currently_selected_f6092d7f": {
     "message": "No Outcomes are currently selected"
+  },
+  "no_result_found_3d3fc3e3": {
+    "message": "No result found"
   },
   "not_in_this_course_47a38653": {
     "message": "Not in this Course"
@@ -365,6 +377,9 @@
   },
   "to_add_this_outcome_navigate_to_the_outcomes_manag_99e3b9c": {
     "message": "To add this outcome, navigate to the Outcomes Management page."
+  },
+  "type_or_use_arrow_keys_to_navigate_multiple_select_ec56e29c": {
+    "message": "Type or use arrow keys to navigate. Multiple selections are allowed."
   },
   "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
     "message": "Variable due to All/Random selection from item bank"
