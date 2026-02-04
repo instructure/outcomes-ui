@@ -11,9 +11,6 @@
   "an_error_occurred_making_a_network_request_d1bda348": {
     "message": "An error occurred making a network request"
   },
-  "ascending_b3c87427": {
-    "message": "Ascending"
-  },
   "attached_outcomes_d64ce1de": {
     "message": "Attached Outcomes"
   },
@@ -104,9 +101,6 @@
   "csv_export_has_started_this_may_take_a_few_minutes_d8043a7c": {
     "message": "CSV export has started. This may take a few minutes."
   },
-  "descending_b7828162": {
-    "message": "Descending"
-  },
   "description_for_mastery_level_position_description_f8377eab": {
     "message": "Description for mastery level { position }: { description }"
   },
@@ -148,9 +142,6 @@
   },
   "friendly_description_57f7fdde": {
     "message": "Friendly Description"
-  },
-  "hide_contributing_scores_37645cc1": {
-    "message": "Hide Contributing Scores"
   },
   "home_351838cd": {
     "message": "Home"
@@ -326,18 +317,6 @@
   },
   "selected_outcomes_1a8c9b9": {
     "message": "Selected outcomes:"
-  },
-  "show_contributing_scores_7674c46f": {
-    "message": "Show Contributing Scores"
-  },
-  "show_outcome_distribution_a2c0d80": {
-    "message": "Show Outcome Distribution"
-  },
-  "show_outcome_info_90c6fcc5": {
-    "message": "Show Outcome Info"
-  },
-  "sort_15eac63f": {
-    "message": "Sort"
   },
   "source_c377a469": {
     "message": "Source"
