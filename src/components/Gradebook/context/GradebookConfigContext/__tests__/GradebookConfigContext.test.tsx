@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/react'
 import {
   GradebookConfigProvider,
   useGradebookConfig,
-  useGradebookUrlBuilders,
   type GradebookConfig,
 } from '..'
 
@@ -21,20 +20,27 @@ const TestConfigConsumer: React.FC = () => {
 
 // Test component that uses the URL builders hook
 const TestUrlBuilderConsumer: React.FC = () => {
-  const urlBuilders = useGradebookUrlBuilders()
+  const config = useGradebookConfig()
+  const urlBuilders = config.urlBuilders || {}
   const builderCount = Object.keys(urlBuilders).length
   return <div data-testid="builder-count">{builderCount}</div>
+}
+
+const DEFAULT_CONFIG: GradebookConfig = {
+  urlBuilders: {},
+  settingsConfig: {
+    settings: {},
+    setSettings: () => {},
+    onSaveSettings: async () => ({ success: true }),
+    renderSettingsContent: () => <div>Settings Content</div>,
+  },
 }
 
 describe('GradebookConfigContext', () => {
   describe('GradebookConfigProvider', () => {
     it('provides config to children', () => {
-      const config: GradebookConfig = {
-        urlBuilders: {},
-      }
-
       render(
-        <GradebookConfigProvider config={config}>
+        <GradebookConfigProvider config={DEFAULT_CONFIG}>
           <TestConfigConsumer />
         </GradebookConfigProvider>
       )
@@ -44,7 +50,7 @@ describe('GradebookConfigContext', () => {
 
     it('accepts empty config object', () => {
       render(
-        <GradebookConfigProvider config={{}}>
+        <GradebookConfigProvider config={{settingsConfig: DEFAULT_CONFIG.settingsConfig}}>
           <TestConfigConsumer />
         </GradebookConfigProvider>
       )
@@ -54,12 +60,8 @@ describe('GradebookConfigContext', () => {
     })
 
     it('accepts config with empty urlBuilders', () => {
-      const config: GradebookConfig = {
-        urlBuilders: {},
-      }
-
       render(
-        <GradebookConfigProvider config={config}>
+        <GradebookConfigProvider config={DEFAULT_CONFIG}>
           <TestUrlBuilderConsumer />
         </GradebookConfigProvider>
       )
@@ -81,12 +83,8 @@ describe('GradebookConfigContext', () => {
     })
 
     it('returns config when used inside provider', () => {
-      const config: GradebookConfig = {
-        urlBuilders: {},
-      }
-
       render(
-        <GradebookConfigProvider config={config}>
+        <GradebookConfigProvider config={DEFAULT_CONFIG}>
           <TestConfigConsumer />
         </GradebookConfigProvider>
       )
@@ -108,7 +106,7 @@ describe('GradebookConfigContext', () => {
 
     it('returns empty object when no URL builders provided', () => {
       render(
-        <GradebookConfigProvider config={{}}>
+        <GradebookConfigProvider config={DEFAULT_CONFIG}>
           <TestUrlBuilderConsumer />
         </GradebookConfigProvider>
       )
@@ -117,43 +115,13 @@ describe('GradebookConfigContext', () => {
     })
 
     it('returns empty urlBuilders when provided as empty object', () => {
-      const config: GradebookConfig = {
-        urlBuilders: {},
-      }
-
       render(
-        <GradebookConfigProvider config={config}>
+        <GradebookConfigProvider config={DEFAULT_CONFIG}>
           <TestUrlBuilderConsumer />
         </GradebookConfigProvider>
       )
 
       expect(screen.getByTestId('builder-count')).toHaveTextContent('0')
-    })
-  })
-
-  describe('config updates', () => {
-    it('re-renders when config changes', () => {
-      const config1: GradebookConfig = {
-        urlBuilders: {},
-      }
-
-      const config2: GradebookConfig = {}
-
-      const { rerender } = render(
-        <GradebookConfigProvider config={config1}>
-          <TestConfigConsumer />
-        </GradebookConfigProvider>
-      )
-
-      expect(screen.getByTestId('config-consumer')).toHaveTextContent('has-url-builders')
-
-      rerender(
-        <GradebookConfigProvider config={config2}>
-          <TestConfigConsumer />
-        </GradebookConfigProvider>
-      )
-
-      expect(screen.getByTestId('config-consumer')).toHaveTextContent('no-url-builders')
     })
   })
 

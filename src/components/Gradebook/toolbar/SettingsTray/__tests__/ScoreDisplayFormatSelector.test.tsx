@@ -1,0 +1,89 @@
+import React from 'react'
+import {expect, jest} from '@jest/globals'
+import '@testing-library/jest-dom'
+import {render} from '@testing-library/react'
+import {
+  ScoreDisplayFormatSelector,
+  ScoreDisplayFormatSelectorProps,
+} from '../ScoreDisplayFormatSelector'
+import {ScoreDisplayFormat} from '@/util/Gradebook/constants'
+
+describe('ScoreDisplayFormatSelector', () => {
+  const defaultProps: ScoreDisplayFormatSelectorProps = {
+    value: ScoreDisplayFormat.ICON_ONLY,
+    onChange: jest.fn(),
+  }
+
+  it('renders all format options', () => {
+    const {getByText} = render(<ScoreDisplayFormatSelector {...defaultProps} />)
+    expect(getByText('Scoring')).toBeInTheDocument()
+    expect(getByText('Icons Only')).toBeInTheDocument()
+    expect(getByText('Icons + Descriptor')).toBeInTheDocument()
+    expect(getByText('Icons + Points')).toBeInTheDocument()
+  })
+
+  it('renders the correct label for ICON_ONLY', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={ScoreDisplayFormat.ICON_ONLY} />,
+    )
+    expect(getByLabelText('Icons Only')).toBeInTheDocument()
+  })
+
+  it('renders the correct label for ICON_AND_LABEL', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={ScoreDisplayFormat.ICON_AND_LABEL} />,
+    )
+    expect(getByLabelText('Icons + Descriptor')).toBeInTheDocument()
+  })
+
+  it('renders the correct label for ICON_AND_POINTS', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={ScoreDisplayFormat.ICON_AND_POINTS} />,
+    )
+    expect(getByLabelText('Icons + Points')).toBeInTheDocument()
+  })
+
+  it('calls onChange when an option is clicked', () => {
+    const onChange = jest.fn()
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} onChange={onChange} />,
+    )
+    getByLabelText('Icons + Descriptor').click()
+    expect(onChange).toHaveBeenCalledWith(ScoreDisplayFormat.ICON_AND_LABEL)
+
+    getByLabelText('Icons + Points').click()
+    expect(onChange).toHaveBeenCalledWith(ScoreDisplayFormat.ICON_AND_POINTS)
+  })
+
+  it('checks the ICON_ONLY radio when value is ICON_ONLY', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={ScoreDisplayFormat.ICON_ONLY} />,
+    )
+    const iconOnlyRadio = getByLabelText('Icons Only') as HTMLInputElement
+    expect(iconOnlyRadio.checked).toBe(true)
+  })
+
+  it('checks the ICON_AND_LABEL radio when value is ICON_AND_LABEL', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={ScoreDisplayFormat.ICON_AND_LABEL} />,
+    )
+    const iconAndLabelRadio = getByLabelText('Icons + Descriptor') as HTMLInputElement
+    expect(iconAndLabelRadio.checked).toBe(true)
+  })
+
+  it('checks the ICON_AND_POINTS radio when value is ICON_AND_POINTS', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={ScoreDisplayFormat.ICON_AND_POINTS} />,
+    )
+    const iconAndPointsRadio = getByLabelText('Icons + Points') as HTMLInputElement
+    expect(iconAndPointsRadio.checked).toBe(true)
+  })
+
+  it('defaults to ICON_ONLY when value is undefined', () => {
+    const {getByLabelText} = render(
+      <ScoreDisplayFormatSelector {...defaultProps} value={undefined} />,
+    )
+    const iconOnlyRadio = getByLabelText('Icons Only') as HTMLInputElement
+    expect(iconOnlyRadio.checked).toBe(true)
+  })
+})

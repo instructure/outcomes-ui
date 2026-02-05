@@ -1,6 +1,5 @@
 export { GradebookConfigProvider } from './GradebookConfigProvider'
-export { useGradebookConfig } from './useGradebookUrlBuilders'
-export { useGradebookUrlBuilders } from './useGradebookUrlBuilders'
+export { useGradebookConfig } from './useGradebookConfig'
 
-export type { GradebookConfig, GradebookUrlBuilders } from './GradebookConfigContext'
+export type { GradebookConfig, GradebookUrlBuilders, SaveSettingsResult } from './GradebookConfigContext'
 export type { GradebookConfigProviderProps } from './GradebookConfigProvider'

@@ -51,6 +51,7 @@
     "@instructure/ui-pill": "^10",
     "@instructure/ui-popover": "^10",
     "@instructure/ui-progress": "^10",
+    "@instructure/ui-radio-input": "^10",
     "@instructure/ui-react-utils": "^10",
     "@instructure/ui-select": "^10",
     "@instructure/ui-spinner": "^10",

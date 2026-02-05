@@ -2753,6 +2753,21 @@
     "@babel/runtime" "^7.27.6"
     prop-types "^15.8.1"
 
+"@instructure/ui-radio-input@^10":
+  version "10.29.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-radio-input/-/ui-radio-input-10.29.0.tgz#97e32eb14474576376a47edc320adfe318afc71f"
+  integrity sha512-WqBzGbNHS9kwQdFPVsDoujXk79FamBy6dKBgg3IFRHD23YBKlfvw8+CV60wDpbudff1q+GXICf2KVhldh/AjUQ==
+  dependencies:
+    "@babel/runtime" "^7.27.6"
+    "@instructure/emotion" "10.29.0"
+    "@instructure/shared-types" "10.29.0"
+    "@instructure/ui-dom-utils" "10.29.0"
+    "@instructure/ui-form-field" "10.29.0"
+    "@instructure/ui-prop-types" "10.29.0"
+    "@instructure/ui-react-utils" "10.29.0"
+    "@instructure/ui-testable" "10.29.0"
+    prop-types "^15.8.1"
+
 "@instructure/ui-react-utils@10.15.0":
   version "10.15.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-react-utils/-/ui-react-utils-10.15.0.tgz#7ca4176202b47cc67c96464cda89ff502495310a"
