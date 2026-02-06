@@ -13,7 +13,7 @@ const TestConfigConsumer: React.FC = () => {
   const config = useGradebookConfig()
   return (
     <div data-testid="config-consumer">
-      {config.urlBuilders ? 'has-url-builders' : 'no-url-builders'}
+      {config.resources?.urlBuilders ? 'has-url-builders' : 'no-url-builders'}
     </div>
   )
 }
@@ -21,13 +21,16 @@ const TestConfigConsumer: React.FC = () => {
 // Test component that uses the URL builders hook
 const TestUrlBuilderConsumer: React.FC = () => {
   const config = useGradebookConfig()
-  const urlBuilders = config.urlBuilders || {}
+  const urlBuilders = config.resources?.urlBuilders || {}
   const builderCount = Object.keys(urlBuilders).length
   return <div data-testid="builder-count">{builderCount}</div>
 }
 
 const DEFAULT_CONFIG: GradebookConfig = {
-  urlBuilders: {},
+  resources: {
+    urlBuilders: {},
+    apiHandlers: {},
+  },
   settingsConfig: {
     settings: {},
     setSettings: () => {},

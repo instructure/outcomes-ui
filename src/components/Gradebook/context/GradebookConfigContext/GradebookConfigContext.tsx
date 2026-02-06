@@ -2,6 +2,8 @@ import { createContext } from 'react'
 
 export interface GradebookUrlBuilders {}
 
+export interface GradebookApiHandlers {}
+
 export interface RenderSettingsProps<TSettings> {
   settings: TSettings
   onChange: (settings: TSettings) => void
@@ -19,7 +21,10 @@ export interface SettingsConfig<TSettings> {
   renderSettingsContent: (props: RenderSettingsProps<TSettings>) => React.ReactNode
 }
 export interface GradebookConfig<TSettings = object> {
-  urlBuilders?: GradebookUrlBuilders
+  resources?: {
+    urlBuilders?: GradebookUrlBuilders
+    apiHandlers?: GradebookApiHandlers
+  }
   settingsConfig: SettingsConfig<TSettings>
 }
 
