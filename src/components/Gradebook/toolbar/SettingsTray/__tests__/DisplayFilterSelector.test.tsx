@@ -2,7 +2,7 @@ import React from 'react'
 import {expect, jest} from '@jest/globals'
 import '@testing-library/jest-dom'
 import {cleanup, render, screen, fireEvent} from '@testing-library/react'
-import {DisplayFilter} from '@/util/Gradebook/constants'
+import {DisplayFilter} from '@/util/gradebook/constants'
 import {DisplayFilterSelector, DisplayFilterSelectorProps} from '../DisplayFilterSelector'
 
 describe('DisplayFilterSelector', () => {

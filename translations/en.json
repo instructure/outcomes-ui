@@ -158,6 +158,9 @@
   "exporting_b1eab154": {
     "message": "Exporting"
   },
+  "failed_to_load_user_details_7221befa": {
+    "message": "Failed to load user details"
+  },
   "first_name_last_name_2ae30a4b": {
     "message": "First Name Last Name"
   },
@@ -224,6 +227,9 @@
   "loading_search_results_3874fe4a": {
     "message": "Loading search results"
   },
+  "loading_user_details_53ede5bb": {
+    "message": "Loading user details"
+  },
   "login_id_12109693": {
     "message": "Login ID"
   },
@@ -262,6 +268,9 @@
   },
   "masterypoints_points_fe9f1ebf": {
     "message": "{ masteryPoints } points"
+  },
+  "message_5c38209d": {
+    "message": "Message"
   },
   "name_display_format_c61848ad": {
     "message": "Name Display Format"
@@ -341,6 +350,9 @@
   "ratings_table_a702279": {
     "message": "Ratings table"
   },
+  "remediation_feccc1fd": {
+    "message": "Remediation"
+  },
   "remove_title_f3f4683a": {
     "message": "Remove { title }",
     "description": "Screen reader caption for button that removes an alignment"
@@ -386,6 +398,9 @@
   },
   "source_c377a469": {
     "message": "Source"
+  },
+  "student_details_for_cc4a4206": {
+    "message": "Student Details for"
   },
   "student_name_c45b2a7": {
     "message": "Student Name"
@@ -443,6 +458,9 @@
   },
   "variable_questions_fd841920": {
     "message": "Variable Questions"
+  },
+  "view_mastery_report_7b7c9bc7": {
+    "message": "View Mastery Report"
   },
   "view_outcome_15d9adc1": {
     "message": "View Outcome"

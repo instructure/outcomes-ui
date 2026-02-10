@@ -41,6 +41,7 @@
     "@instructure/ui-form-field": "^10",
     "@instructure/ui-heading": "^10",
     "@instructure/ui-icons": "^10",
+    "@instructure/ui-img": "^10",
     "@instructure/ui-link": "^10",
     "@instructure/ui-list": "^10",
     "@instructure/ui-menu": "^10",
@@ -66,6 +67,7 @@
     "@instructure/ui-tree-browser": "^10",
     "@instructure/ui-truncate-text": "^10",
     "@instructure/ui-view": "^10",
+    "@tanstack/react-query": "^5.90.20",
     "classnames": "^2.2.5",
     "core-js": "^3.2.1",
     "es-toolkit": "^1.44.0",
@@ -120,6 +122,7 @@
     "@storybook/core-events": "^7.6.20",
     "@storybook/react": "^7.6.20",
     "@storybook/react-webpack5": "^7.6.20",
+    "@storybook/testing-library": "^0.2.2",
     "@storybook/theming": "^7.6.20",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.1.5",
@@ -165,6 +168,8 @@
     "jest-canvas-mock": "^2.5.2",
     "jsdom": "^11.5.1",
     "json-loader": "^0.5.4",
+    "msw": "^2.12.9",
+    "msw-storybook-addon": "2",
     "postcss": "^6.0.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^3.0.0",
@@ -191,5 +196,10 @@
   },
   "resolutions": {
     "cheerio": "1.0.0-rc.12"
+  },
+  "msw": {
+    "workerDirectory": [
+      ".storybook/public"
+    ]
   }
 }

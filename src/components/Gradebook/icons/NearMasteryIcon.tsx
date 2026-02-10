@@ -1,0 +1,24 @@
+import React, { SVGProps } from 'react'
+
+export const NearMasteryIcon = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      id="near-mastery"
+      width="18"
+      height="18"
+      viewBox="-1 -1 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Near Mastery"
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M0 9C0 13.9706 4.02944 18 9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9ZM2.01759 8.5H15.9824C15.7261 4.86736 12.6979 2 9.00001 2C5.30213 2 2.27396 4.86736 2.01759 8.5Z"
+        fill="#FBB918"
+      />
+    </svg>
+  )
+}

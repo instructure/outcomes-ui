@@ -1,7 +1,7 @@
 import React from 'react'
 import t from 'format-message'
 import {Checkbox, CheckboxGroup} from '@instructure/ui-checkbox'
-import {DisplayFilter} from '@/util/Gradebook/constants'
+import {DisplayFilter} from '@/util/gradebook/constants'
 
 export interface DisplayFilterSelectorProps {
   values: DisplayFilter[]

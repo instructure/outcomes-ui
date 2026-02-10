@@ -1,7 +1,7 @@
 import React from 'react'
 import {RadioInput, RadioInputGroup} from '@instructure/ui-radio-input'
 import t from 'format-message'
-import {ScoreDisplayFormat} from '@/util/Gradebook/constants'
+import {ScoreDisplayFormat} from '@/util/gradebook/constants'
 
 export interface ScoreDisplayFormatSelectorProps {
   value?: ScoreDisplayFormat

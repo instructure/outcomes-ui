@@ -6,7 +6,7 @@ import { IconMoreLine } from '@instructure/ui-icons'
 import { Menu } from '@instructure/ui-menu'
 import { View } from '@instructure/ui-view'
 import { AccessibleContent } from '@instructure/ui-a11y-content'
-import { CELL_HEIGHT, COLUMN_WIDTH } from '@util/Gradebook/constants'
+import { CELL_HEIGHT, COLUMN_WIDTH } from '@/util/gradebook/constants'
 import TruncateWithTooltip from '@components/Gradebook/shared/TruncateWithTooltip'
 
 export interface ColumnHeaderProps {

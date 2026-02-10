@@ -7,6 +7,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-knobs'
   ],
+  staticDirs: [{ from: './public', to: '/' }],
   framework: {
     name: '@storybook/react-webpack5',
     options: {

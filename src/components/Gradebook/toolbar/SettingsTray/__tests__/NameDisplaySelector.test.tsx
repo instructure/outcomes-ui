@@ -3,7 +3,7 @@ import {expect, jest} from '@jest/globals'
 import '@testing-library/jest-dom'
 import {render, screen, fireEvent} from '@testing-library/react'
 import {NameDisplayFormatSelector, NameDisplayFormatSelectorProps} from '../NameDisplaySelector'
-import {NameDisplayFormat} from '@/util/Gradebook/constants'
+import {NameDisplayFormat} from '@/util/gradebook/constants'
 
 describe('NameDisplayFormatSelector', () => {
   const defaultProps: NameDisplayFormatSelectorProps = {

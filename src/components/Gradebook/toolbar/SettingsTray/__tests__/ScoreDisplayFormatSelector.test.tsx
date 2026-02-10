@@ -6,7 +6,7 @@ import {
   ScoreDisplayFormatSelector,
   ScoreDisplayFormatSelectorProps,
 } from '../ScoreDisplayFormatSelector'
-import {ScoreDisplayFormat} from '@/util/Gradebook/constants'
+import {ScoreDisplayFormat} from '@/util/gradebook/constants'
 
 describe('ScoreDisplayFormatSelector', () => {
   const defaultProps: ScoreDisplayFormatSelectorProps = {

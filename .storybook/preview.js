@@ -1,3 +1,8 @@
+import { initialize, mswLoader } from 'msw-storybook-addon'
+
+// Initialize MSW
+initialize()
+
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
@@ -11,7 +16,8 @@ const preview = {
         date: /Date$/
       }
     }
-  }
+  },
+  loaders: [mswLoader],
 }
 
 export default preview

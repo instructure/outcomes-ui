@@ -1,8 +1,7 @@
 import React from 'react'
 import {RadioInput, RadioInputGroup} from '@instructure/ui-radio-input'
 import t from 'format-message'
-import {SecondaryInfoDisplay} from '@/util/Gradebook/constants'
-
+import {SecondaryInfoDisplay} from '@/util/gradebook/constants'
 
 export interface SecondaryInfoSelectorProps {
   value: SecondaryInfoDisplay

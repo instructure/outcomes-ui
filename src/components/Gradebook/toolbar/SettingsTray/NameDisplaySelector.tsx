@@ -1,7 +1,7 @@
 import React from 'react'
 import {RadioInput, RadioInputGroup} from '@instructure/ui-radio-input'
 import t from 'format-message'
-import {NameDisplayFormat} from '@/util/Gradebook/constants'
+import {NameDisplayFormat} from '@/util/gradebook/constants'
 
 export interface NameDisplayFormatSelectorProps {
   value?: NameDisplayFormat

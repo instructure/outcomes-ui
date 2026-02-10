@@ -102,6 +102,8 @@ module.exports = {
     '^@util/(.*)$': '<rootDir>/src/util/$1',
     '^@types/(.*)$': '<rootDir>/src/types/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^msw-storybook-addon$': '<rootDir>/src/test/jest-setup/__mocks__/msw-storybook-addon.js',
+    '^msw$': '<rootDir>/src/test/jest-setup/__mocks__/msw.js',
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'

@@ -2,7 +2,7 @@ import React from 'react'
 import {expect, jest} from '@jest/globals'
 import '@testing-library/jest-dom'
 import {render, fireEvent} from '@testing-library/react'
-import {SecondaryInfoDisplay} from '@/util/Gradebook/constants'
+import {SecondaryInfoDisplay} from '@/util/gradebook/constants'
 import {SecondaryInfoSelector, SecondaryInfoSelectorProps} from '../SecondaryInfoSelector'
 
 describe('SecondaryInfoSelector', () => {

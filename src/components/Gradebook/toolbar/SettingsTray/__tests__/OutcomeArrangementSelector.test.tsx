@@ -6,7 +6,7 @@ import {
   OutcomeArrangementSelector,
   OutcomeArrangementSelectorProps,
 } from '../OutcomeArrangementSelector'
-import {OutcomeArrangement} from '@/util/Gradebook/constants'
+import {OutcomeArrangement} from '@/util/gradebook/constants'
 
 describe('OutcomeArrangementSelector', () => {
   const defaultProps: OutcomeArrangementSelectorProps = {

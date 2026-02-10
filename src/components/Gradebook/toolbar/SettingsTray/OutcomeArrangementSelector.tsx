@@ -3,7 +3,7 @@ import {SimpleSelect} from '@instructure/ui-simple-select'
 import {Text} from '@instructure/ui-text'
 import {View} from '@instructure/ui-view'
 import t from 'format-message'
-import {OutcomeArrangement} from '@/util/Gradebook/constants'
+import {OutcomeArrangement} from '@/util/gradebook/constants'
 
 export interface OutcomeArrangementSelectorProps {
   value?: OutcomeArrangement

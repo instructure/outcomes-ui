@@ -1,8 +1,11 @@
 import { createContext } from 'react'
+import { LmgbUserDetails } from '@/hooks/gradebook/useLmgbUserDetails'
 
 export interface GradebookUrlBuilders {}
 
-export interface GradebookApiHandlers {}
+export interface GradebookApiHandlers {
+  userDetailsQuery?: (courseId: string, studentId: string) => Promise<LmgbUserDetails>,
+}
 
 export interface RenderSettingsProps<TSettings> {
   settings: TSettings
@@ -20,6 +23,7 @@ export interface SettingsConfig<TSettings> {
   onSaveSettings: (settings: TSettings) => Promise<SaveSettingsResult>
   renderSettingsContent: (props: RenderSettingsProps<TSettings>) => React.ReactNode
 }
+
 export interface GradebookConfig<TSettings = object> {
   resources?: {
     urlBuilders?: GradebookUrlBuilders

@@ -1,5 +1,6 @@
 import React from 'react'
 import { GradebookConfig, GradebookConfigContext } from './GradebookConfigContext'
+
 export interface GradebookConfigProviderProps<TSettings> {
   children: React.ReactNode
   config: GradebookConfig<TSettings>
