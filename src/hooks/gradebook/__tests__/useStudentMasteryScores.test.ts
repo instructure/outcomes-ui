@@ -1,51 +1,5 @@
-import { pickBucketForScore, calculateScores } from '../useStudentMasteryScores'
+import { calculateScores } from '../useStudentMasteryScores'
 import type { Outcome, Student, StudentRollupData } from '@/types/gradebook/rollup'
-import { NoEvidenceIcon } from '@components/Gradebook/icons/NoEvidenceIcon'
-import { RemediationIcon } from '@components/Gradebook/icons/RemediationIcon'
-import { NearMasteryIcon } from '@components/Gradebook/icons/NearMasteryIcon'
-import { MasteryIcon } from '@components/Gradebook/icons/MasteryIcon'
-import { ExceedsMasteryIcon } from '@components/Gradebook/icons/ExceedsMasteryIcon'
-
-const mockBuckets = {
-  no_evidence: { name: 'No Evidence', icon: NoEvidenceIcon, count: 0 },
-  remediation: { name: 'Remediation', icon: RemediationIcon, count: 0 },
-  near_mastery: { name: 'Near Mastery', icon: NearMasteryIcon, count: 0 },
-  mastery: { name: 'Mastery', icon: MasteryIcon, count: 0 },
-  exceeds_mastery: { name: 'Exceeds Mastery', icon: ExceedsMasteryIcon, count: 0 },
-}
-
-describe('pickBucketForScore', () => {
-  it('returns no_evidence bucket for null score', () => {
-    expect(pickBucketForScore(null, mockBuckets)).toBe(mockBuckets.no_evidence)
-  })
-
-  it('returns exceeds_mastery bucket for positive scores', () => {
-    expect(pickBucketForScore(0.1, mockBuckets)).toBe(mockBuckets.exceeds_mastery)
-    expect(pickBucketForScore(1, mockBuckets)).toBe(mockBuckets.exceeds_mastery)
-    expect(pickBucketForScore(5, mockBuckets)).toBe(mockBuckets.exceeds_mastery)
-    expect(pickBucketForScore(100, mockBuckets)).toBe(mockBuckets.exceeds_mastery)
-  })
-
-  it('returns mastery bucket for zero score', () => {
-    expect(pickBucketForScore(0, mockBuckets)).toBe(mockBuckets.mastery)
-  })
-
-  it('returns near_mastery bucket for negative scores between -1 and 0', () => {
-    expect(pickBucketForScore(-0.1, mockBuckets)).toBe(mockBuckets.near_mastery)
-    expect(pickBucketForScore(-0.5, mockBuckets)).toBe(mockBuckets.near_mastery)
-    expect(pickBucketForScore(-0.9, mockBuckets)).toBe(mockBuckets.near_mastery)
-  })
-
-  it('returns remediation bucket for scores less than -1', () => {
-    expect(pickBucketForScore(-1.1, mockBuckets)).toBe(mockBuckets.remediation)
-    expect(pickBucketForScore(-2, mockBuckets)).toBe(mockBuckets.remediation)
-    expect(pickBucketForScore(-10, mockBuckets)).toBe(mockBuckets.remediation)
-  })
-
-  it('returns near_mastery bucket for exactly -1', () => {
-    expect(pickBucketForScore(-1, mockBuckets)).toBe(mockBuckets.near_mastery)
-  })
-})
 
 describe('calculateScores', () => {
   const mockStudent: Student = {
@@ -103,16 +57,17 @@ describe('calculateScores', () => {
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(3)
+    expect(result.buckets.unassessed.count).toBe(3)
     expect(result.buckets.remediation.count).toBe(0)
     expect(result.buckets.near_mastery.count).toBe(0)
     expect(result.buckets.mastery.count).toBe(0)
     expect(result.buckets.exceeds_mastery.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBeNull()
     expect(result.grossAverage).toBeNull()
+    expect(result.averageIcon).toBe('unassessed')
+    expect(result.averageText).toBe('Unassessed')
   })
 
-  it('calculates scores correctly with single outcome at mastery', () => {
+  it('calculates bucket counts correctly with single outcome at mastery', () => {
     const outcomes: Outcome[] = [mockOutcome1]
     const rollups: StudentRollupData[] = [
       {
@@ -120,23 +75,26 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
+            score: 5,
+            masteryLevel: 'mastery',
             rating: { points: 5, color: 'green' },
           },
         ],
+        averageMasteryLevel: 'mastery',
+        averageScore: 5,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(0)
+    expect(result.buckets.unassessed.count).toBe(0)
     expect(result.buckets.mastery.count).toBe(1)
-    expect(result.masteryRelativeAverage).toBe(0) // 5 - 5 = 0
     expect(result.grossAverage).toBe(5)
+    expect(result.averageIcon).toBe('mastery')
     expect(result.averageText).toBe('Mastery')
   })
 
-  it('calculates scores correctly with multiple outcomes', () => {
+  it('calculates bucket counts correctly with multiple outcomes', () => {
     const outcomes: Outcome[] = [mockOutcome1, mockOutcome2]
     const rollups: StudentRollupData[] = [
       {
@@ -144,15 +102,19 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
-            rating: { points: 10, color: 'green' }, // 10 - 5 = +5 (exceeds)
+            score: 10,
+            masteryLevel: 'exceeds_mastery',
+            rating: { points: 10, color: 'green' },
           },
           {
             outcomeId: '2',
-            score: 2,
-            rating: { points: 3, color: 'green' }, // 3 - 3 = 0 (mastery)
+            score: 3,
+            masteryLevel: 'mastery',
+            rating: { points: 3, color: 'green' },
           },
         ],
+        averageMasteryLevel: 'mastery',
+        averageScore: 6.5,
       },
     ]
 
@@ -160,8 +122,9 @@ describe('calculateScores', () => {
 
     expect(result.buckets.exceeds_mastery.count).toBe(1)
     expect(result.buckets.mastery.count).toBe(1)
-    expect(result.masteryRelativeAverage).toBe(2.5) // (5 + 0) / 2
-    expect(result.grossAverage).toBe(6.5) // (10 + 3) / 2
+    expect(result.grossAverage).toBe(6.5)
+    expect(result.averageIcon).toBe('mastery')
+    expect(result.averageText).toBe('Mastery')
   })
 
   it('handles near mastery scores correctly', () => {
@@ -172,17 +135,22 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
-            rating: { points: 4.5, color: 'yellow' }, // 4.5 - 5 = -0.5 (near mastery)
+            score: 4.5,
+            masteryLevel: 'near_mastery',
+            rating: { points: 4.5, color: 'yellow' },
           },
         ],
+        averageMasteryLevel: 'near_mastery',
+        averageScore: 4.5,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
     expect(result.buckets.near_mastery.count).toBe(1)
-    expect(result.masteryRelativeAverage).toBe(-0.5)
+    expect(result.grossAverage).toBe(4.5)
+    expect(result.averageIcon).toBe('near_mastery')
+    expect(result.averageText).toBe('Near Mastery')
   })
 
   it('handles remediation scores correctly', () => {
@@ -194,19 +162,24 @@ describe('calculateScores', () => {
           {
             outcomeId: '1',
             score: 2,
-            rating: { points: 2, color: 'red' }, // 2 - 5 = -3 (remediation)
+            masteryLevel: 'remediation',
+            rating: { points: 2, color: 'red' },
           },
         ],
+        averageMasteryLevel: 'remediation',
+        averageScore: 2,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
     expect(result.buckets.remediation.count).toBe(1)
-    expect(result.masteryRelativeAverage).toBe(-3)
+    expect(result.grossAverage).toBe(2)
+    expect(result.averageIcon).toBe('remediation')
+    expect(result.averageText).toBe('Remediation')
   })
 
-  it('calculates no evidence count correctly with partial rollups', () => {
+  it('calculates unassessed count correctly with partial rollups', () => {
     const outcomes: Outcome[] = [mockOutcome1, mockOutcome2, mockOutcome3]
     const rollups: StudentRollupData[] = [
       {
@@ -214,20 +187,23 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
+            score: 5,
+            masteryLevel: 'mastery',
             rating: { points: 5, color: 'green' },
           },
         ],
+        averageMasteryLevel: 'mastery',
+        averageScore: 5,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(2) // 3 outcomes - 1 rollup
+    expect(result.buckets.unassessed.count).toBe(2) // 3 outcomes - 1 rollup
     expect(result.buckets.mastery.count).toBe(1)
   })
 
-  it('ignores rollups with missing outcome references', () => {
+  it('handles rollups without masteryLevel gracefully', () => {
     const outcomes: Outcome[] = [mockOutcome1]
     const rollups: StudentRollupData[] = [
       {
@@ -235,22 +211,19 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
+            score: 5,
             rating: { points: 5, color: 'green' },
           },
-          {
-            outcomeId: '999', // Non-existent outcome
-            score: 2,
-            rating: { points: 10, color: 'green' },
-          },
         ],
+        averageMasteryLevel: 'mastery',
+        averageScore: 5,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.mastery.count).toBe(1)
-    expect(result.masteryRelativeAverage).toBe(0)
+    // Should not crash, but won't count in any bucket
+    expect(result.buckets.no_evidence.count).toBe(0)
     expect(result.grossAverage).toBe(5)
   })
 
@@ -262,18 +235,22 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
+            score: 10,
+            masteryLevel: 'exceeds_mastery',
             rating: { points: 10, color: 'green' },
           },
         ],
+        averageMasteryLevel: 'exceeds_mastery',
+        averageScore: 10,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(1)
-    expect(result.masteryRelativeAverage).toBeNull()
+    expect(result.buckets.unassessed.count).toBe(1)
     expect(result.grossAverage).toBeNull()
+    expect(result.averageIcon).toBe('unassessed')
+    expect(result.averageText).toBe('Unassessed')
   })
 
   it('handles mixed performance levels correctly', () => {
@@ -284,20 +261,25 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
-            rating: { points: 10, color: 'green' }, // +5 exceeds
+            score: 10,
+            masteryLevel: 'exceeds_mastery',
+            rating: { points: 10, color: 'green' },
           },
           {
             outcomeId: '2',
-            score: 2,
-            rating: { points: 3, color: 'green' }, // 0 mastery
+            score: 3,
+            masteryLevel: 'mastery',
+            rating: { points: 3, color: 'green' },
           },
           {
             outcomeId: '3',
-            score: 2,
-            rating: { points: 3, color: 'yellow' }, // 3 - 4 = -1 (near mastery)
+            score: 3,
+            masteryLevel: 'near_mastery',
+            rating: { points: 3, color: 'yellow' },
           },
         ],
+        averageMasteryLevel: 'mastery',
+        averageScore: 5.33,
       },
     ]
 
@@ -307,11 +289,12 @@ describe('calculateScores', () => {
     expect(result.buckets.mastery.count).toBe(1)
     expect(result.buckets.near_mastery.count).toBe(1)
     expect(result.buckets.remediation.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBeCloseTo(1.33, 1) // (5 + 0 - 1) / 3
-    expect(result.grossAverage).toBeCloseTo(5.33, 1) // (10 + 3 + 3) / 3
+    expect(result.grossAverage).toBe(5.33)
+    expect(result.averageIcon).toBe('mastery')
+    expect(result.averageText).toBe('Mastery')
   })
 
-  it('sets average icon and text based on average mastery score', () => {
+  it('sets average icon and text based on backend averageMasteryLevel', () => {
     const outcomes: Outcome[] = [mockOutcome1]
     const rollups: StudentRollupData[] = [
       {
@@ -319,16 +302,19 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
-            rating: { points: 10, color: 'green' }, // +5 exceeds
+            score: 10,
+            masteryLevel: 'exceeds_mastery',
+            rating: { points: 10, color: 'green' },
           },
         ],
+        averageMasteryLevel: 'exceeds_mastery',
+        averageScore: 10,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.averageIcon).toBe(ExceedsMasteryIcon)
+    expect(result.averageIcon).toBe('exceeds_mastery')
     expect(result.averageText).toBe('Exceeds Mastery')
   })
 
@@ -338,22 +324,22 @@ describe('calculateScores', () => {
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBeNull()
+    expect(result.buckets.unassessed.count).toBe(0)
     expect(result.grossAverage).toBeNull()
+    expect(result.averageIcon).toBe('unassessed')
+    expect(result.averageText).toBe('Unassessed')
   })
 
   it('handles undefined outcomes and rollups', () => {
     const result = calculateScores([], [], mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBeNull()
+    expect(result.buckets.unassessed.count).toBe(0)
     expect(result.grossAverage).toBeNull()
-    expect(result.averageIcon).toBe(NoEvidenceIcon)
-    expect(result.averageText).toBe('No Evidence')
+    expect(result.averageIcon).toBe('unassessed')
+    expect(result.averageText).toBe('Unassessed')
   })
 
-  it('calculates near mastery boundary correctly', () => {
+  it('handles rollups without averageMasteryLevel', () => {
     const outcomes: Outcome[] = [mockOutcome1]
     const rollups: StudentRollupData[] = [
       {
@@ -361,40 +347,21 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
-            rating: { points: 4, color: 'yellow' }, // 4 - 5 = -1 (boundary case)
+            score: 5,
+            masteryLevel: 'mastery',
+            rating: { points: 5, color: 'green' },
           },
         ],
+        averageScore: 5,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.near_mastery.count).toBe(1)
-    expect(result.buckets.remediation.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBe(-1)
-  })
-
-  it('calculates remediation boundary correctly', () => {
-    const outcomes: Outcome[] = [mockOutcome1]
-    const rollups: StudentRollupData[] = [
-      {
-        studentId: '1',
-        outcomeRollups: [
-          {
-            outcomeId: '1',
-            score: 2,
-            rating: { points: 3.9, color: 'red' }, // 3.9 - 5 = -1.1 (just into remediation)
-          },
-        ],
-      },
-    ]
-
-    const result = calculateScores(outcomes, rollups, mockStudent)
-
-    expect(result.buckets.remediation.count).toBe(1)
-    expect(result.buckets.near_mastery.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBeCloseTo(-1.1, 2)
+    expect(result.buckets.mastery.count).toBe(1)
+    expect(result.grossAverage).toBe(5)
+    expect(result.averageIcon).toBe('unassessed')
+    expect(result.averageText).toBe('Unassessed')
   })
 
   it('correctly identifies no evidence when outcome has no rollup', () => {
@@ -405,21 +372,24 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
+            score: 5,
+            masteryLevel: 'mastery',
             rating: { points: 5, color: 'green' },
           },
           // Outcome 2 has no rollup
         ],
+        averageMasteryLevel: 'mastery',
+        averageScore: 5,
       },
     ]
 
     const result = calculateScores(outcomes, rollups, mockStudent)
 
-    expect(result.buckets.no_evidence.count).toBe(1)
+    expect(result.buckets.unassessed.count).toBe(1)
     expect(result.buckets.mastery.count).toBe(1)
   })
 
-  it('handles multiple outcomes with varying mastery thresholds', () => {
+  it('handles all outcomes with exceeds mastery', () => {
     const outcomes: Outcome[] = [mockOutcome1, mockOutcome2, mockOutcome3]
     const rollups: StudentRollupData[] = [
       {
@@ -427,20 +397,25 @@ describe('calculateScores', () => {
         outcomeRollups: [
           {
             outcomeId: '1',
-            score: 2,
-            rating: { points: 6, color: 'green' }, // 6 - 5 = +1 (exceeds)
+            score: 10,
+            masteryLevel: 'exceeds_mastery',
+            rating: { points: 10, color: 'green' },
           },
           {
             outcomeId: '2',
-            score: 2,
-            rating: { points: 4, color: 'green' }, // 4 - 3 = +1 (exceeds)
+            score: 5,
+            masteryLevel: 'exceeds_mastery',
+            rating: { points: 5, color: 'green' },
           },
           {
             outcomeId: '3',
-            score: 2,
-            rating: { points: 5, color: 'green' }, // 5 - 4 = +1 (exceeds)
+            score: 8,
+            masteryLevel: 'exceeds_mastery',
+            rating: { points: 8, color: 'green' },
           },
         ],
+        averageMasteryLevel: 'exceeds_mastery',
+        averageScore: 7.67,
       },
     ]
 
@@ -448,7 +423,45 @@ describe('calculateScores', () => {
 
     expect(result.buckets.exceeds_mastery.count).toBe(3)
     expect(result.buckets.no_evidence.count).toBe(0)
-    expect(result.masteryRelativeAverage).toBe(1) // (1 + 1 + 1) / 3
-    expect(result.grossAverage).toBe(5) // (6 + 4 + 5) / 3
+    expect(result.grossAverage).toBe(7.67)
+    expect(result.averageIcon).toBe('exceeds_mastery')
+    expect(result.averageText).toBe('Exceeds Mastery')
+  })
+
+  it('verifies bucket icon values are MasteryLevel strings', () => {
+    const outcomes: Outcome[] = [mockOutcome1]
+    const rollups: StudentRollupData[] = []
+
+    const result = calculateScores(outcomes, rollups, mockStudent)
+
+    expect(result.buckets.no_evidence.icon).toBe('no_evidence')
+    expect(result.buckets.remediation.icon).toBe('remediation')
+    expect(result.buckets.near_mastery.icon).toBe('near_mastery')
+    expect(result.buckets.mastery.icon).toBe('mastery')
+    expect(result.buckets.exceeds_mastery.icon).toBe('exceeds_mastery')
+  })
+
+  it('handles unassessed mastery level', () => {
+    const outcomes: Outcome[] = [mockOutcome1]
+    const rollups: StudentRollupData[] = [
+      {
+        studentId: '1',
+        outcomeRollups: [
+          {
+            outcomeId: '1',
+            score: 0,
+            masteryLevel: 'unassessed',
+            rating: { points: 0, color: 'gray' },
+          },
+        ],
+        averageMasteryLevel: 'unassessed',
+        averageScore: 0,
+      },
+    ]
+
+    const result = calculateScores(outcomes, rollups, mockStudent)
+
+    // unassessed is not in the buckets, but should not crash
+    expect(result.grossAverage).toBe(0)
   })
 })

@@ -12,6 +12,7 @@ import {
   mockOutcomes,
   createRollups,
   mixedPerformanceRollups,
+  mixedPerformanceAverage,
   mockUserDetailsDefault,
   mockUserDetailsNoSections,
 } from '../../../__mocks__/mockData'
@@ -55,7 +56,7 @@ describe('StudentPopover', () => {
     studentGradesUrl: '/courses/123/grades/1',
     courseId: '123',
     outcomes: mockOutcomes,
-    rollups: createRollups('1', mixedPerformanceRollups),
+    rollups: createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore),
   }
 
   const renderComponent = (
@@ -193,7 +194,7 @@ describe('StudentPopover', () => {
   describe('Mastery Scores Display', () => {
     it('displays mastery scores when rollups are provided', async () => {
       renderComponent({
-        rollups: createRollups('1', mixedPerformanceRollups),
+        rollups: createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore),
       })
 
       const link = screen.getByTestId('student-cell-link')

@@ -18,11 +18,15 @@ export const createStudent = (id: string, firstName: string, lastName: string): 
 
 export const createRollups = (
   studentId: string,
-  outcomeRollups: StudentRollupData['outcomeRollups']
+  outcomeRollups: StudentRollupData['outcomeRollups'],
+  averageMasteryLevel?: StudentRollupData['averageMasteryLevel'],
+  averageScore?: StudentRollupData['averageScore']
 ): StudentRollupData[] => [
   {
     studentId,
     outcomeRollups,
+    averageMasteryLevel,
+    averageScore,
   },
 ]
 
@@ -154,11 +158,13 @@ export const mixedPerformanceRollups: StudentRollupData['outcomeRollups'] = [
   {
     outcomeId: '1',
     score: 4,
+    masteryLevel: 'mastery',
     rating: { points: 4, color: '#00AC18', description: 'Mastery' },
   },
   {
     outcomeId: '2',
     score: 2,
+    masteryLevel: 'near_mastery',
     rating: { points: 2, color: '#FAB901', description: 'Developing' },
   },
 ]
@@ -167,16 +173,19 @@ export const highPerformanceRollups: StudentRollupData['outcomeRollups'] = [
   {
     outcomeId: '1',
     score: 5,
+    masteryLevel: 'exceeds_mastery',
     rating: { points: 5, color: '#127A1B', description: 'Exceeds Mastery' },
   },
   {
     outcomeId: '2',
     score: 4,
+    masteryLevel: 'exceeds_mastery',
     rating: { points: 4, color: '#127A1B', description: 'Exemplary' },
   },
   {
     outcomeId: '3',
     score: 5,
+    masteryLevel: 'exceeds_mastery',
     rating: { points: 5, color: '#127A1B', description: 'Expert' },
   },
 ]
@@ -185,16 +194,19 @@ export const lowPerformanceRollups: StudentRollupData['outcomeRollups'] = [
   {
     outcomeId: '1',
     score: 2,
+    masteryLevel: 'remediation',
     rating: { points: 2, color: '#FD5D10', description: 'Below Mastery' },
   },
   {
     outcomeId: '2',
     score: 1,
+    masteryLevel: 'remediation',
     rating: { points: 1, color: '#E0061F', description: 'Beginning' },
   },
   {
     outcomeId: '3',
     score: 2,
+    masteryLevel: 'remediation',
     rating: { points: 2, color: '#FD5D10', description: 'Basic' },
   },
 ]
@@ -203,9 +215,34 @@ export const nearMasteryRollups: StudentRollupData['outcomeRollups'] = [
   {
     outcomeId: '1',
     score: 3,
+    masteryLevel: 'near_mastery',
     rating: { points: 3, color: '#FAB901', description: 'Near Mastery' },
   },
 ]
+
+// ============================================
+// Rollup averages for complete StudentRollupData
+// ============================================
+
+export const mixedPerformanceAverage = {
+  averageScore: 3,
+  averageMasteryLevel: 'near_mastery' as const,
+}
+
+export const highPerformanceAverage = {
+  averageScore: 4.67,
+  averageMasteryLevel: 'exceeds_mastery' as const,
+}
+
+export const lowPerformanceAverage = {
+  averageScore: 1.67,
+  averageMasteryLevel: 'remediation' as const,
+}
+
+export const nearMasteryAverage = {
+  averageScore: 3,
+  averageMasteryLevel: 'near_mastery' as const,
+}
 
 // ============================================
 // Common students

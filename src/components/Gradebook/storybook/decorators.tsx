@@ -5,7 +5,7 @@ import { Checkbox } from '@instructure/ui-checkbox'
 import { Flex } from '@instructure/ui-flex'
 import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/SettingsTray/NameDisplaySelector'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
-import { GradebookApiHandlers, GradebookUrlBuilders, SettingsConfig } from '../context/GradebookConfigContext/GradebookConfigContext'
+import type { GradebookApiHandlers, GradebookUrlBuilders, MasteryLevelConfig, SettingsConfig } from '../context/GradebookConfigContext/GradebookConfigContext'
 
 interface ExampleCustomSettings {
   showStudentNames: boolean
@@ -15,13 +15,15 @@ interface ExampleCustomSettings {
 interface StoryWrapperProps {
   children: React.ReactNode;
   settingsConfig?: SettingsConfig<ExampleCustomSettings>,
+  masteryLevelConfig?: MasteryLevelConfig
   resources?: {
     urlBuilders?: GradebookUrlBuilders,
     apiHandlers?: GradebookApiHandlers
   }
 }
 
-export const StoryWrapper: React.FC<StoryWrapperProps> = ({ children, settingsConfig, resources }) => {
+export const StoryWrapper: React.FC<StoryWrapperProps> =
+({ children, settingsConfig, masteryLevelConfig, resources }) => {
   const [settings, setSettings] = useState<ExampleCustomSettings>({
     showStudentNames: true,
     nameDisplayFormat: NameDisplayFormat.FIRST_LAST,
@@ -75,7 +77,8 @@ export const StoryWrapper: React.FC<StoryWrapperProps> = ({ children, settingsCo
         resources: {
           ...defaultResources,
           ...resources,
-        }
+        },
+        masteryLevelConfig,
       }}
     >
       {children}

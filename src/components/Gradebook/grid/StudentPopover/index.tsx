@@ -17,6 +17,7 @@ import {
 } from '@/hooks/gradebook/useStudentMasteryScores'
 import { useLmgbUserDetails, type LmgbUserDetails } from '@/hooks/gradebook/useLmgbUserDetails'
 import type { Outcome, StudentRollupData, Student } from '@/types/gradebook/rollup'
+import MasteryLevelIcon from '../../icons/MasteryLevelIcon'
 
 export interface StudentPopoverProps {
   student: Student
@@ -85,9 +86,14 @@ interface MasteryScoresProps {
 }
 
 const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
+  const { masteryLevelConfig } = useGradebookConfig()
+
   if (!masteryScores) return null
 
-  const AverageIcon = masteryScores.averageIcon
+  const { averageIcon, averageText, grossAverage } = masteryScores
+
+  const masteryLevelName = masteryLevelConfig?.masteryLevelOverrides?.[averageIcon]?.name || averageText
+  const availableBuckets = masteryLevelConfig?.availableLevels
 
   return (
     <Flex>
@@ -96,12 +102,12 @@ const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
       <Flex.Item padding="0 0 0 small">
         <Flex direction="row" alignItems="center" gap="small">
           <Flex.Item width="1.7rem">
-            {AverageIcon && <AverageIcon width="120%" height="120%" />}
+            <MasteryLevelIcon masteryLevel={averageIcon} ariaHidden />
           </Flex.Item>
 
           <Flex.Item padding="0 0 xxx-small 0">
             <Text size="medium">
-              {`${masteryScores.grossAverage ? masteryScores.grossAverage.toFixed(1) + ' ' : ''}${masteryScores.averageText}`}
+              {`${grossAverage ? grossAverage.toFixed(1) + ' ' : ''}${masteryLevelName}`}
             </Text>
           </Flex.Item>
         </Flex>
@@ -109,18 +115,19 @@ const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
         <Flex gap="small" margin="x-small small small none">
           {masteryScores.buckets &&
           Object.values(masteryScores.buckets)
+            .filter(bucket => !availableBuckets || availableBuckets.includes(bucket.icon))
             .reverse()
             .map(bucket => {
-              const BucketIcon = bucket.icon
-
+              const { icon, name, count } = bucket
+              const bucketName = masteryLevelConfig?.masteryLevelOverrides?.[icon]?.name || name
               return (
                 <Flex key={bucket.name} direction="row" alignItems="center" gap="xx-small">
                   <Flex.Item width="1.4rem" padding="xxx-small 0 0 0">
-                    <BucketIcon width="100%" height="100%" />
+                    <MasteryLevelIcon masteryLevel={icon} width="100%" height="100%" ariaHidden />
                   </Flex.Item>
 
                   <Flex.Item>
-                    <ScreenReaderContent>{`${bucket.name} ${bucket.count}`}</ScreenReaderContent>
+                    <ScreenReaderContent>{`${bucketName} ${count}`}</ScreenReaderContent>
                     <Text size="medium" aria-hidden="true">
                       {bucket.count}
                     </Text>

@@ -18,6 +18,10 @@ import {
   highPerformanceRollups,
   lowPerformanceRollups,
   nearMasteryRollups,
+  mixedPerformanceAverage,
+  highPerformanceAverage,
+  lowPerformanceAverage,
+  nearMasteryAverage,
 } from '../../__mocks__/mockData'
 
 const queryClient = new QueryClient({
@@ -83,17 +87,17 @@ const openPopover = async ({ canvasElement }: { canvasElement: HTMLElement }) =>
 }
 
 export const Default: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
   play: openPopover,
 }
 
 export const HighPerformingStudent: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', highPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', highPerformanceRollups, highPerformanceAverage.averageMasteryLevel, highPerformanceAverage.averageScore)),
   play: openPopover,
 }
 
 export const LowPerformingStudent: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', lowPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', lowPerformanceRollups, lowPerformanceAverage.averageMasteryLevel, lowPerformanceAverage.averageScore)),
   play: openPopover,
 }
 
@@ -103,14 +107,14 @@ export const NoScores: Story = {
 }
 
 export const LongStudentName: Story = {
-  args: createStoryArgs(mockStudentLongName, createRollups('2', nearMasteryRollups)),
+  args: createStoryArgs(mockStudentLongName, createRollups('2', nearMasteryRollups, nearMasteryAverage.averageMasteryLevel, nearMasteryAverage.averageScore)),
   play: openPopover,
 }
 
 export const ManySections: Story = {
   args: createStoryArgs(
     createStudent('3', 'Emma', 'Wilson'),
-    createRollups('3', mixedPerformanceRollups)
+    createRollups('3', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
   ),
   play: openPopover,
 }
@@ -118,7 +122,7 @@ export const ManySections: Story = {
 export const LongCourseName: Story = {
   args: createStoryArgs(
     createStudent('4', 'Oliver', 'Brown'),
-    createRollups('4', mixedPerformanceRollups)
+    createRollups('4', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
   ),
   play: openPopover,
 }
@@ -126,7 +130,7 @@ export const LongCourseName: Story = {
 export const NoSections: Story = {
   args: createStoryArgs(
     createStudent('6', 'Liam', 'Miller'),
-    createRollups('6', mixedPerformanceRollups)
+    createRollups('6', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
   ),
   play: openPopover,
 }
@@ -134,13 +138,13 @@ export const NoSections: Story = {
 export const ErrorState: Story = {
   args: createStoryArgs(
     createStudent('404', 'John', 'Smith'),
-    createRollups('4034', mixedPerformanceRollups)
+    createRollups('4034', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
   ),
   play: openPopover,
 }
 
 export const CustomHeader: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
   render: (args) => (
     <StudentPopover
       {...args}
@@ -156,7 +160,7 @@ export const CustomHeader: Story = {
 }
 
 export const CustomMasteryScores: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', highPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', highPerformanceRollups, highPerformanceAverage.averageMasteryLevel, highPerformanceAverage.averageScore)),
   render: (args) => (
     <StudentPopover
       {...args}
@@ -172,7 +176,7 @@ export const CustomMasteryScores: Story = {
 }
 
 export const CustomActions: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
   render: (args) => (
     <StudentPopover
       {...args}
@@ -188,7 +192,7 @@ export const CustomActions: Story = {
 }
 
 export const CustomHeaderWithProps: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups)),
+  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
   render: (args) => (
     <StudentPopover
       {...args}
@@ -207,5 +211,37 @@ export const CustomHeaderWithProps: Story = {
       )}
     />
   ),
+  play: openPopover,
+}
+
+export const CustomMasteryLevelConfig: Story = {
+  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <StoryWrapper
+          resources={{
+            apiHandlers: {
+              userDetailsQuery: async (courseId: string, studentId: string) => {
+                const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`)
+                }
+                return await response.json()
+              },
+            }
+          }}
+          masteryLevelConfig={{
+            availableLevels: ['exceeds_mastery', 'mastery', 'unassessed'],
+            masteryLevelOverrides: {
+              near_mastery: { name: 'NEAR MASTERY OVERRIDE' }
+            }
+          }}
+        >
+          <Story />
+        </StoryWrapper>
+      </QueryClientProvider>
+    )
+  ],
   play: openPopover,
 }

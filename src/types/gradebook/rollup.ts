@@ -53,6 +53,7 @@ export interface Student {
 export interface OutcomeRollup {
   outcomeId: string | number
   score: number
+  masteryLevel?: MasteryLevel
   rating: Rating & {
     color: string
   }
@@ -61,6 +62,8 @@ export interface OutcomeRollup {
 export interface StudentRollupData {
   studentId: string
   outcomeRollups: OutcomeRollup[]
+  averageMasteryLevel?: MasteryLevel
+  averageScore?: number
 }
 
 export interface Pagination {
@@ -87,3 +90,11 @@ export interface RollupsResponse {
     }
   }
 }
+
+export type MasteryLevel =
+  | 'exceeds_mastery'
+  | 'mastery'
+  | 'near_mastery'
+  | 'remediation'
+  | 'unassessed'
+  | 'no_evidence'
