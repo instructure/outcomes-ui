@@ -32,22 +32,20 @@ export interface StudentPopoverProps {
 }
 
 interface HeaderProps {
-  student: Student
-  studentName: string
+  student?: Student
+  studentName?: string
   userDetails?: LmgbUserDetails
 }
 
 const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) => {
-  if (!userDetails) return null
-
   return (
     <Flex gap="small" alignItems="start">
       <Flex.Item width="60px">
         <Avatar
           as="div"
           size="large"
-          name={studentName}
-          src={student.avatar_url}
+          name={studentName!}
+          src={student!.avatar_url}
           data-testid="lmgb-student-popover-avatar"
         />
       </Flex.Item>
@@ -60,13 +58,15 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
             </Text>
           </View>
 
-          <View>
-            <Text size="contentSmall">
-              <TruncateText>{userDetails.course.name}</TruncateText>
-            </Text>
-          </View>
+          {userDetails?.course.name && (
+            <View>
+              <Text size="contentSmall">
+                <TruncateText>{userDetails.course.name}</TruncateText>
+              </Text>
+            </View>
+          )}
 
-          {userDetails.user.sections.length > 0 && (
+          {userDetails?.user?.sections.length && (
             <View>
               <Text size="legend">
                 <TruncateText>
@@ -82,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
 }
 
 interface MasteryScoresProps {
-  masteryScores: StudentMasteryScores | null
+  masteryScores?: StudentMasteryScores | null
 }
 
 const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
@@ -142,33 +142,52 @@ const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
 }
 
 interface ActionsProps {
-  studentGradesUrl: string
-  onMessageClick: () => void
+  studentGradesUrl?: string
 }
 
-const Actions: React.FC<ActionsProps> = ({ studentGradesUrl, onMessageClick }) => {
+const Actions: React.FC<ActionsProps> = ({ studentGradesUrl }) => {
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false)
+
   return (
-    <Flex direction="row" justifyItems="center">
-      <Flex.Item>
-        <Link onClick={onMessageClick} variant="standalone">
-          <Text size="small">{t('Message')}</Text>
-        </Link>
-      </Flex.Item>
+    <>
+      {isMessageModalOpen && (<></>)}
+      {/* TODO: https://instructure.atlassian.net/browse/OUTC-575
+      {isMessageModalOpen && (
+        <MessageStudentsModal
+          contextCode={`course_${courseId}`}
+          onRequestClose={() => setIsMessageModalOpen(false)}
+          open={isMessageModalOpen}
+          bulkMessage={false}
+          groupConversation={false}
+          recipients={[{ id: student.id, displayName: studentName }]}
+          title={t('Send a message')}
+        />
+      )} */}
 
-      <View
-        as="div"
-        margin="none small none small"
-        borderWidth="none small none none"
-        width="0px"
-        height="1.4rem"
-      />
+      <Flex direction="row" justifyItems="center">
+        <Flex.Item>
+          <Link onClick={() => setIsMessageModalOpen(true)} variant="standalone">
+            <Text size="small">{t('Message')}</Text>
+          </Link>
+        </Flex.Item>
 
-      <Flex.Item>
-        <Link href={studentGradesUrl} variant="standalone">
-          <Text size="small">{t('View Mastery Report')}</Text>
-        </Link>
-      </Flex.Item>
-    </Flex>
+        <View
+          as="div"
+          margin="none small none small"
+          borderWidth="none small none none"
+          width="0px"
+          height="1.4rem"
+        />
+
+        {studentGradesUrl && (
+          <Flex.Item>
+            <Link href={studentGradesUrl} variant="standalone">
+              <Text size="small">{t('View Mastery Report')}</Text>
+            </Link>
+          </Flex.Item>
+        )}
+      </Flex>
+    </>
   )
 }
 
@@ -216,7 +235,6 @@ const Container: React.FC<StudentPopoverProps> = ({
   renderActions,
 }) => {
   const [isShowingContent, setIsShowingContent] = useState(false)
-  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false)
 
   const config = useGradebookConfig()
   const userDetailsQueryHandler = config.resources?.apiHandlers?.userDetailsQuery
@@ -248,25 +266,10 @@ const Container: React.FC<StudentPopoverProps> = ({
   const masteryScoresProps: MasteryScoresProps = { masteryScores }
   const actionsProps: ActionsProps = {
     studentGradesUrl,
-    onMessageClick: () => setIsMessageModalOpen(true),
   }
 
   return (
     <>
-      {isMessageModalOpen && (<></>)}
-      {/* TODO: https://instructure.atlassian.net/browse/OUTC-575
-      {isMessageModalOpen && (
-        <MessageStudentsModal
-          contextCode={`course_${courseId}`}
-          onRequestClose={() => setIsMessageModalOpen(false)}
-          open={isMessageModalOpen}
-          bulkMessage={false}
-          groupConversation={false}
-          recipients={[{ id: student.id, displayName: studentName }]}
-          title={t('Send a message')}
-        />
-      )} */}
-
       <Popover
         renderTrigger={
           <Link isWithinText={false} data-testid="student-cell-link">

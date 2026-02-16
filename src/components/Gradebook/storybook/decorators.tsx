@@ -29,8 +29,6 @@ export const StoryWrapper: React.FC<StoryWrapperProps> =
     nameDisplayFormat: NameDisplayFormat.FIRST_LAST,
   })
 
-  const defaultResources = {}
-
   const defaultSettingsConfig: SettingsConfig<ExampleCustomSettings> = {
     settings,
     setSettings,
@@ -74,10 +72,7 @@ export const StoryWrapper: React.FC<StoryWrapperProps> =
           ...defaultSettingsConfig,
           ...settingsConfig,
         },
-        resources: {
-          ...defaultResources,
-          ...resources,
-        },
+        resources,
         masteryLevelConfig,
       }}
     >

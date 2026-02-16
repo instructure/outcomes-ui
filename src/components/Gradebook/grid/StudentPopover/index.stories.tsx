@@ -4,6 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { Student, StudentRollupData } from '@/types/gradebook/rollup'
 import { View } from '@instructure/ui-view'
+import { Flex } from '@instructure/ui-flex'
+import { Text } from '@instructure/ui-text'
+import { Button } from '@instructure/ui-buttons'
 import { StudentPopover } from '.'
 import type { StudentPopoverProps } from '.'
 import { StoryWrapper } from '../../storybook/decorators'
@@ -148,11 +151,14 @@ export const CustomHeader: Story = {
   render: (args) => (
     <StudentPopover
       {...args}
-      renderHeader={() => (
-        <View display="block" margin="small">
-          <h3>Custom Header</h3>
-          <p>{args.studentName} - {args.student.id}</p>
-        </View>
+      renderHeader={(headerProps) => (
+        <Flex padding="0 0 medium 0">
+          <Flex.Item>
+            <Text>
+              Custom Header for {headerProps.studentName}
+            </Text>
+          </Flex.Item>
+        </Flex>
       )}
     />
   ),
@@ -164,10 +170,19 @@ export const CustomMasteryScores: Story = {
   render: (args) => (
     <StudentPopover
       {...args}
-      renderMasteryScores={() => (
+      renderMasteryScores={(masteryScoresProps) => (
         <View display="block" margin="small">
-          <strong>Custom Mastery Display</strong>
-          <p>Total outcomes: {args.rollups?.length || 0}</p>
+          <View as="div" padding="x-small 0">
+            <Text>Custom Mastery Scores</Text>
+          </View>
+
+          <View as="div" padding="x-small 0">
+            <Text>Average: {masteryScoresProps.masteryScores?.averageText || 'N/A'}</Text>
+          </View>
+
+          <View as="div" padding="x-small 0">
+            <Text>Total outcomes: {args.rollups?.length || 0}</Text>
+          </View>
         </View>
       )}
     />
@@ -181,33 +196,10 @@ export const CustomActions: Story = {
     <StudentPopover
       {...args}
       renderActions={() => (
-        <View display="block" margin="small">
-          <button>Custom Action 1</button>
-          <button>Custom Action 2</button>
-        </View>
-      )}
-    />
-  ),
-  play: openPopover,
-}
-
-export const CustomHeaderWithProps: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
-  render: (args) => (
-    <StudentPopover
-      {...args}
-      renderHeader={({ studentName, userDetails }) => (
-        <div>
-          <h3>{studentName}</h3>
-          {userDetails && (
-            <>
-              <p>Course: {userDetails.course.name}</p>
-              {userDetails.user.sections.length > 0 && (
-                <p>Sections: {userDetails.user.sections.map((s) => s.name).join(', ')}</p>
-              )}
-            </>
-          )}
-        </div>
+        <Flex direction="row" gap="small">
+          <Button>Custom Action for Student</Button>
+          <Button>Another Action</Button>
+        </Flex>
       )}
     />
   ),
