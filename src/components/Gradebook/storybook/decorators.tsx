@@ -5,7 +5,8 @@ import { Checkbox } from '@instructure/ui-checkbox'
 import { Flex } from '@instructure/ui-flex'
 import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/SettingsTray/NameDisplaySelector'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
-import type { GradebookApiHandlers, GradebookUrlBuilders, MasteryLevelConfig, SettingsConfig } from '../context/GradebookConfigContext/GradebookConfigContext'
+import type { GradebookComponents, MasteryLevelConfig, SettingsConfig, StudentPopoverWrapperProps } from '../context/GradebookConfigContext/GradebookConfigContext'
+import { StudentPopover } from '@/components/Gradebook/grid/StudentPopover'
 
 interface ExampleCustomSettings {
   showStudentNames: boolean
@@ -16,18 +17,41 @@ interface StoryWrapperProps {
   children: React.ReactNode;
   settingsConfig?: SettingsConfig<ExampleCustomSettings>,
   masteryLevelConfig?: MasteryLevelConfig
-  resources?: {
-    urlBuilders?: GradebookUrlBuilders,
-    apiHandlers?: GradebookApiHandlers
+  components?: GradebookComponents
+}
+
+const StudentPopoverWrapper: React.FC<StudentPopoverWrapperProps> = (props) => {
+  const userDetailsQuery = async (courseId: string, studentId: string) => {
+    const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    return await response.json()
   }
+
+  return (
+    <StudentPopover
+      {...props}
+      headerConfig={{
+        userDetailsQuery,
+      }}
+      actionConfig={{
+        studentGradesUrl: `/courses/${props.courseId}/grades/${props.student.id}`,
+      }}
+    />
+  )
 }
 
 export const StoryWrapper: React.FC<StoryWrapperProps> =
-({ children, settingsConfig, masteryLevelConfig, resources }) => {
+({ children, settingsConfig, masteryLevelConfig, components }) => {
   const [settings, setSettings] = useState<ExampleCustomSettings>({
     showStudentNames: true,
     nameDisplayFormat: NameDisplayFormat.FIRST_LAST,
   })
+
+  const defaultComponents: GradebookComponents = {
+    StudentPopover: StudentPopoverWrapper,
+  }
 
   const defaultSettingsConfig: SettingsConfig<ExampleCustomSettings> = {
     settings,
@@ -72,7 +96,7 @@ export const StoryWrapper: React.FC<StoryWrapperProps> =
           ...defaultSettingsConfig,
           ...settingsConfig,
         },
-        resources,
+        components: components || defaultComponents,
         masteryLevelConfig,
       }}
     >

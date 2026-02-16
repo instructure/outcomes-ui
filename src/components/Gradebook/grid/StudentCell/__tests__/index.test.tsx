@@ -4,8 +4,6 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
 import { Student, Outcome, StudentRollupData } from '@/types/gradebook/rollup'
-import { LmgbUserDetails } from '@/hooks/gradebook/useLmgbUserDetails'
-import { mockUserDetailsDefault } from '@/components/Gradebook/__mocks__/mockData'
 import { StudentCell, StudentCellProps } from '../index'
 import { GradebookConfigProvider, type GradebookConfig } from '../../../context/GradebookConfigContext'
 
@@ -45,23 +43,11 @@ const mockRollups: StudentRollupData[] = [
   },
 ]
 
-const createMockUserDetailsHandler = (
-  mockData: LmgbUserDetails = mockUserDetailsDefault,
-  shouldError = false
-) => {
-  return async () => {
-    if (shouldError) {
-      throw new Error('Failed to fetch user details')
-    }
-    return mockData
-  }
-}
-
 const DEFAULT_CONFIG: GradebookConfig = {
-  resources: {
-    apiHandlers: {
-      userDetailsQuery: createMockUserDetailsHandler(),
-    },
+  components: {
+    StudentPopover: ({ studentName }: { studentName: string }) => (
+      <div data-testid="student-popover">{studentName}</div>
+    ),
   },
   settingsConfig: {
     settings: {},

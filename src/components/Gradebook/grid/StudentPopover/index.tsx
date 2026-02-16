@@ -19,22 +19,50 @@ import { useLmgbUserDetails, type LmgbUserDetails } from '@/hooks/gradebook/useL
 import type { Outcome, StudentRollupData, Student } from '@/types/gradebook/rollup'
 import MasteryLevelIcon from '../../icons/MasteryLevelIcon'
 
-export interface StudentPopoverProps {
-  student: Student
-  studentName: string
-  studentGradesUrl: string
-  courseId: string
-  outcomes?: Outcome[]
-  rollups?: StudentRollupData[]
-  renderHeader?: (props: HeaderProps) => ReactNode
-  renderMasteryScores?: (props: MasteryScoresProps) => ReactNode
-  renderActions?: (props: ActionsProps) => ReactNode
-}
-
 interface HeaderProps {
   student?: Student
   studentName?: string
   userDetails?: LmgbUserDetails
+}
+
+export interface HeaderConfig {
+  userDetailsQuery: (courseId: string, studentId: string) => Promise<LmgbUserDetails>
+  renderHeader?: (props: HeaderProps) => ReactNode
+}
+
+interface MasteryScoresProps {
+  masteryScores?: StudentMasteryScores | null
+}
+
+export interface MasteryScoresConfig {
+  renderMasteryScores?: (props: MasteryScoresProps) => ReactNode
+}
+
+interface ActionsProps {
+  studentGradesUrl?: string
+}
+
+type ActionConfigWithCustomRender = {
+  renderActions: (props: ActionsProps) => ReactNode
+  studentGradesUrl?: never
+}
+
+type ActionConfigWithDefaultRender = {
+  renderActions?: never
+  studentGradesUrl: string
+}
+
+export type ActionConfig = ActionConfigWithCustomRender | ActionConfigWithDefaultRender
+
+export interface StudentPopoverProps {
+  student: Student
+  studentName: string
+  courseId: string
+  outcomes?: Outcome[]
+  rollups?: StudentRollupData[]
+  headerConfig: HeaderConfig
+  actionConfig: ActionConfig
+  masteryScoresConfig?: MasteryScoresConfig
 }
 
 const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) => {
@@ -79,10 +107,6 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
       </Flex.Item>
     </Flex>
   )
-}
-
-interface MasteryScoresProps {
-  masteryScores?: StudentMasteryScores | null
 }
 
 const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
@@ -139,10 +163,6 @@ const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
       </Flex.Item>
     </Flex>
   )
-}
-
-interface ActionsProps {
-  studentGradesUrl?: string
 }
 
 const Actions: React.FC<ActionsProps> = ({ studentGradesUrl }) => {
@@ -226,22 +246,18 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
 const Container: React.FC<StudentPopoverProps> = ({
   student,
   studentName,
-  studentGradesUrl,
   courseId,
   outcomes = [],
   rollups = [],
-  renderHeader,
-  renderMasteryScores,
-  renderActions,
+  headerConfig,
+  actionConfig,
+  masteryScoresConfig,
 }) => {
   const [isShowingContent, setIsShowingContent] = useState(false)
 
-  const config = useGradebookConfig()
-  const userDetailsQueryHandler = config.resources?.apiHandlers?.userDetailsQuery
-
-  if (!userDetailsQueryHandler) {
-    console.warn('StudentPopover: No userDetailsQuery handler provided in GradebookConfigContext.')
-  }
+  const { userDetailsQuery, renderHeader } = headerConfig
+  const { renderActions, studentGradesUrl } = actionConfig
+  const { renderMasteryScores } = masteryScoresConfig || {}
 
   const {
     data: userDetails,
@@ -250,8 +266,8 @@ const Container: React.FC<StudentPopoverProps> = ({
   } = useLmgbUserDetails({
     courseId,
     studentId: String(student.id),
-    enabled: isShowingContent && !!userDetailsQueryHandler,
-    userDetailsQueryHandler: userDetailsQueryHandler || (async () => ({} as LmgbUserDetails)),
+    enabled: isShowingContent,
+    userDetailsQueryHandler: userDetailsQuery,
   })
 
   const error = queryError ? t('Failed to load user details') : null

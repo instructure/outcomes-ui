@@ -4,7 +4,7 @@ import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
 import { Outcome, Student, StudentRollupData } from '@/types/gradebook/rollup'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
-import { StudentPopover } from '../StudentPopover'
+import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
 
 export interface StudentCellProps {
   courseId: string
@@ -40,6 +40,9 @@ export const StudentCell: React.FC<StudentCellProps> = ({
   outcomes,
   rollups,
 }) => {
+  const { components } = useGradebookConfig()
+  const StudentPopover = components.StudentPopover
+
   const shouldShowStudentStatus = student.status === 'inactive' || student.status === 'concluded'
   const secondaryInfo = getSecondaryInfo(student, secondaryInfoDisplay)
   const studentName =
@@ -67,7 +70,6 @@ export const StudentCell: React.FC<StudentCellProps> = ({
             key={student.id}
             student={student}
             studentName={studentName}
-            studentGradesUrl='#'
             courseId={courseId}
             outcomes={outcomes}
             rollups={rollups}

@@ -13,23 +13,22 @@ const TestConfigConsumer: React.FC = () => {
   const config = useGradebookConfig()
   return (
     <div data-testid="config-consumer">
-      {config.resources?.urlBuilders ? 'has-url-builders' : 'no-url-builders'}
+      {config.components.StudentPopover ? 'has-student-popover' : 'no-student-popover'}
     </div>
   )
 }
 
-// Test component that uses the URL builders hook
-const TestUrlBuilderConsumer: React.FC = () => {
+// Test component that uses the components
+const TestComponentsConsumer: React.FC = () => {
   const config = useGradebookConfig()
-  const urlBuilders = config.resources?.urlBuilders || {}
-  const builderCount = Object.keys(urlBuilders).length
-  return <div data-testid="builder-count">{builderCount}</div>
+  const components = config.components
+  const componentCount = Object.keys(components).length
+  return <div data-testid="component-count">{componentCount}</div>
 }
 
 const DEFAULT_CONFIG: GradebookConfig = {
-  resources: {
-    urlBuilders: {},
-    apiHandlers: {},
+  components: {
+    StudentPopover: () => <div>Mock StudentPopover</div>,
   },
   settingsConfig: {
     settings: {},
@@ -48,28 +47,28 @@ describe('GradebookConfigContext', () => {
         </GradebookConfigProvider>
       )
 
-      expect(screen.getByTestId('config-consumer')).toHaveTextContent('has-url-builders')
+      expect(screen.getByTestId('config-consumer')).toHaveTextContent('has-student-popover')
     })
 
-    it('accepts empty config object', () => {
+    it('requires components field', () => {
       render(
-        <GradebookConfigProvider config={{settingsConfig: DEFAULT_CONFIG.settingsConfig}}>
+        <GradebookConfigProvider config={DEFAULT_CONFIG}>
           <TestConfigConsumer />
         </GradebookConfigProvider>
       )
 
       expect(screen.getByTestId('config-consumer')).toBeInTheDocument()
-      expect(screen.getByTestId('config-consumer')).toHaveTextContent('no-url-builders')
+      expect(screen.getByTestId('config-consumer')).toHaveTextContent('has-student-popover')
     })
 
-    it('accepts config with empty urlBuilders', () => {
+    it('requires StudentPopover in components', () => {
       render(
         <GradebookConfigProvider config={DEFAULT_CONFIG}>
-          <TestUrlBuilderConsumer />
+          <TestComponentsConsumer />
         </GradebookConfigProvider>
       )
 
-      expect(screen.getByTestId('builder-count')).toHaveTextContent('0')
+      expect(screen.getByTestId('component-count')).toHaveTextContent('1')
     })
   })
 
@@ -92,46 +91,29 @@ describe('GradebookConfigContext', () => {
         </GradebookConfigProvider>
       )
 
-      expect(screen.getByTestId('config-consumer')).toHaveTextContent('has-url-builders')
+      expect(screen.getByTestId('config-consumer')).toHaveTextContent('has-student-popover')
     })
   })
 
-  describe('useGradebookUrlBuilders', () => {
+  describe('components', () => {
     it('throws error when used outside provider', () => {
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
       expect(() => {
-        render(<TestUrlBuilderConsumer />)
+        render(<TestComponentsConsumer />)
       }).toThrow('useGradebookConfig must be used within GradebookConfigProvider')
 
       consoleSpy.mockRestore()
     })
 
-    it('returns empty object when no URL builders provided', () => {
+    it('returns components when provided', () => {
       render(
         <GradebookConfigProvider config={DEFAULT_CONFIG}>
-          <TestUrlBuilderConsumer />
+          <TestComponentsConsumer />
         </GradebookConfigProvider>
       )
 
-      expect(screen.getByTestId('builder-count')).toHaveTextContent('0')
-    })
-
-    it('returns empty urlBuilders when provided as empty object', () => {
-      render(
-        <GradebookConfigProvider config={DEFAULT_CONFIG}>
-          <TestUrlBuilderConsumer />
-        </GradebookConfigProvider>
-      )
-
-      expect(screen.getByTestId('builder-count')).toHaveTextContent('0')
+      expect(screen.getByTestId('component-count')).toHaveTextContent('1')
     })
   })
-
-  // TODO: Add URL builder tests when specific builders are implemented
-  // describe('URL builders', () => {
-  //   it('buildStudentGradesUrl generates correct URL', () => {
-  //     ...
-  //   })
-  // })
 })

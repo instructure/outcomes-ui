@@ -48,17 +48,7 @@ const meta: Meta<StudentPopoverProps> = {
     (Story) => {
       return (
         <QueryClientProvider client={queryClient}>
-          <StoryWrapper resources={{
-            apiHandlers: {
-              userDetailsQuery: async (courseId: string, studentId: string) => {
-                const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`)
-                }
-                return await response.json()
-              },
-            }
-          }}>
+          <StoryWrapper>
             <Story />
           </StoryWrapper>
         </QueryClientProvider>
@@ -70,6 +60,15 @@ const meta: Meta<StudentPopoverProps> = {
 export default meta
 type Story = StoryObj<StudentPopoverProps>
 
+// Shared userDetailsQuery function for all stories
+const userDetailsQuery = async (courseId: string, studentId: string) => {
+  const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+  return await response.json()
+}
+
 const createStoryArgs = (
   student: Student,
   rollups: StudentRollupData[],
@@ -77,10 +76,15 @@ const createStoryArgs = (
 ): StudentPopoverProps => ({
   student,
   studentName: student.display_name,
-  studentGradesUrl: `/courses/123/grades/${student.id}`,
   courseId: '123',
   outcomes,
   rollups,
+  headerConfig: {
+    userDetailsQuery,
+  },
+  actionConfig: {
+    studentGradesUrl: `/courses/123/grades/${student.id}`,
+  },
 })
 
 const openPopover = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
@@ -151,15 +155,18 @@ export const CustomHeader: Story = {
   render: (args) => (
     <StudentPopover
       {...args}
-      renderHeader={(headerProps) => (
-        <Flex padding="0 0 medium 0">
-          <Flex.Item>
-            <Text>
-              Custom Header for {headerProps.studentName}
-            </Text>
-          </Flex.Item>
-        </Flex>
-      )}
+      headerConfig={{
+        ...args.headerConfig,
+        renderHeader: (headerProps) => (
+          <Flex padding="0 0 medium 0">
+            <Flex.Item>
+              <Text>
+                Custom Header for {headerProps.studentName}
+              </Text>
+            </Flex.Item>
+          </Flex>
+        ),
+      }}
     />
   ),
   play: openPopover,
@@ -170,21 +177,23 @@ export const CustomMasteryScores: Story = {
   render: (args) => (
     <StudentPopover
       {...args}
-      renderMasteryScores={(masteryScoresProps) => (
-        <View display="block" margin="small">
-          <View as="div" padding="x-small 0">
-            <Text>Custom Mastery Scores</Text>
-          </View>
+      masteryScoresConfig={{
+        renderMasteryScores: (masteryScoresProps) => (
+          <View display="block" margin="small">
+            <View as="div" padding="x-small 0">
+              <Text>Custom Mastery Scores</Text>
+            </View>
 
-          <View as="div" padding="x-small 0">
-            <Text>Average: {masteryScoresProps.masteryScores?.averageText || 'N/A'}</Text>
-          </View>
+            <View as="div" padding="x-small 0">
+              <Text>Average: {masteryScoresProps.masteryScores?.averageText || 'N/A'}</Text>
+            </View>
 
-          <View as="div" padding="x-small 0">
-            <Text>Total outcomes: {args.rollups?.length || 0}</Text>
+            <View as="div" padding="x-small 0">
+              <Text>Total outcomes: {args.rollups?.length || 0}</Text>
+            </View>
           </View>
-        </View>
-      )}
+        ),
+      }}
     />
   ),
   play: openPopover,
@@ -195,12 +204,14 @@ export const CustomActions: Story = {
   render: (args) => (
     <StudentPopover
       {...args}
-      renderActions={() => (
-        <Flex direction="row" gap="small">
-          <Button>Custom Action for Student</Button>
-          <Button>Another Action</Button>
-        </Flex>
-      )}
+      actionConfig={{
+        renderActions: () => (
+          <Flex direction="row" gap="small">
+            <Button>Custom Action for Student</Button>
+            <Button>Another Action</Button>
+          </Flex>
+        ),
+      }}
     />
   ),
   play: openPopover,
@@ -212,17 +223,6 @@ export const CustomMasteryLevelConfig: Story = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <StoryWrapper
-          resources={{
-            apiHandlers: {
-              userDetailsQuery: async (courseId: string, studentId: string) => {
-                const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`)
-                }
-                return await response.json()
-              },
-            }
-          }}
           masteryLevelConfig={{
             availableLevels: ['exceeds_mastery', 'mastery', 'unassessed'],
             masteryLevelOverrides: {

@@ -29,17 +29,7 @@ const meta: Meta<StudentCellProps> = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <div style={{ width: '300px', height: '48px' }}>
-          <StoryWrapper resources={{
-            apiHandlers: {
-              userDetailsQuery: async (courseId: string, studentId: string) => {
-                const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
-                if (!response.ok) {
-                  throw new Error(`HTTP error! status: ${response.status}`)
-                }
-                return await response.json()
-              },
-            },
-          }}>
+          <StoryWrapper>
             <Story />
           </StoryWrapper>
         </div>

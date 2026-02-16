@@ -1,11 +1,12 @@
-import { createContext } from 'react'
-import { LmgbUserDetails } from '@/hooks/gradebook/useLmgbUserDetails'
+import { createContext, ComponentType } from 'react'
 import type { MasteryLevel } from '@/types/gradebook/rollup'
+import type { StudentPopoverProps } from '@/components/Gradebook/grid/StudentPopover'
 
-export interface GradebookUrlBuilders {}
+export type StudentPopoverWrapperProps =
+  Pick<StudentPopoverProps, 'student' | 'studentName' | 'courseId' | 'outcomes' | 'rollups'>
 
-export interface GradebookApiHandlers {
-  userDetailsQuery?: (courseId: string, studentId: string) => Promise<LmgbUserDetails>,
+export interface GradebookComponents {
+  StudentPopover: ComponentType<StudentPopoverWrapperProps>
 }
 
 export interface RenderSettingsProps<TSettings> {
@@ -38,10 +39,7 @@ export type MasteryLevelConfig = {
 }
 
 export interface GradebookConfig<TSettings = object> {
-  resources?: {
-    urlBuilders?: GradebookUrlBuilders
-    apiHandlers?: GradebookApiHandlers
-  }
+  components: GradebookComponents
   settingsConfig: SettingsConfig<TSettings>
   masteryLevelConfig?: MasteryLevelConfig
 }

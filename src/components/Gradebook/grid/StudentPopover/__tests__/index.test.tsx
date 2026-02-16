@@ -15,7 +15,7 @@ import {
   mixedPerformanceAverage,
   mockUserDetailsDefault,
   mockUserDetailsNoSections,
-} from '../../../__mocks__/mockData'
+} from '@/components/Gradebook/__mocks__/mockData'
 
 jest.mock('format-message', () => (msg: string) => msg)
 
@@ -53,26 +53,41 @@ describe('StudentPopover', () => {
   const defaultProps: StudentPopoverProps = {
     student: mockStudent,
     studentName: mockStudent.display_name,
-    studentGradesUrl: '/courses/123/grades/1',
     courseId: '123',
     outcomes: mockOutcomes,
     rollups: createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore),
+    headerConfig: {
+      userDetailsQuery: createMockUserDetailsHandler(),
+    },
+    actionConfig: {
+      studentGradesUrl: '/courses/123/grades/1',
+    },
   }
 
   const renderComponent = (
-    props: Partial<StudentPopoverProps> = {},
-    userDetailsHandler = createMockUserDetailsHandler()
+    props: Partial<StudentPopoverProps> = {}
   ) => {
-    const mergedProps = { ...defaultProps, ...props }
+    const mergedProps: StudentPopoverProps = {
+      ...defaultProps,
+      ...props,
+      // Merge headerConfig if provided
+      headerConfig: props.headerConfig
+        ? { ...defaultProps.headerConfig, ...props.headerConfig }
+        : defaultProps.headerConfig,
+      // Use actionConfig from props if provided, otherwise use default
+      actionConfig: props.actionConfig || defaultProps.actionConfig,
+      // Merge masteryScoresConfig if provided
+      masteryScoresConfig: props.masteryScoresConfig
+        ? { ...defaultProps.masteryScoresConfig, ...props.masteryScoresConfig }
+        : defaultProps.masteryScoresConfig,
+    }
 
     return render(
       <QueryClientProvider client={queryClient}>
         <GradebookConfigProvider
           config={{
-            resources: {
-              apiHandlers: {
-                userDetailsQuery: userDetailsHandler,
-              },
+            components: {
+              StudentPopover: () => null,
             },
             settingsConfig: {
               settings: {},
@@ -117,10 +132,8 @@ describe('StudentPopover', () => {
         <QueryClientProvider client={queryClient}>
           <GradebookConfigProvider
             config={{
-              resources: {
-                apiHandlers: {
-                  userDetailsQuery: createMockUserDetailsHandler(),
-                },
+              components: {
+                StudentPopover: () => null,
               },
               settingsConfig: {
                 settings: {},
@@ -132,7 +145,10 @@ describe('StudentPopover', () => {
           >
             <StudentPopover
               {...defaultProps}
-              renderHeader={customHeader}
+              headerConfig={{
+                ...defaultProps.headerConfig,
+                renderHeader: customHeader,
+              }}
             />
           </GradebookConfigProvider>
         </QueryClientProvider>
@@ -180,7 +196,11 @@ describe('StudentPopover', () => {
     })
 
     it('does not display sections when none exist', async () => {
-      renderComponent({}, createMockUserDetailsHandler(mockUserDetailsNoSections))
+      renderComponent({
+        headerConfig: {
+          userDetailsQuery: createMockUserDetailsHandler(mockUserDetailsNoSections),
+        },
+      })
 
       const link = screen.getByTestId('student-cell-link')
       fireEvent.click(link)
@@ -224,7 +244,11 @@ describe('StudentPopover', () => {
   describe('Action Links', () => {
     it('displays action links with correct behavior', async () => {
       const gradesUrl = '/courses/123/grades/1'
-      renderComponent({ studentGradesUrl: gradesUrl })
+      renderComponent({
+        actionConfig: {
+          studentGradesUrl: gradesUrl,
+        },
+      })
 
       const link = screen.getByTestId('student-cell-link')
       fireEvent.click(link)
@@ -253,7 +277,11 @@ describe('StudentPopover', () => {
 
   describe('Error Handling', () => {
     it('displays error message when user details fetch fails', async () => {
-      renderComponent({}, createMockUserDetailsHandler(undefined, true))
+      renderComponent({
+        headerConfig: {
+          userDetailsQuery: createMockUserDetailsHandler(undefined, true),
+        },
+      })
 
       const link = screen.getByTestId('student-cell-link')
       fireEvent.click(link)
@@ -262,7 +290,11 @@ describe('StudentPopover', () => {
     })
 
     it('does not display user details when error occurs', async () => {
-      renderComponent({}, createMockUserDetailsHandler(undefined, true))
+      renderComponent({
+        headerConfig: {
+          userDetailsQuery: createMockUserDetailsHandler(undefined, true),
+        },
+      })
 
       const link = screen.getByTestId('student-cell-link')
       fireEvent.click(link)
@@ -288,7 +320,11 @@ describe('StudentPopover', () => {
   describe('Data Loading', () => {
     it('does not fetch user details until popover is opened', () => {
       const mockHandler = jest.fn(createMockUserDetailsHandler())
-      renderComponent({}, mockHandler)
+      renderComponent({
+        headerConfig: {
+          userDetailsQuery: mockHandler,
+        },
+      })
 
       // Handler should not be called until popover is opened
       expect(mockHandler).not.toHaveBeenCalled()
@@ -296,7 +332,11 @@ describe('StudentPopover', () => {
 
     it('fetches user details when popover is opened', async () => {
       const mockHandler = jest.fn(createMockUserDetailsHandler())
-      renderComponent({}, mockHandler)
+      renderComponent({
+        headerConfig: {
+          userDetailsQuery: mockHandler,
+        },
+      })
 
       const link = screen.getByTestId('student-cell-link')
       fireEvent.click(link)

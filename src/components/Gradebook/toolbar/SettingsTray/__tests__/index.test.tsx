@@ -26,6 +26,9 @@ describe('SettingsTray', () => {
   }
 
   const createConfig = (overrides = {}): GradebookConfig<TestSettings> => ({
+    components: {
+      StudentPopover: () => null,
+    },
     settingsConfig: {
       settings: defaultSettings,
       setSettings: jest.fn<(settings: TestSettings) => void>(),
