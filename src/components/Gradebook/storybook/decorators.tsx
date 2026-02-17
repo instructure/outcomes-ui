@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { action } from '@storybook/addon-actions'
-import { GradebookConfigProvider } from '@/components/Gradebook/context/GradebookConfigContext'
 import { Checkbox } from '@instructure/ui-checkbox'
 import { Flex } from '@instructure/ui-flex'
 import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/SettingsTray/NameDisplaySelector'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
 import type { GradebookComponents, MasteryLevelConfig, SettingsConfig, StudentPopoverWrapperProps } from '../context/GradebookConfigContext/GradebookConfigContext'
 import { StudentPopover } from '@/components/Gradebook/grid/StudentPopover'
+import GradebookApp from '..'
 
 interface ExampleCustomSettings {
   showStudentNames: boolean
@@ -90,17 +90,15 @@ export const StoryWrapper: React.FC<StoryWrapperProps> =
   }
 
   return (
-    <GradebookConfigProvider<ExampleCustomSettings>
-      config={{
-        settingsConfig: {
-          ...defaultSettingsConfig,
-          ...settingsConfig,
-        },
-        components: components || defaultComponents,
-        masteryLevelConfig,
-      }}
-    >
+    <GradebookApp gradebookConfig={{
+      settingsConfig: {
+        ...defaultSettingsConfig,
+        ...settingsConfig,
+      },
+      components: components || defaultComponents,
+      masteryLevelConfig,
+    }}>
       {children}
-    </GradebookConfigProvider>
+    </GradebookApp>
   )
 }

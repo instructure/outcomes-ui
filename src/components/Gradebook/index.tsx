@@ -1,31 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { setupI18n } from '../../i18n/i18n'
-import t from 'format-message'
 import { type Translations } from 'format-message'
+import { GradebookConfigProvider, type GradebookConfig } from './context/GradebookConfigContext'
 
 interface I18nDisabledConfig {
-  i18nEnabled: false;
-  language?: never;
-  resourceOverrides?: never;
+  i18nEnabled: false
+  language?: never
+  resourceOverrides?: never
 }
 
 interface I18nEnabledConfig {
-  i18nEnabled?: true;
-  language: string;
-  resourceOverrides?: Translations;
+  i18nEnabled?: true
+  language: string
+  resourceOverrides?: Translations
 }
 
-type TranslationConfig = I18nEnabledConfig | I18nDisabledConfig;
+export type TranslationConfig = I18nEnabledConfig | I18nDisabledConfig
 
-export interface GradebookAppProps {
-  translationConfig: TranslationConfig;
+export interface GradebookAppProps<TSettings = object> {
+  gradebookConfig: GradebookConfig<TSettings>
+  translationConfig?: TranslationConfig
 }
 
-const GradebookApp: React.FC<GradebookAppProps> = ({
+const GradebookApp = <TSettings extends object = object>({
+  gradebookConfig,
   translationConfig = { language: 'en', i18nEnabled: true },
-}) => {
+  children,
+}: PropsWithChildren<GradebookAppProps<TSettings>>) => {
   const { language, resourceOverrides, i18nEnabled } = translationConfig
-  const [i18nReady, setI18nReady] = useState(false)
+  const [ i18nReady, setI18nReady ] = useState(false)
 
   useEffect(() => {
     if (i18nEnabled) {
@@ -38,10 +41,11 @@ const GradebookApp: React.FC<GradebookAppProps> = ({
     return null
   }
 
-  return <>
-    <div>GradebookAppRoot</div>
-    <div>{t('Align new outcomes')}</div>
-  </>
+  return (
+    <GradebookConfigProvider config={gradebookConfig}>
+      {children || <div>GradebookAppRoot</div>}
+    </GradebookConfigProvider>
+  )
 }
 
 export default GradebookApp

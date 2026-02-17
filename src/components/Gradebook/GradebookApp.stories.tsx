@@ -60,7 +60,7 @@ const resourceOverrides: Translations = {
   },
 }
 
-export const Basic: Story = {
+export const Default: Story = {
   args: {
     translationConfig: {
       language: 'en',
