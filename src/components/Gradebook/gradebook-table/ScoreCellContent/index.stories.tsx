@@ -22,55 +22,55 @@ export default meta
 type Story = StoryObj<typeof ScoreCellContent>
 
 export const IconOnly: Story = {
-  render: () => (
-    <ScoreCellContent
-      scoreDisplayFormat={ScoreDisplayFormat.ICON_ONLY}
-      masteryLevel="exceeds_mastery"
-      label="Exceeds Mastery"
-      score={4} />
-  ),
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_ONLY,
+    masteryLevel: 'exceeds_mastery',
+    label: 'Exceeds Mastery',
+    score: 4,
+    background: 'secondary',
+  },
 }
 
 export const IconAndScore: Story = {
-  render: () => (
-    <ScoreCellContent
-      scoreDisplayFormat={ScoreDisplayFormat.ICON_AND_POINTS}
-      masteryLevel="mastery"
-      label="Mastery"
-      score={3} />
-  ),
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_AND_POINTS,
+    masteryLevel: 'mastery',
+    label: 'Mastery',
+    score: 3,
+    background: 'secondary',
+  },
 }
 
 export const IconAndLabel: Story = {
-  render: () => (
-    <ScoreCellContent
-      scoreDisplayFormat={ScoreDisplayFormat.ICON_AND_LABEL}
-      masteryLevel="near_mastery"
-      label="Near Mastery"
-      score={2} />
-  ),
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_AND_LABEL,
+    masteryLevel: 'near_mastery',
+    label: 'Near Mastery',
+    score: 2,
+    background: 'secondary',
+  },
 }
 
 export const OnAction: Story = {
-  render: () => (
-    <ScoreCellContent
-      scoreDisplayFormat={ScoreDisplayFormat.ICON_AND_POINTS}
-      masteryLevel="remediation"
-      label="Remediation"
-      score={1}
-      onAction={action('onAction')} />
-  ),
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_AND_POINTS,
+    masteryLevel: 'remediation',
+    label: 'Remediation',
+    score: 1,
+    onAction: action('onAction'),
+    background: 'secondary',
+  },
 }
 
 // Actual focus will be on table cell element, no focus ring shows here, only action button is displayed
 export const FocusControlled: Story = {
-  render: () => (
-    <ScoreCellContent
-      scoreDisplayFormat={ScoreDisplayFormat.ICON_AND_POINTS}
-      masteryLevel="no_evidence"
-      label="No Evidence"
-      score={0}
-      onAction={action('onAction')}
-      focus={true} />
-  ),
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_AND_POINTS,
+    masteryLevel: 'no_evidence',
+    label: 'No Evidence',
+    score: 0,
+    onAction: action('onAction'),
+    focus: true,
+    background: 'secondary',
+  },
 }

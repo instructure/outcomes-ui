@@ -34,19 +34,19 @@ describe('ScoreCellContent', () => {
     })
 
     it('shows action button on hover (internal state)', () => {
-      const {container} = render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} />)
+      render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} />)
 
       expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
 
-      const viewElement = container.querySelector('[class*="view"]') as HTMLElement
+      const viewElement = screen.getByTestId('score-cell-content')
       fireEvent.mouseEnter(viewElement)
 
       expect(screen.getByTestId('score-cell-action-button')).toBeInTheDocument()
     })
 
     it('hides action button on mouse leave (internal state)', () => {
-      const {container} = render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} />)
-      const viewElement = container.querySelector('[class*="view"]') as HTMLElement
+      render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} />)
+      const viewElement = screen.getByTestId('score-cell-content')
 
       fireEvent.mouseEnter(viewElement)
       expect(screen.getByTestId('score-cell-action-button')).toBeInTheDocument()
@@ -61,8 +61,8 @@ describe('ScoreCellContent', () => {
     })
 
     it('does not update internal hover state when hover prop is controlled', () => {
-      const {container} = render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} hover={false} />)
-      const viewElement = container.querySelector('[class*="view"]') as HTMLElement
+      render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} hover={false} />)
+      const viewElement = screen.getByTestId('score-cell-content')
 
       fireEvent.mouseEnter(viewElement)
 

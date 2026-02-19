@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import t from 'format-message'
-import { View } from '@instructure/ui-view'
+import { View, type ViewProps } from '@instructure/ui-view'
 import { Flex } from '@instructure/ui-flex'
 import { IconButton } from '@instructure/ui-buttons'
 import { IconExpandStartLine } from '@instructure/ui-icons'
@@ -10,6 +10,7 @@ export type ScoreCellContentProps =  ScoreWithLabelProps & {
   onAction?: () => void
   focus?: boolean
   hover?: boolean
+  background?: ViewProps['background']
 }
 
 export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
@@ -20,6 +21,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
   onAction,
   focus,
   hover: hoverControlled,
+  background = 'primary',
 }: ScoreCellContentProps) => {
   const [hoverInternal, setHoverInternal] = useState(false)
   const hover = hoverControlled ?? hoverInternal
@@ -41,11 +43,12 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
   return (
     <View
       as="div"
-      background="secondary"
+      background={background}
       height="100%"
       position="relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      data-testid="score-cell-content"
     >
       <Flex alignItems="center" width="100%" height="100%">
         <Flex.Item shouldGrow padding="xx-small 0">
