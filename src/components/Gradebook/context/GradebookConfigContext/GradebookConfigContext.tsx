@@ -5,25 +5,14 @@ import type { StudentPopoverProps } from '@/components/Gradebook/popovers/Studen
 export type StudentPopoverWrapperProps =
   Pick<StudentPopoverProps, 'student' | 'studentName' | 'courseId' | 'outcomes' | 'rollups'>
 
-export interface GradebookComponents {
-  StudentPopover: ComponentType<StudentPopoverWrapperProps>
-}
-
-export interface RenderSettingsProps<TSettings> {
+export interface SettingsTrayContentProps<TSettings> {
   settings: TSettings
   onChange: (settings: TSettings) => void
 }
 
-export interface SaveSettingsResult {
-  success: boolean
-  error?: string
-}
-
-export interface SettingsConfig<TSettings> {
-  settings: TSettings
-  setSettings: (settings: TSettings) => void
-  onSaveSettings: (settings: TSettings) => Promise<SaveSettingsResult>
-  renderSettingsContent: (props: RenderSettingsProps<TSettings>) => React.ReactNode
+export interface GradebookComponents<TSettings = object> {
+  StudentPopover: ComponentType<StudentPopoverWrapperProps>
+  SettingsTrayContent: ComponentType<SettingsTrayContentProps<TSettings>>
 }
 
 export type MasteryLevelOverrides = Partial<Record<
@@ -39,8 +28,7 @@ export type MasteryLevelConfig = {
 }
 
 export interface GradebookConfig<TSettings = object> {
-  components: GradebookComponents
-  settingsConfig: SettingsConfig<TSettings>
+  components: GradebookComponents<TSettings>
   masteryLevelConfig?: MasteryLevelConfig
 }
 

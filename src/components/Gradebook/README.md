@@ -14,7 +14,17 @@ Import and render `GradebookApp` in your project:
 import { GradebookApp } from "@instructure/outcomes-ui/src/components/Gradebook";
 
 <GradebookApp
-    translationConfig={{
+    config={{
+        components: {
+            StudentPopover: MyStudentPopover,
+            SettingsTrayContent: MySettings,
+        },
+    }}
+    settings={{
+        settings: mySettings,
+        onSave: handleSaveSettings,
+    }}
+    translations={{
         language: "en",
         resourceOverrides: { en: { key: "value" } },
         i18nEnabled: true,
@@ -24,7 +34,19 @@ import { GradebookApp } from "@instructure/outcomes-ui/src/components/Gradebook"
 
 ### Props
 
-#### translationConfig
+#### config
+
+-   `components` (object): Required components for the gradebook.
+    -   `StudentPopover`: Component for displaying student details
+    -   `SettingsTrayContent`: Component for rendering settings form fields
+-   `masteryLevelConfig` (object): Optional mastery level configuration.
+
+#### settings
+
+-   `settings` (TSettings): The current settings object.
+-   `onSave` (function): Handler that persists settings, returns Promise<SaveSettingsResult>.
+
+#### translations
 
 -   `language` (string): The current language code (required if `i18nEnabled` is true or omitted).
 -   `resourceOverrides` (object): Optional translation overrides for any language.
@@ -41,7 +63,12 @@ import { GradebookApp } from "@instructure/outcomes-ui/src/components/Gradebook"
 const overrides = useMemo(() => ({ en: { hello: 'Hi!' } }), [])
 
 <GradebookApp
-  translationConfig={{
+  config={myGradebookConfig}
+  settings={{
+    settings: mySettings,
+    onSave: handleSaveSettings
+  }}
+  translations={{
     language: 'en',
     resourceOverrides: overrides,
     i18nEnabled: true,

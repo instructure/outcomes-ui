@@ -48,12 +48,7 @@ const DEFAULT_CONFIG: GradebookConfig = {
     StudentPopover: ({ studentName }: { studentName: string }) => (
       <div data-testid="student-popover">{studentName}</div>
     ),
-  },
-  settingsConfig: {
-    settings: {},
-    setSettings: () => {},
-    onSaveSettings: async () => ({ success: true }),
-    renderSettingsContent: () => <div>Settings Content</div>,
+    SettingsTrayContent: () => <div>Settings Content</div>,
   },
 }
 

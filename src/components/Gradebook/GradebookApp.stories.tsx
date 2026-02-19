@@ -1,15 +1,42 @@
-import GradebookApp from './index'
+import React from 'react'
+import GradebookApp, { type GradebookAppProps } from './index'
 import { type Translations } from 'format-message'
 import type { Meta, StoryObj } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
+import type { GradebookConfig } from './context/GradebookConfigContext'
+import type { SaveSettingsResult } from './context/GradebookAppContext'
 
-const meta: Meta<typeof GradebookApp> = {
+// Example minimal settings type
+interface ExampleSettings {
+  option1: boolean
+}
+
+const meta: Meta<typeof GradebookApp<ExampleSettings>> = {
   title: 'Gradebook/GradebookApp',
   component: GradebookApp,
 }
 
 export default meta
 
-type Story = StoryObj<typeof GradebookApp>
+type Story = StoryObj<GradebookAppProps<ExampleSettings>>
+
+const defaultConfig: GradebookConfig<ExampleSettings> = {
+  components: {
+    StudentPopover: () => <div>Student Popover</div>,
+    SettingsTrayContent: () => <div>Settings Content</div>,
+  },
+}
+
+const defaultSettings = {
+  settings: {
+    option1: true,
+  },
+  onSave: async (settings: ExampleSettings): Promise<SaveSettingsResult> => {
+    action('onSave')(settings)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    return { success: true }
+  },
+}
 
 const resourceOverrides: Translations = {
   en: {
@@ -62,7 +89,9 @@ const resourceOverrides: Translations = {
 
 export const Default: Story = {
   args: {
-    translationConfig: {
+    config: defaultConfig,
+    settings: defaultSettings,
+    translations: {
       language: 'en',
       resourceOverrides,
       i18nEnabled: true,

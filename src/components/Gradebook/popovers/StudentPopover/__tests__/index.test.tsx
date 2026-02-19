@@ -88,12 +88,7 @@ describe('StudentPopover', () => {
           config={{
             components: {
               StudentPopover: () => null,
-            },
-            settingsConfig: {
-              settings: {},
-              setSettings: () => {},
-              onSaveSettings: async () => ({ success: true }),
-              renderSettingsContent: () => null,
+              SettingsTrayContent: () => null,
             },
           }}
         >
@@ -134,12 +129,7 @@ describe('StudentPopover', () => {
             config={{
               components: {
                 StudentPopover: () => null,
-              },
-              settingsConfig: {
-                settings: {},
-                setSettings: () => {},
-                onSaveSettings: async () => ({ success: true }),
-                renderSettingsContent: () => null,
+                SettingsTrayContent: () => null,
               },
             }}
           >

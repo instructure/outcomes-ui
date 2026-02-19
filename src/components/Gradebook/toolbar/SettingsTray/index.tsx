@@ -1,46 +1,40 @@
-import React, {useCallback, useState} from 'react'
-import {Button, CloseButton} from '@instructure/ui-buttons'
-import {View} from '@instructure/ui-view'
-import {Flex} from '@instructure/ui-flex'
-import {Text} from '@instructure/ui-text'
-import {Tray} from '@instructure/ui-tray'
-import {showFlashAlert} from '@/components/FlashAlert'
+import React, { useCallback, useState } from 'react'
+import { Button, CloseButton } from '@instructure/ui-buttons'
+import { View } from '@instructure/ui-view'
+import { Flex } from '@instructure/ui-flex'
+import { Text } from '@instructure/ui-text'
+import { Tray } from '@instructure/ui-tray'
 import t from 'format-message'
 import {colors} from '@instructure/canvas-theme'
 import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
+import { useGradebookApp } from '@/components/Gradebook/context/GradebookAppContext'
+import { showFlashAlert } from '@/components/FlashAlert'
 
 export interface SettingsTrayProps {
   open: boolean
   onDismiss: () => void
-  isSavingSettings?: boolean
 }
 
 /**
- * SettingsTray component that works with any settings type.
- * The settings content is provided via renderSettingsContent in the config.
+ * SettingsTray component that provides the tray chrome and renders the SettingsTrayContent.
  * This component handles:
  * - Tray header, footer, layout
  * - Form state management (local copy of settings)
- * - Save/cancel flow
- * - Success/error messaging
+ * - Save/cancel flow with async persistence
+ * - Loading states and error handling
+ * The SettingsTrayContent is purely presentational and renders the form fields.
  */
 export const SettingsTray: React.FC<SettingsTrayProps> = ({
   open,
   onDismiss,
-  isSavingSettings = false,
 }) => {
-  const {
-    settingsConfig:
-    {
-      settings: contextSettings,
-      onSaveSettings,
-      renderSettingsContent,
-      setSettings
-    }
-  } = useGradebookConfig()
-  const [localSettings, setLocalSettings] = useState(contextSettings)
+  const { components } = useGradebookConfig()
+  const { settings: { settings: contextSettings, setSettings, onSave } } = useGradebookApp()
+  const { SettingsTrayContent } = components
+  const [ localSettings, setLocalSettings ] = useState(contextSettings)
+  const [ isSaving, setIsSaving ] = useState(false)
 
-  // Update local settings when context settings change
+  // Update local settings when context settings change or tray opens
   React.useEffect(() => {
     if (open) {
       setLocalSettings(contextSettings)
@@ -52,19 +46,31 @@ export const SettingsTray: React.FC<SettingsTrayProps> = ({
   }, [contextSettings])
 
   const saveSettings = async () => {
-    const result = await onSaveSettings(localSettings)
+    setIsSaving(true)
+    try {
+      const result = await onSave(localSettings)
 
-    if (result?.success) {
-      // Update context with new settings - triggers re-render throughout the tree
-      setSettings(localSettings)
-      onDismiss()
-      showFlashAlert({type: 'success', message: t('Your settings have been saved.')})
-    } else {
-      resetForm()
+      if (result.success) {
+        setSettings(localSettings)
+        showFlashAlert({
+          message: t('Your settings have been saved.'),
+          type: 'success',
+        })
+        onDismiss()
+      } else {
+        showFlashAlert({
+          message: result.error || t('There was an error saving your settings. Please try again.'),
+          type: 'error',
+        })
+      }
+    } catch (error) {
       showFlashAlert({
+        message: t('An unexpected error occurred while saving settings'),
         type: 'error',
-        message: t('There was an error saving your settings. Please try again.'),
+        err: error,
       })
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -98,11 +104,8 @@ export const SettingsTray: React.FC<SettingsTrayProps> = ({
             <hr style={{marginBottom: '0', marginTop: '16px'}} />
           </Flex>
           <Flex direction="column" padding="small medium" alignItems="stretch" gap="medium">
-            {/* Render consumer-provided settings content */}
-            {renderSettingsContent({
-              settings: localSettings,
-              onChange: setLocalSettings,
-            })}
+            {/* Render consumer-provided settings component */}
+            <SettingsTrayContent settings={localSettings} onChange={setLocalSettings} />
           </Flex>
         </Flex.Item>
         <Flex.Item>
@@ -122,6 +125,7 @@ export const SettingsTray: React.FC<SettingsTrayProps> = ({
                     onDismiss()
                   }}
                   color="secondary"
+                  disabled={isSaving}
                   data-testid="lmgb-cancel-settings-button"
                 >
                   {t('Cancel')}
@@ -131,9 +135,10 @@ export const SettingsTray: React.FC<SettingsTrayProps> = ({
                 <Button
                   color="primary"
                   onClick={saveSettings}
-                  disabled={isSavingSettings}
-                  data-testid="lmgb-save-settings-button">
-                  {t('Save')}
+                  disabled={isSaving}
+                  data-testid="lmgb-save-settings-button"
+                >
+                  {isSaving ? t('Saving') : t('Save')}
                 </Button>
               </Flex.Item>
             </Flex>

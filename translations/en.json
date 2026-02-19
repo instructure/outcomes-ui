@@ -14,6 +14,9 @@
   "an_error_occurred_making_a_network_request_d1bda348": {
     "message": "An error occurred making a network request"
   },
+  "an_unexpected_error_occurred_while_saving_settings_cdac7029": {
+    "message": "An unexpected error occurred while saving settings"
+  },
   "arrange_outcomes_by_686d3753": {
     "message": "Arrange Outcomes by"
   },

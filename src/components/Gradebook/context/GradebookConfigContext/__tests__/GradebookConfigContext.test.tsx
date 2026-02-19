@@ -29,12 +29,7 @@ const TestComponentsConsumer: React.FC = () => {
 const DEFAULT_CONFIG: GradebookConfig = {
   components: {
     StudentPopover: () => <div>Mock StudentPopover</div>,
-  },
-  settingsConfig: {
-    settings: {},
-    setSettings: () => {},
-    onSaveSettings: async () => ({ success: true }),
-    renderSettingsContent: () => <div>Settings Content</div>,
+    SettingsTrayContent: () => <div>Settings Content</div>,
   },
 }
 
@@ -68,7 +63,7 @@ describe('GradebookConfigContext', () => {
         </GradebookConfigProvider>
       )
 
-      expect(screen.getByTestId('component-count')).toHaveTextContent('1')
+      expect(screen.getByTestId('component-count')).toHaveTextContent('2')
     })
   })
 
@@ -113,7 +108,7 @@ describe('GradebookConfigContext', () => {
         </GradebookConfigProvider>
       )
 
-      expect(screen.getByTestId('component-count')).toHaveTextContent('1')
+      expect(screen.getByTestId('component-count')).toHaveTextContent('2')
     })
   })
 })

@@ -2,6 +2,7 @@ import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { setupI18n } from '../../i18n/i18n'
 import { type Translations } from 'format-message'
 import { GradebookConfigProvider, type GradebookConfig } from './context/GradebookConfigContext'
+import { GradebookAppProvider, type SaveSettingsResult } from './context/GradebookAppContext'
 
 interface I18nDisabledConfig {
   i18nEnabled: false
@@ -17,17 +18,24 @@ interface I18nEnabledConfig {
 
 export type TranslationConfig = I18nEnabledConfig | I18nDisabledConfig
 
+export type { SaveSettingsResult }
+
 export interface GradebookAppProps<TSettings = object> {
-  gradebookConfig: GradebookConfig<TSettings>
-  translationConfig?: TranslationConfig
+  config: GradebookConfig<TSettings>
+  settings: {
+    settings: TSettings
+    onSave: (settings: TSettings) => Promise<SaveSettingsResult>
+  }
+  translations?: TranslationConfig
 }
 
 const GradebookApp = <TSettings extends object = object>({
-  gradebookConfig,
-  translationConfig = { language: 'en', i18nEnabled: true },
+  config,
+  settings,
+  translations = { language: 'en', i18nEnabled: true },
   children,
 }: PropsWithChildren<GradebookAppProps<TSettings>>) => {
-  const { language, resourceOverrides, i18nEnabled } = translationConfig
+  const { language, resourceOverrides, i18nEnabled } = translations
   const [ i18nReady, setI18nReady ] = useState(false)
 
   useEffect(() => {
@@ -42,8 +50,10 @@ const GradebookApp = <TSettings extends object = object>({
   }
 
   return (
-    <GradebookConfigProvider config={gradebookConfig}>
-      {children || <div>GradebookAppRoot</div>}
+    <GradebookConfigProvider config={config}>
+      <GradebookAppProvider settings={settings}>
+        {children || <div>GradebookAppRoot</div>}
+      </GradebookAppProvider>
     </GradebookConfigProvider>
   )
 }
