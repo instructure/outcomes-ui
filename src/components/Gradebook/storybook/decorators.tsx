@@ -3,10 +3,10 @@ import { action } from '@storybook/addon-actions'
 import { Checkbox } from '@instructure/ui-checkbox'
 import { Flex } from '@instructure/ui-flex'
 import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/SettingsTray/NameDisplaySelector'
+import { StudentPopover } from '@/components/Gradebook/popovers/StudentPopover'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
-import type { GradebookComponents, MasteryLevelConfig, SettingsConfig, StudentPopoverWrapperProps } from '../context/GradebookConfigContext/GradebookConfigContext'
-import { StudentPopover } from '@/components/Gradebook/grid/StudentPopover'
 import GradebookApp from '..'
+import type { GradebookComponents, MasteryLevelConfig, SettingsConfig, StudentPopoverWrapperProps } from '../context/GradebookConfigContext/GradebookConfigContext'
 
 interface ExampleCustomSettings {
   showStudentNames: boolean

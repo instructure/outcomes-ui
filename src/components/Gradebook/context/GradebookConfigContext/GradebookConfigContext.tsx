@@ -1,6 +1,6 @@
 import { createContext, ComponentType } from 'react'
 import type { MasteryLevel } from '@/types/gradebook/rollup'
-import type { StudentPopoverProps } from '@/components/Gradebook/grid/StudentPopover'
+import type { StudentPopoverProps } from '@/components/Gradebook/popovers/StudentPopover'
 
 export type StudentPopoverWrapperProps =
   Pick<StudentPopoverProps, 'student' | 'studentName' | 'courseId' | 'outcomes' | 'rollups'>
