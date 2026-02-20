@@ -73,10 +73,6 @@ module.exports = {
         ...(config.resolve.alias || {}),
         ...(baseConfig.resolve.alias || {}),
         '@': require('path').resolve(__dirname, '../src'),
-        '@components': require('path').resolve(__dirname, '../src/components'),
-        '@util': require('path').resolve(__dirname, '../src/util'),
-        '@types': require('path').resolve(__dirname, '../src/types'),
-        '@hooks': require('path').resolve(__dirname, '../src/hooks'),
       }
     }
 

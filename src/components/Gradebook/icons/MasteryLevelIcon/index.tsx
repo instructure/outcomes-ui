@@ -1,4 +1,4 @@
-import type { MasteryLevel } from '@/types/gradebook/rollup'
+import type { MasteryLevel } from '@/types/gradebook'
 import React, { SVGProps } from 'react'
 import { ExceedsMasteryIcon } from './ExceedsMasteryIcon'
 import { MasteryIcon } from './MasteryIcon'

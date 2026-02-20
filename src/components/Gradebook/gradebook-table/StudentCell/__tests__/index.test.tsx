@@ -3,8 +3,9 @@ import { expect } from '@jest/globals'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
-import { Student, Outcome, StudentRollupData } from '@/types/gradebook/rollup'
+import { Student } from '@/types/gradebook'
 import { GradebookConfigProvider, type GradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
+import { mockMasteryScores } from '@/components/Gradebook/__mocks__/mockData'
 import { StudentCell, StudentCellProps } from '../index'
 
 jest.mock('@/components/Gradebook/popovers/StudentPopover', () => ({
@@ -25,24 +26,6 @@ const mockStudent: Student = {
   status: 'active',
 }
 
-const mockOutcomes: Outcome[] = [
-  {
-    id: '1',
-    title: 'Outcome 1',
-    calculation_method: 'highest',
-    points_possible: 3,
-    mastery_points: 2,
-    ratings: [],
-  },
-]
-
-const mockRollups: StudentRollupData[] = [
-  {
-    studentId: '123',
-    outcomeRollups: [],
-  },
-]
-
 const DEFAULT_CONFIG: GradebookConfig = {
   components: {
     StudentPopover: ({ studentName }: { studentName: string }) => (
@@ -60,6 +43,7 @@ describe('StudentCell', () => {
   const defaultProps: StudentCellProps = {
     courseId: 'course-1',
     student: mockStudent,
+    masteryScores: mockMasteryScores,
   }
 
   describe('rendering', () => {
@@ -83,9 +67,9 @@ describe('StudentCell', () => {
       expect(screen.getByTestId('student-popover')).toBeInTheDocument()
     })
 
-    it('passes outcomes and rollups to StudentPopover', () => {
+    it('passes masteryScores to StudentPopover', () => {
       renderWithConfig(
-        <StudentCell {...defaultProps} outcomes={mockOutcomes} rollups={mockRollups} />,
+        <StudentCell {...defaultProps} masteryScores={mockMasteryScores} />,
       )
       expect(screen.getByTestId('student-popover')).toBeInTheDocument()
     })

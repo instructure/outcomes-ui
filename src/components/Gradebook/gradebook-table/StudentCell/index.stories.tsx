@@ -1,43 +1,27 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { View } from '@instructure/ui-view'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
 import { StoryWrapper } from '@/components/Gradebook/storybook/decorators'
-import { studentPopoverHandlers } from '@/components/Gradebook/__mocks__/handlers'
-import { mockStudent, mockStudentLongName } from '@/components/Gradebook/__mocks__/mockData'
+import { mockMasteryScores, mockStudent, mockStudentLongName } from '@/components/Gradebook/__mocks__/mockData'
 import { StudentCell } from '.'
 import type { StudentCellProps } from '.'
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      staleTime: Infinity,
-    },
-  },
-})
 
 const meta: Meta<StudentCellProps> = {
   title: 'Gradebook/StudentCell',
   component: StudentCell,
-  parameters: {
-    msw: {
-      handlers: studentPopoverHandlers,
-    },
-  },
   decorators: [
     (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <div style={{ width: '300px', height: '48px' }}>
-          <StoryWrapper>
-            <Story />
-          </StoryWrapper>
-        </div>
-      </QueryClientProvider>
+      <View as="div" width="300px" height="48px" display="block">
+        <StoryWrapper>
+          <Story />
+        </StoryWrapper>
+      </View>
     ),
   ],
   args: {
     courseId: '123',
+    masteryScores: mockMasteryScores,
   },
 }
 

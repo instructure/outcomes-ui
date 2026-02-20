@@ -1,90 +1,75 @@
 import React from 'react'
+import { action } from '@storybook/addon-actions'
 import { within, userEvent } from '@storybook/testing-library'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import type { Meta, StoryObj } from '@storybook/react'
-import type { Student, StudentRollupData } from '@/types/gradebook/rollup'
+import type { LmgbUserDetails, Student, StudentMasteryScores } from '@/types/gradebook'
 import { View } from '@instructure/ui-view'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
 import { Button } from '@instructure/ui-buttons'
 import { StoryWrapper } from '@/components/Gradebook/storybook/decorators'
-import { studentPopoverHandlers } from  '@/components/Gradebook/__mocks__/handlers'
 import {
   createStudent,
-  createRollups,
   mockStudent,
   mockStudentLongName,
-  mockOutcomes,
-  mixedPerformanceRollups,
-  highPerformanceRollups,
-  lowPerformanceRollups,
-  nearMasteryRollups,
-  mixedPerformanceAverage,
-  highPerformanceAverage,
-  lowPerformanceAverage,
-  nearMasteryAverage,
+  mockMasteryScores,
+  highMasteryScores,
+  lowMasteryScores,
+  unassessedMasteryScores,
+  mockUserDetailsDefault,
+  mockUserDetailsSingleSection,
+  mockUserDetailsManySections,
+  mockUserDetailsLongCourseName,
+  mockUserDetailsNoSections,
 } from '@/components/Gradebook/__mocks__/mockData'
 import { StudentPopover } from '.'
 import type { StudentPopoverProps } from '.'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      staleTime: Infinity,
-    },
-  },
-})
+// Storybook's args type (Partial<Props>) doesn't handle discriminated
+// unions in StudentPopoverProps so define a flatten version of it
+type StoryArgs = {
+  studentName: string
+  student?: Student
+  userDetails?: LmgbUserDetails
+  masteryScores?: StudentMasteryScores
+  studentGradesUrl?: string
+  headerOverride?: React.ReactNode
+  masteryScoresOverride?: React.ReactNode
+  actionsOverride?: React.ReactNode
+  isLoading?: boolean
+  error?: string | null
+  onShowingContentChange?: (isShowing: boolean) => void
+}
 
-const meta: Meta<StudentPopoverProps> = {
+const meta: Meta<StoryArgs> = {
   title: 'Gradebook/StudentPopover',
-  component: StudentPopover,
-  parameters: {
-    msw: {
-      handlers: studentPopoverHandlers,
-    },
+  component: StudentPopover as React.ComponentType<StoryArgs>,
+  args: {
+    onShowingContentChange: action('onShowingContentChange'),
   },
   decorators: [
     (Story) => {
       return (
-        <QueryClientProvider client={queryClient}>
-          <StoryWrapper>
-            <Story />
-          </StoryWrapper>
-        </QueryClientProvider>
+        <StoryWrapper>
+          <Story />
+        </StoryWrapper>
       )
     }
   ],
 }
 
 export default meta
-type Story = StoryObj<StudentPopoverProps>
-
-// Shared userDetailsQuery function for all stories
-const userDetailsQuery = async (courseId: string, studentId: string) => {
-  const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-  return await response.json()
-}
+type Story = StoryObj<StoryArgs>
 
 const createStoryArgs = (
   student: Student,
-  rollups: StudentRollupData[],
-  outcomes = mockOutcomes
-): StudentPopoverProps => ({
+  masteryScores = mockMasteryScores,
+): StoryArgs => ({
   student,
   studentName: student.display_name,
-  courseId: '123',
-  outcomes,
-  rollups,
-  headerConfig: {
-    userDetailsQuery,
-  },
-  actionConfig: {
-    studentGradesUrl: `/courses/123/grades/${student.id}`,
-  },
+  userDetails: mockUserDetailsDefault,
+  masteryScores,
+  studentGradesUrl: `/courses/123/grades/${student.id}`,
 })
 
 const openPopover = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
@@ -94,145 +79,157 @@ const openPopover = async ({ canvasElement }: { canvasElement: HTMLElement }) =>
 }
 
 export const Default: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
+  args: createStoryArgs(mockStudent),
   play: openPopover,
 }
 
 export const HighPerformingStudent: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', highPerformanceRollups, highPerformanceAverage.averageMasteryLevel, highPerformanceAverage.averageScore)),
+  args: createStoryArgs(mockStudent, highMasteryScores),
   play: openPopover,
 }
 
 export const LowPerformingStudent: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', lowPerformanceRollups, lowPerformanceAverage.averageMasteryLevel, lowPerformanceAverage.averageScore)),
+  args: createStoryArgs(mockStudent, lowMasteryScores),
   play: openPopover,
 }
 
 export const NoScores: Story = {
-  args: createStoryArgs(mockStudent, []),
+  args: createStoryArgs(mockStudent, unassessedMasteryScores),
   play: openPopover,
 }
 
 export const LongStudentName: Story = {
-  args: createStoryArgs(mockStudentLongName, createRollups('2', nearMasteryRollups, nearMasteryAverage.averageMasteryLevel, nearMasteryAverage.averageScore)),
-  play: openPopover,
-}
-
-export const ManySections: Story = {
-  args: createStoryArgs(
-    createStudent('3', 'Emma', 'Wilson'),
-    createRollups('3', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
-  ),
+  args: createStoryArgs(mockStudentLongName),
   play: openPopover,
 }
 
 export const LongCourseName: Story = {
-  args: createStoryArgs(
-    createStudent('4', 'Oliver', 'Brown'),
-    createRollups('4', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
-  ),
+  args: {
+    ...createStoryArgs(createStudent('4', 'Oliver', 'Brown')),
+    userDetails: mockUserDetailsLongCourseName,
+  },
+  play: openPopover,
+}
+
+export const ManySections: Story = {
+  args: {
+    ...createStoryArgs(createStudent('3', 'Emma', 'Wilson')),
+    userDetails: mockUserDetailsManySections,
+  },
   play: openPopover,
 }
 
 export const NoSections: Story = {
-  args: createStoryArgs(
-    createStudent('6', 'Liam', 'Miller'),
-    createRollups('6', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
-  ),
+  args: {
+    ...createStoryArgs(createStudent('6', 'Liam', 'Miller')),
+    userDetails: mockUserDetailsNoSections,
+  },
   play: openPopover,
 }
 
-export const ErrorState: Story = {
-  args: createStoryArgs(
-    createStudent('404', 'John', 'Smith'),
-    createRollups('4034', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)
-  ),
+export const SingleSection: Story = {
+  args: {
+    ...createStoryArgs(createStudent('2', 'Jane', 'Doe')),
+    userDetails: mockUserDetailsSingleSection,
+  },
   play: openPopover,
 }
 
 export const CustomHeader: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
-  render: (args) => (
+  args: createStoryArgs(mockStudent),
+  render: (args: StoryArgs) => (
     <StudentPopover
-      {...args}
-      headerConfig={{
-        ...args.headerConfig,
-        renderHeader: (headerProps) => (
-          <Flex padding="0 0 medium 0">
-            <Flex.Item>
-              <Text>
-                Custom Header for {headerProps.studentName}
-              </Text>
-            </Flex.Item>
-          </Flex>
-        ),
-      }}
+      {...args as StudentPopoverProps}
+      student={undefined}
+      studentName="John Doe"
+      userDetails={undefined}
+      headerOverride={
+        <Flex padding="0 0 medium 0">
+          <Flex.Item>
+            <Text>Custom Header for {args.studentName}</Text>
+          </Flex.Item>
+        </Flex>
+      }
     />
   ),
   play: openPopover,
 }
 
 export const CustomMasteryScores: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', highPerformanceRollups, highPerformanceAverage.averageMasteryLevel, highPerformanceAverage.averageScore)),
-  render: (args) => (
+  args: createStoryArgs(mockStudent),
+  render: (args: StoryArgs) => (
     <StudentPopover
-      {...args}
-      masteryScoresConfig={{
-        renderMasteryScores: (masteryScoresProps) => (
-          <View display="block" margin="small">
-            <View as="div" padding="x-small 0">
-              <Text>Custom Mastery Scores</Text>
-            </View>
-
-            <View as="div" padding="x-small 0">
-              <Text>Average: {masteryScoresProps.masteryScores?.averageText || 'N/A'}</Text>
-            </View>
-
-            <View as="div" padding="x-small 0">
-              <Text>Total outcomes: {args.rollups?.length || 0}</Text>
-            </View>
+      {...args as StudentPopoverProps}
+      masteryScores={undefined}
+      masteryScoresOverride={
+        <View display="block" margin="small">
+          <View as="div" padding="x-small 0">
+            <Text>Custom Mastery Scores</Text>
           </View>
-        ),
-      }}
+
+          <View as="div" padding="x-small 0">
+            <Text>Average: {args.masteryScores?.averageText || 'N/A'}</Text>
+          </View>
+
+          <View as="div" padding="x-small 0">
+            <Text>Total outcomes: 5</Text>
+          </View>
+        </View>
+      }
     />
   ),
   play: openPopover,
 }
 
 export const CustomActions: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
-  render: (args) => (
+  args: createStoryArgs(mockStudent),
+  render: (args: StoryArgs) => (
     <StudentPopover
-      {...args}
-      actionConfig={{
-        renderActions: () => (
-          <Flex direction="row" gap="small">
-            <Button>Custom Action for Student</Button>
-            <Button>Another Action</Button>
-          </Flex>
-        ),
-      }}
+      {...args as StudentPopoverProps}
+      studentGradesUrl={undefined}
+      actionsOverride={
+        <Flex direction="row" gap="small">
+          <Button>Custom Action for Student</Button>
+          <Button>Another Action</Button>
+        </Flex>
+      }
     />
   ),
   play: openPopover,
 }
 
+export const Loading: Story = {
+  args: {
+    studentName: mockStudent.display_name,
+    studentGradesUrl: `/courses/123/grades/${mockStudent.id}`,
+    isLoading: true,
+  },
+  play: openPopover,
+}
+
+export const ErrorMessage: Story = {
+  args: {
+    studentName: mockStudent.display_name,
+    studentGradesUrl: `/courses/123/grades/${mockStudent.id}`,
+    error: 'Failed to load student details. Please try again.',
+  },
+  play: openPopover,
+}
+
 export const CustomMasteryLevelConfig: Story = {
-  args: createStoryArgs(mockStudent, createRollups('1', mixedPerformanceRollups, mixedPerformanceAverage.averageMasteryLevel, mixedPerformanceAverage.averageScore)),
+  args: createStoryArgs(mockStudent),
   decorators: [
     (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <StoryWrapper
-          masteryLevelConfig={{
-            availableLevels: ['exceeds_mastery', 'mastery', 'unassessed'],
-            masteryLevelOverrides: {
-              near_mastery: { name: 'NEAR MASTERY OVERRIDE' }
-            }
-          }}
-        >
-          <Story />
-        </StoryWrapper>
-      </QueryClientProvider>
+      <StoryWrapper
+        masteryLevelConfig={{
+          availableLevels: ['exceeds_mastery', 'mastery', 'unassessed'],
+          masteryLevelOverrides: {
+            near_mastery: { name: 'NEAR MASTERY OVERRIDE' }
+          }
+        }}
+      >
+        <Story />
+      </StoryWrapper>
     )
   ],
   play: openPopover,

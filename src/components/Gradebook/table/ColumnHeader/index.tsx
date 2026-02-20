@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { View, ViewProps } from '@instructure/ui-view'
 import { DragDropConnectorProps } from '@/components/Gradebook/dragdrop/DragDropWrapper'
 
-export type HeaderProps = {
+export type ColumnHeaderProps = {
   children?: React.ReactNode
   isSticky?: boolean
   isStacked?: boolean
@@ -11,7 +11,7 @@ export type HeaderProps = {
 } & Partial<DragDropConnectorProps> &
   Omit<ViewProps, 'onDragLeave' | 'onDragEnd'>
 
-export const Header = ({
+export const ColumnHeader = ({
   children,
   isSticky,
   connectDragSource,
@@ -21,7 +21,7 @@ export const Header = ({
   isStacked,
   'data-cell-id': dataCellId,
   ...viewProps
-}: HeaderProps) => {
+}: ColumnHeaderProps) => {
   // Filter out drag-drop specific props that shouldn't be passed to DOM
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { onMove, onDragEnd, itemId, index, type, component, ...cleanViewProps } = viewProps as typeof viewProps & {
@@ -51,7 +51,7 @@ export const Header = ({
         width: cleanViewProps.width,
         cursor: connectDragSource ? 'grab' : 'default'
       }}
-      data-testid="header-content"
+      data-testid="column-header-content"
     >
       {children}
     </div>

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {showFlashAlert} from '@components/FlashAlert'
+import {showFlashAlert} from '@/components/FlashAlert'
 import t from 'format-message'
 
 export const EXPORT_NOT_STARTED = 'EXPORT_NOT_STARTED'

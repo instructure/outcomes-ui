@@ -4,9 +4,9 @@ import '@testing-library/jest-dom'
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import MultiSelectInput from '../index'
 
-import * as FlashAlert from '@components/FlashAlert'
+import * as FlashAlert from '@/components/FlashAlert'
 
-jest.mock('@components/FlashAlert')
+jest.mock('@/components/FlashAlert')
 
 describe('MultiSelectInput', () => {
   const mockOptions = [

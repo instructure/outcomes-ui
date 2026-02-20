@@ -1,9 +1,12 @@
 import { createContext, ComponentType } from 'react'
-import type { MasteryLevel } from '@/types/gradebook/rollup'
-import type { StudentPopoverProps } from '@/components/Gradebook/popovers/StudentPopover'
+import type { MasteryLevel, Student, StudentMasteryScores } from '@/types/gradebook'
 
-export type StudentPopoverWrapperProps =
-  Pick<StudentPopoverProps, 'student' | 'studentName' | 'courseId' | 'outcomes' | 'rollups'>
+export interface StudentPopoverWrapperProps {
+  studentName: string
+  student?: Student
+  courseId?: string
+  masteryScores?: StudentMasteryScores
+}
 
 export interface SettingsTrayContentProps<TSettings> {
   settings: TSettings

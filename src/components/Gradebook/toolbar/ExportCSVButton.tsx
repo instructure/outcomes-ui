@@ -6,7 +6,7 @@ import useCSVExport, {
   EXPORT_COMPLETE,
   EXPORT_FAILED,
   EXPORT_PENDING,
-} from '@hooks/gradebook/useCSVExport'
+} from '@/hooks/gradebook/useCSVExport'
 import t from 'format-message'
 
 export interface ExportCSVButtonProps {

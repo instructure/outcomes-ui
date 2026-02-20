@@ -6,9 +6,9 @@ import useCSVExport, {
   EXPORT_COMPLETE,
   EXPORT_FAILED,
 } from '../useCSVExport'
-import * as FlashAlert from '@components/FlashAlert'
+import * as FlashAlert from '@/components/FlashAlert'
 
-jest.mock('@components/FlashAlert')
+jest.mock('@/components/FlashAlert')
 
 describe('useCSVExport', () => {
   beforeEach(() => {

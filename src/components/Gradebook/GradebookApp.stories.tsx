@@ -44,7 +44,6 @@ const resourceOverrides: Translations = {
     'failed_to_load_user_details_7221befa': 'Failed to load user details',
     'loading_user_details_53ede5bb': 'Loading user details',
     'message_5c38209d': 'Message',
-    'remediation_feccc1fd': 'Remediation',
     'student_details_for_cc4a4206': 'Student Details',
     'view_mastery_report_7b7c9bc7': 'View Mastery Report',
     'export_de71cd8e': 'Export',
@@ -83,7 +82,6 @@ const resourceOverrides: Translations = {
     'you_may_drag_drop_columns_to_re_arrange_bdb837da': '(You may drag & drop columns to re-arrange)',
     'your_settings_have_been_saved_aa46c66c': 'Your settings have been saved.',
     'view_contributing_score_details_7bc242ac': 'View Contributing Score Details',
-    'unassessed_a0264e97': 'Unassessed',
   },
 }
 

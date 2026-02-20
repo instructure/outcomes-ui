@@ -9,7 +9,7 @@ import { DragDropContainer } from '@/components/Gradebook/dragdrop/DragDropConta
 import { Cell, CellProps } from '../Cell'
 import { Row } from '../Row'
 import { RowHeader } from '../RowHeader'
-import { Header, HeaderProps } from '../ColumnHeader'
+import { ColumnHeader, ColumnHeaderProps } from '../ColumnHeader'
 
 export type Column<TRow = Record<string, unknown>> = {
   key: string
@@ -22,7 +22,7 @@ export type Column<TRow = Record<string, unknown>> = {
   data?: TRow
   isRowHeader?: boolean
   cellProps?: CellProps
-  colHeaderProps?: HeaderProps
+  colHeaderProps?: ColumnHeaderProps
 }
 
 interface DragDropConfig {
@@ -120,7 +120,7 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
 
   const renderColHeader = useCallback(
     (col: Column<TRow>, colIndex: number, draggableIndex: number, dragDropConfig?: DragDropConfig) => {
-      const colHeaderProps: HeaderProps = {
+      const colHeaderProps: ColumnHeaderProps = {
         id: col.key,
         width: col.width,
         isSticky: col.isSticky,
@@ -135,7 +135,7 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
       return col.draggable && dragDropConfig ? (
         <DragDropWrapper
           key={col.key}
-          component={Header}
+          component={ColumnHeader}
           type={dragDropConfig.type}
           itemId={col.key}
           index={draggableIndex}
@@ -147,9 +147,9 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
           {typeof col.header === 'function' ? col.header() : col.header}
         </DragDropWrapper>
       ) : (
-        <Header key={col.key} {...colHeaderProps}>
+        <ColumnHeader key={col.key} {...colHeaderProps}>
           {typeof col.header === 'function' ? col.header() : col.header}
-        </Header>
+        </ColumnHeader>
       )
     },
     [handleKeyDown],

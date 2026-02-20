@@ -14,7 +14,7 @@ import {uniqueId, compact} from 'es-toolkit/compat'
 import {Alert} from '@instructure/ui-alerts'
 import {Spinner} from '@instructure/ui-spinner'
 import type {FormMessage} from '@instructure/ui-form-field'
-import {showFlashAlert} from '@components/FlashAlert'
+import {showFlashAlert} from '@/components/FlashAlert'
 
 type OptionProps = {
   id: string

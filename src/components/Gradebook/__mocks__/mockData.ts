@@ -1,5 +1,4 @@
-import type { LmgbUserDetails } from '@/hooks/gradebook/useLmgbUserDetails'
-import type { Student, Outcome, StudentRollupData } from '@/types/gradebook/rollup'
+import type { LmgbUserDetails, Student, StudentMasteryScores } from '@/types/gradebook'
 
 // ============================================
 // Helper functions
@@ -15,20 +14,6 @@ export const createStudent = (id: string, firstName: string, lastName: string): 
   login_id: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
   status: 'active',
 })
-
-export const createRollups = (
-  studentId: string,
-  outcomeRollups: StudentRollupData['outcomeRollups'],
-  averageMasteryLevel?: StudentRollupData['averageMasteryLevel'],
-  averageScore?: StudentRollupData['averageScore']
-): StudentRollupData[] => [
-  {
-    studentId,
-    outcomeRollups,
-    averageMasteryLevel,
-    averageScore,
-  },
-]
 
 // ============================================
 // User details mocks (for MSW handlers)
@@ -103,125 +88,7 @@ export const mockUserDetailsNoSections: LmgbUserDetails = {
 }
 
 // ============================================
-// Outcomes mock data
-// ============================================
-
-export const mockOutcomes: Outcome[] = [
-  {
-    id: '1',
-    title: 'Mathematical Problem Solving',
-    calculation_method: 'decaying_average',
-    points_possible: 5,
-    mastery_points: 3,
-    ratings: [
-      { points: 5, color: '#127A1B', description: 'Exceeds Mastery', mastery: false },
-      { points: 4, color: '#00AC18', description: 'Mastery', mastery: true },
-      { points: 3, color: '#FAB901', description: 'Near Mastery', mastery: false },
-      { points: 2, color: '#FD5D10', description: 'Below Mastery', mastery: false },
-      { points: 1, color: '#E0061F', description: 'Well Below Mastery', mastery: false },
-    ],
-  },
-  {
-    id: '2',
-    title: 'Critical Thinking',
-    calculation_method: 'highest',
-    points_possible: 4,
-    mastery_points: 3,
-    ratings: [
-      { points: 4, color: '#127A1B', description: 'Exemplary', mastery: true },
-      { points: 3, color: '#00AC18', description: 'Proficient', mastery: false },
-      { points: 2, color: '#FAB901', description: 'Developing', mastery: false },
-      { points: 1, color: '#E0061F', description: 'Beginning', mastery: false },
-    ],
-  },
-  {
-    id: '3',
-    title: 'Communication Skills',
-    calculation_method: 'latest',
-    points_possible: 5,
-    mastery_points: 3,
-    ratings: [
-      { points: 5, color: '#127A1B', description: 'Expert', mastery: false },
-      { points: 4, color: '#00AC18', description: 'Advanced', mastery: false },
-      { points: 3, color: '#FAB901', description: 'Proficient', mastery: true },
-      { points: 2, color: '#FD5D10', description: 'Basic', mastery: false },
-      { points: 1, color: '#E0061F', description: 'Novice', mastery: false },
-    ],
-  },
-]
-
-// ============================================
-// Rollup patterns
-// ============================================
-
-export const mixedPerformanceRollups: StudentRollupData['outcomeRollups'] = [
-  {
-    outcomeId: '1',
-    score: 4,
-    masteryLevel: 'mastery',
-    rating: { points: 4, color: '#00AC18', description: 'Mastery' },
-  },
-  {
-    outcomeId: '2',
-    score: 2,
-    masteryLevel: 'near_mastery',
-    rating: { points: 2, color: '#FAB901', description: 'Developing' },
-  },
-]
-
-export const highPerformanceRollups: StudentRollupData['outcomeRollups'] = [
-  {
-    outcomeId: '1',
-    score: 5,
-    masteryLevel: 'exceeds_mastery',
-    rating: { points: 5, color: '#127A1B', description: 'Exceeds Mastery' },
-  },
-  {
-    outcomeId: '2',
-    score: 4,
-    masteryLevel: 'exceeds_mastery',
-    rating: { points: 4, color: '#127A1B', description: 'Exemplary' },
-  },
-  {
-    outcomeId: '3',
-    score: 5,
-    masteryLevel: 'exceeds_mastery',
-    rating: { points: 5, color: '#127A1B', description: 'Expert' },
-  },
-]
-
-export const lowPerformanceRollups: StudentRollupData['outcomeRollups'] = [
-  {
-    outcomeId: '1',
-    score: 2,
-    masteryLevel: 'remediation',
-    rating: { points: 2, color: '#FD5D10', description: 'Below Mastery' },
-  },
-  {
-    outcomeId: '2',
-    score: 1,
-    masteryLevel: 'remediation',
-    rating: { points: 1, color: '#E0061F', description: 'Beginning' },
-  },
-  {
-    outcomeId: '3',
-    score: 2,
-    masteryLevel: 'remediation',
-    rating: { points: 2, color: '#FD5D10', description: 'Basic' },
-  },
-]
-
-export const nearMasteryRollups: StudentRollupData['outcomeRollups'] = [
-  {
-    outcomeId: '1',
-    score: 3,
-    masteryLevel: 'near_mastery',
-    rating: { points: 3, color: '#FAB901', description: 'Near Mastery' },
-  },
-]
-
-// ============================================
-// Rollup averages for complete StudentRollupData
+// Rollup averages
 // ============================================
 
 export const mixedPerformanceAverage = {
@@ -250,3 +117,119 @@ export const nearMasteryAverage = {
 
 export const mockStudent = createStudent('1', 'John', 'Smith')
 export const mockStudentLongName = createStudent('2', 'Alexander Montgomery Wellington Junior', 'III')
+
+// ============================================
+// Mastery Scores
+// ============================================
+
+export const mockMasteryScores: StudentMasteryScores = {
+  grossAverage: mixedPerformanceAverage.averageScore,
+  averageIcon: mixedPerformanceAverage.averageMasteryLevel,
+  averageText: 'Mixed Performance',
+  buckets: {
+    exceeds_mastery: {
+      name: 'Exceeds Mastery',
+      icon: 'exceeds_mastery',
+      count: 2,
+    },
+    mastery: {
+      name: 'Mastery',
+      icon: 'mastery',
+      count: 3,
+    },
+    near_mastery: {
+      name: 'Near Mastery',
+      icon: 'near_mastery',
+      count: 1,
+    },
+    remediation: {
+      name: 'Remediation',
+      icon: 'remediation',
+      count: 4,
+    },
+  },
+}
+
+export const highMasteryScores: StudentMasteryScores = {
+  grossAverage: highPerformanceAverage.averageScore,
+  averageIcon: highPerformanceAverage.averageMasteryLevel,
+  averageText: 'Exceeds Mastery',
+  buckets: {
+    exceeds_mastery: {
+      name: 'Exceeds Mastery',
+      icon: 'exceeds_mastery',
+      count: 5,
+    },
+    mastery: {
+      name: 'Mastery',
+      icon: 'mastery',
+      count: 2,
+    },
+    near_mastery: {
+      name: 'Near Mastery',
+      icon: 'near_mastery',
+      count: 1,
+    },
+    remediation: {
+      name: 'Remediation',
+      icon: 'remediation',
+      count: 0,
+    },
+  },
+}
+
+export const lowMasteryScores: StudentMasteryScores = {
+  grossAverage: lowPerformanceAverage.averageScore,
+  averageIcon: lowPerformanceAverage.averageMasteryLevel,
+  averageText: 'Remediation',
+  buckets: {
+    exceeds_mastery: {
+      name: 'Exceeds Mastery',
+      icon: 'exceeds_mastery',
+      count: 0,
+    },
+    mastery: {
+      name: 'Mastery',
+      icon: 'mastery',
+      count: 1,
+    },
+    near_mastery: {
+      name: 'Near Mastery',
+      icon: 'near_mastery',
+      count: 2,
+    },
+    remediation: {
+      name: 'Remediation',
+      icon: 'remediation',
+      count: 5,
+    },
+  },
+}
+
+export const unassessedMasteryScores: StudentMasteryScores = {
+  grossAverage: null,
+  averageIcon: 'unassessed',
+  averageText: 'Unassessed',
+  buckets: {
+    exceeds_mastery: {
+      name: 'Exceeds Mastery',
+      icon: 'exceeds_mastery',
+      count: 0,
+    },
+    mastery: {
+      name: 'Mastery',
+      icon: 'mastery',
+      count: 0,
+    },
+    near_mastery: {
+      name: 'Near Mastery',
+      icon: 'near_mastery',
+      count: 0,
+    },
+    remediation: {
+      name: 'Remediation',
+      icon: 'remediation',
+      count: 0,
+    },
+  },
+}

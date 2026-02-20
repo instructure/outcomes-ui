@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import MasteryLevelIcon from '../index'
 import type { MasteryLevelIconProps } from '../index'
-import type { MasteryLevel } from '@/types/gradebook/rollup'
+import type { MasteryLevel } from '@/types/gradebook'
 
 describe('MasteryLevelIcon', () => {
   const defaultProps: MasteryLevelIconProps = {

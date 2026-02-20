@@ -6,7 +6,13 @@ import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/Settin
 import { StudentPopover } from '@/components/Gradebook/popovers/StudentPopover'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
 import GradebookApp from '..'
-import type { GradebookComponents, MasteryLevelConfig, SettingsTrayContentProps, StudentPopoverWrapperProps } from '../context/GradebookConfigContext/GradebookConfigContext'
+import { createStudent, mockUserDetailsDefault } from '../__mocks__/mockData'
+import type {
+  GradebookComponents,
+  MasteryLevelConfig,
+  SettingsTrayContentProps,
+  StudentPopoverWrapperProps
+} from '../context/GradebookConfigContext/GradebookConfigContext'
 
 interface ExampleCustomSettings {
   showStudentNames: boolean
@@ -20,23 +26,13 @@ interface StoryWrapperProps {
 }
 
 const StudentPopoverWrapper: React.FC<StudentPopoverWrapperProps> = (props) => {
-  const userDetailsQuery = async (courseId: string, studentId: string) => {
-    const response = await fetch(`/api/courses/${courseId}/students/${studentId}/details`)
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    return await response.json()
-  }
-
   return (
     <StudentPopover
       {...props}
-      headerConfig={{
-        userDetailsQuery,
-      }}
-      actionConfig={{
-        studentGradesUrl: `/courses/${props.courseId}/grades/${props.student.id}`,
-      }}
+      student={props.student || createStudent('1', 'John', 'Doe')}
+      studentName={props.studentName || 'John Doe'}
+      studentGradesUrl="/test-url"
+      userDetails={mockUserDetailsDefault}
     />
   )
 }

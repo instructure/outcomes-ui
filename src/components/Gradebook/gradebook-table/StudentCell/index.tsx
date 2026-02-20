@@ -2,18 +2,17 @@ import React from 'react'
 import { Avatar } from '@instructure/ui-avatar'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
-import { Outcome, Student, StudentRollupData } from '@/types/gradebook/rollup'
+import { Student, StudentMasteryScores } from '@/types/gradebook'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
 import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
 
 export interface StudentCellProps {
   courseId: string
   student: Student
+  masteryScores?: StudentMasteryScores
   secondaryInfoDisplay?: SecondaryInfoDisplay
   showStudentAvatar?: boolean
   nameDisplayFormat?: NameDisplayFormat
-  outcomes?: Outcome[]
-  rollups?: StudentRollupData[]
 }
 
 const getSecondaryInfo = (student: Student, secondaryInfoDisplay?: SecondaryInfoDisplay) => {
@@ -34,11 +33,10 @@ const getSecondaryInfo = (student: Student, secondaryInfoDisplay?: SecondaryInfo
 export const StudentCell: React.FC<StudentCellProps> = ({
   courseId,
   student,
+  masteryScores,
   secondaryInfoDisplay,
   showStudentAvatar = true,
   nameDisplayFormat,
-  outcomes,
-  rollups,
 }) => {
   const { components } = useGradebookConfig()
   const StudentPopover = components.StudentPopover
@@ -71,8 +69,7 @@ export const StudentCell: React.FC<StudentCellProps> = ({
             student={student}
             studentName={studentName}
             courseId={courseId}
-            outcomes={outcomes}
-            rollups={rollups}
+            masteryScores={masteryScores}
           />
           {secondaryInfo !== null && (
             <Text size="legend" color="secondary" data-testid="student-secondary-info">

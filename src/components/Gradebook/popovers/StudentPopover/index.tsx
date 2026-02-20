@@ -8,62 +8,52 @@ import { Text } from '@instructure/ui-text'
 import { Popover } from '@instructure/ui-popover'
 import { TruncateText } from '@instructure/ui-truncate-text'
 import { Avatar } from '@instructure/ui-avatar'
-import { Spinner } from '@instructure/ui-spinner'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
-import {
-  useStudentMasteryScores,
-  type StudentMasteryScores,
-} from '@/hooks/gradebook/useStudentMasteryScores'
-import { useLmgbUserDetails, type LmgbUserDetails } from '@/hooks/gradebook/useLmgbUserDetails'
-import type { Outcome, StudentRollupData, Student } from '@/types/gradebook/rollup'
 import MasteryLevelIcon from '@/components/Gradebook/icons/MasteryLevelIcon'
+import type { LmgbUserDetails, Student, StudentMasteryScores } from '@/types/gradebook'
+import { Spinner } from '@instructure/ui-spinner'
 
 interface HeaderProps {
-  student?: Student
-  studentName?: string
-  userDetails?: LmgbUserDetails
-}
-
-export interface HeaderConfig {
-  userDetailsQuery: (courseId: string, studentId: string) => Promise<LmgbUserDetails>
-  renderHeader?: (props: HeaderProps) => ReactNode
+  student: Student
+  studentName: string
+  userDetails: LmgbUserDetails
 }
 
 interface MasteryScoresProps {
-  masteryScores?: StudentMasteryScores | null
-}
-
-export interface MasteryScoresConfig {
-  renderMasteryScores?: (props: MasteryScoresProps) => ReactNode
+  masteryScores?: StudentMasteryScores
 }
 
 interface ActionsProps {
   studentGradesUrl?: string
 }
 
-type ActionConfigWithCustomRender = {
-  renderActions: (props: ActionsProps) => ReactNode
-  studentGradesUrl?: never
+interface LoadingProps {
+  isLoading: boolean
 }
 
-type ActionConfigWithDefaultRender = {
-  renderActions?: never
-  studentGradesUrl: string
+interface ErrorMessageProps {
+  error: string | null
 }
 
-export type ActionConfig = ActionConfigWithCustomRender | ActionConfigWithDefaultRender
+type HeaderSlot =
+  | { headerOverride: ReactNode; student?: never; userDetails?: never }
+  | { headerOverride?: never; student: Student; userDetails: LmgbUserDetails }
 
-export interface StudentPopoverProps {
-  student: Student
+type MasteryScoresSlot =
+  | { masteryScoresOverride: ReactNode; masteryScores?: never }
+  | { masteryScoresOverride?: never; masteryScores?: StudentMasteryScores }
+
+type ActionSlot =
+  | { actionsOverride: ReactNode; studentGradesUrl?: never }
+  | { actionsOverride?: never; studentGradesUrl: string }
+
+export type StudentPopoverProps = {
   studentName: string
-  courseId: string
-  outcomes?: Outcome[]
-  rollups?: StudentRollupData[]
-  headerConfig: HeaderConfig
-  actionConfig: ActionConfig
-  masteryScoresConfig?: MasteryScoresConfig
-}
+  isLoading?: boolean
+  error?: string | null
+  onShowingContentChange?: (isShowing: boolean) => void
+} & HeaderSlot & MasteryScoresSlot & ActionSlot
 
 const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) => {
   return (
@@ -72,8 +62,8 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
         <Avatar
           as="div"
           size="large"
-          name={studentName!}
-          src={student!.avatar_url}
+          name={studentName}
+          src={student.avatar_url}
           data-testid="lmgb-student-popover-avatar"
         />
       </Flex.Item>
@@ -86,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
             </Text>
           </View>
 
-          {userDetails?.course.name && (
+          {userDetails.course.name && (
             <View>
               <Text size="contentSmall">
                 <TruncateText>{userDetails.course.name}</TruncateText>
@@ -94,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
             </View>
           )}
 
-          {userDetails?.user?.sections.length && (
+          {userDetails.user.sections.length && (
             <View>
               <Text size="legend">
                 <TruncateText>
@@ -144,6 +134,7 @@ const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
             .map(bucket => {
               const { icon, name, count } = bucket
               const bucketName = masteryLevelConfig?.masteryLevelOverrides?.[icon]?.name || name
+
               return (
                 <Flex key={bucket.name} direction="row" alignItems="center" gap="xx-small">
                   <Flex.Item width="1.4rem" padding="xxx-small 0 0 0">
@@ -215,10 +206,6 @@ const Divider: React.FC = () => (
   <View as="div" margin="none none x-small none" borderWidth="small none none none" height="0px" />
 )
 
-interface LoadingProps {
-  isLoading: boolean
-}
-
 const Loading: React.FC<LoadingProps> = ({ isLoading }) => {
   if (!isLoading) return null
 
@@ -229,59 +216,34 @@ const Loading: React.FC<LoadingProps> = ({ isLoading }) => {
   )
 }
 
-interface ErrorMessageProps {
-  error: string | null
-}
-
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
   if (!error) return null
 
   return (
-    <View as="div" margin="small none">
+    <View as="div" margin="large none">
       <Text>{error}</Text>
     </View>
   )
 }
 
-const Container: React.FC<StudentPopoverProps> = ({
-  student,
+export const StudentPopover: React.FC<StudentPopoverProps> = ({
   studentName,
-  courseId,
-  outcomes = [],
-  rollups = [],
-  headerConfig,
-  actionConfig,
-  masteryScoresConfig,
+  headerOverride,
+  student,
+  userDetails,
+  masteryScores,
+  masteryScoresOverride,
+  actionsOverride,
+  studentGradesUrl,
+  isLoading = false,
+  error = null,
+  onShowingContentChange,
 }) => {
   const [isShowingContent, setIsShowingContent] = useState(false)
 
-  const { userDetailsQuery, renderHeader } = headerConfig
-  const { renderActions, studentGradesUrl } = actionConfig
-  const { renderMasteryScores } = masteryScoresConfig || {}
-
-  const {
-    data: userDetails,
-    isLoading,
-    error: queryError,
-  } = useLmgbUserDetails({
-    courseId,
-    studentId: String(student.id),
-    enabled: isShowingContent,
-    userDetailsQueryHandler: userDetailsQuery,
-  })
-
-  const error = queryError ? t('Failed to load user details') : null
-
-  const masteryScores = useStudentMasteryScores({
-    student,
-    outcomes,
-    rollups,
-  })
-
-  const headerProps: HeaderProps = { student, studentName, userDetails }
-  const masteryScoresProps: MasteryScoresProps = { masteryScores }
-  const actionsProps: ActionsProps = {
-    studentGradesUrl,
+  const handleShowingContentChange = (isShowing: boolean) => {
+    setIsShowingContent(isShowing)
+    onShowingContentChange?.(isShowing)
   }
 
   return (
@@ -293,8 +255,8 @@ const Container: React.FC<StudentPopoverProps> = ({
           </Link>
         }
         isShowingContent={isShowingContent}
-        onShowContent={() => setIsShowingContent(true)}
-        onHideContent={() => setIsShowingContent(false)}
+        onShowContent={() => handleShowingContentChange(true)}
+        onHideContent={() => handleShowingContentChange(false)}
         on="click"
         screenReaderLabel={`${t('Student Details for')} ${studentName}`}
         shouldContainFocus
@@ -307,7 +269,7 @@ const Container: React.FC<StudentPopoverProps> = ({
             <CloseButton
               placement="end"
               offset="small"
-              onClick={() => setIsShowingContent(false)}
+              onClick={() => handleShowingContentChange(false)}
               screenReaderLabel={t('Close')}
             />
           </Flex.Item>
@@ -317,25 +279,23 @@ const Container: React.FC<StudentPopoverProps> = ({
               <Loading isLoading={isLoading} />
               <ErrorMessage error={error} />
 
-              {userDetails && (
+              {!isLoading && !error && (
                 <View as="div">
                   <Flex direction="column" alignItems="start">
                     <Flex.Item>
-                      {renderHeader ? renderHeader(headerProps) : <Header {...headerProps} />}
+                      {headerOverride ?? (
+                        <Header student={student!} studentName={studentName!} userDetails={userDetails!} />
+                      )}
                     </Flex.Item>
 
                     <Flex.Item>
-                      {renderMasteryScores ? (
-                        renderMasteryScores(masteryScoresProps)
-                      ) : (
-                        <MasteryScores {...masteryScoresProps} />
-                      )}
+                      {masteryScoresOverride ?? <MasteryScores masteryScores={masteryScores} />}
                     </Flex.Item>
                   </Flex>
 
                   <Divider />
 
-                  {renderActions ? renderActions(actionsProps) : <Actions {...actionsProps} />}
+                  {actionsOverride ?? <Actions studentGradesUrl={studentGradesUrl} />}
                 </View>
               )}
             </View>
@@ -345,9 +305,3 @@ const Container: React.FC<StudentPopoverProps> = ({
     </>
   )
 }
-
-export const StudentPopover: React.FC<StudentPopoverProps> = (props) => {
-  return <Container {...props} />
-}
-
-export type { HeaderProps, MasteryScoresProps, ActionsProps }

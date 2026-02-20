@@ -161,9 +161,6 @@
   "exporting_b1eab154": {
     "message": "Exporting"
   },
-  "failed_to_load_user_details_7221befa": {
-    "message": "Failed to load user details"
-  },
   "first_name_last_name_2ae30a4b": {
     "message": "First Name Last Name"
   },
@@ -353,9 +350,6 @@
   "ratings_table_a702279": {
     "message": "Ratings table"
   },
-  "remediation_feccc1fd": {
-    "message": "Remediation"
-  },
   "remove_title_f3f4683a": {
     "message": "Remove { title }",
     "description": "Screen reader caption for button that removes an alignment"
@@ -449,9 +443,6 @@
   },
   "type_or_use_arrow_keys_to_navigate_multiple_select_ec56e29c": {
     "message": "Type or use arrow keys to navigate. Multiple selections are allowed."
-  },
-  "unassessed_a0264e97": {
-    "message": "Unassessed"
   },
   "unpublished_assignments_9cdbcc87": {
     "message": "Unpublished Assignments"
