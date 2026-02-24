@@ -9,10 +9,10 @@ import { Popover } from '@instructure/ui-popover'
 import { TruncateText } from '@instructure/ui-truncate-text'
 import { Avatar } from '@instructure/ui-avatar'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
+import { Spinner } from '@instructure/ui-spinner'
 import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
 import MasteryLevelIcon from '@/components/Gradebook/icons/MasteryLevelIcon'
 import type { LmgbUserDetails, Student, StudentMasteryScores } from '@/types/gradebook'
-import { Spinner } from '@instructure/ui-spinner'
 
 interface HeaderProps {
   student: Student

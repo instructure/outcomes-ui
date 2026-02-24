@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { Menu } from '@instructure/ui-menu'
+import { IconStarLine } from '@instructure/ui-icons'
 import { ColumnHeader } from '..'
 
 describe('ColumnHeader', () => {
@@ -123,4 +124,26 @@ describe('ColumnHeader', () => {
     const headerElement = container.querySelector('[data-testid="column-header"]')
     expect(headerElement).toHaveStyle({width: '0px'})
   })
+
+  it('renders the icon when provided', () => {
+    render(<ColumnHeader {...defaultProps} icon={<IconStarLine data-testid="test-icon" />} />)
+    expect(screen.getByTestId('test-icon')).toBeInTheDocument()
+  })
+
+  it('does not render an icon container when icon is not provided', () => {
+    render(<ColumnHeader {...defaultProps} />)
+    expect(screen.queryByTestId('test-icon')).not.toBeInTheDocument()
+  })
+
+  it('renders with a custom background without errors', () => {
+    render(<ColumnHeader {...defaultProps} background="brand" />)
+    expect(screen.getByTestId('column-header')).toBeInTheDocument()
+  })
+
+  it('renders with the default secondary background without errors', () => {
+    render(<ColumnHeader {...defaultProps} />)
+    expect(screen.getByTestId('column-header')).toBeInTheDocument()
+  })
+
+
 })

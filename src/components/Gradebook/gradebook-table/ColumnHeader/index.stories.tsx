@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { Menu } from '@instructure/ui-menu'
+import { IconStarLine } from '@instructure/ui-icons'
 import { ColumnHeader } from '.'
 import type { ColumnHeaderProps } from '.'
 
@@ -67,5 +68,31 @@ export const NarrowColumn: Story = {
   args: {
     title: 'Narrow Column Title',
     columnWidth: 150,
+  },
+}
+
+export const WithIcon: Story = {
+  args: {
+    title: 'Test Title',
+    icon: <IconStarLine />,
+  },
+}
+
+export const WithBrandBackground: Story = {
+  args: {
+    title: 'Test Title',
+    background: 'brand',
+    optionsMenuTriggerLabel: 'Test options',
+    optionsMenuItems: menuItems,
+  },
+}
+
+export const WithIconAndBackground: Story = {
+  args: {
+    title: 'Test Title',
+    icon: <IconStarLine />,
+    background: 'brand',
+    optionsMenuTriggerLabel: 'Test options',
+    optionsMenuItems: menuItems,
   },
 }
