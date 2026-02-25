@@ -7918,6 +7918,17 @@ babel-plugin-macros@^3.0.1, babel-plugin-macros@^3.1.0:
     cosmiconfig "^7.0.0"
     resolve "^1.19.0"
 
+babel-plugin-module-resolver@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-module-resolver/-/babel-plugin-module-resolver-5.0.2.tgz#cdeac5d4aaa3b08dd1ac23ddbf516660ed2d293e"
+  integrity sha512-9KtaCazHee2xc0ibfqsDeamwDps6FZNo5S0Q81dUqEuFzVwPhcT4J5jOqIVvgCA3Q/wO9hKYxN/Ds3tIsp5ygg==
+  dependencies:
+    find-babel-config "^2.1.1"
+    glob "^9.3.3"
+    pkg-up "^3.1.0"
+    reselect "^4.1.7"
+    resolve "^1.22.8"
+
 babel-plugin-polyfill-corejs2@^0.4.14:
   version "0.4.14"
   resolved "https://registry.yarnpkg.com/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.4.14.tgz#8101b82b769c568835611542488d463395c2ef8f"
@@ -9157,6 +9168,11 @@ commander@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
+
+commander@^9.0.0:
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
+  integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==
 
 commander@~2.19.0:
   version "2.19.0"
@@ -11841,6 +11857,13 @@ finalhandler@~1.3.1:
     statuses "~2.0.2"
     unpipe "~1.0.0"
 
+find-babel-config@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/find-babel-config/-/find-babel-config-2.1.2.tgz#2841b1bfbbbcdb971e1e39df8cbc43dafa901716"
+  integrity sha512-ZfZp1rQyp4gyuxqt1ZqjFGVeVBvmpURMqdIWXbPRfB97Bf6BzdK/xSIbylEINzQ0kB5tlDQfn9HkNXXWsqTqLg==
+  dependencies:
+    json5 "^2.2.3"
+
 find-cache-dir@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/find-cache-dir/-/find-cache-dir-0.1.1.tgz#c8defae57c8a52a8a784f9e31c57c742e993a0b9"
@@ -12427,6 +12450,13 @@ get-symbol-description@^1.0.2, get-symbol-description@^1.1.0:
     es-errors "^1.3.0"
     get-intrinsic "^1.2.6"
 
+get-tsconfig@^4.10.0:
+  version "4.13.6"
+  resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.13.6.tgz#2fbfda558a98a691a798f123afd95915badce876"
+  integrity sha512-shZT/QMiSHc/YBLxxOkMtgSid5HFoauqCE3/exfsEcwg1WkeqjG+V40yBbBrsD+jW2HDXcs28xOfcbm2jI8Ddw==
+  dependencies:
+    resolve-pkg-maps "^1.0.0"
+
 get-tsconfig@^4.10.1:
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/get-tsconfig/-/get-tsconfig-4.13.1.tgz#ff96c0d98967df211c1ebad41f375ccf516c43fa"
@@ -12552,6 +12582,16 @@ glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6, glob@^7.2.0:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+glob@^9.3.3:
+  version "9.3.5"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-9.3.5.tgz#ca2ed8ca452781a3009685607fdf025a899dfe21"
+  integrity sha512-e1LleDykUz2Iu+MTYdkSsuWX8lvAjAcs0Xef0lNIu0S2wOAzuTxCJtcd9S3cijlwYF18EsU3rzb8jPVobxDh9Q==
+  dependencies:
+    fs.realpath "^1.0.0"
+    minimatch "^8.0.2"
+    minipass "^4.2.4"
+    path-scurry "^1.6.1"
+
 global-agent@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/global-agent/-/global-agent-3.0.0.tgz#ae7cd31bd3583b93c5a16437a1afe27cc33a1ab6"
@@ -12629,7 +12669,7 @@ globby@^10.0.1:
     merge2 "^1.2.3"
     slash "^3.0.0"
 
-globby@^11.0.1, globby@^11.0.2, globby@^11.1.0:
+globby@^11.0.1, globby@^11.0.2, globby@^11.0.4, globby@^11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/globby/-/globby-11.1.0.tgz#bd4be98bb042f83d796f7e3811991fbe82a0d34b"
   integrity sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==
@@ -16039,6 +16079,13 @@ minimatch@^5.0.1:
   dependencies:
     brace-expansion "^2.0.1"
 
+minimatch@^8.0.2:
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-8.0.6.tgz#2fa6de356142ff1ccb70fcda067d4ffb994e1259"
+  integrity sha512-JVNTX5Qc03lB0PuFDuUcVTbi8u5kKchLXDYEnLJrOosZW8cqamFiyItG/7cn0QEt7XmeFHSLJRYg4KujJKuqlw==
+  dependencies:
+    brace-expansion "^2.0.1"
+
 minimatch@^9.0.4:
   version "9.0.5"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.5.tgz#d74f9dd6b57d83d8e98cfb82133b03978bc929e5"
@@ -16087,6 +16134,11 @@ minipass@^3.0.0, minipass@^3.1.1:
   integrity sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==
   dependencies:
     yallist "^4.0.0"
+
+minipass@^4.2.4:
+  version "4.2.8"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-4.2.8.tgz#f0010f64393ecfc1d1ccb5f582bcaf45f48e1a3a"
+  integrity sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==
 
 minipass@^5.0.0:
   version "5.0.0"
@@ -16263,6 +16315,11 @@ mute-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-2.0.0.tgz#a5446fc0c512b71c83c44d908d5c7b7b4c493b2b"
   integrity sha512-WWdIxpyjEn+FhQJQQv9aQAYlHoNVdzIzUySNV1gHUPDSdZJ3yZn7pAAbQcV7B56Mvu881q9FZV+0Vx2xC44VWA==
+
+mylas@^2.1.9:
+  version "2.1.14"
+  resolved "https://registry.yarnpkg.com/mylas/-/mylas-2.1.14.tgz#bfa0a2bcbc4bb69f0af324dc7f38689ad56f12cc"
+  integrity sha512-BzQguy9W9NJgoVn2mRWzbFrFWWztGCcng2QI9+41frfk+Athwgx3qhqhvStz7ExeUUu7Kzw427sNzHpEZNINog==
 
 nan@^2.12.1:
   version "2.24.0"
@@ -17199,7 +17256,7 @@ path-parse@^1.0.7:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
   integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
-path-scurry@^1.11.1:
+path-scurry@^1.11.1, path-scurry@^1.6.1:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/path-scurry/-/path-scurry-1.11.1.tgz#7960a668888594a0720b12a911d1a742ab9f11d2"
   integrity sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==
@@ -17382,6 +17439,20 @@ pkg-types@^1.3.1:
     confbox "^0.1.8"
     mlly "^1.7.4"
     pathe "^2.0.1"
+
+pkg-up@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-3.1.0.tgz#100ec235cc150e4fd42519412596a28512a0def5"
+  integrity sha512-nDywThFk1i4BQK4twPQ6TA4RT8bDY96yeuCVBWL3ePARCiEKDRSrNGbFIgUJpLp+XeIR65v8ra7WuJOFUBtkMA==
+  dependencies:
+    find-up "^3.0.0"
+
+plimit-lit@^1.2.6:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/plimit-lit/-/plimit-lit-1.6.1.tgz#a34594671b31ee8e93c72d505dfb6852eb72374a"
+  integrity sha512-B7+VDyb8Tl6oMJT9oSO2CW8XC/T4UcJGrwOVoNGwOQsQYhlpfajmrMj5xeejqaASq3V/EqThyOeATEOMuSEXiA==
+  dependencies:
+    queue-lit "^1.5.1"
 
 pn@^1.1.0:
   version "1.1.0"
@@ -18353,6 +18424,11 @@ querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
   integrity sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==
 
+queue-lit@^1.5.1:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/queue-lit/-/queue-lit-1.5.2.tgz#83c24d4f4764802377b05a6e5c73017caf3f8747"
+  integrity sha512-tLc36IOPeMAubu8BkW8YDBV+WyIgKlYU7zUNs0J5Vk9skSZ4JfGlPOqplP0aHdfv7HL0B2Pg6nwiq60Qc6M2Hw==
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -19249,7 +19325,7 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
 
-reselect@^4.0.0:
+reselect@^4.0.0, reselect@^4.1.7:
   version "4.1.8"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.8.tgz#3f5dc671ea168dccdeb3e141236f69f02eaec524"
   integrity sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==
@@ -19301,7 +19377,7 @@ resolve@1.1.7:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
   integrity sha512-9znBF0vBcaSN3W2j7wKvdERPwqTxSpCq+if5C0WoTCyV9n24rua28jeuQ2pL/HOf+yUe/Mef+H/5p60K0Id3bg==
 
-resolve@^1.1.7, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.18.1, resolve@^1.19.0, resolve@^1.22.1, resolve@^1.22.10, resolve@^1.22.4, resolve@^1.3.2, resolve@^1.9.0:
+resolve@^1.1.7, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.18.1, resolve@^1.19.0, resolve@^1.22.1, resolve@^1.22.10, resolve@^1.22.4, resolve@^1.22.8, resolve@^1.3.2, resolve@^1.9.0:
   version "1.22.11"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.11.tgz#aad857ce1ffb8bfa9b0b1ac29f1156383f68c262"
   integrity sha512-RfqAvLnMl313r7c9oclB1HhUEAezcpLjz95wFH4LVuhk9JF/r22qmVP9AMmOU4vMX7Q8pN8jwNg/CSpdFnMjTQ==
@@ -21277,6 +21353,19 @@ ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
+
+tsc-alias@^1.8.16:
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.8.16.tgz#dbc74e797071801c7284f1a478259de920f852d4"
+  integrity sha512-QjCyu55NFyRSBAl6+MTFwplpFcnm2Pq01rR/uxfqJoLMm6X3O14KEGtaSDZpJYaE1bJBGDjD0eSuiIWPe2T58g==
+  dependencies:
+    chokidar "^3.5.3"
+    commander "^9.0.0"
+    get-tsconfig "^4.10.0"
+    globby "^11.0.4"
+    mylas "^2.1.9"
+    normalize-path "^3.0.0"
+    plimit-lit "^1.2.6"
 
 tsconfig-paths@^3.15.0:
   version "3.15.0"

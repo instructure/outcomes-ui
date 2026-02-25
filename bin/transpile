@@ -15,12 +15,12 @@ do
     DIRECTORY=es
     ARGS="ES_MODULES=1"
   fi
-  env TRANSPILE=true $ARGS babel src -d $DIRECTORY --ignore *.test.js,*.html,*.svg --copy-files --quiet &
+  env TRANSPILE=true $ARGS babel src -d $DIRECTORY --extensions '.js,.jsx,.ts,.tsx' --ignore '*.test.js,*.test.ts,*.test.tsx,*.html,*.svg' --copy-files --quiet &
 
   ls translations/*.json | \
     xargs basename -s .json | \
     xargs -t -n 1 -P 5 -I % env \
-      TRANSPILE=true BUILD_LOCALE=% $ARGS babel src --out-dir $DIRECTORY/translated/% --ignore *.test.js,*.html,*.svg --copy-files --quiet
+      TRANSPILE=true BUILD_LOCALE=% $ARGS babel src --out-dir $DIRECTORY/translated/% --extensions '.js,.jsx,.ts,.tsx' --ignore '*.test.js,*.test.ts,*.test.tsx,*.html,*.svg' --copy-files --quiet
 
   wait # wait for the default untranslated build that we backgrounded above with an "&"
 done

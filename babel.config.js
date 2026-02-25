@@ -15,7 +15,17 @@ module.exports = {
     ['@babel/plugin-transform-private-property-in-object', { 'loose': true }],
     ['@babel/plugin-proposal-decorators', { 'version': 'legacy' }],
     ['@babel/plugin-transform-private-methods', { 'loose': true }],
-    ...getFormatMessageConfig()
+    ...getFormatMessageConfig(),
+    ...(process.env.TRANSPILE ? [['module-resolver', {
+      root: ['./src'],
+      alias: {
+        '@': './src',
+        '@components': './src/components',
+        '@util': './src/util',
+        '@types': './src/types',
+        '@hooks': './src/hooks'
+      }
+    }]] : [])
   ]
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import GradebookApp, { type GradebookAppProps } from './index'
+import { GradebookApp, type GradebookAppProps } from './GradebookApp'
 import { type Translations } from 'format-message'
 import type { Meta, StoryObj } from '@storybook/react'
 import { action } from '@storybook/addon-actions'

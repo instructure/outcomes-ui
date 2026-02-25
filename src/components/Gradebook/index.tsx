@@ -1,61 +1,68 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react'
-import { setupI18n } from '../../i18n/i18n'
-import { type Translations } from 'format-message'
-import { GradebookConfigProvider, type GradebookConfig } from './context/GradebookConfigContext'
-import { GradebookAppProvider, type SaveSettingsResult } from './context/GradebookAppContext'
+// Main App Component
+export { GradebookApp } from './GradebookApp'
+export type {
+  GradebookAppProps,
+  TranslationConfig,
+  SaveSettingsResult,
+} from './GradebookApp'
 
-interface I18nDisabledConfig {
-  i18nEnabled: false
-  language?: never
-  resourceOverrides?: never
-}
+// Context Providers and Hooks
+export {
+  GradebookConfigProvider,
+  useGradebookConfig,
+} from './context/GradebookConfigContext'
+export type {
+  GradebookConfig,
+  GradebookComponents,
+  SettingsTrayContentProps,
+  StudentPopoverWrapperProps,
+  GradebookConfigProviderProps,
+} from './context/GradebookConfigContext'
 
-interface I18nEnabledConfig {
-  i18nEnabled?: true
-  language: string
-  resourceOverrides?: Translations
-}
+export {
+  GradebookAppProvider,
+  useGradebookApp,
+} from './context/GradebookAppContext'
+export type {
+  GradebookAppContextValue,
+  GradebookAppProviderProps,
+} from './context/GradebookAppContext'
 
-export type TranslationConfig = I18nEnabledConfig | I18nDisabledConfig
+// Table Components
+export { Table } from './table/Table'
+export { Row } from './table/Row'
+export { Cell } from './table/Cell'
+export { ColumnHeader } from './table/ColumnHeader'
+export { RowHeader } from './table/RowHeader'
 
-export type { SaveSettingsResult }
+// Gradebook Table Components
+export { ColumnHeader as GradebookColumnHeader } from './gradebook-table/ColumnHeader'
+export { StudentCell } from './gradebook-table/StudentCell'
+export { ScoreCellContent } from './gradebook-table/ScoreCellContent'
+export { ScoreWithLabel } from './gradebook-table/ScoreCellContent/ScoreWithLabel'
 
-export interface GradebookAppProps<TSettings = object> {
-  config: GradebookConfig<TSettings>
-  settings: {
-    settings: TSettings
-    onSave: (settings: TSettings) => Promise<SaveSettingsResult>
-  }
-  translations?: TranslationConfig
-}
+// Toolbar Components
+export { SettingsTray } from './toolbar/SettingsTray'
+export type { SettingsTrayProps } from './toolbar/SettingsTray'
+export { ExportCSVButton } from './toolbar/ExportCSVButton'
+export type { ExportCSVButtonProps } from './toolbar/ExportCSVButton'
 
-const GradebookApp = <TSettings extends object = object>({
-  config,
-  settings,
-  translations = { language: 'en', i18nEnabled: true },
-  children,
-}: PropsWithChildren<GradebookAppProps<TSettings>>) => {
-  const { language, resourceOverrides, i18nEnabled } = translations
-  const [ i18nReady, setI18nReady ] = useState(false)
+// Popovers
+export { StudentPopover } from './popovers/StudentPopover'
 
-  useEffect(() => {
-    if (i18nEnabled) {
-      setupI18n(language, resourceOverrides)
-      setI18nReady(true)
-    }
-  }, [language, resourceOverrides, i18nEnabled])
+// Icons
+export { default as MasteryLevelIcon } from './icons/MasteryLevelIcon'
+export { MasteryIcon } from './icons/MasteryLevelIcon/MasteryIcon'
+export { ExceedsMasteryIcon } from './icons/MasteryLevelIcon/ExceedsMasteryIcon'
+export { NearMasteryIcon } from './icons/MasteryLevelIcon/NearMasteryIcon'
+export { RemediationIcon } from './icons/MasteryLevelIcon/RemediationIcon'
+export { NoEvidenceIcon } from './icons/MasteryLevelIcon/NoEvidenceIcon'
+export { UnassessedIcon } from './icons/MasteryLevelIcon/UnassessedIcon'
 
-  if (i18nEnabled && !i18nReady) {
-    return null
-  }
+// Drag and Drop Components
+export { CustomDragLayer } from './dragdrop/CustomDragLayer'
+export { DragDropContainer } from './dragdrop/DragDropContainer'
+export { default as DragDropWrapper } from './dragdrop/DragDropWrapper'
 
-  return (
-    <GradebookConfigProvider config={config}>
-      <GradebookAppProvider settings={settings}>
-        {children || <div>GradebookAppRoot</div>}
-      </GradebookAppProvider>
-    </GradebookConfigProvider>
-  )
-}
-
-export default GradebookApp
+// Shared Utilities
+export { default as TruncateWithTooltip } from './shared/TruncateWithTooltip'

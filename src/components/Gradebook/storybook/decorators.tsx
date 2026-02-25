@@ -5,7 +5,7 @@ import { Flex } from '@instructure/ui-flex'
 import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/SettingsTray/NameDisplaySelector'
 import { StudentPopover } from '@/components/Gradebook/popovers/StudentPopover'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
-import GradebookApp from '..'
+import { GradebookApp } from '../GradebookApp'
 import { createStudent, mockUserDetailsDefault } from '../__mocks__/mockData'
 import type {
   GradebookComponents,

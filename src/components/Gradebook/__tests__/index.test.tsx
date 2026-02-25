@@ -28,7 +28,7 @@ jest.mock('../context/GradebookAppContext', () => ({
   ),
 }))
 
-import GradebookApp from '../index'
+import { GradebookApp } from '../GradebookApp'
 import type { GradebookConfig } from '../context/GradebookConfigContext'
 import * as i18nModule from '@/i18n/i18n'
 const mockSetupI18n = i18nModule.setupI18n as jest.MockedFunction<typeof i18nModule.setupI18n>
