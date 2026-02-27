@@ -8,6 +8,9 @@ import { ScoreCellContent } from './index'
 const meta: Meta<typeof ScoreCellContent> = {
   title: 'Gradebook/ScoreCellContent',
   component: ScoreCellContent,
+  parameters: {
+    actions: { argTypesRegex: '' }, // Disable auto-actions
+  },
   decorators: [
     (Story) => (
       <View width="200px" display="inline-block">

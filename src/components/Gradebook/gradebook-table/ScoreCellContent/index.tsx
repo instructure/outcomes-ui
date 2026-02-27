@@ -26,7 +26,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
   const [hoverInternal, setHoverInternal] = useState(false)
   const hover = hoverControlled ?? hoverInternal
 
-  const showAction = focus || hover
+  const showAction = onAction && (focus || hover)
 
   const handleMouseEnter = (): void => {
     if (hoverControlled === undefined) {
@@ -75,7 +75,6 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
             renderIcon={<IconExpandStartLine />}
             screenReaderLabel={t('View Contributing Score Details')}
             onClick={onAction}
-            disabled={!onAction}
             data-testid="score-cell-action-button"
           />
         </View>

@@ -82,10 +82,10 @@ describe('ScoreCellContent', () => {
       expect(onAction).toHaveBeenCalledTimes(1)
     })
 
-    it('disables action button when onAction is undefined', () => {
+    it('does not show action button when onAction is undefined', () => {
       render(<ScoreCellContent {...defaultProps} onAction={undefined} focus={true} />)
 
-      expect(screen.queryByTestId('score-cell-action-button')).toHaveAttribute('disabled')
+      expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
     })
   })
 
