@@ -250,7 +250,11 @@ export const StudentPopover: React.FC<StudentPopoverProps> = ({
     <>
       <Popover
         renderTrigger={
-          <Link isWithinText={false} data-testid="student-cell-link">
+          <Link
+            isWithinText={false}
+            data-testid="student-cell-link"
+            aria-haspopup="dialog"
+          >
             <TruncateText>{studentName}</TruncateText>
           </Link>
         }

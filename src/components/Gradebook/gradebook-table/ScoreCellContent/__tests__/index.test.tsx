@@ -25,23 +25,23 @@ describe('ScoreCellContent', () => {
   describe('action button visibility', () => {
     it('does not show action button by default', () => {
       render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} />)
-      expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '0' })
     })
 
     it('shows action button when focus is true', () => {
       render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} focus={true} />)
-      expect(screen.getByTestId('score-cell-action-button')).toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '1' })
     })
 
     it('shows action button on hover (internal state)', () => {
       render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} />)
 
-      expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '0' })
 
       const viewElement = screen.getByTestId('score-cell-content')
       fireEvent.mouseEnter(viewElement)
 
-      expect(screen.getByTestId('score-cell-action-button')).toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '1' })
     })
 
     it('hides action button on mouse leave (internal state)', () => {
@@ -49,15 +49,15 @@ describe('ScoreCellContent', () => {
       const viewElement = screen.getByTestId('score-cell-content')
 
       fireEvent.mouseEnter(viewElement)
-      expect(screen.getByTestId('score-cell-action-button')).toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '1' })
 
       fireEvent.mouseLeave(viewElement)
-      expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '0' })
     })
 
     it('shows action button when hover prop is true (controlled)', () => {
       render(<ScoreCellContent {...defaultProps} onAction={jest.fn()} hover={true} />)
-      expect(screen.getByTestId('score-cell-action-button')).toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '1' })
     })
 
     it('does not update internal hover state when hover prop is controlled', () => {
@@ -67,7 +67,7 @@ describe('ScoreCellContent', () => {
       fireEvent.mouseEnter(viewElement)
 
       // Button should not appear because hover prop is controlled and set to false
-      expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
+      expect(screen.getByTestId('score-cell-action-wrapper')).toHaveStyle({ opacity: '0' })
     })
   })
 
@@ -85,7 +85,7 @@ describe('ScoreCellContent', () => {
     it('does not show action button when onAction is undefined', () => {
       render(<ScoreCellContent {...defaultProps} onAction={undefined} focus={true} />)
 
-      expect(screen.queryByTestId('score-cell-action-button')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('score-cell-action-wrapper')).not.toBeInTheDocument()
     })
   })
 

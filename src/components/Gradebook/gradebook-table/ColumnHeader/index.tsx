@@ -12,6 +12,7 @@ import { getInverseColor } from '@/util/gradebook/colors'
 
 export interface ColumnHeaderProps {
   title: string
+  titleId?: string
   optionsMenuTriggerLabel?: string
   optionsMenuItems?: React.ReactNode[]
   icon?: React.ReactNode
@@ -21,6 +22,7 @@ export interface ColumnHeaderProps {
 
 export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   title,
+  titleId,
   optionsMenuTriggerLabel,
   optionsMenuItems = [],
   icon,
@@ -44,7 +46,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
             }
 
             <Flex.Item shouldGrow shouldShrink overflowX="hidden" padding="0 xx-small 0 0">
-              <AccessibleContent alt={title}>
+              <AccessibleContent alt={title} id={titleId}>
                 <Text weight="bold">
                   <TruncateWithTooltip>{title}</TruncateWithTooltip>
                 </Text>

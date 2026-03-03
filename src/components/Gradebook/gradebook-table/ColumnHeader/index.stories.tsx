@@ -41,6 +41,13 @@ export const LongTitle: Story = {
   },
 }
 
+export const WithTitleId: Story = {
+  args: {
+    title: 'Test Title',
+    titleId: 'test-title-id',
+  },
+}
+
 export const WithMenu: Story = {
   args: {
     title: 'Test Title',
@@ -96,3 +103,4 @@ export const WithIconAndBackground: Story = {
     optionsMenuItems: menuItems,
   },
 }
+

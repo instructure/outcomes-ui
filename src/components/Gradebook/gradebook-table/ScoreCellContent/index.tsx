@@ -8,6 +8,7 @@ import { ScoreWithLabel, type ScoreWithLabelProps } from './ScoreWithLabel'
 
 export type ScoreCellContentProps =  ScoreWithLabelProps & {
   onAction?: () => void
+  actionScreenReaderLabel?: string
   focus?: boolean
   hover?: boolean
   background?: ViewProps['background']
@@ -19,6 +20,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
   score,
   label,
   onAction,
+  actionScreenReaderLabel,
   focus,
   hover: hoverControlled,
   background = 'primary',
@@ -60,24 +62,33 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
           />
         </Flex.Item>
       </Flex>
-      {showAction && (
-        <View
-          position="absolute"
-          insetInlineEnd="0"
-          insetBlockStart="50%"
-          style={{ transform: 'translateY(-50%)' }}
+      {onAction && (
+        <div
+          data-testid="score-cell-action-wrapper"
+          style={{
+            opacity: showAction ? 1 : 0,
+            pointerEvents: showAction ? 'auto' : 'none',
+          }}
         >
-          <IconButton
-            withBackground={false}
-            withBorder={false}
-            size="small"
-            margin="0 xxx-small 0 0"
-            renderIcon={<IconExpandStartLine />}
-            screenReaderLabel={t('View Contributing Score Details')}
-            onClick={onAction}
-            data-testid="score-cell-action-button"
-          />
-        </View>
+          <View
+            position="absolute"
+            insetInlineEnd="0"
+            insetBlockStart="50%"
+            style={{ transform: 'translateY(-50%)' }}
+          >
+            <IconButton
+              aria-haspopup="dialog"
+              withBackground={false}
+              withBorder={false}
+              size="small"
+              margin="0 xxx-small 0 0"
+              renderIcon={<IconExpandStartLine />}
+              screenReaderLabel={actionScreenReaderLabel || t('View Contributing Score Details')}
+              onClick={onAction}
+              data-testid="score-cell-action-button"
+            />
+          </View>
+        </div>
       )}
     </View>
   )
