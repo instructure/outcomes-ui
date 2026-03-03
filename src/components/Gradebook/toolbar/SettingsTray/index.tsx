@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { ComponentType, useCallback, useState } from 'react'
 import { Button, CloseButton } from '@instructure/ui-buttons'
 import { View } from '@instructure/ui-view'
 import { Flex } from '@instructure/ui-flex'
@@ -6,13 +6,18 @@ import { Text } from '@instructure/ui-text'
 import { Tray } from '@instructure/ui-tray'
 import t from 'format-message'
 import {colors} from '@instructure/canvas-theme'
-import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
 import { useGradebookApp } from '@/components/Gradebook/context/GradebookAppContext'
 import { showFlashAlert } from '@/components/FlashAlert'
 
-export interface SettingsTrayProps {
+export interface SettingsTrayContentProps<TSettings> {
+  settings: TSettings
+  onChange: (settings: TSettings) => void
+}
+
+export interface SettingsTrayProps<TSettings = object> {
   open: boolean
   onDismiss: () => void
+  SettingsTrayContent: ComponentType<SettingsTrayContentProps<TSettings>>
 }
 
 /**
@@ -24,13 +29,12 @@ export interface SettingsTrayProps {
  * - Loading states and error handling
  * The SettingsTrayContent is purely presentational and renders the form fields.
  */
-export const SettingsTray: React.FC<SettingsTrayProps> = ({
+export const SettingsTray = <TSettings extends object = object>({
   open,
   onDismiss,
-}) => {
-  const { components } = useGradebookConfig()
-  const { settings: { settings: contextSettings, setSettings, onSave } } = useGradebookApp()
-  const { SettingsTrayContent } = components
+  SettingsTrayContent,
+}: SettingsTrayProps<TSettings>) => {
+  const { settings: { settings: contextSettings, setSettings, onSave } } = useGradebookApp<TSettings>()
   const [ localSettings, setLocalSettings ] = useState(contextSettings)
   const [ isSaving, setIsSaving ] = useState(false)
 

@@ -2,8 +2,8 @@ import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { View } from '@instructure/ui-view'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
-import { StoryWrapper } from '@/components/Gradebook/storybook/decorators'
-import { mockMasteryScores, mockStudent, mockStudentLongName } from '@/components/Gradebook/__mocks__/mockData'
+import { mockStudent, mockStudentLongName } from '@/components/Gradebook/__mocks__/mockData'
+import { createStudentPopover, StoryWrapper } from '@/components/Gradebook/storybook/decorators'
 import { StudentCell } from '.'
 import type { StudentCellProps } from '.'
 
@@ -12,16 +12,18 @@ const meta: Meta<StudentCellProps> = {
   component: StudentCell,
   decorators: [
     (Story) => (
-      <View as="div" width="300px" height="48px" display="block">
-        <StoryWrapper>
+      <StoryWrapper>
+        <View as="div" width="300px" height="48px" display="block">
           <Story />
-        </StoryWrapper>
-      </View>
+        </View>
+      </StoryWrapper>
     ),
   ],
   args: {
-    courseId: '123',
-    masteryScores: mockMasteryScores,
+    studentPopover: createStudentPopover({
+      studentName: mockStudent.display_name,
+      student: mockStudent,
+    }),
   },
 }
 
@@ -60,6 +62,10 @@ export const LastFirstFormat: Story = {
     student: mockStudent,
     nameDisplayFormat: NameDisplayFormat.LAST_FIRST,
     secondaryInfoDisplay: SecondaryInfoDisplay.SIS_ID,
+    studentPopover: createStudentPopover({
+      studentName: mockStudent.sortable_name,
+      student: mockStudent,
+    }),
   },
 }
 
@@ -75,6 +81,10 @@ export const LongName: Story = {
   args: {
     student: mockStudentLongName,
     secondaryInfoDisplay: SecondaryInfoDisplay.SIS_ID,
+    studentPopover: createStudentPopover({
+      studentName: mockStudentLongName.display_name,
+      student: mockStudentLongName,
+    }),
   },
 }
 
@@ -83,6 +93,10 @@ export const LongNameLastFirst: Story = {
     student: mockStudentLongName,
     nameDisplayFormat: NameDisplayFormat.LAST_FIRST,
     secondaryInfoDisplay: SecondaryInfoDisplay.SIS_ID,
+    studentPopover: createStudentPopover({
+      studentName: mockStudentLongName.sortable_name,
+      student: mockStudentLongName,
+    }),
   },
 }
 

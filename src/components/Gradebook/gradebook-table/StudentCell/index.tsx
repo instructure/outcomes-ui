@@ -1,18 +1,16 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Avatar } from '@instructure/ui-avatar'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
-import { Student, StudentMasteryScores } from '@/types/gradebook'
+import { Student } from '@/types/gradebook'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
-import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
 
 export interface StudentCellProps {
-  courseId: string
   student: Student
-  masteryScores?: StudentMasteryScores
   secondaryInfoDisplay?: SecondaryInfoDisplay
   showStudentAvatar?: boolean
   nameDisplayFormat?: NameDisplayFormat
+  studentPopover: ReactNode
 }
 
 const getSecondaryInfo = (student: Student, secondaryInfoDisplay?: SecondaryInfoDisplay) => {
@@ -31,16 +29,12 @@ const getSecondaryInfo = (student: Student, secondaryInfoDisplay?: SecondaryInfo
 }
 
 export const StudentCell: React.FC<StudentCellProps> = ({
-  courseId,
   student,
-  masteryScores,
   secondaryInfoDisplay,
   showStudentAvatar = true,
   nameDisplayFormat,
+  studentPopover,
 }) => {
-  const { components } = useGradebookConfig()
-  const StudentPopover = components.StudentPopover
-
   const shouldShowStudentStatus = student.status === 'inactive' || student.status === 'concluded'
   const secondaryInfo = getSecondaryInfo(student, secondaryInfoDisplay)
   const studentName =
@@ -64,13 +58,7 @@ export const StudentCell: React.FC<StudentCellProps> = ({
 
       <Flex.Item as="div" padding="none x-small">
         <Flex direction="column" textAlign="start">
-          <StudentPopover
-            key={student.id}
-            student={student}
-            studentName={studentName}
-            courseId={courseId}
-            masteryScores={masteryScores}
-          />
+          {studentPopover}
           {secondaryInfo !== null && (
             <Text size="legend" color="secondary" data-testid="student-secondary-info">
               {secondaryInfo}

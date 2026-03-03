@@ -2,18 +2,11 @@ import React from 'react'
 import {expect, jest} from '@jest/globals'
 import '@testing-library/jest-dom'
 import {render, screen, fireEvent, waitFor} from '@testing-library/react'
-import {SettingsTray} from '../index'
-import {
-  GradebookConfigProvider,
-} from '@/components/Gradebook/context/GradebookConfigContext'
+import {SettingsTray, SettingsTrayContentProps} from '../index'
 import {
   GradebookAppProvider,
   SaveSettingsResult,
 } from '@/components/Gradebook/context/GradebookAppContext'
-import {
-  GradebookConfig,
-  SettingsTrayContentProps,
-} from '@/components/Gradebook/context/GradebookConfigContext/GradebookConfigContext'
 import * as FlashAlert from '@/components/FlashAlert'
 
 jest.mock('@/components/FlashAlert')
@@ -57,34 +50,31 @@ describe('SettingsTray', () => {
     </div>
   )
 
-  const createConfig = (overrides = {}): GradebookConfig<TestSettings> => ({
-    components: {
-      StudentPopover: () => null,
-      SettingsTrayContent: MockSettingsTrayContent,
-      ...overrides,
-    },
-  })
-
   const renderWithProviders = (
-    props = {},
-    configOverrides = {},
+    props: Partial<{
+      open: boolean
+      onDismiss: () => void
+      SettingsTrayContent: React.ComponentType<SettingsTrayContentProps<TestSettings>>
+    }> = {},
     settingsOverrides: Partial<{
       settings: TestSettings
       onSave: (s: TestSettings) => Promise<SaveSettingsResult>
     }> = {}
   ) => {
-    const config = createConfig(configOverrides)
     const settingsConfig = {
       settings: defaultSettings,
       onSave: defaultMockOnSave,
       ...settingsOverrides,
     }
     return render(
-      <GradebookConfigProvider config={config}>
-        <GradebookAppProvider settings={settingsConfig}>
-          <SettingsTray open={false} onDismiss={jest.fn()} {...props} />
-        </GradebookAppProvider>
-      </GradebookConfigProvider>
+      <GradebookAppProvider settings={settingsConfig}>
+        <SettingsTray<TestSettings>
+          open={false}
+          onDismiss={jest.fn()}
+          SettingsTrayContent={MockSettingsTrayContent}
+          {...props}
+        />
+      </GradebookAppProvider>
     )
   }
 
@@ -115,11 +105,11 @@ describe('SettingsTray', () => {
       expect(screen.getByText('Save')).toBeInTheDocument()
     })
 
-    it('renders SettingsTrayContent from config', () => {
+    it('renders SettingsTrayContent from prop', () => {
       const CustomSettingsTrayContent: React.FC<SettingsTrayContentProps<TestSettings>> = () => (
         <div data-testid="custom-content">Custom</div>
       )
-      renderWithProviders({open: true}, {SettingsTrayContent: CustomSettingsTrayContent})
+      renderWithProviders({open: true, SettingsTrayContent: CustomSettingsTrayContent})
       expect(screen.getByTestId('custom-content')).toBeInTheDocument()
     })
   })
@@ -128,17 +118,18 @@ describe('SettingsTray', () => {
     it('initializes local settings from context when tray opens', () => {
       const {rerender} = renderWithProviders({open: false})
 
-      const config = createConfig()
       const settingsConfig = {
         settings: defaultSettings,
         onSave: defaultMockOnSave,
       }
       rerender(
-        <GradebookConfigProvider config={config}>
-          <GradebookAppProvider settings={settingsConfig}>
-            <SettingsTray open={true} onDismiss={jest.fn()} />
-          </GradebookAppProvider>
-        </GradebookConfigProvider>
+        <GradebookAppProvider settings={settingsConfig}>
+          <SettingsTray<TestSettings>
+            open={true}
+            onDismiss={jest.fn()}
+            SettingsTrayContent={MockSettingsTrayContent}
+          />
+        </GradebookAppProvider>
       )
 
       expect(screen.getByLabelText('Option 1')).toBeChecked()
@@ -172,25 +163,28 @@ describe('SettingsTray', () => {
       expect(input).toHaveValue('changed')
 
       // Close and reopen
-      const config = createConfig()
       const settingsConfig = {
         settings: defaultSettings,
         onSave: defaultMockOnSave,
       }
       rerender(
-        <GradebookConfigProvider config={config}>
-          <GradebookAppProvider settings={settingsConfig}>
-            <SettingsTray open={false} onDismiss={jest.fn()} />
-          </GradebookAppProvider>
-        </GradebookConfigProvider>
+        <GradebookAppProvider settings={settingsConfig}>
+          <SettingsTray<TestSettings>
+            open={false}
+            onDismiss={jest.fn()}
+            SettingsTrayContent={MockSettingsTrayContent}
+          />
+        </GradebookAppProvider>
       )
 
       rerender(
-        <GradebookConfigProvider config={config}>
-          <GradebookAppProvider settings={settingsConfig}>
-            <SettingsTray open={true} onDismiss={jest.fn()} />
-          </GradebookAppProvider>
-        </GradebookConfigProvider>
+        <GradebookAppProvider settings={settingsConfig}>
+          <SettingsTray<TestSettings>
+            open={true}
+            onDismiss={jest.fn()}
+            SettingsTrayContent={MockSettingsTrayContent}
+          />
+        </GradebookAppProvider>
       )
 
       // Should be reset to original value
@@ -228,7 +222,7 @@ describe('SettingsTray', () => {
         Promise<SaveSettingsResult>>().mockResolvedValue({success: true})
       const onDismiss = jest.fn()
 
-      renderWithProviders({open: true, onDismiss}, {}, {onSave})
+      renderWithProviders({open: true, onDismiss}, {onSave})
 
       // Make a change
       const input = screen.getByLabelText('Option 2')
@@ -256,7 +250,7 @@ describe('SettingsTray', () => {
         Promise<SaveSettingsResult>>().mockResolvedValue({success: false})
       const onDismiss = jest.fn()
 
-      renderWithProviders({open: true, onDismiss}, {}, {onSave})
+      renderWithProviders({open: true, onDismiss}, {onSave})
 
       // Make a change
       const input = screen.getByLabelText('Option 2')
@@ -283,7 +277,7 @@ describe('SettingsTray', () => {
       const onSave = jest.fn<(settings: TestSettings) => Promise<SaveSettingsResult>>().mockResolvedValue({success: false, error: 'Server error'})
       const onDismiss = jest.fn()
 
-      renderWithProviders({open: true, onDismiss}, {}, {onSave})
+      renderWithProviders({open: true, onDismiss}, {onSave})
 
       // Click save
       fireEvent.click(screen.getByTestId('lmgb-save-settings-button'))
@@ -302,7 +296,7 @@ describe('SettingsTray', () => {
       const onSave = jest.fn<(settings: TestSettings) => Promise<SaveSettingsResult>>().mockRejectedValue(new Error('Network error'))
       const onDismiss = jest.fn()
 
-      renderWithProviders({open: true, onDismiss}, {}, {onSave})
+      renderWithProviders({open: true, onDismiss}, {onSave})
 
       // Click save
       fireEvent.click(screen.getByTestId('lmgb-save-settings-button'))
@@ -323,7 +317,7 @@ describe('SettingsTray', () => {
         Promise<SaveSettingsResult>>().mockImplementation(() =>
           new Promise(resolve => setTimeout(() => resolve({success: true}), 100)))
 
-      renderWithProviders({open: true}, {}, {onSave})
+      renderWithProviders({open: true}, {onSave})
 
       const saveButton = screen.getByTestId('lmgb-save-settings-button')
       expect(saveButton).not.toBeDisabled()
@@ -348,7 +342,7 @@ describe('SettingsTray', () => {
         Promise<SaveSettingsResult>>().mockResolvedValue({success: true})
       const onDismiss = jest.fn()
 
-      renderWithProviders({open: true, onDismiss}, {}, {onSave})
+      renderWithProviders({open: true, onDismiss}, {onSave})
 
       // Don't make any changes, just click save
       fireEvent.click(screen.getByTestId('lmgb-save-settings-button'))
@@ -362,7 +356,7 @@ describe('SettingsTray', () => {
 
     it('passes correct props to SettingsTrayContent', () => {
       const SettingsTrayContent = jest.fn<React.FC<SettingsTrayContentProps<TestSettings>>>(() => <div>Content</div>)
-      renderWithProviders({open: true}, {SettingsTrayContent})
+      renderWithProviders({open: true, SettingsTrayContent})
 
       expect(SettingsTrayContent).toHaveBeenCalledWith(
         expect.objectContaining({

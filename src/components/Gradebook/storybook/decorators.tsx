@@ -6,13 +6,11 @@ import { NameDisplayFormatSelector } from '@/components/Gradebook/toolbar/Settin
 import { StudentPopover } from '@/components/Gradebook/popovers/StudentPopover'
 import { NameDisplayFormat } from '@/util/gradebook/constants'
 import { GradebookApp } from '../GradebookApp'
+import { GradebookAppProvider } from '../context/GradebookAppContext'
 import { createStudent, mockUserDetailsDefault } from '../__mocks__/mockData'
-import type {
-  GradebookComponents,
-  MasteryLevelConfig,
-  SettingsTrayContentProps,
-  StudentPopoverWrapperProps
-} from '../context/GradebookConfigContext/GradebookConfigContext'
+import type { MasteryLevelConfig } from '../context/GradebookConfigContext/GradebookConfigContext'
+import type { SettingsTrayContentProps } from '../toolbar/SettingsTray'
+import type { Student, StudentMasteryScores } from '@/types/gradebook'
 
 interface ExampleCustomSettings {
   showStudentNames: boolean
@@ -22,22 +20,31 @@ interface ExampleCustomSettings {
 interface StoryWrapperProps {
   children: React.ReactNode;
   masteryLevelConfig?: MasteryLevelConfig
-  components?: Partial<GradebookComponents<ExampleCustomSettings>>
 }
 
-const StudentPopoverWrapper: React.FC<StudentPopoverWrapperProps> = (props) => {
+interface CreateStudentPopoverProps {
+  studentName: string
+  student?: Student
+  masteryScores?: StudentMasteryScores
+}
+
+export const createStudentPopover = ({
+  studentName,
+  student,
+  masteryScores
+}: CreateStudentPopoverProps) => {
   return (
     <StudentPopover
-      {...props}
-      student={props.student || createStudent('1', 'John', 'Doe')}
-      studentName={props.studentName || 'John Doe'}
+      student={student || createStudent('1', 'John', 'Doe')}
+      studentName={studentName}
+      masteryScores={masteryScores}
       studentGradesUrl="/test-url"
       userDetails={mockUserDetailsDefault}
     />
   )
 }
 
-const ExampleSettingsTrayContent: React.FC<SettingsTrayContentProps<ExampleCustomSettings>> = ({
+export const ExampleSettingsTrayContent: React.FC<SettingsTrayContentProps<ExampleCustomSettings>> = ({
   settings,
   onChange,
 }) => {
@@ -69,36 +76,30 @@ const ExampleSettingsTrayContent: React.FC<SettingsTrayContentProps<ExampleCusto
 }
 
 export const StoryWrapper: React.FC<StoryWrapperProps> =
-({ children, masteryLevelConfig, components }) => {
-  const defaultComponents: GradebookComponents<ExampleCustomSettings> = {
-    StudentPopover: StudentPopoverWrapper,
-    SettingsTrayContent: ExampleSettingsTrayContent,
-  }
-
+({ children, masteryLevelConfig }) => {
   return (
     <GradebookApp
       config={{
-        components: {
-          ...defaultComponents,
-          ...components,
-        },
         masteryLevelConfig,
       }}
-      settings={{
-        settings: {
-          showStudentNames: true,
-          nameDisplayFormat: NameDisplayFormat.FIRST_LAST,
-        },
-        onSave: async (settings) => {
-          action('onSave')(settings)
-          // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1000))
-          // Simulate success
-          return { success: true }
-        },
-      }}
     >
-      {children}
+      <GradebookAppProvider
+        settings={{
+          settings: {
+            showStudentNames: true,
+            nameDisplayFormat: NameDisplayFormat.FIRST_LAST,
+          },
+          onSave: async (settings) => {
+            action('onSave')(settings)
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            // Simulate success
+            return { success: true }
+          },
+        }}
+      >
+        {children}
+      </GradebookAppProvider>
     </GradebookApp>
   )
 }

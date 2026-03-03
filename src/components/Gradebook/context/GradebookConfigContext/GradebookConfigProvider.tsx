@@ -1,15 +1,15 @@
 import React from 'react'
 import { GradebookConfig, GradebookConfigContext } from './GradebookConfigContext'
 
-export interface GradebookConfigProviderProps<TSettings> {
+export interface GradebookConfigProviderProps {
   children: React.ReactNode
-  config: GradebookConfig<TSettings>
+  config: GradebookConfig
 }
 
-export const GradebookConfigProvider = <TSettings,>({
+export const GradebookConfigProvider: React.FC<GradebookConfigProviderProps> = ({
   children,
   config,
-}: GradebookConfigProviderProps<TSettings>) => {
+}) => {
   return (
     <GradebookConfigContext.Provider value={config}>
       {children}

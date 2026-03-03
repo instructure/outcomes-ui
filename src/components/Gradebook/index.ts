@@ -3,7 +3,6 @@ export { GradebookApp } from './GradebookApp'
 export type {
   GradebookAppProps,
   TranslationConfig,
-  SaveSettingsResult,
 } from './GradebookApp'
 
 // Context Providers and Hooks
@@ -13,9 +12,7 @@ export {
 } from './context/GradebookConfigContext'
 export type {
   GradebookConfig,
-  GradebookComponents,
-  SettingsTrayContentProps,
-  StudentPopoverWrapperProps,
+  MasteryLevelConfig,
   GradebookConfigProviderProps,
 } from './context/GradebookConfigContext'
 
@@ -26,6 +23,7 @@ export {
 export type {
   GradebookAppContextValue,
   GradebookAppProviderProps,
+  SaveSettingsResult,
 } from './context/GradebookAppContext'
 
 // Table Components
@@ -43,6 +41,7 @@ export { ScoreWithLabel } from './gradebook-table/ScoreCellContent/ScoreWithLabe
 
 // Toolbar Components
 export { SettingsTray } from './toolbar/SettingsTray'
+export type { SettingsTrayContentProps } from './toolbar/SettingsTray'
 export type { SettingsTrayProps } from './toolbar/SettingsTray'
 export { ExportCSVButton } from './toolbar/ExportCSVButton'
 export type { ExportCSVButtonProps } from './toolbar/ExportCSVButton'

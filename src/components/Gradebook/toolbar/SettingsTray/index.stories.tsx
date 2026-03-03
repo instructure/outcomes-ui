@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { SettingsTray } from './index'
 import { Button } from '@instructure/ui-buttons'
 import { View } from '@instructure/ui-view'
-import { StoryWrapper } from '@/components/Gradebook/storybook/decorators'
+import { StoryWrapper, ExampleSettingsTrayContent } from '@/components/Gradebook/storybook/decorators'
 
 const meta: Meta<typeof SettingsTray> = {
   title: 'Gradebook/SettingsTray',
@@ -28,12 +28,22 @@ export const Default: Story = {
     return (
       <View>
         <Button onClick={() => setOpen(true)}>Open Settings</Button>
-        <SettingsTray open={open} onDismiss={() => setOpen(false)} />
+        <SettingsTray
+          open={open}
+          onDismiss={() => setOpen(false)}
+          SettingsTrayContent={ExampleSettingsTrayContent}
+        />
       </View>
     )
   },
 }
 
 export const Open: Story = {
-  render: () => <SettingsTray open={true} onDismiss={() => {}} />,
+  render: () => (
+    <SettingsTray
+      open={true}
+      onDismiss={() => {}}
+      SettingsTrayContent={ExampleSettingsTrayContent}
+    />
+  ),
 }

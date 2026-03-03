@@ -26,12 +26,7 @@ describe('StudentPopover', () => {
   const renderComponent = (props: Partial<StudentPopoverProps> = {}) => {
     return render(
       <GradebookConfigProvider
-        config={{
-          components: {
-            StudentPopover: () => null,
-            SettingsTrayContent: () => null,
-          },
-        }}
+        config={{}}
       >
         <StudentPopover {...{ ...defaultProps, ...props } as StudentPopoverProps} />
       </GradebookConfigProvider>

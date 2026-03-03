@@ -1,22 +1,5 @@
-import { createContext, ComponentType } from 'react'
-import type { MasteryLevel, Student, StudentMasteryScores } from '@/types/gradebook'
-
-export interface StudentPopoverWrapperProps {
-  studentName: string
-  student?: Student
-  courseId?: string
-  masteryScores?: StudentMasteryScores
-}
-
-export interface SettingsTrayContentProps<TSettings> {
-  settings: TSettings
-  onChange: (settings: TSettings) => void
-}
-
-export interface GradebookComponents<TSettings = object> {
-  StudentPopover: ComponentType<StudentPopoverWrapperProps>
-  SettingsTrayContent: ComponentType<SettingsTrayContentProps<TSettings>>
-}
+import { createContext } from 'react'
+import type { MasteryLevel } from '@/types/gradebook'
 
 export type MasteryLevelOverrides = Partial<Record<
   MasteryLevel,
@@ -30,10 +13,8 @@ export type MasteryLevelConfig = {
   masteryLevelOverrides?: MasteryLevelOverrides
 }
 
-export interface GradebookConfig<TSettings = object> {
-  components: GradebookComponents<TSettings>
+export interface GradebookConfig {
   masteryLevelConfig?: MasteryLevelConfig
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const GradebookConfigContext = createContext<GradebookConfig<any> | null>(null)
+export const GradebookConfigContext = createContext<GradebookConfig | null>(null)

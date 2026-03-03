@@ -4,15 +4,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
 import { Student } from '@/types/gradebook'
-import { GradebookConfigProvider, type GradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
-import { mockMasteryScores } from '@/components/Gradebook/__mocks__/mockData'
 import { StudentCell, StudentCellProps } from '../index'
-
-jest.mock('@/components/Gradebook/popovers/StudentPopover', () => ({
-  StudentPopover: ({ studentName }: { studentName: string }) => (
-    <div data-testid="student-popover">{studentName}</div>
-  ),
-}))
 
 const mockStudent: Student = {
   id: '123',
@@ -26,84 +18,59 @@ const mockStudent: Student = {
   status: 'active',
 }
 
-const DEFAULT_CONFIG: GradebookConfig = {
-  components: {
-    StudentPopover: ({ studentName }: { studentName: string }) => (
-      <div data-testid="student-popover">{studentName}</div>
-    ),
-    SettingsTrayContent: () => <div>Settings Content</div>,
-  },
-}
-
-const renderWithConfig = (ui: React.ReactElement, config: GradebookConfig = DEFAULT_CONFIG) => {
-  return render(<GradebookConfigProvider config={config}>{ui}</GradebookConfigProvider>)
-}
-
 describe('StudentCell', () => {
   const defaultProps: StudentCellProps = {
-    courseId: 'course-1',
     student: mockStudent,
-    masteryScores: mockMasteryScores,
+    studentPopover: <div data-testid="student-popover">Jane Doe</div>,
   }
 
   describe('rendering', () => {
     it('renders the student cell with default props', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+      render(<StudentCell {...defaultProps} />)
       expect(screen.getByTestId('student-cell')).toBeInTheDocument()
     })
 
     it('renders the student avatar by default', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+      render(<StudentCell {...defaultProps} />)
       expect(screen.getByTestId('student-avatar')).toBeInTheDocument()
     })
 
     it('does not render the student avatar when showStudentAvatar is false', () => {
-      renderWithConfig(<StudentCell {...defaultProps} showStudentAvatar={false} />)
+      render(<StudentCell {...defaultProps} showStudentAvatar={false} />)
       expect(screen.queryByTestId('student-avatar')).not.toBeInTheDocument()
     })
 
-    it('renders the StudentPopover component', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
-      expect(screen.getByTestId('student-popover')).toBeInTheDocument()
-    })
-
-    it('passes masteryScores to StudentPopover', () => {
-      renderWithConfig(
-        <StudentCell {...defaultProps} masteryScores={mockMasteryScores} />,
-      )
+    it('renders the student popover', () => {
+      render(<StudentCell {...defaultProps} />)
       expect(screen.getByTestId('student-popover')).toBeInTheDocument()
     })
   })
 
-  describe('student name display', () => {
-    it('displays student display_name by default', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+  describe('student popover content', () => {
+    it('renders the provided student popover content', () => {
+      render(<StudentCell {...defaultProps} />)
       expect(screen.getByTestId('student-popover')).toHaveTextContent('Jane Doe')
     })
 
-    it('displays student display_name when nameDisplayFormat is FIRST_LAST', () => {
-      renderWithConfig(
-        <StudentCell {...defaultProps} nameDisplayFormat={NameDisplayFormat.FIRST_LAST} />,
+    it('can render custom popover content', () => {
+      render(
+        <StudentCell
+          {...defaultProps}
+          studentPopover={<div data-testid="custom-popover">Custom Content</div>}
+        />
       )
-      expect(screen.getByTestId('student-popover')).toHaveTextContent('Jane Doe')
-    })
-
-    it('displays student sortable_name when nameDisplayFormat is LAST_FIRST', () => {
-      renderWithConfig(
-        <StudentCell {...defaultProps} nameDisplayFormat={NameDisplayFormat.LAST_FIRST} />,
-      )
-      expect(screen.getByTestId('student-popover')).toHaveTextContent('Doe, Jane')
+      expect(screen.getByTestId('custom-popover')).toHaveTextContent('Custom Content')
     })
   })
 
   describe('secondary info display', () => {
     it('does not render secondary info when secondaryInfoDisplay is not provided', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+      render(<StudentCell {...defaultProps} />)
       expect(screen.queryByTestId('student-secondary-info')).not.toBeInTheDocument()
     })
 
     it('renders SIS ID when secondaryInfoDisplay is SIS_ID', () => {
-      renderWithConfig(
+      render(
         <StudentCell {...defaultProps} secondaryInfoDisplay={SecondaryInfoDisplay.SIS_ID} />,
       )
       const secondaryInfo = screen.getByTestId('student-secondary-info')
@@ -112,7 +79,7 @@ describe('StudentCell', () => {
     })
 
     it('renders integration ID when secondaryInfoDisplay is INTEGRATION_ID', () => {
-      renderWithConfig(
+      render(
         <StudentCell
           {...defaultProps}
           secondaryInfoDisplay={SecondaryInfoDisplay.INTEGRATION_ID}
@@ -124,7 +91,7 @@ describe('StudentCell', () => {
     })
 
     it('renders login ID when secondaryInfoDisplay is LOGIN_ID', () => {
-      renderWithConfig(
+      render(
         <StudentCell {...defaultProps} secondaryInfoDisplay={SecondaryInfoDisplay.LOGIN_ID} />,
       )
       const secondaryInfo = screen.getByTestId('student-secondary-info')
@@ -134,7 +101,7 @@ describe('StudentCell', () => {
 
     it('renders empty string when SIS ID is not available', () => {
       const studentWithoutSIS = { ...mockStudent, sis_id: undefined }
-      renderWithConfig(
+      render(
         <StudentCell
           {...defaultProps}
           student={studentWithoutSIS}
@@ -148,7 +115,7 @@ describe('StudentCell', () => {
 
     it('renders empty string when integration ID is not available', () => {
       const studentWithoutIntegrationId = { ...mockStudent, integration_id: undefined }
-      renderWithConfig(
+      render(
         <StudentCell
           {...defaultProps}
           student={studentWithoutIntegrationId}
@@ -162,7 +129,7 @@ describe('StudentCell', () => {
 
     it('renders empty string when login ID is not available', () => {
       const studentWithoutLoginId = { ...mockStudent, login_id: undefined }
-      renderWithConfig(
+      render(
         <StudentCell
           {...defaultProps}
           student={studentWithoutLoginId}
@@ -175,7 +142,7 @@ describe('StudentCell', () => {
     })
 
     it('does not render secondary info when secondaryInfoDisplay is NONE', () => {
-      renderWithConfig(
+      render(
         <StudentCell {...defaultProps} secondaryInfoDisplay={SecondaryInfoDisplay.NONE} />,
       )
       expect(screen.queryByTestId('student-secondary-info')).not.toBeInTheDocument()
@@ -184,13 +151,13 @@ describe('StudentCell', () => {
 
   describe('student status', () => {
     it('does not render status badge for active students', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+      render(<StudentCell {...defaultProps} />)
       expect(screen.queryByTestId('student-status')).not.toBeInTheDocument()
     })
 
     it('renders status badge for inactive students', () => {
       const inactiveStudent = { ...mockStudent, status: 'inactive' }
-      renderWithConfig(<StudentCell {...defaultProps} student={inactiveStudent} />)
+      render(<StudentCell {...defaultProps} student={inactiveStudent} />)
       const status = screen.getByTestId('student-status')
       expect(status).toBeInTheDocument()
       expect(status).toHaveTextContent('inactive')
@@ -198,7 +165,7 @@ describe('StudentCell', () => {
 
     it('renders status badge for concluded students', () => {
       const concludedStudent = { ...mockStudent, status: 'concluded' }
-      renderWithConfig(<StudentCell {...defaultProps} student={concludedStudent} />)
+      render(<StudentCell {...defaultProps} student={concludedStudent} />)
       const status = screen.getByTestId('student-status')
       expect(status).toBeInTheDocument()
       expect(status).toHaveTextContent('concluded')
@@ -207,19 +174,19 @@ describe('StudentCell', () => {
 
   describe('avatar', () => {
     it('sets avatar name from student name', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+      render(<StudentCell {...defaultProps} />)
       const avatar = screen.getByTestId('student-avatar')
       expect(avatar).toBeInTheDocument()
     })
 
     it('sets avatar src from student avatar_url', () => {
-      renderWithConfig(<StudentCell {...defaultProps} />)
+      render(<StudentCell {...defaultProps} />)
       const avatar = screen.getByTestId('student-avatar')
       expect(avatar).toBeInTheDocument()
     })
 
     it('uses sortable_name for avatar when nameDisplayFormat is LAST_FIRST', () => {
-      renderWithConfig(
+      render(
         <StudentCell {...defaultProps} nameDisplayFormat={NameDisplayFormat.LAST_FIRST} />,
       )
       const avatar = screen.getByTestId('student-avatar')

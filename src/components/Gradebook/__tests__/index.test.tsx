@@ -34,16 +34,7 @@ import * as i18nModule from '@/i18n/i18n'
 const mockSetupI18n = i18nModule.setupI18n as jest.MockedFunction<typeof i18nModule.setupI18n>
 
 describe('GradebookApp', () => {
-  const mockConfig: GradebookConfig = {
-    components: {
-      StudentPopover: () => <div>Student Popover</div>,
-      SettingsTrayContent: () => <div>Settings</div>,
-    },
-  }
-
-  const mockSettingsData = {}
-  const mockOnSave = jest.fn<(s: object) => Promise<import('../context/GradebookAppContext').SaveSettingsResult>>().mockResolvedValue({ success: true })
-  const mockSettings = { settings: mockSettingsData, onSave: mockOnSave }
+  const mockConfig: GradebookConfig = {}
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -51,7 +42,7 @@ describe('GradebookApp', () => {
 
   describe('Translation Configuration', () => {
     it('renders with default translation config (i18n enabled)', async () => {
-      render(<GradebookApp config={mockConfig} settings={mockSettings} />)
+      render(<GradebookApp config={mockConfig} />)
 
       // Should call setupI18n with default language
       expect(mockSetupI18n).toHaveBeenCalledWith('en', undefined)
@@ -66,7 +57,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ i18nEnabled: false }}
         />
       )
@@ -82,7 +72,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'es', i18nEnabled: true }}
         />
       )
@@ -104,7 +93,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{
             language: 'fr',
             i18nEnabled: true,
@@ -126,7 +114,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ i18nEnabled: false }}
         >
           <div data-testid="custom-content">Custom Content</div>
@@ -141,7 +128,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ i18nEnabled: false }}
         />
       )
@@ -155,7 +141,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ i18nEnabled: false }}
         />
       )
@@ -165,18 +150,12 @@ describe('GradebookApp', () => {
 
       const configData = provider.getAttribute('data-config')
       expect(configData).toBeTruthy()
-
-      const parsedConfig = JSON.parse(configData!)
-      expect(parsedConfig).toMatchObject({
-        components: expect.any(Object),
-      })
     })
 
     it('wraps children with GradebookConfigProvider', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ i18nEnabled: false }}
         >
           <div data-testid="test-child">Test</div>
@@ -195,7 +174,6 @@ describe('GradebookApp', () => {
       render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'en', i18nEnabled: true }}
         >
           <div data-testid="child-content">Child</div>
@@ -214,7 +192,6 @@ describe('GradebookApp', () => {
       const { rerender } = render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'en', i18nEnabled: true }}
         />
       )
@@ -225,7 +202,6 @@ describe('GradebookApp', () => {
       rerender(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'es', i18nEnabled: true }}
         />
       )
@@ -243,7 +219,6 @@ describe('GradebookApp', () => {
       const { rerender } = render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'en', i18nEnabled: true, resourceOverrides: overrides1 }}
         />
       )
@@ -253,7 +228,6 @@ describe('GradebookApp', () => {
       rerender(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'en', i18nEnabled: true, resourceOverrides: overrides2 }}
         />
       )
@@ -268,7 +242,6 @@ describe('GradebookApp', () => {
       const { rerender } = render(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ language: 'en', i18nEnabled: true }}
         />
       )
@@ -278,7 +251,6 @@ describe('GradebookApp', () => {
       rerender(
         <GradebookApp
           config={mockConfig}
-          settings={mockSettings}
           translations={{ i18nEnabled: false }}
         />
       )
@@ -289,25 +261,12 @@ describe('GradebookApp', () => {
   })
 
   describe('Type Safety', () => {
-    it('accepts gradebookConfig with custom settings type', () => {
-      interface CustomSettings {
-        customOption: boolean
-      }
-
-      const customConfig: GradebookConfig<CustomSettings> = {
-        components: {
-          StudentPopover: () => <div>Popover</div>,
-          SettingsTrayContent: () => <div>Settings</div>,
-        },
-      }
-
-      const customSettingsData: CustomSettings = { customOption: true }
-      const customOnSave = jest.fn<(s: CustomSettings) => Promise<import('../context/GradebookAppContext').SaveSettingsResult>>().mockResolvedValue({ success: true })
+    it('accepts gradebookConfig', () => {
+      const customConfig: GradebookConfig = {}
 
       render(
-        <GradebookApp<CustomSettings>
+        <GradebookApp
           config={customConfig}
-          settings={{ settings: customSettingsData, onSave: customOnSave }}
           translations={{ i18nEnabled: false }}
         />
       )

@@ -3,8 +3,6 @@ export { useGradebookConfig } from './useGradebookConfig'
 
 export type {
   GradebookConfig,
-  GradebookComponents,
-  SettingsTrayContentProps,
-  StudentPopoverWrapperProps
+  MasteryLevelConfig
 } from './GradebookConfigContext'
 export type { GradebookConfigProviderProps } from './GradebookConfigProvider'
