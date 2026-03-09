@@ -117,5 +117,30 @@ describe('ScoreCellContent', () => {
       )
       expect(screen.getByText('3')).toBeInTheDocument()
     })
+
+    it('renders percent with PERCENT format', () => {
+      render(
+        <ScoreCellContent
+          {...defaultProps}
+          score={3}
+          totalScore={4}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT}
+        />,
+      )
+      expect(screen.getByText('75%')).toBeInTheDocument()
+    })
+
+    it('renders percent and ratio with PERCENT_AND_RATIO format', () => {
+      render(
+        <ScoreCellContent
+          {...defaultProps}
+          score={3}
+          totalScore={4}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT_AND_RATIO}
+        />,
+      )
+      expect(screen.getByText('75%')).toBeInTheDocument()
+      expect(screen.getByText('(3/4)')).toBeInTheDocument()
+    })
   })
 })

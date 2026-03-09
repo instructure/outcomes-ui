@@ -272,6 +272,7 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
       <View
         as="div"
         overflowX="auto"
+        padding="none none small none"
         elementRef={(el: Element | null) => {
           if (el instanceof HTMLDivElement) {
             ;(tableRef as React.MutableRefObject<HTMLDivElement | null>).current = el

@@ -33,6 +33,8 @@ export enum ScoreDisplayFormat {
   ICON_ONLY = 'icon_only',
   ICON_AND_POINTS = 'icon_and_points',
   ICON_AND_LABEL = 'icon_and_label',
+  PERCENT = 'percent',
+  PERCENT_AND_RATIO = 'percent_and_ratio',
 }
 
 export enum OutcomeArrangement {

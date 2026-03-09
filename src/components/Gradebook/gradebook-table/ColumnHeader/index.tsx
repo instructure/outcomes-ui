@@ -35,7 +35,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
         alignItems="center"
         justifyItems="space-between"
         height={CELL_HEIGHT}
-        padding="none none none x-small"
+        padding="none x-small none x-small"
       >
         <Flex.Item shouldGrow shouldShrink overflowX="hidden">
           <Flex gap="x-small">

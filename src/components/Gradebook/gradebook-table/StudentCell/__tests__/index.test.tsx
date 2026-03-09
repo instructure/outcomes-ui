@@ -2,19 +2,14 @@ import React from 'react'
 import { expect } from '@jest/globals'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
-import { Student } from '@/types/gradebook'
-import { StudentCell, StudentCellProps } from '../index'
+import { NameDisplayFormat } from '@/util/gradebook/constants'
+import { StudentCell, StudentCellProps, StudentData } from '../index'
 
-const mockStudent: Student = {
+const mockStudent: StudentData = {
   id: '123',
-  name: 'Jane Doe',
-  display_name: 'Jane Doe',
-  sortable_name: 'Doe, Jane',
-  sis_id: 'SIS123',
-  integration_id: 'INT456',
-  login_id: 'jane.doe@example.com',
-  avatar_url: 'https://example.com/avatar.jpg',
+  displayName: 'Jane Doe',
+  sortableName: 'Doe, Jane',
+  avatarUrl: 'https://example.com/avatar.jpg',
   status: 'active',
 }
 
@@ -64,88 +59,23 @@ describe('StudentCell', () => {
   })
 
   describe('secondary info display', () => {
-    it('does not render secondary info when secondaryInfoDisplay is not provided', () => {
+    it('does not render secondary info when secondaryInfo is not provided', () => {
       render(<StudentCell {...defaultProps} />)
       expect(screen.queryByTestId('student-secondary-info')).not.toBeInTheDocument()
     })
 
-    it('renders SIS ID when secondaryInfoDisplay is SIS_ID', () => {
-      render(
-        <StudentCell {...defaultProps} secondaryInfoDisplay={SecondaryInfoDisplay.SIS_ID} />,
-      )
+    it('renders secondary info when provided', () => {
+      render(<StudentCell {...defaultProps} secondaryInfo="SIS123" />)
       const secondaryInfo = screen.getByTestId('student-secondary-info')
       expect(secondaryInfo).toBeInTheDocument()
       expect(secondaryInfo).toHaveTextContent('SIS123')
     })
 
-    it('renders integration ID when secondaryInfoDisplay is INTEGRATION_ID', () => {
-      render(
-        <StudentCell
-          {...defaultProps}
-          secondaryInfoDisplay={SecondaryInfoDisplay.INTEGRATION_ID}
-        />,
-      )
-      const secondaryInfo = screen.getByTestId('student-secondary-info')
-      expect(secondaryInfo).toBeInTheDocument()
-      expect(secondaryInfo).toHaveTextContent('INT456')
-    })
-
-    it('renders login ID when secondaryInfoDisplay is LOGIN_ID', () => {
-      render(
-        <StudentCell {...defaultProps} secondaryInfoDisplay={SecondaryInfoDisplay.LOGIN_ID} />,
-      )
-      const secondaryInfo = screen.getByTestId('student-secondary-info')
-      expect(secondaryInfo).toBeInTheDocument()
-      expect(secondaryInfo).toHaveTextContent('jane.doe@example.com')
-    })
-
-    it('renders empty string when SIS ID is not available', () => {
-      const studentWithoutSIS = { ...mockStudent, sis_id: undefined }
-      render(
-        <StudentCell
-          {...defaultProps}
-          student={studentWithoutSIS}
-          secondaryInfoDisplay={SecondaryInfoDisplay.SIS_ID}
-        />,
-      )
+    it('renders empty string when secondaryInfo is an empty string', () => {
+      render(<StudentCell {...defaultProps} secondaryInfo="" />)
       const secondaryInfo = screen.getByTestId('student-secondary-info')
       expect(secondaryInfo).toBeInTheDocument()
       expect(secondaryInfo).toHaveTextContent('')
-    })
-
-    it('renders empty string when integration ID is not available', () => {
-      const studentWithoutIntegrationId = { ...mockStudent, integration_id: undefined }
-      render(
-        <StudentCell
-          {...defaultProps}
-          student={studentWithoutIntegrationId}
-          secondaryInfoDisplay={SecondaryInfoDisplay.INTEGRATION_ID}
-        />,
-      )
-      const secondaryInfo = screen.getByTestId('student-secondary-info')
-      expect(secondaryInfo).toBeInTheDocument()
-      expect(secondaryInfo).toHaveTextContent('')
-    })
-
-    it('renders empty string when login ID is not available', () => {
-      const studentWithoutLoginId = { ...mockStudent, login_id: undefined }
-      render(
-        <StudentCell
-          {...defaultProps}
-          student={studentWithoutLoginId}
-          secondaryInfoDisplay={SecondaryInfoDisplay.LOGIN_ID}
-        />,
-      )
-      const secondaryInfo = screen.getByTestId('student-secondary-info')
-      expect(secondaryInfo).toBeInTheDocument()
-      expect(secondaryInfo).toHaveTextContent('')
-    })
-
-    it('does not render secondary info when secondaryInfoDisplay is NONE', () => {
-      render(
-        <StudentCell {...defaultProps} secondaryInfoDisplay={SecondaryInfoDisplay.NONE} />,
-      )
-      expect(screen.queryByTestId('student-secondary-info')).not.toBeInTheDocument()
     })
   })
 

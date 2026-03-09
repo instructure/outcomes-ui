@@ -2,6 +2,7 @@ import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import { View } from '@instructure/ui-view'
 import { action } from '@storybook/addon-actions'
+import { IconExpandStartLine } from '@instructure/ui-icons'
 import { ScoreDisplayFormat } from '@/util/gradebook/constants'
 import { ScoreCellContent } from './index'
 
@@ -54,6 +55,28 @@ export const IconAndLabel: Story = {
   },
 }
 
+export const Percent: Story = {
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.PERCENT,
+    masteryLevel: 'mastery',
+    label: 'Mastery',
+    score: 3,
+    totalScore: 4,
+    background: 'secondary',
+  },
+}
+
+export const PercentAndRatio: Story = {
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.PERCENT_AND_RATIO,
+    masteryLevel: 'mastery',
+    label: 'Mastery',
+    score: 3,
+    totalScore: 4,
+    background: 'secondary',
+  },
+}
+
 export const OnAction: Story = {
   args: {
     scoreDisplayFormat: ScoreDisplayFormat.ICON_AND_POINTS,
@@ -61,6 +84,7 @@ export const OnAction: Story = {
     label: 'Remediation',
     score: 1,
     onAction: action('onAction'),
+    actionIcon: <IconExpandStartLine />,
     background: 'secondary',
   },
 }
@@ -73,6 +97,7 @@ export const FocusControlled: Story = {
     label: 'No Evidence',
     score: 0,
     onAction: action('onAction'),
+    actionIcon: <IconExpandStartLine />,
     focus: true,
     background: 'secondary',
   },

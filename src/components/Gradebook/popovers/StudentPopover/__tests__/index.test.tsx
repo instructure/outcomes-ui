@@ -5,10 +5,12 @@ import { GradebookConfigProvider } from '@/components/Gradebook/context/Gradeboo
 import {
   mockStudent,
   mockStudentLongName,
-  mockUserDetailsDefault,
-  mockUserDetailsNoSections,
+} from '@/components/Gradebook/gradebook-table/StudentCell/__mocks__/mockData'
+import {
+  mockCaptionDefault,
+  mockCaptionNoSections,
   mockMasteryScores,
-} from '@/components/Gradebook/__mocks__/mockData'
+} from '../__mocks__/mockData'
 import { StudentPopover } from '..'
 import type { StudentPopoverProps } from '..'
 
@@ -16,9 +18,8 @@ jest.mock('format-message', () => (msg: string) => msg)
 
 describe('StudentPopover', () => {
   const defaultProps: StudentPopoverProps = {
-    student: mockStudent,
-    studentName: mockStudent.display_name,
-    userDetails: mockUserDetailsDefault,
+    studentName: mockStudent.displayName,
+    ...mockCaptionDefault,
     masteryScores: mockMasteryScores,
     studentGradesUrl: '/courses/123/grades/1',
   }
@@ -38,13 +39,12 @@ describe('StudentPopover', () => {
       renderComponent()
       const link = screen.getByTestId('student-cell-link')
       expect(link).toBeInTheDocument()
-      expect(within(link).getByText(mockStudent.display_name)).toBeInTheDocument()
+      expect(within(link).getByText(mockStudent.displayName)).toBeInTheDocument()
     })
 
     it('renders long student names with truncation', () => {
       renderComponent({
-        student: mockStudentLongName,
-        studentName: mockStudentLongName.display_name,
+        studentName: mockStudentLongName.displayName,
       })
       const link = screen.getByTestId('student-cell-link')
       expect(link).toBeInTheDocument()
@@ -103,26 +103,26 @@ describe('StudentPopover', () => {
     })
   })
 
-  describe('User Details Display', () => {
-    it('displays user details including avatar, name, course, and sections', async () => {
+  describe('Header Display', () => {
+    it('displays avatar, name, description, and metadata', async () => {
       renderComponent()
 
       fireEvent.click(screen.getByTestId('student-cell-link'))
 
       await screen.findByTestId('lmgb-student-popover-avatar')
-      expect(screen.getAllByText(mockStudent.display_name).length).toBeGreaterThan(0)
-      expect(screen.getByText('Introduction to Computer Science')).toBeInTheDocument()
-      expect(screen.getByText('Section A, Section B')).toBeInTheDocument()
+      expect(screen.getAllByText(mockStudent.displayName).length).toBeGreaterThan(0)
+      expect(screen.getByText(mockCaptionDefault.description)).toBeInTheDocument()
+      expect(screen.getByText(mockCaptionDefault.metadata)).toBeInTheDocument()
     })
 
-    it('does not display sections when none exist', async () => {
-      renderComponent({ userDetails: mockUserDetailsNoSections })
+    it('does not display metadata when not provided', async () => {
+      renderComponent({ ...mockCaptionNoSections, metadata: undefined })
 
       fireEvent.click(screen.getByTestId('student-cell-link'))
 
       await screen.findByTestId('lmgb-student-popover-avatar')
 
-      expect(screen.queryByText(/Section/)).not.toBeInTheDocument()
+      expect(screen.queryByText(mockCaptionDefault.metadata)).not.toBeInTheDocument()
     })
   })
 
@@ -169,7 +169,7 @@ describe('StudentPopover', () => {
 
       await screen.findByTestId('lmgb-student-popover-avatar')
 
-      expect(screen.getAllByText(mockStudent.display_name).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(mockStudent.displayName).length).toBeGreaterThan(0)
     })
   })
 

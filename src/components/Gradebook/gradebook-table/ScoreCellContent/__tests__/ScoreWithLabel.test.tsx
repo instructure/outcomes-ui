@@ -44,6 +44,65 @@ describe('ScoreWithLabel', () => {
       expect(pointsText).toBeInTheDocument()
       expect(pointsText.closest('[class*="screenReaderContent"]')).not.toBeInTheDocument()
     })
+
+    it('shows percent with PERCENT format', () => {
+      render(
+        <ScoreWithLabel
+          {...defaultProps}
+          score={3}
+          totalScore={4}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT}
+        />,
+      )
+      expect(screen.getByText('75%')).toBeInTheDocument()
+    })
+
+    it('does not show mastery icon with PERCENT format', () => {
+      const { container } = render(
+        <ScoreWithLabel
+          {...defaultProps}
+          score={3}
+          totalScore={4}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT}
+        />,
+      )
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+    })
+
+    it('shows percent and ratio with PERCENT_AND_RATIO format', () => {
+      render(
+        <ScoreWithLabel
+          {...defaultProps}
+          score={3}
+          totalScore={4}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT_AND_RATIO}
+        />,
+      )
+      expect(screen.getByText('75%')).toBeInTheDocument()
+      expect(screen.getByText('(3/4)')).toBeInTheDocument()
+    })
+
+    it('does not show mastery icon with PERCENT_AND_RATIO format', () => {
+      const { container } = render(
+        <ScoreWithLabel
+          {...defaultProps}
+          score={3}
+          totalScore={4}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT_AND_RATIO}
+        />,
+      )
+      expect(container.querySelector('svg')).not.toBeInTheDocument()
+    })
+
+    it('shows null when totalScore is missing with PERCENT format', () => {
+      render(
+        <ScoreWithLabel
+          {...defaultProps}
+          scoreDisplayFormat={ScoreDisplayFormat.PERCENT}
+        />,
+      )
+      expect(screen.queryByText(/%/)).not.toBeInTheDocument()
+    })
   })
 
   it('uses default ICON_ONLY format when not specified', () => {

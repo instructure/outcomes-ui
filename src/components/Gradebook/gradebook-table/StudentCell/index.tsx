@@ -2,45 +2,36 @@ import React, { ReactNode } from 'react'
 import { Avatar } from '@instructure/ui-avatar'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
-import { Student } from '@/types/gradebook'
-import { SecondaryInfoDisplay, NameDisplayFormat } from '@/util/gradebook/constants'
+import { NameDisplayFormat } from '@/util/gradebook/constants'
 
-export interface StudentCellProps {
-  student: Student
-  secondaryInfoDisplay?: SecondaryInfoDisplay
-  showStudentAvatar?: boolean
-  nameDisplayFormat?: NameDisplayFormat
-  studentPopover: ReactNode
+export interface StudentData {
+  id: string
+  displayName: string
+  sortableName: string
+  avatarUrl?: string
+  status?: string
 }
 
-const getSecondaryInfo = (student: Student, secondaryInfoDisplay?: SecondaryInfoDisplay) => {
-  if (!secondaryInfoDisplay) return null
-
-  switch (secondaryInfoDisplay) {
-    case SecondaryInfoDisplay.SIS_ID:
-      return student.sis_id || ''
-    case SecondaryInfoDisplay.INTEGRATION_ID:
-      return student.integration_id || ''
-    case SecondaryInfoDisplay.LOGIN_ID:
-      return student.login_id || ''
-    default:
-      return null
-  }
+export interface StudentCellProps {
+  student: StudentData
+  studentPopover: ReactNode
+  secondaryInfo?: string
+  showStudentAvatar?: boolean
+  nameDisplayFormat?: NameDisplayFormat
 }
 
 export const StudentCell: React.FC<StudentCellProps> = ({
   student,
-  secondaryInfoDisplay,
+  secondaryInfo,
   showStudentAvatar = true,
   nameDisplayFormat,
   studentPopover,
 }) => {
   const shouldShowStudentStatus = student.status === 'inactive' || student.status === 'concluded'
-  const secondaryInfo = getSecondaryInfo(student, secondaryInfoDisplay)
   const studentName =
     nameDisplayFormat === NameDisplayFormat.LAST_FIRST
-      ? student.sortable_name
-      : student.display_name
+      ? student.sortableName
+      : student.displayName
 
   return (
     <Flex height="100%" data-testid="student-cell" gap="small">
@@ -50,7 +41,7 @@ export const StudentCell: React.FC<StudentCellProps> = ({
             as="div"
             size="x-small"
             name={studentName}
-            src={student.avatar_url}
+            src={student.avatarUrl}
             data-testid="student-avatar"
           />
         </Flex.Item>
@@ -59,7 +50,7 @@ export const StudentCell: React.FC<StudentCellProps> = ({
       <Flex.Item as="div" padding="none x-small">
         <Flex direction="column" textAlign="start">
           {studentPopover}
-          {secondaryInfo !== null && (
+          {secondaryInfo !== undefined && (
             <Text size="legend" color="secondary" data-testid="student-secondary-info">
               {secondaryInfo}
             </Text>

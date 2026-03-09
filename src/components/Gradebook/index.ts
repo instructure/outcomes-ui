@@ -36,6 +36,7 @@ export { RowHeader } from './table/RowHeader'
 // Gradebook Table Components
 export { ColumnHeader as GradebookColumnHeader } from './gradebook-table/ColumnHeader'
 export { StudentCell } from './gradebook-table/StudentCell'
+export type { StudentData } from './gradebook-table/StudentCell'
 export { ScoreCellContent } from './gradebook-table/ScoreCellContent'
 export { ScoreWithLabel } from './gradebook-table/ScoreCellContent/ScoreWithLabel'
 

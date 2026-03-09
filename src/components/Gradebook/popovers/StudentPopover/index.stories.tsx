@@ -2,26 +2,24 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { within, userEvent } from '@storybook/testing-library'
 import type { Meta, StoryObj } from '@storybook/react'
-import type { LmgbUserDetails, Student, StudentMasteryScores } from '@/types/gradebook'
+import type { StudentMasteryScores } from '@/types/gradebook'
+import type { StudentData } from '@/components/Gradebook/gradebook-table/StudentCell'
 import { View } from '@instructure/ui-view'
 import { Flex } from '@instructure/ui-flex'
 import { Text } from '@instructure/ui-text'
 import { Button } from '@instructure/ui-buttons'
 import { StoryWrapper } from '@/components/Gradebook/storybook/decorators'
 import {
-  createStudent,
   mockStudent,
   mockStudentLongName,
+} from '@/components/Gradebook/gradebook-table/StudentCell/__mocks__/mockData'
+import {
   mockMasteryScores,
   highMasteryScores,
   lowMasteryScores,
   unassessedMasteryScores,
-  mockUserDetailsDefault,
-  mockUserDetailsSingleSection,
-  mockUserDetailsManySections,
-  mockUserDetailsLongCourseName,
-  mockUserDetailsNoSections,
-} from '@/components/Gradebook/__mocks__/mockData'
+  mockCaptionDefault,
+} from './__mocks__/mockData'
 import { StudentPopover } from '.'
 import type { StudentPopoverProps } from '.'
 
@@ -29,8 +27,9 @@ import type { StudentPopoverProps } from '.'
 // unions in StudentPopoverProps so define a flatten version of it
 type StoryArgs = {
   studentName: string
-  student?: Student
-  userDetails?: LmgbUserDetails
+  student?: StudentData
+  description?: string
+  metadata?: string
   masteryScores?: StudentMasteryScores
   studentGradesUrl?: string
   headerOverride?: React.ReactNode
@@ -62,12 +61,12 @@ export default meta
 type Story = StoryObj<StoryArgs>
 
 const createStoryArgs = (
-  student: Student,
+  student: StudentData,
   masteryScores = mockMasteryScores,
 ): StoryArgs => ({
   student,
-  studentName: student.display_name,
-  userDetails: mockUserDetailsDefault,
+  studentName: student.displayName,
+  ...mockCaptionDefault,
   masteryScores,
   studentGradesUrl: `/courses/123/grades/${student.id}`,
 })
@@ -103,34 +102,29 @@ export const LongStudentName: Story = {
   play: openPopover,
 }
 
-export const LongCourseName: Story = {
+export const WithDescriptionOnly: Story = {
   args: {
-    ...createStoryArgs(createStudent('4', 'Oliver', 'Brown')),
-    userDetails: mockUserDetailsLongCourseName,
+    ...createStoryArgs(mockStudent),
+    description: 'Introduction to Computer Science',
+    metadata: undefined,
   },
   play: openPopover,
 }
 
-export const ManySections: Story = {
+export const WithLongDescription: Story = {
   args: {
-    ...createStoryArgs(createStudent('3', 'Emma', 'Wilson')),
-    userDetails: mockUserDetailsManySections,
+    ...createStoryArgs(mockStudent),
+    description: 'Advanced Placement European History: Renaissance to Modern Era',
+    metadata: 'AP Section',
   },
   play: openPopover,
 }
 
-export const NoSections: Story = {
+export const WithLongMetaData: Story = {
   args: {
-    ...createStoryArgs(createStudent('6', 'Liam', 'Miller')),
-    userDetails: mockUserDetailsNoSections,
-  },
-  play: openPopover,
-}
-
-export const SingleSection: Story = {
-  args: {
-    ...createStoryArgs(createStudent('2', 'Jane', 'Doe')),
-    userDetails: mockUserDetailsSingleSection,
+    ...createStoryArgs(mockStudent),
+    description: 'World History',
+    metadata: 'Section A - Morning, Section B - Afternoon, Section C - Evening, Section D - Online',
   },
   play: openPopover,
 }
@@ -140,9 +134,10 @@ export const CustomHeader: Story = {
   render: (args: StoryArgs) => (
     <StudentPopover
       {...args as StudentPopoverProps}
-      student={undefined}
+      avatarUrl={undefined}
       studentName="John Doe"
-      userDetails={undefined}
+      description={undefined}
+      metadata={undefined}
       headerOverride={
         <Flex padding="0 0 medium 0">
           <Flex.Item>
@@ -200,7 +195,7 @@ export const CustomActions: Story = {
 
 export const Loading: Story = {
   args: {
-    studentName: mockStudent.display_name,
+    studentName: mockStudent.displayName,
     studentGradesUrl: `/courses/123/grades/${mockStudent.id}`,
     isLoading: true,
   },
@@ -209,7 +204,7 @@ export const Loading: Story = {
 
 export const ErrorMessage: Story = {
   args: {
-    studentName: mockStudent.display_name,
+    studentName: mockStudent.displayName,
     studentGradesUrl: `/courses/123/grades/${mockStudent.id}`,
     error: 'Failed to load student details. Please try again.',
   },

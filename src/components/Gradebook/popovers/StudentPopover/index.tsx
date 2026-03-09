@@ -12,12 +12,13 @@ import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 import { Spinner } from '@instructure/ui-spinner'
 import { useGradebookConfig } from '@/components/Gradebook/context/GradebookConfigContext'
 import MasteryLevelIcon from '@/components/Gradebook/icons/MasteryLevelIcon'
-import type { LmgbUserDetails, Student, StudentMasteryScores } from '@/types/gradebook'
+import type { StudentMasteryScores } from '@/types/gradebook'
 
 interface HeaderProps {
-  student: Student
   studentName: string
-  userDetails: LmgbUserDetails
+  avatarUrl?: string
+  description?: string
+  metadata?: string
 }
 
 interface MasteryScoresProps {
@@ -37,8 +38,8 @@ interface ErrorMessageProps {
 }
 
 type HeaderSlot =
-  | { headerOverride: ReactNode; student?: never; userDetails?: never }
-  | { headerOverride?: never; student: Student; userDetails: LmgbUserDetails }
+  | { headerOverride: ReactNode; avatarUrl?: never; description?: never; metadata?: never }
+  | { headerOverride?: never; avatarUrl?: string; description?: string; metadata?: string }
 
 type MasteryScoresSlot =
   | { masteryScoresOverride: ReactNode; masteryScores?: never }
@@ -55,7 +56,7 @@ export type StudentPopoverProps = {
   onShowingContentChange?: (isShowing: boolean) => void
 } & HeaderSlot & MasteryScoresSlot & ActionSlot
 
-const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) => {
+const Header: React.FC<HeaderProps> = ({ avatarUrl, studentName, description, metadata }) => {
   return (
     <Flex gap="small" alignItems="start">
       <Flex.Item width="60px">
@@ -63,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
           as="div"
           size="large"
           name={studentName}
-          src={student.avatar_url}
+          src={avatarUrl}
           data-testid="lmgb-student-popover-avatar"
         />
       </Flex.Item>
@@ -76,20 +77,18 @@ const Header: React.FC<HeaderProps> = ({ student, studentName, userDetails }) =>
             </Text>
           </View>
 
-          {userDetails.course.name && (
+          {description && (
             <View>
               <Text size="contentSmall">
-                <TruncateText>{userDetails.course.name}</TruncateText>
+                <TruncateText>{description}</TruncateText>
               </Text>
             </View>
           )}
 
-          {userDetails.user.sections.length && (
+          {metadata && (
             <View>
               <Text size="legend">
-                <TruncateText>
-                  {userDetails.user.sections.map(section => section.name).join(', ')}
-                </TruncateText>
+                <TruncateText>{metadata}</TruncateText>
               </Text>
             </View>
           )}
@@ -228,10 +227,11 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ error }) => {
 
 export const StudentPopover: React.FC<StudentPopoverProps> = ({
   studentName,
-  headerOverride,
-  student,
-  userDetails,
+  avatarUrl,
+  description,
+  metadata,
   masteryScores,
+  headerOverride,
   masteryScoresOverride,
   actionsOverride,
   studentGradesUrl,
@@ -288,7 +288,12 @@ export const StudentPopover: React.FC<StudentPopoverProps> = ({
                   <Flex direction="column" alignItems="start">
                     <Flex.Item>
                       {headerOverride ?? (
-                        <Header student={student!} studentName={studentName!} userDetails={userDetails!} />
+                        <Header
+                          avatarUrl={avatarUrl}
+                          studentName={studentName!}
+                          description={description}
+                          metadata={metadata}
+                        />
                       )}
                     </Flex.Item>
 

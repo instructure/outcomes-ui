@@ -3,12 +3,12 @@ import t from 'format-message'
 import { View, type ViewProps } from '@instructure/ui-view'
 import { Flex } from '@instructure/ui-flex'
 import { IconButton } from '@instructure/ui-buttons'
-import { IconExpandStartLine } from '@instructure/ui-icons'
 import { ScoreWithLabel, type ScoreWithLabelProps } from './ScoreWithLabel'
 
 export type ScoreCellContentProps =  ScoreWithLabelProps & {
   onAction?: () => void
   actionScreenReaderLabel?: string
+  actionIcon?: React.ReactNode
   focus?: boolean
   hover?: boolean
   background?: ViewProps['background']
@@ -18,9 +18,11 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
   masteryLevel,
   scoreDisplayFormat,
   score,
+  totalScore,
   label,
   onAction,
   actionScreenReaderLabel,
+  actionIcon,
   focus,
   hover: hoverControlled,
   background = 'primary',
@@ -57,6 +59,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
           <ScoreWithLabel
             masteryLevel={masteryLevel}
             score={score}
+            totalScore={totalScore}
             scoreDisplayFormat={scoreDisplayFormat}
             label={label}
           />
@@ -82,7 +85,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
               withBorder={false}
               size="small"
               margin="0 xxx-small 0 0"
-              renderIcon={<IconExpandStartLine />}
+              renderIcon={actionIcon}
               screenReaderLabel={actionScreenReaderLabel || t('View Contributing Score Details')}
               onClick={onAction}
               data-testid="score-cell-action-button"

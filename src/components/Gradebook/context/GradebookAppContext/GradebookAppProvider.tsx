@@ -18,6 +18,7 @@ export const GradebookAppProvider = <TSettings,>({
   const [ settings, setSettings ] = useState<TSettings>(originalSettings)
 
   const value: GradebookAppContextValue<TSettings> = {
+    // If the settings will be implemented on the app level, we can remove this (MC won't use it)
     settings: {
       settings,
       setSettings,
