@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 import { DragDropContext } from 'react-dnd'
 import ReactDnDHTML5Backend from 'react-dnd-html5-backend'
 import { Table as InstUITable, type TableProps as InstUITableProps } from '@instructure/ui-table'
@@ -40,7 +40,7 @@ export type TableProps<TRow = Record<string, unknown>> = {
   data: Array<TRow>
   renderAboveHeader?: (
     columns: Array<Column<TRow>>,
-    handleKeyDown: (event: React.KeyboardEvent, rowIndex: number, colIndex: number) => void,
+    handleKeyDown: (event: React.KeyboardEvent) => void,
   ) => React.ReactNode
   dragDropConfig?: DragDropConfig
 } & Omit<InstUITableProps, 'children' | 'data'>
@@ -55,21 +55,22 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
   ...tableProps
 }: TableProps<TRow>) => {
   const tableRef = useRef<HTMLDivElement>(null)
+  const columnsRef = useRef(columns)
 
-  const getCellElement = useCallback((rowIndex: number, colIndex: number): HTMLElement | null => {
+  // Keep columnsRef in sync with latest columns
+  useEffect(() => {
+    columnsRef.current = columns
+  }, [columns])
+
+  const getCellElement = useCallback((rowIndex: number, colKey: string): HTMLElement | null => {
     if (!tableRef.current) return null
-    let cellId: string
-    if (rowIndex === -1) {
-      cellId = `header-${colIndex}`
-    } else {
-      cellId = `cell-${rowIndex}-${colIndex}`
-    }
-    return tableRef.current.querySelector(`[data-cell-id="${cellId}"]`)
+    const selector = `[data-row-index="${rowIndex}"][data-col-key="${colKey}"]`
+    return tableRef.current.querySelector(selector)
   }, [])
 
   const focusCell = useCallback(
-    (rowIndex: number, colIndex: number) => {
-      const cell = getCellElement(rowIndex, colIndex)
+    (rowIndex: number, colKey: string) => {
+      const cell = getCellElement(rowIndex, colKey)
       if (cell) {
         if (rowIndex === -1) {
           const focusable = cell.querySelector<HTMLElement>(
@@ -87,7 +88,7 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
   )
 
   const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent, rowIndex: number, colIndex: number) => {
+    (event: React.KeyboardEvent) => {
       // Allow arrow key navigation from the cell itself or from buttons within the cell
       // (e.g., header options menu), but prevent navigation from other interactive elements
       // (e.g., chart components that have their own keyboard navigation)
@@ -99,9 +100,13 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
         }
       }
 
+      const target = event.currentTarget as HTMLElement
+      const rowIndex = parseInt(target.dataset.rowIndex || '0', 10)
+      const colKey = target.dataset.colKey || ''
+
       const {key} = event
       let newRowIndex = rowIndex
-      let newColIndex = colIndex
+      let newColKey = colKey
 
       switch (key) {
         case 'ArrowUp': {
@@ -117,23 +122,29 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
           // Allow moving from above-header (-2) to header (-1) to data rows (0+)
           newRowIndex = Math.min(data.length - 1, rowIndex + 1)
           break
-        case 'ArrowLeft':
+        case 'ArrowLeft': {
           event.preventDefault()
-          newColIndex = Math.max(0, colIndex - 1)
+          const currentColIndex = columnsRef.current.findIndex(col => col.key === colKey)
+          const newColIndex = Math.max(0, currentColIndex - 1)
+          newColKey = columnsRef.current[newColIndex]?.key || colKey
           break
-        case 'ArrowRight':
+        }
+        case 'ArrowRight': {
           event.preventDefault()
-          newColIndex = Math.min(columns.length - 1, colIndex + 1)
+          const currentColIndex = columnsRef.current.findIndex(col => col.key === colKey)
+          const newColIndex = Math.min(columnsRef.current.length - 1, currentColIndex + 1)
+          newColKey = columnsRef.current[newColIndex]?.key || colKey
           break
+        }
         default:
           return
       }
 
-      if (newRowIndex !== rowIndex || newColIndex !== colIndex) {
-        focusCell(newRowIndex, newColIndex)
+      if (newRowIndex !== rowIndex || newColKey !== colKey) {
+        focusCell(newRowIndex, newColKey)
       }
     },
-    [data.length, columns.length, focusCell, renderAboveHeader],
+    [data.length, focusCell, renderAboveHeader],
   )
 
   const renderColHeader = useCallback(
@@ -142,8 +153,11 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
         id: col.key,
         width: col.width,
         isSticky: col.isSticky,
-        'data-cell-id': `header-${colIndex}`,
-        onKeyDown: (e: React.KeyboardEvent) => handleKeyDown(e, -1, colIndex),
+        'data-cell-id': `header-${col.key}`,
+        'data-row-index': -1,
+        'data-col-key': col.key,
+        tabIndex: 0,
+        onKeyDown: handleKeyDown,
         ...col.colHeaderProps,
       }
 
@@ -226,12 +240,14 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
       <InstUITable.Body>
         {data.map((row, rowIndex) => (
           <Row key={rowIndex}>
-            {columns.map((col, colIndex) => {
+            {columns.map((col) => {
               const props = {
                 id: `${rowIndex}-${col.key}`,
-                'data-cell-id': `cell-${rowIndex}-${colIndex}`,
+                'data-cell-id': `cell-${rowIndex}-${col.key}`,
+                'data-row-index': rowIndex,
+                'data-col-key': col.key,
                 tabIndex: 0,
-                onKeyDown: (e: React.KeyboardEvent) => handleKeyDown(e, rowIndex, colIndex),
+                onKeyDown: handleKeyDown,
                 isSticky: col.isSticky,
                 ...col.cellProps,
               }

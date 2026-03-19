@@ -14,6 +14,7 @@ export interface ColumnHeaderProps {
   title: string
   titleId?: string
   optionsMenuTriggerLabel?: string
+  optionsMenu?: React.ReactNode
   optionsMenuItems?: React.ReactNode[]
   icon?: React.ReactNode
   background?: ViewProps['background']
@@ -24,6 +25,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   title,
   titleId,
   optionsMenuTriggerLabel,
+  optionsMenu,
   optionsMenuItems = [],
   icon,
   background = 'secondary',
@@ -73,6 +75,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
             {optionsMenuItems}
           </Menu>
         )}
+        {optionsMenu}
       </Flex>
     </View>
   )

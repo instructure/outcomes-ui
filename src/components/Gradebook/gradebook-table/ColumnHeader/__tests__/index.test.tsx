@@ -145,5 +145,11 @@ describe('ColumnHeader', () => {
     expect(screen.getByTestId('column-header')).toBeInTheDocument()
   })
 
+  it('renders the optionsMenu prop when provided', () => {
+    const customMenu = <button data-testid="custom-options-menu">Custom Menu</button>
+    render(<ColumnHeader {...defaultProps} optionsMenu={customMenu} />)
+    expect(screen.getByTestId('custom-options-menu')).toBeInTheDocument()
+    expect(screen.getByText('Custom Menu')).toBeInTheDocument()
+  })
 
 })

@@ -196,19 +196,57 @@ export const WithCustomCell: Story = {
   },
 }
 
-export const WithDraggableColumns: Story = {
+// Performance test data generation
+interface PerformanceTestRow extends Record<string, unknown> {
+  id: string
+  student: string
+}
+
+// Stable render function for performance test cells (defined once, reused everywhere)
+const renderPerformanceCell = (cellData: unknown) => <Text>{cellData as number}</Text>
+
+const generatePerformanceTestData = (numRows: number, numCols: number) => {
+  const data: PerformanceTestRow[] = Array.from({ length: numRows }, (_, i) => {
+    const row: PerformanceTestRow = {
+      id: `${i + 1}`,
+      student: `Student ${i + 1}`,
+    }
+    // Dynamically add columns
+    for (let j = 1; j <= numCols; j++) {
+      row[`col${j}`] = Math.floor(Math.random() * 100)
+    }
+    return row
+  })
+
+  const columns: Column<PerformanceTestRow>[] = [
+    {
+      key: 'student',
+      header: 'Student Name',
+      width: '150px',
+      isRowHeader: true,
+      draggable: false,
+    },
+    ...Array.from({ length: numCols }, (_, i) => ({
+      key: `col${i + 1}`,
+      header: `Column ${i + 1}`,
+      width: '120px',
+      draggable: true,
+      render: renderPerformanceCell, // Use the stable function reference
+    })),
+  ]
+
+  return { data, columns }
+}
+
+export const WithDraggableColumns = {
   parameters: {
     storyshots: { disable: true },
   },
-  render: (args) => {
-    const [columns, setColumns] = React.useState(
-      basicColumns.map((col) => ({
-        ...col,
-        draggable: col.key !== 'name', // All columns except name are draggable
-      }))
-    )
+  render: () => {
+    const testData = React.useMemo(() => generatePerformanceTestData(100, 99), [])
+    const [columns, setColumns] = React.useState(() => testData.columns)
 
-    const handleMove = (draggedId: string | number, hoverIndex: number) => {
+    const handleMove = React.useCallback((draggedId: string | number, hoverIndex: number) => {
       setColumns((prevColumns) => {
         // Get only draggable columns
         const draggableColumns = prevColumns.filter((col) => col.draggable)
@@ -228,32 +266,36 @@ export const WithDraggableColumns: Story = {
         const nonDraggableColumns = prevColumns.filter((col) => !col.draggable)
         return [...nonDraggableColumns, ...newDraggableColumns]
       })
-    }
+    }, [])
 
-    const handleDragEnd = () => {
-      // eslint-disable-next-line no-console
-      console.log('Drag ended - final column order:', columns.map((c) => c.key))
-    }
+    const dragDropConfig = React.useMemo(() => ({
+      type: 'COLUMN',
+      enabled: true,
+      onMove: handleMove,
+    }), [handleMove])
 
-    const DraggableTable = Table as unknown as React.ComponentType<TableProps<SampleRow>>
+    const DraggableTable = Table as unknown as React.ComponentType<TableProps<PerformanceTestRow>>
 
     return (
-      <DraggableTable
-        {...args}
-        columns={columns}
-        layout="fixed"
-        dragDropConfig={{
-          type: 'COLUMN',
-          enabled: true,
-          onMove: handleMove,
-          onDragEnd: handleDragEnd,
-        }}
-      />
+      <>
+        <style>
+          {`
+            #performance-test-table {
+              border-spacing: 24px 0;
+              border-collapse: separate;
+            }
+          `}
+        </style>
+        <DraggableTable
+          id="performance-test-table"
+          caption="Table with Draggable Columns (100×100) - Drag columns to reorder"
+          columns={columns}
+          data={testData.data}
+          layout="fixed"
+          dragDropConfig={dragDropConfig}
+        />
+      </>
     )
-  },
-  args: {
-    caption: 'Table with Draggable Columns (drag columns to reorder)',
-    data: sampleData,
   },
 }
 

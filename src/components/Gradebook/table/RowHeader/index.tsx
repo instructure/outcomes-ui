@@ -6,9 +6,11 @@ export type RowHeaderProps = ViewProps & {
   isSticky?: boolean
   isStacked?: boolean
   'data-cell-id'?: string
+  'data-row-index'?: number
+  'data-col-key'?: string
 }
 
-export const RowHeader = ({
+export const RowHeader = React.memo(({
   children,
   isSticky,
   isStacked,
@@ -33,4 +35,6 @@ export const RowHeader = ({
       {children}
     </View>
   )
-}
+})
+
+RowHeader.displayName = 'RowHeader'

@@ -8,7 +8,7 @@ export type RowProps = Omit<ViewProps, 'onDragLeave' | 'onDragEnd'> & {
   setRef?: (ref: HTMLElement | null) => void
 }
 
-export const Row: React.FC<RowProps> = ({children, setRef}) => {
+export const Row: React.FC<RowProps> = React.memo(({children, setRef}) => {
   const context = useContext(TableContext)
   const isStacked = context.isStacked
   const headers = context.headers
@@ -35,4 +35,6 @@ export const Row: React.FC<RowProps> = ({children, setRef}) => {
         })}
     </View>
   )
-}
+})
+
+Row.displayName = 'Row'
