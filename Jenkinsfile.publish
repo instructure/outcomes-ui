@@ -1,0 +1,100 @@
+#! /usr/bin/env groovy
+
+def msg = "`${env.JOB_NAME}` Build ${env.BUILD_NUMBER}:\n${env.BUILD_URL}"
+
+pipeline {
+  agent { label 'docker' }
+
+  parameters {
+    booleanParam(name: 'FORCE_PUBLISH', defaultValue: false, description: 'Force npm publish regardless of Gerrit event type (use for manual retriggers)')
+  }
+
+  environment {
+    NPM_PRIVATE_REGISTRY = '//instructure.jfrog.io/instructure/api/npm/internal-npm/'
+    NPM_PRIVATE_SCOPE    = 'inst'
+    NPM_PRIVATE_USERNAME = 'jenkins-ro'
+    NPM_PRIVATE_EMAIL    = 'jenkins@instructure.com'
+  }
+
+  stages {
+    stage('Pre-Build Cleanup') {
+      steps {
+        script {
+          try {
+            sh 'docker rm publish'
+          } catch (err) {
+            echo 'No publish containers to remove'
+          }
+        }
+      }
+    }
+
+    stage('Check Version Bump') {
+      steps {
+        script {
+          def versionChanged = sh(
+            script: 'git diff HEAD~1 HEAD -- package.json | grep -q \'^\+.*"version":\' && echo "true" || echo "false"',
+            returnStdout: true
+          ).trim()
+
+          if (params.FORCE_PUBLISH) {
+            echo 'FORCE_PUBLISH is set — bypassing version check, will publish to npm'
+            env.SHOULD_PUBLISH = 'true'
+          } else if (versionChanged == 'true') {
+            echo 'Version change detected in package.json — will publish to npm'
+            env.SHOULD_PUBLISH = 'true'
+          } else {
+            echo 'No version change detected in package.json — skipping npm publish'
+            env.SHOULD_PUBLISH = 'false'
+          }
+        }
+      }
+    }
+
+    stage('Publish to NPM') {
+      when {
+        allOf {
+          environment name: 'SHOULD_PUBLISH', value: 'true'
+          anyOf {
+            environment name: 'GERRIT_EVENT_TYPE', value: 'change-merged'
+            expression { return params.FORCE_PUBLISH == true }
+          }
+        }
+      }
+      steps {
+        withCredentials(
+        [
+          sshUserPrivateKey(credentialsId: '44aa91d6-ab24-498a-b2b4-911bcb17cc35', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USERNAME'),
+          string(credentialsId: 'NPM_TOKEN', variable: 'NPM_TOKEN'),
+          string(credentialsId: 'NPM_PRIVATE_PASSWORD', variable: 'NPM_PRIVATE_PASSWORD')
+        ],
+        ) {
+          sh 'docker build -f Dockerfile --tag ui:latest .'
+
+          sh '''
+          docker run \
+              -v "$SSH_KEY_FILE":/usr/src/sshkeyfile \
+              --env SSH_USERNAME \
+              --env NPM_TOKEN \
+              --env NPM_PRIVATE_SCOPE \
+              --env NPM_PRIVATE_REGISTRY \
+              --env NPM_PRIVATE_PASSWORD \
+              --env NPM_PRIVATE_USERNAME \
+              --env NPM_PRIVATE_EMAIL \
+              -u root \
+            ui:latest bash -c bin/publish.sh
+          '''
+        }
+      }
+
+      post {
+        success {
+          slackSend channel: '#outcomes', color: 'good', message: "Outcomes UI NPM Publish Succeeded: $msg"
+        }
+        failure {
+          slackSend channel: '#outcomes', color: 'bad', message: "Outcomes UI NPM Publish Failed: $msg"
+        }
+      }
+    }
+  }
+}
