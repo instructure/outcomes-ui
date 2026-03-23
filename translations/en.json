@@ -1,4 +1,19 @@
 {
+  "_2d4c0d31": {
+    "message": "…"
+  },
+  "a_message_is_required_to_send_this_message_b5c2d8c2": {
+    "message": "A message is required to send this message."
+  },
+  "add_an_attachment_b2e9092f": {
+    "message": "Add an attachment"
+  },
+  "add_cc_subtitle_a9ef4a66": {
+    "message": "Add CC/Subtitle"
+  },
+  "add_text_7d82282e": {
+    "message": "Add { text }"
+  },
   "align_new_outcomes_2a2d3d48": {
     "message": "Align new outcomes"
   },
@@ -22,6 +37,9 @@
   },
   "attached_outcomes_d64ce1de": {
     "message": "Attached Outcomes"
+  },
+  "audio_file_bf3ece7e": {
+    "message": "Audio File"
   },
   "avatars_in_student_list_59c74330": {
     "message": "Avatars in student list"
@@ -53,6 +71,9 @@
   "close_settings_tray_7b3084c2": {
     "message": "Close Settings Tray"
   },
+  "code_file_424dc478": {
+    "message": "Code File"
+  },
   "collapse_description_for_outcome_title_dd035f6b": {
     "message": "Collapse description for outcome { title }"
   },
@@ -61,6 +82,12 @@
   },
   "complete_fd828dea": {
     "message": "Complete"
+  },
+  "compose_message_8abd180a": {
+    "message": "Compose Message"
+  },
+  "computer_1d7dfa6f": {
+    "message": "Computer"
   },
   "confirm_alignments_acc105c8": {
     "message": "Confirm Alignments"
@@ -116,6 +143,9 @@
   "csv_export_has_started_this_may_take_a_few_minutes_d8043a7c": {
     "message": "CSV export has started. This may take a few minutes."
   },
+  "current_volume_level_c55ab825": {
+    "message": "Current Volume Level"
+  },
   "custom_6979cd81": {
     "message": "Custom"
   },
@@ -134,14 +164,32 @@
   "display_e6546241": {
     "message": "Display"
   },
+  "doc_file_b1d0042f": {
+    "message": "Doc File"
+  },
   "done_54e3d4b6": {
     "message": "Done"
+  },
+  "drag_a_file_here_39357b48": {
+    "message": "Drag a File Here"
+  },
+  "drag_and_drop_or_click_to_browse_your_computer_60772d6d": {
+    "message": "Drag and drop, or click to browse your computer"
+  },
+  "embed_828fac4a": {
+    "message": "Embed"
   },
   "error_exporting_gradebook_b6558e60": {
     "message": "Error exporting gradebook"
   },
+  "error_uploading_video_audio_recording_16d9730a": {
+    "message": "Error uploading video/audio recording"
+  },
   "exceeds_mastery_1f995dce": {
     "message": "Exceeds Mastery"
+  },
+  "excel_file_c6b9890": {
+    "message": "Excel File"
   },
   "expand_description_for_outcome_title_c1044ebb": {
     "message": "Expand description for outcome { title }"
@@ -161,17 +209,41 @@
   "exporting_b1eab154": {
     "message": "Exporting"
   },
+  "file_c851020d": {
+    "message": "File"
+  },
+  "file_name_8fd421ff": {
+    "message": "File name"
+  },
+  "filename_preview_ffaa1515": {
+    "message": "{ filename } preview"
+  },
+  "finish_bc343002": {
+    "message": "Finish"
+  },
   "first_name_last_name_2ae30a4b": {
     "message": "First Name Last Name"
   },
+  "folder_705fd2d7": {
+    "message": "Folder"
+  },
+  "folder_locked_b91cd0c4": {
+    "message": "Folder Locked"
+  },
   "friendly_description_57f7fdde": {
     "message": "Friendly Description"
+  },
+  "hide_all_recipients_1ca02da6": {
+    "message": "Hide all recipients"
   },
   "home_351838cd": {
     "message": "Home"
   },
   "home_level_groups_and_outcomes_59843468": {
     "message": "Home level groups and outcomes"
+  },
+  "html_file_62393d3f": {
+    "message": "HTML File"
   },
   "icons_descriptor_32dde915": {
     "message": "Icons + Descriptor"
@@ -182,11 +254,17 @@
   "icons_points_987265a4": {
     "message": "Icons + Points"
   },
+  "image_file_2b538bc": {
+    "message": "Image File"
+  },
   "institution_14179014": {
     "message": "Institution"
   },
   "integration_id_8a20b328": {
     "message": "Integration ID"
+  },
+  "invalid_file_type_881cc9b2": {
+    "message": "Invalid file type"
   },
   "label_alignment_removed_8060dd68": {
     "message": "{ label } alignment removed"
@@ -218,8 +296,20 @@
   "learning_outcome_result_points_possible_6403e343": {
     "message": "Learning Outcome Result Points Possible"
   },
+  "list_collapsed_5f19f5bb": {
+    "message": "List Collapsed"
+  },
+  "list_expanded_4857ff4c": {
+    "message": "List Expanded"
+  },
+  "list_of_students_and_observers_f7f1a58a": {
+    "message": "List of students and observers"
+  },
   "loading_bde52856": {
     "message": "Loading"
+  },
+  "loading_media_32847745": {
+    "message": "Loading Media"
   },
   "loading_page_page_d96157d": {
     "message": "Loading page { page }"
@@ -269,8 +359,14 @@
   "masterypoints_points_fe9f1ebf": {
     "message": "{ masteryPoints } points"
   },
+  "media_comment_content_5c2341fb": {
+    "message": "Media comment content"
+  },
   "message_5c38209d": {
     "message": "Message"
+  },
+  "mic_a7f3d311": {
+    "message": "Mic"
   },
   "name_display_format_c61848ad": {
     "message": "Name Display Format"
@@ -290,6 +386,9 @@
   "no_result_found_3d3fc3e3": {
     "message": "No result found"
   },
+  "no_video_1ed00b26": {
+    "message": "No Video"
+  },
   "none_3b5e34d2": {
     "message": "None"
   },
@@ -305,8 +404,17 @@
   "number_of_attempts_b0994c2f": {
     "message": "Number of Attempts"
   },
+  "observercount_observers_cbc3680b": {
+    "message": "{ observerCount } Observers"
+  },
+  "observers_672971d": {
+    "message": "Observers"
+  },
   "ok_c47544a2": {
     "message": "OK"
+  },
+  "option_selected_f550c0b8": {
+    "message": "{ option } Selected"
   },
   "outcome_alignments_have_been_successfully_updated_6384e200": {
     "message": "Outcome alignments have been successfully updated."
@@ -320,11 +428,29 @@
   "outcomes_with_no_results_7fbb5bb5": {
     "message": "Outcomes with no results"
   },
+  "pause_12af3bb4": {
+    "message": "Pause"
+  },
+  "pdf_file_d3fac21d": {
+    "message": "PDF File"
+  },
   "percentdone_ba5606b6": {
     "message": "{ percentDone }%"
   },
   "percentdone_percent_d557b442": {
     "message": "{ percentDone } percent"
+  },
+  "play_1a47eaa7": {
+    "message": "Play"
+  },
+  "please_allow_canvas_to_access_your_microphone_and__dc2c3079": {
+    "message": "Please allow Canvas to access your microphone and webcam."
+  },
+  "please_select_at_least_one_recipient_d03398b8": {
+    "message": "Please select at least one recipient."
+  },
+  "please_wait_while_we_upload_attachments_59544216": {
+    "message": "Please wait while we upload attachments."
   },
   "points_bb475533": {
     "message": "Points"
@@ -338,6 +464,12 @@
   "points_points_63e59cce": {
     "message": "{ points } points"
   },
+  "powerpoint_file_c4cb12af": {
+    "message": "PowerPoint File"
+  },
+  "preview_a3f8f854": {
+    "message": "PREVIEW"
+  },
   "previous_page_928fc112": {
     "message": "Previous Page"
   },
@@ -350,9 +482,33 @@
   "ratings_table_a702279": {
     "message": "Ratings table"
   },
+  "record_7c9448b": {
+    "message": "Record"
+  },
+  "record_an_audio_or_video_comment_88425add": {
+    "message": "Record an audio or video comment"
+  },
+  "recording_98da6bda": {
+    "message": "Recording"
+  },
+  "remove_attachment_ceae0973": {
+    "message": "Remove Attachment"
+  },
+  "remove_f47dc62a": {
+    "message": "Remove"
+  },
+  "remove_media_comment_f4afdb4b": {
+    "message": "Remove media comment"
+  },
+  "remove_text_142e6fb5": {
+    "message": "Remove { text }"
+  },
   "remove_title_f3f4683a": {
     "message": "Remove { title }",
     "description": "Screen reader caption for button that removes an alignment"
+  },
+  "replace_name_button_d2dd16a0": {
+    "message": "Replace { name } button"
   },
   "results_updated_for_page_page_of_totalpages_642a378f": {
     "message": "Results updated for page { page } of { totalPages }"
@@ -384,17 +540,35 @@
   "selected_outcomes_1a8c9b9": {
     "message": "Selected outcomes:"
   },
+  "send_e3bd0ed0": {
+    "message": "Send"
+  },
+  "send_message_to_891eb84": {
+    "message": "Send Message To:"
+  },
   "settings_5aa0fd0c": {
     "message": "Settings"
   },
   "settings_tray_d3fa9e57": {
     "message": "Settings Tray"
   },
+  "show_all_recipients_9e4a3486": {
+    "message": "Show all recipients"
+  },
   "sis_id_4495a887": {
     "message": "SIS ID"
   },
+  "something_went_wrong_accessing_your_mic_or_webcam_6e3cad12": {
+    "message": "Something went wrong accessing your mic or webcam."
+  },
   "source_c377a469": {
     "message": "Source"
+  },
+  "start_over_f7552aa9": {
+    "message": "Start Over"
+  },
+  "start_recording_9a65141a": {
+    "message": "Start Recording"
   },
   "student_details_for_cc4a4206": {
     "message": "Student Details for"
@@ -405,6 +579,12 @@
   "student_uuid_15bede8d": {
     "message": "Student UUID"
   },
+  "studentcount_students_be7d90a6": {
+    "message": "{ studentCount } Students"
+  },
+  "students_1b8cd07b": {
+    "message": "Students"
+  },
   "students_must_finish_the_assessment_before_any_out_1f18c4c0": {
     "message": "Students must finish the assessment before any outcome results will show here. Check back here after some students have completed the assessment."
   },
@@ -413,6 +593,15 @@
   },
   "sub_account_outcome_202c4ff4": {
     "message": "Sub-Account Outcome"
+  },
+  "subject_114b2e98": {
+    "message": "Subject"
+  },
+  "submit_a3cc6859": {
+    "message": "Submit"
+  },
+  "text_file_73d8d08c": {
+    "message": "Text File"
   },
   "the_assessment_has_no_outcomes_aligned_to_it_go_to_cc8081ab": {
     "message": "The assessment has no outcomes aligned to it. Go to the Build tab to align outcomes."
@@ -444,17 +633,44 @@
   "type_or_use_arrow_keys_to_navigate_multiple_select_ec56e29c": {
     "message": "Type or use arrow keys to navigate. Multiple selections are allowed."
   },
+  "type_something_79a0f02c": {
+    "message": "Type Something…"
+  },
+  "type_your_message_here_3551e252": {
+    "message": "Type your message here…"
+  },
   "unpublished_assignments_9cdbcc87": {
     "message": "Unpublished Assignments"
   },
+  "untitled_16aa4f2b": {
+    "message": "Untitled"
+  },
+  "upload_media_ce31135a": {
+    "message": "Upload Media"
+  },
   "upload_order_513421ce": {
     "message": "Upload Order"
+  },
+  "uploading_files_9e39dbf9": {
+    "message": "Uploading Files"
+  },
+  "uploading_media_progress_c23a953b": {
+    "message": "Uploading media Progress"
+  },
+  "use_arrows_a60b3330": {
+    "message": "Use Arrows"
   },
   "variable_due_to_all_random_selection_from_item_ban_928ee0fd": {
     "message": "Variable due to All/Random selection from item bank"
   },
   "variable_questions_fd841920": {
     "message": "Variable Questions"
+  },
+  "video_file_f7188ffe": {
+    "message": "Video File"
+  },
+  "video_player_b371005": {
+    "message": "Video Player"
   },
   "view_contributing_score_details_7bc242ac": {
     "message": "View Contributing Score Details"
@@ -465,6 +681,9 @@
   "view_outcome_15d9adc1": {
     "message": "View Outcome"
   },
+  "webcam_fe91b20f": {
+    "message": "Webcam"
+  },
   "you_may_drag_drop_columns_to_re_arrange_bdb837da": {
     "message": "(You may drag & drop columns to re-arrange)"
   },
@@ -473,5 +692,11 @@
   },
   "your_settings_have_been_saved_aa46c66c": {
     "message": "Your settings have been saved."
+  },
+  "your_webcam_may_already_be_in_use_6cd64c25": {
+    "message": "Your webcam may already be in use."
+  },
+  "zip_file_3e736239": {
+    "message": "Zip File"
   }
 }

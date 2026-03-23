@@ -104,6 +104,8 @@ module.exports = {
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
     '^msw-storybook-addon$': '<rootDir>/src/test/jest-setup/__mocks__/msw-storybook-addon.js',
     '^msw$': '<rootDir>/src/test/jest-setup/__mocks__/msw.js',
+    // @instructure/canvas-media ships as ESM which Jest cannot parse — stub it out
+    '^@instructure/canvas-media$': '<rootDir>/src/test/jest-setup/__mocks__/@instructure/canvas-media.js',
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest'

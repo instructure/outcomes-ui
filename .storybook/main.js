@@ -73,7 +73,13 @@ module.exports = {
         ...(config.resolve.alias || {}),
         ...(baseConfig.resolve.alias || {}),
         '@': require('path').resolve(__dirname, '../src'),
-      }
+      },
+      // canvas-media transitively requires Node.js built-ins (stream via subtitle/ui-media-player)
+      // that webpack 5 no longer polyfills automatically — disable them for browser builds
+      fallback: {
+        ...(config.resolve.fallback || {}),
+        stream: false,
+      },
     }
 
     // Add custom resolver to strip .js extensions for TypeScript files
