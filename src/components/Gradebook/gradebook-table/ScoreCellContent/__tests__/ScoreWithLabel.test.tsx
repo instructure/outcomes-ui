@@ -109,4 +109,18 @@ describe('ScoreWithLabel', () => {
     render(<ScoreWithLabel {...defaultProps} />)
     expect(screen.queryByText('Mastery')).not.toBeInTheDocument()
   })
+
+  describe('iconColor prop', () => {
+    it('applies iconColor as fill on the mastery icon svg', () => {
+      const { container } = render(
+        <ScoreWithLabel {...defaultProps} iconColor="#FF6B35" />,
+      )
+      expect(container.querySelector('svg')).toHaveAttribute('fill', '#FF6B35')
+    })
+
+    it('does not apply custom fill when iconColor is not provided', () => {
+      const { container } = render(<ScoreWithLabel {...defaultProps} />)
+      expect(container.querySelector('svg')).not.toHaveAttribute('fill', '#FF6B35')
+    })
+  })
 })

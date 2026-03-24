@@ -89,6 +89,28 @@ export const OnAction: Story = {
   },
 }
 
+export const CustomColor: Story = {
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_ONLY,
+    masteryLevel: 'mastery',
+    label: 'Mastery',
+    score: 3,
+    background: 'secondary',
+    iconColor: '#FF6B35',
+  },
+}
+
+export const CustomColorWithLabel: Story = {
+  args: {
+    scoreDisplayFormat: ScoreDisplayFormat.ICON_AND_LABEL,
+    masteryLevel: 'exceeds_mastery',
+    label: 'Exceeds Mastery',
+    score: 4,
+    background: 'secondary',
+    iconColor: '#4CAF50',
+  },
+}
+
 // Actual focus will be on table cell element, no focus ring shows here, only action button is displayed
 export const FocusControlled: Story = {
   args: {

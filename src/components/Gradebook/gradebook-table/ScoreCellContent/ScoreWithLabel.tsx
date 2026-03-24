@@ -11,6 +11,7 @@ export interface ScoreWithLabelProps {
   score?: number
   totalScore?: number
   scoreDisplayFormat?: ScoreDisplayFormat
+  iconColor?: string
 }
 
 interface LabelProps {
@@ -52,6 +53,7 @@ export const ScoreWithLabel: React.FC<ScoreWithLabelProps> = ({
   totalScore,
   label,
   scoreDisplayFormat = ScoreDisplayFormat.ICON_ONLY,
+  iconColor,
 }) => {
   const isPercentFormat = [
     ScoreDisplayFormat.PERCENT,
@@ -71,6 +73,7 @@ export const ScoreWithLabel: React.FC<ScoreWithLabelProps> = ({
       {!isPercentFormat && (
         <MasteryLevelIcon
           masteryLevel={masteryLevel}
+          fill={iconColor}
           width="1.5rem"
           height="1.5rem"
           ariaLabel={label}

@@ -5,7 +5,7 @@ import { Flex } from '@instructure/ui-flex'
 import { IconButton } from '@instructure/ui-buttons'
 import { ScoreWithLabel, type ScoreWithLabelProps } from './ScoreWithLabel'
 
-export type ScoreCellContentProps =  ScoreWithLabelProps & {
+export type ScoreCellContentProps = ScoreWithLabelProps & {
   onAction?: () => void
   actionScreenReaderLabel?: string
   actionIcon?: React.ReactNode
@@ -20,6 +20,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
   score,
   totalScore,
   label,
+  iconColor,
   onAction,
   actionScreenReaderLabel,
   actionIcon,
@@ -62,6 +63,7 @@ export const ScoreCellContent: React.FC<ScoreCellContentProps> = ({
             totalScore={totalScore}
             scoreDisplayFormat={scoreDisplayFormat}
             label={label}
+            iconColor={iconColor}
           />
         </Flex.Item>
       </Flex>

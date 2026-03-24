@@ -89,6 +89,15 @@ describe('ScoreCellContent', () => {
     })
   })
 
+  describe('iconColor prop', () => {
+    it('passes color to ScoreWithLabel as fill on the mastery icon svg', () => {
+      const { container } = render(
+        <ScoreCellContent {...defaultProps} iconColor="#4CAF50" />,
+      )
+      expect(container.querySelector('svg')).toHaveAttribute('fill', '#4CAF50')
+    })
+  })
+
   describe('scoreDisplayFormat', () => {
     it('renders with ICON_ONLY format', () => {
       render(
