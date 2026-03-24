@@ -45,6 +45,23 @@ export type TableProps<TRow = Record<string, unknown>> = {
   dragDropConfig?: DragDropConfig
 } & Omit<InstUITableProps, 'children' | 'data'>
 
+// DataCell keeps the Cell child arrow function out of the hot render
+// path. React.memo compares colRender/rowData/cellData by reference; when columns are
+// reordered those values don't change, so Cell never receives new props and skips render.
+type DataCellProps = Omit<CellProps, 'children'> & {
+  colRender: (cellData: unknown, rowData: unknown, focused?: boolean) => React.ReactNode
+  rowData: unknown
+  cellData: unknown
+}
+
+const DataCellInner = ({ colRender, rowData, cellData, ...cellProps }: DataCellProps) => (
+  <Cell {...cellProps}>
+    {(focused: boolean) => colRender(cellData, rowData, focused)}
+  </Cell>
+)
+
+const DataCell = React.memo(DataCellInner)
+
 export const TableComponent = <TRow extends Record<string, unknown> = Record<string, unknown>>({
   id,
   columns,
@@ -262,9 +279,13 @@ export const TableComponent = <TRow extends Record<string, unknown> = Record<str
 
               if (col.render) {
                 return (
-                  <Cell key={col.key} {...props}>
-                    {(focused: boolean) => col.render!(row[col.key], row, focused)}
-                  </Cell>
+                  <DataCell
+                    key={col.key}
+                    colRender={col.render as DataCellProps['colRender']}
+                    rowData={row}
+                    cellData={row[col.key]}
+                    {...props}
+                  />
                 )
               }
 

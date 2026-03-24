@@ -99,20 +99,9 @@ const arePropsEqual = (prevProps: CellProps, nextProps: CellProps): boolean => {
   // onKeyDown should be stable (useCallback), but check just in case
   if (prevProps.onKeyDown !== nextProps.onKeyDown) return false
 
-  // For function children (render functions), we can't compare the function itself
-  // Instead, we rely on the fact that if all other props (especially data-cell-id
-  // which includes col.key and row data) are the same, the function would produce
-  // the same output. This is safe because:
-  // - row data doesn't change during column reorder
-  // - col.key is stable per column
-  // - The function just calls col.render with that data
-  const prevChildrenIsFunction = typeof prevProps.children === 'function'
-  const nextChildrenIsFunction = typeof nextProps.children === 'function'
-
-  if (prevChildrenIsFunction !== nextChildrenIsFunction) return false
-
-  // For non-function children, compare directly
-  if (!nextChildrenIsFunction && prevProps.children !== nextProps.children) return false
+  // Compare children by reference - function children must be stabilized with useCallback
+  // by the caller if re-renders should be avoided
+  if (prevProps.children !== nextProps.children) return false
 
   // For function children, skip comparison - they're always new references but produce same output
   // when all other props are the same

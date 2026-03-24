@@ -39,10 +39,9 @@ const arePropsEqual = (prevProps: ColumnHeaderProps, nextProps: ColumnHeaderProp
   // onMove and onDragEnd should be stable (useCallback in stories/parent)
   // but we don't need to check them since they're filtered out before DOM
 
-  // Skip children comparison - children might be new React elements on each render,
-  // but if all stable identifiers (id, data-cell-id, data-col-key) are the same,
-  // the column hasn't actually changed and we can safely skip re-rendering.
-  // This matches Cell's approach of relying on stable props rather than comparing children.
+  // Compare children by reference - function children must be stabilized with useCallback
+  // by the caller if re-renders should be avoided
+  if (prevProps.children !== nextProps.children) return false
 
   return true
 }
