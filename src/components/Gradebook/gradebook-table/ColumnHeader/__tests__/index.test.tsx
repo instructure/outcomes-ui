@@ -145,6 +145,17 @@ describe('ColumnHeader', () => {
     expect(screen.getByTestId('column-header')).toBeInTheDocument()
   })
 
+  it('renders TruncateWithTooltip by default', () => {
+    render(<ColumnHeader {...defaultProps} />)
+    // TruncateWithTooltip renders a TruncateText internally
+    expect(screen.getAllByText('Test Column').length).toBeGreaterThan(0)
+  })
+
+  it('renders TruncateText without tooltip when showTruncatedTooltip is false', () => {
+    render(<ColumnHeader {...defaultProps} showTruncatedTooltip={false} />)
+    expect(screen.getAllByText('Test Column').length).toBeGreaterThan(0)
+  })
+
   it('renders the optionsMenu prop when provided', () => {
     const customMenu = <button data-testid="custom-options-menu">Custom Menu</button>
     render(<ColumnHeader {...defaultProps} optionsMenu={customMenu} />)

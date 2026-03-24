@@ -104,3 +104,16 @@ export const WithIconAndBackground: Story = {
   },
 }
 
+export const TruncateWithoutTooltip: Story = {
+  args: {
+    title: 'This is a long title that should be truncated without showing a tooltip on hover',
+    showTruncatedTooltip: false,
+  },
+}
+
+export const TruncateWithTooltip: Story = {
+  args: {
+    title: 'This is a long title that should be truncated and show a tooltip on hover',
+    showTruncatedTooltip: true,
+  },
+}

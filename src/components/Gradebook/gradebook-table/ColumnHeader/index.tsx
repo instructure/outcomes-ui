@@ -6,6 +6,7 @@ import { IconMoreLine } from '@instructure/ui-icons'
 import { Menu } from '@instructure/ui-menu'
 import { View, type ViewProps } from '@instructure/ui-view'
 import { AccessibleContent } from '@instructure/ui-a11y-content'
+import { TruncateText } from '@instructure/ui-truncate-text'
 import { CELL_HEIGHT, COLUMN_WIDTH } from '@/util/gradebook/constants'
 import TruncateWithTooltip from '@/components/Gradebook/shared/TruncateWithTooltip'
 import { getInverseColor } from '@/util/gradebook/colors'
@@ -19,6 +20,7 @@ export interface ColumnHeaderProps {
   icon?: React.ReactNode
   background?: ViewProps['background']
   columnWidth?: number
+  showTruncatedTooltip?: boolean
 }
 
 export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
@@ -30,6 +32,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   icon,
   background = 'secondary',
   columnWidth = COLUMN_WIDTH,
+  showTruncatedTooltip = true,
 }) => {
   return (
     <View background={background} as="div" width={columnWidth} data-testid="column-header">
@@ -50,7 +53,11 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
             <Flex.Item shouldGrow shouldShrink overflowX="hidden" padding="0 xx-small 0 0">
               <AccessibleContent alt={title} id={titleId}>
                 <Text weight="bold">
-                  <TruncateWithTooltip>{title}</TruncateWithTooltip>
+                  {showTruncatedTooltip ? (
+                    <TruncateWithTooltip>{title}</TruncateWithTooltip>
+                  ) : (
+                    <TruncateText>{title}</TruncateText>
+                  )}
                 </Text>
               </AccessibleContent>
             </Flex.Item>
