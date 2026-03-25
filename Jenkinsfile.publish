@@ -33,7 +33,7 @@ pipeline {
       steps {
         script {
           def versionChanged = sh(
-            script: 'git diff HEAD~1 HEAD -- package.json | grep -q \'^\+.*"version":\' && echo "true" || echo "false"',
+            script: '''git diff HEAD~1 HEAD -- package.json | grep -q '^+.*"version":' && echo "true" || echo "false"''',
             returnStdout: true
           ).trim()
 
