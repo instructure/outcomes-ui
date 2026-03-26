@@ -75,7 +75,7 @@
     "format-message": "^6.2.1",
     "format-message-generate-id": "^6.2.1",
     "ignore-styles": "^5.0.1",
-    "immutable": "^3.8.1",
+    "immutable": "^3.8.3",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5",
     "lodash.frompairs": "^4.0.1",
@@ -200,7 +200,8 @@
     "react-dom": "^18.2"
   },
   "resolutions": {
-    "cheerio": "1.0.0-rc.12"
+    "cheerio": "1.0.0-rc.12",
+    "immutable": "3.8.3"
   },
   "msw": {
     "workerDirectory": [
