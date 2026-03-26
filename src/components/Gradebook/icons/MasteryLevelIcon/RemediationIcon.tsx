@@ -1,6 +1,16 @@
 import React, { SVGProps } from 'react'
 
-export const RemediationIcon = ({ fill = '#E0061F', ...props }: SVGProps<SVGSVGElement>) => {
+const SVG_PATHS: React.SVGProps<SVGPathElement>[] = [
+  {
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+    d: 'M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z',
+  },
+] as const
+
+export const DEFAULT_FILL_REMEDIATION = '#E0061F'
+
+export const RemediationIcon = ({ fill = DEFAULT_FILL_REMEDIATION, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       id="remediation"
@@ -13,11 +23,11 @@ export const RemediationIcon = ({ fill = '#E0061F', ...props }: SVGProps<SVGSVGE
       aria-label="Remediation"
       {...props}
     >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
-      />
+      {SVG_PATHS.map((pathProps, index) => (
+        <path key={index} {...pathProps} />
+      ))}
     </svg>
   )
 }
+
+export const remediationIconSvgPaths = SVG_PATHS.map(p => `<path fill-rule="${p.fillRule}" d="${p.d}"/>`).join('')

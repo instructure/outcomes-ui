@@ -1,6 +1,16 @@
 import React, { SVGProps } from 'react'
 
-export const NoEvidenceIcon = ({ fill = '#6A7883', ...props }: SVGProps<SVGSVGElement>) => {
+const SVG_PATHS: React.SVGProps<SVGPathElement>[] = [
+  {
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+    d: 'M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9ZM12.9842 14.6342C11.8588 15.4314 10.4841 15.9 9 15.9C5.18924 15.9 2.1 12.8108 2.1 9C2.1 7.51587 2.56857 6.14118 3.36584 5.01579L12.9842 14.6342ZM14.4944 13.1745L4.82549 3.50559C5.98455 2.6236 7.43113 2.1 9 2.1C12.8108 2.1 15.9 5.18924 15.9 9C15.9 10.5689 15.3764 12.0155 14.4944 13.1745Z',
+  },
+] as const
+
+export const DEFAULT_FILL_NO_EVIDENCE = '#6A7883'
+
+export const NoEvidenceIcon = ({ fill = DEFAULT_FILL_NO_EVIDENCE, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       id="no_evidence"
@@ -13,11 +23,11 @@ export const NoEvidenceIcon = ({ fill = '#6A7883', ...props }: SVGProps<SVGSVGEl
       aria-label="No Evidence"
       {...props}
     >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M18 9C18 13.9706 13.9706 18 9 18C4.02944 18 0 13.9706 0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9ZM12.9842 14.6342C11.8588 15.4314 10.4841 15.9 9 15.9C5.18924 15.9 2.1 12.8108 2.1 9C2.1 7.51587 2.56857 6.14118 3.36584 5.01579L12.9842 14.6342ZM14.4944 13.1745L4.82549 3.50559C5.98455 2.6236 7.43113 2.1 9 2.1C12.8108 2.1 15.9 5.18924 15.9 9C15.9 10.5689 15.3764 12.0155 14.4944 13.1745Z"
-      />
+      {SVG_PATHS.map((pathProps, index) => (
+        <path key={index} {...pathProps} />
+      ))}
     </svg>
   )
 }
+
+export const noEvidenceIconSvgPaths = SVG_PATHS.map(p => `<path fill-rule="${p.fillRule}" d="${p.d}"/>`).join('')

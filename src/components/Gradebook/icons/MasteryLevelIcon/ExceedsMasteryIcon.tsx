@@ -1,6 +1,21 @@
 import React, { SVGProps } from 'react'
 
-export const ExceedsMasteryIcon = ({ fill = '#0374B5', ...props }: SVGProps<SVGSVGElement>) => {
+const SVG_PATHS: React.SVGProps<SVGPathElement>[] = [
+  {
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+    d: 'M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z'
+  },
+  {
+    fillRule: 'evenodd',
+    clipRule: 'evenodd',
+    d: 'M9 11.5C10.3807 11.5 11.5 10.3807 11.5 9C11.5 7.61929 10.3807 6.5 9 6.5C7.61929 6.5 6.5 7.61929 6.5 9C6.5 10.3807 7.61929 11.5 9 11.5ZM9 13.5C11.4853 13.5 13.5 11.4853 13.5 9C13.5 6.51472 11.4853 4.5 9 4.5C6.51472 4.5 4.5 6.51472 4.5 9C4.5 11.4853 6.51472 13.5 9 13.5Z'
+  },
+] as const
+
+export const DEFAULT_FILL_EXCEEDS_MASTERY = '#0374B5'
+
+export const ExceedsMasteryIcon = ({ fill = DEFAULT_FILL_EXCEEDS_MASTERY, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       id="exceeds-mastery"
@@ -13,16 +28,11 @@ export const ExceedsMasteryIcon = ({ fill = '#0374B5', ...props }: SVGProps<SVGS
       aria-label="Exceeds Mastery"
       {...props}
     >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16ZM9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 11.5C10.3807 11.5 11.5 10.3807 11.5 9C11.5 7.61929 10.3807 6.5 9 6.5C7.61929 6.5 6.5 7.61929 6.5 9C6.5 10.3807 7.61929 11.5 9 11.5ZM9 13.5C11.4853 13.5 13.5 11.4853 13.5 9C13.5 6.51472 11.4853 4.5 9 4.5C6.51472 4.5 4.5 6.51472 4.5 9C4.5 11.4853 6.51472 13.5 9 13.5Z"
-      />
+      {SVG_PATHS.map((pathProps, index) => (
+        <path key={index} {...pathProps} />
+      ))}
     </svg>
   )
 }
+
+export const exceedsMasteryIconSvgPaths = SVG_PATHS.map(p => `<path fill-rule="${p.fillRule}" d="${p.d}"/>`).join('')
