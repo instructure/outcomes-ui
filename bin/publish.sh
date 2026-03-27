@@ -19,6 +19,7 @@ PUBLISHED=$(npm view "@instructure/outcomes-ui@${VERSION}" version 2>/dev/null |
 if [ -n "$PUBLISHED" ]; then
   echo "Version ${VERSION} already published — skipping npm publish"
 else
+  yarn install --frozen-lockfile
   rm -rf es lib
   npm publish
 fi
