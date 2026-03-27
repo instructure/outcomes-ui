@@ -4,6 +4,7 @@ set -ex
 
 export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i /usr/src/sshkeyfile -l '$SSH_USERNAME'"
 
+git config --global --add safe.directory /usr/src/app
 git config --global user.name "Jenkins"
 git config --global user.email "svc.cloudjenkins@instructure.com"
 
@@ -12,16 +13,18 @@ echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 
 VERSION=$(node -p "require('./package.json').version")
 
-git log -1 # verify HEAD before proceeding
+git log -1
 
-if npm view "@instructure/outcomes-ui@${VERSION}" version 2>/dev/null; then
+PUBLISHED=$(npm view "@instructure/outcomes-ui@${VERSION}" version 2>/dev/null || true)
+if [ -n "$PUBLISHED" ]; then
   echo "Version ${VERSION} already published — skipping npm publish"
 else
   rm -rf es lib
   npm publish
 fi
 
-if git ls-remote --tags origin "outcomes-ui-${VERSION}" | grep -q "outcomes-ui-${VERSION}"; then
+EXISTING_TAG=$(git ls-remote --tags origin "outcomes-ui-${VERSION}" || true)
+if [ -n "$EXISTING_TAG" ]; then
   echo "Tag outcomes-ui-${VERSION} already exists — skipping git tag"
 else
   git tag "outcomes-ui-${VERSION}"
