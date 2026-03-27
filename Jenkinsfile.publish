@@ -65,7 +65,7 @@ pipeline {
         withCredentials(
         [
           sshUserPrivateKey(credentialsId: '44aa91d6-ab24-498a-b2b4-911bcb17cc35', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USERNAME'),
-          string(credentialsId: 'NPM_TOKEN', variable: 'NPM_TOKEN'),
+          usernamePassword(credentialsId: 'npm-api-credentials', usernameVariable: 'NPM_USERNAME', passwordVariable: 'NPM_TOKEN'),
           string(credentialsId: 'NPM_PRIVATE_PASSWORD', variable: 'NPM_PRIVATE_PASSWORD')
         ],
         ) {
