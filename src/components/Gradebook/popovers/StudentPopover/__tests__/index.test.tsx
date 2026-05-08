@@ -173,6 +173,46 @@ describe('StudentPopover', () => {
     })
   })
 
+  describe('Security', () => {
+    it('does not render the mastery report link for a javascript: URI', async () => {
+      renderComponent({ studentGradesUrl: 'javascript:alert(document.cookie)' })
+
+      fireEvent.click(screen.getByTestId('student-cell-link'))
+
+      await screen.findByText('Message')
+      expect(screen.queryByText('View Mastery Report')).not.toBeInTheDocument()
+    })
+
+    it('does not render the mastery report link for a data: URI', async () => {
+      renderComponent({ studentGradesUrl: 'data:text/html,<script>alert(1)</script>' })
+
+      fireEvent.click(screen.getByTestId('student-cell-link'))
+
+      await screen.findByText('Message')
+      expect(screen.queryByText('View Mastery Report')).not.toBeInTheDocument()
+    })
+
+    it('renders the mastery report link for a safe https URL', async () => {
+      const safeUrl = 'https://canvas.instructure.com/courses/123/grades/1'
+      renderComponent({ studentGradesUrl: safeUrl })
+
+      fireEvent.click(screen.getByTestId('student-cell-link'))
+
+      const masteryLink = await screen.findByText('View Mastery Report')
+      expect(masteryLink.closest('a')).toHaveAttribute('href', safeUrl)
+    })
+
+    it('renders the mastery report link for a safe http URL', async () => {
+      const safeUrl = 'http://canvas.instructure.com/courses/123/grades/1'
+      renderComponent({ studentGradesUrl: safeUrl })
+
+      fireEvent.click(screen.getByTestId('student-cell-link'))
+
+      const masteryLink = await screen.findByText('View Mastery Report')
+      expect(masteryLink.closest('a')).toHaveAttribute('href', safeUrl)
+    })
+  })
+
   describe('Loading State', () => {
     it('shows a spinner when isLoading is true', async () => {
       renderComponent({ isLoading: true })

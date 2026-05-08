@@ -155,6 +155,8 @@ const MasteryScores: React.FC<MasteryScoresProps> = ({ masteryScores }) => {
   )
 }
 
+const isSafeUrl = (url: string) => /^(https?:\/\/|\/)/i.test(url)
+
 const Actions: React.FC<ActionsProps> = ({ studentGradesUrl }) => {
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false)
 
@@ -189,7 +191,7 @@ const Actions: React.FC<ActionsProps> = ({ studentGradesUrl }) => {
           height="1.4rem"
         />
 
-        {studentGradesUrl && (
+        {studentGradesUrl && isSafeUrl(studentGradesUrl) && (
           <Flex.Item>
             <Link href={studentGradesUrl} variant="standalone">
               <Text size="small">{t('View Mastery Report')}</Text>
