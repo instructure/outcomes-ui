@@ -1,29 +1,35 @@
-import libSanitizeHtml from 'sanitize-html'
+import DOMPurify from 'dompurify'
 
-function transformEquationImage (tagName, attribs) {
-  return {
-    tagName,
-    attribs: {
-      ...attribs,
-      src: `https://canvas.instructure.com${attribs.src}`,
-      style: 'vertical-align: middle'
+const CONFIG = {
+  ADD_TAGS: ['iframe'],
+  ADD_ATTR: [
+    'allowfullscreen',
+    'allow',
+    'frameborder',
+    'sandbox',
+    'target',
+    'data-media-id',
+    'data-media-type'
+  ],
+  FORBID_TAGS: ['form', 'input', 'button', 'textarea', 'select', 'option']
+}
+
+// Rewrite Canvas equation-image relative URLs to absolute,
+// preserving the previous behavior of this module.
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'IMG') {
+    const src = node.getAttribute('src') || ''
+    if (src.indexOf('/equation_images') === 0) {
+      node.setAttribute('src', `https://canvas.instructure.com${src}`)
+      node.setAttribute('style', 'vertical-align: middle')
     }
   }
-}
-
-function transformImage (tagName, attribs) {
-  if (attribs.src != null && attribs.src.indexOf('/equation_images') === 0) {
-    return transformEquationImage(tagName, attribs)
+  // Harden links opened in a new tab against tab-nabbing.
+  if (node.tagName === 'A' && node.getAttribute('target') === '_blank') {
+    node.setAttribute('rel', 'noopener noreferrer')
   }
-  return { tagName, attribs }
-}
+})
 
 export function sanitizeHtml (html) {
-  return libSanitizeHtml(html, {
-    allowedTags: false,
-    allowedAttributes: false,
-    transformTags: {
-      img: transformImage
-    }
-  })
+  return DOMPurify.sanitize(html == null ? '' : html, CONFIG)
 }

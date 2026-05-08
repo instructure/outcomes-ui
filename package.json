@@ -28,11 +28,11 @@
     "storybook:test": "jest .storybook/storyshots.test.js"
   },
   "dependencies": {
+    "@instructure/canvas-media": "^4.1.0",
     "@instructure/redux-service-middleware": "^1.0.0",
     "@instructure/ui-a11y-content": "^10",
     "@instructure/ui-a11y-utils": "^10",
     "@instructure/ui-avatar": "^10",
-    "@instructure/canvas-media": "^4.1.0",
     "@instructure/ui-badge": "^10",
     "@instructure/ui-billboard": "^10",
     "@instructure/ui-buttons": "^10",
@@ -73,6 +73,7 @@
     "@tanstack/react-query": "^5.90.20",
     "classnames": "^2.2.5",
     "core-js": "^3.2.1",
+    "dompurify": "^3.1.7",
     "es-toolkit": "^1.44.0",
     "format-message": "^6.2.1",
     "format-message-generate-id": "^6.2.1",
@@ -96,7 +97,6 @@
     "redux-thunk": "^2.1.0",
     "regenerator-runtime": "^0.13.3",
     "reselect": "^4.0.0",
-    "sanitize-html": "2.7.3",
     "shortid": "^2.2.8"
   },
   "devDependencies": {
