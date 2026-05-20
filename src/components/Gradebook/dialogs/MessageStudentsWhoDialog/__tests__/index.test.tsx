@@ -78,19 +78,23 @@ const observerCheckbox = () => screen.getByTestId('total-observer-checkbox') as 
 const messageInput = () => screen.getByTestId('message-input')
 const subjectInput = () => screen.getByTestId('subject-input')
 
-// userEvent.type() causes infinite recursion with InstUI TextArea/TextInput on jsdom 15
-// (bundled by jest-environment-jsdom 25.x). Use fireEvent.change as a workaround.
+// userEvent causes infinite recursion / pending async work with InstUI components on
+// jsdom 15 (jest-environment-jsdom 25.x) when the Modal stays open and re-renders
+// error messages containing InstUI icons. Use fireEvent as a workaround:
+//   - fillInput for text fields (fireEvent.change)
+//   - clickSendButton for the send button when validation errors will be shown
 const fillInput = (element: HTMLElement, value: string) => {
   fireEvent.change(element, {target: {value}})
 }
+const clickSendButton = () => fireEvent.click(screen.getByTestId('send-message-button'))
 
 describe('MessageStudentsWhoDialog', () => {
   beforeEach(() => jest.clearAllMocks())
 
   describe('Send validation', () => {
-    it('does not call onSend and shows message error when message is empty', async () => {
-      const {user} = renderDialog()
-      await user.click(screen.getByTestId('send-message-button'))
+    it('does not call onSend and shows message error when message is empty', () => {
+      renderDialog()
+      clickSendButton()
       expect(defaultProps.onSend).not.toHaveBeenCalled()
       expect(screen.getByText('A message is required to send this message.')).toBeInTheDocument()
     })
@@ -99,7 +103,7 @@ describe('MessageStudentsWhoDialog', () => {
       const {user} = renderDialog()
       await user.click(studentCheckbox())
       fillInput(messageInput(), 'Hello')
-      await user.click(screen.getByTestId('send-message-button'))
+      clickSendButton()
       expect(defaultProps.onSend).not.toHaveBeenCalled()
       expect(screen.getByText('Please select at least one recipient.')).toBeInTheDocument()
     })
@@ -107,7 +111,7 @@ describe('MessageStudentsWhoDialog', () => {
     it('shows both errors when message is empty and no recipients are selected', async () => {
       const {user} = renderDialog()
       await user.click(studentCheckbox())
-      await user.click(screen.getByTestId('send-message-button'))
+      clickSendButton()
       expect(screen.getByText('Please select at least one recipient.')).toBeInTheDocument()
       expect(screen.getByText('A message is required to send this message.')).toBeInTheDocument()
     })
