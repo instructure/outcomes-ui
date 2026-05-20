@@ -13,7 +13,7 @@ import {
 } from '@instructure/ui-a11y-content'
 import shortid from 'shortid'
 import t from 'format-message'
-import _ from 'lodash'
+import { range } from 'lodash'
 import ExportCSVButton from './ExportCSVButton'
 import Header from './Header'
 import HeaderDetails from './HeaderDetails'
@@ -133,7 +133,7 @@ const renderPagination = ({
         labelNext={t('Next Page')}
         labelPrev={t('Previous Page')}
       >
-        {_.range(1, pageCount + 1).map((pageNumber) => {
+        {range(1, pageCount + 1).map((pageNumber) => {
           const current = pageNumber === currentPage
           const changePage = () =>
             loadPage(artifactType, artifactId, pageNumber, loadUsersOverride)
