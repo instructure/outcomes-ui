@@ -117,3 +117,13 @@ export const TruncateWithTooltip: Story = {
     showTruncatedTooltip: true,
   },
 }
+
+export const WithOptionsMenuTriggerColor: Story = {
+  args: {
+    title: 'Test Title',
+    background: 'secondary',
+    optionsMenuTriggerLabel: 'Test options',
+    optionsMenuItems: menuItems,
+    optionsMenuTriggerColor: 'secondary',
+  },
+}

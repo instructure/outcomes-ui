@@ -19,6 +19,7 @@ export interface ColumnHeaderProps {
   optionsMenuItems?: React.ReactNode[]
   icon?: React.ReactNode
   background?: ViewProps['background']
+  optionsMenuTriggerColor?: React.ComponentProps<typeof IconButton>['color']
   columnWidth?: number
   showTruncatedTooltip?: boolean
 }
@@ -31,6 +32,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   optionsMenuItems = [],
   icon,
   background = 'secondary',
+  optionsMenuTriggerColor,
   columnWidth = COLUMN_WIDTH,
   showTruncatedTooltip = true,
 }) => {
@@ -73,7 +75,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
                 withBackground={false}
                 size="small"
                 screenReaderLabel={optionsMenuTriggerLabel}
-                color={getInverseColor(background)}
+                color={optionsMenuTriggerColor ?? getInverseColor(background)}
               >
                 <IconMoreLine />
               </IconButton>
